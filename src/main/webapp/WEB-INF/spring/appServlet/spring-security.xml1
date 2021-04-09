@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:security="http://www.springframework.org/schema/security"
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.2.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<security:global-method-security pre-post-annotations="enabled" />
+
+	<beans:import resource="servlet-context.xml"/>
+
+ 	<security:http auto-config="true" use-expressions="true" >
+		<security:intercept-url pattern="/resources/**" access="permitAll()" />
+		<security:intercept-url pattern="/login/**" access="permitAll()"  />
+
+		
+		<security:intercept-url pattern="/loginProcess" access="permitAll()"/>
+		<security:intercept-url pattern="/**" access="permitAll()" />
+		
+		 <security:form-login login-page="/login"  username-parameter="username" password-parameter="password" authentication-success-handler-ref="authenticationSuccessHandler" authentication-failure-handler-ref="authenticationSuccessHandler"/>
+		<security:logout delete-cookies="JSESSIONID" invalidate-session="true" success-handler-ref="logoutSuccessHandler"/>
+		<security:session-management invalid-session-url="/invalid-session" session-authentication-error-url="/invalid-session" >
+			<security:concurrency-control max-sessions="1" error-if-maximum-exceeded="false" expired-url="/invalid-session"/>
+		</security:session-management> 
+		 
+		<security:headers>
+			<security:cache-control/>
+		</security:headers>
+	</security:http> 
+
+	<security:authentication-manager>
+	  <security:authentication-provider user-service-ref="userDetailsService">
+	  </security:authentication-provider>
+	</security:authentication-manager>
+	
+</beans:beans>

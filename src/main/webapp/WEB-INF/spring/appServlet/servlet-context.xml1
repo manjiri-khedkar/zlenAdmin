@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/mvc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/tx  http://www.springframework.org/schema/tx/spring-tx-2.0.xsd http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<annotation-driven />
+	
+	<resources mapping="/resources/**" location="/resources/"></resources>
+	<beans:bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<beans:property name="prefix" value="/WEB-INF/views/" />
+		<beans:property name="suffix" value=".jsp" />
+	</beans:bean>
+	
+	
+	<beans:bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+        <beans:property name="host" value="infosane.co.in"/>
+        <beans:property name="port" value="25"/>
+        <beans:property name="username" value="guadmin"/>
+        <beans:property name="password" value="gu@2018"/>
+        <beans:property name="javaMailProperties">
+            <beans:props>
+                <beans:prop key="mail.transport.protocol">smtp</beans:prop> 
+                <beans:prop key="mail.smtp.auth">true</beans:prop>
+                <!-- <beans:prop key="mail.smtp.socketFactory.port">465</beans:prop>
+                <beans:prop key="mail.smtp.socketFactory.class">javax.net.ssl.SSLSocketFactory</beans:prop> -->
+                <!-- <beans:prop key="mail.smtp.starttls.enable">false</beans:prop> -->
+                <beans:prop key="mail.smtp.host">infosane.co.in</beans:prop>
+                <beans:prop key="mail.smtp.port">25</beans:prop>   
+                <beans:prop key="mail.debug">true</beans:prop>
+            </beans:props>
+        </beans:property>
+    </beans:bean>
+    
+    <beans:bean id="preConfiguredMessage" class="org.springframework.mail.SimpleMailMessage">
+        <beans:property name="to" value="vivekraj.agrawal@gmail.com"/>
+        <beans:property name="from" value="infosane.nagpur@gmail.com"/>
+        <beans:property name="subject" value="MAil from Infosane.."/>
+    </beans:bean>
+	
+	<beans:bean id="viewResolver" class="org.springframework.web.servlet.view.XmlViewResolver">
+        <beans:property name="order" value="1"/>
+        <beans:property name="location" value="/WEB-INF/views.xml"/>
+    </beans:bean>
+	
+	<context:component-scan base-package="mp.procurement" />
+	
+	
+	<beans:bean 
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<beans:property name="location" value="classpath:db.properties"/>
+	</beans:bean>
+		
+	<beans:bean id="ds"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<beans:property name="driverClassName" value="${jdbc.driverClassName}" />
+		<beans:property name="url" value="${jdbc.url}" />
+		<beans:property name="username" value="${jdbc.username}" />
+		<beans:property name="password" value="${jdbc.password}" />
+	</beans:bean>
+	
+	<beans:bean id="sessionFactory"
+		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+		<beans:property name="dataSource" ref="ds" />
+		 <beans:property name="annotatedClasses">
+			<beans:list> 
+	 			<beans:value>mp.procurement.model.Party</beans:value>
+	 			<beans:value>mp.procurement.model.Lot</beans:value>
+	 			<beans:value>mp.procurement.model.Tender</beans:value>
+	 			<beans:value>mp.procurement.model.Bid</beans:value>
+	 			<beans:value>mp.procurement.model.Financials</beans:value>
+	 			<beans:value>mp.procurement.model.LotRate</beans:value>
+	 			<beans:value>mp.procurement.model.LotList</beans:value>
+			</beans:list>
+		</beans:property> 
+		<beans:property name="hibernateProperties">
+			<beans:props>
+				<beans:prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</beans:prop>
+				<beans:prop key="hibernate.show_sql">true</beans:prop>
+				<!-- <beans:prop key="hibernate.hbm2ddl.auto">update</beans:prop> -->
+			</beans:props>
+		</beans:property>
+		<beans:property name="packagesToScan" value="mp.procurement.model;"></beans:property> 
+	</beans:bean>
+  	<tx:annotation-driven transaction-manager="transactionManager" />
+	
+  	<beans:bean id="transactionManager"
+		class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+		<beans:property name="sessionFactory" ref="sessionFactory" />
+	</beans:bean>	
+	
+</beans:beans>
