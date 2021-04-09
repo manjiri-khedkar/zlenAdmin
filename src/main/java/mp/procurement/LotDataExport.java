@@ -1,5 +1,6 @@
 package mp.procurement;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,8 +14,6 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.view.document.AbstractXlsView;
 
-import mp.procurement.model.LotRate;
-
 @Component("lotDataExcel")
 public class LotDataExport extends AbstractXlsView {
 	
@@ -24,7 +23,7 @@ public class LotDataExport extends AbstractXlsView {
             throws Exception {
         
 		// get data model which is passed by the Spring container
-        List<LotRate> list_report = (List<LotRate>) model.get("listRate");
+        List list_report = new ArrayList();// ;model.get("listRate");
         HashMap<Integer,String> mapLot = (HashMap<Integer,String>) model.get("lot_map");
         
         HSSFSheet sheet = (HSSFSheet) workbook.createSheet("Lot Data");
@@ -51,30 +50,30 @@ public class LotDataExport extends AbstractXlsView {
 		aRow.createCell(18).setCellValue("Gross VAlue");
 		aRow.createCell(19).setCellValue("Weight");
 		rowNo++;
-		for (LotRate bean : list_report	){
+		for (Object bean : list_report	){
 			aRow = sheet.createRow(rowNo);
-			if (mapLot.containsKey(bean.getLot_id())){
-				aRow.createCell(1).setCellValue(mapLot.get(bean.getLot_id()));	
-			}
-			
-			aRow.createCell(2).setCellValue(bean.getWeight());
-			aRow.createCell(3).setCellValue(bean.getGst_rate());			            
-			aRow.createCell(4).setCellValue(bean.getKg_cost());
-			aRow.createCell(5).setCellValue(bean.getKg_expenses());
-			aRow.createCell(6).setCellValue(bean.getKg_gst());
-			aRow.createCell(7).setCellValue(bean.getKg_rate());
-			aRow.createCell(8).setCellValue(bean.getKg_tax());
-			aRow.createCell(9).setCellValue(bean.getKg_total());
-			aRow.createCell(10).setCellValue(bean.getLabour());
-			aRow.createCell(11).setCellValue(bean.getPreference());
-			aRow.createCell(12).setCellValue(bean.getQty());
-			aRow.createCell(13).setCellValue(bean.getSb_expenses());
-			aRow.createCell(14).setCellValue(bean.getSb_gst());
-			aRow.createCell(15).setCellValue(bean.getSb_rate());
-			aRow.createCell(16).setCellValue(bean.getSb_tax());
-			aRow.createCell(17).setCellValue(bean.getSb_total());
-			aRow.createCell(18).setCellValue(bean.getTotal_value());
-			aRow.createCell(19).setCellValue(bean.getWeight());
+//			if (mapLot.containsKey(bean.getLot_id())){
+//				aRow.createCell(1).setCellValue(mapLot.get(bean.getLot_id()));	
+//			}
+//			
+//			aRow.createCell(2).setCellValue(bean.getWeight());
+//			aRow.createCell(3).setCellValue(bean.getGst_rate());			            
+//			aRow.createCell(4).setCellValue(bean.getKg_cost());
+//			aRow.createCell(5).setCellValue(bean.getKg_expenses());
+//			aRow.createCell(6).setCellValue(bean.getKg_gst());
+//			aRow.createCell(7).setCellValue(bean.getKg_rate());
+//			aRow.createCell(8).setCellValue(bean.getKg_tax());
+//			aRow.createCell(9).setCellValue(bean.getKg_total());
+//			aRow.createCell(10).setCellValue(bean.getLabour());
+//			aRow.createCell(11).setCellValue(bean.getPreference());
+//			aRow.createCell(12).setCellValue(bean.getQty());
+//			aRow.createCell(13).setCellValue(bean.getSb_expenses());
+//			aRow.createCell(14).setCellValue(bean.getSb_gst());
+//			aRow.createCell(15).setCellValue(bean.getSb_rate());
+//			aRow.createCell(16).setCellValue(bean.getSb_tax());
+//			aRow.createCell(17).setCellValue(bean.getSb_total());
+//			aRow.createCell(18).setCellValue(bean.getTotal_value());
+//			aRow.createCell(19).setCellValue(bean.getWeight());
             rowNo++;
 		}
     }

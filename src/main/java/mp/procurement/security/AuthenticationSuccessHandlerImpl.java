@@ -16,9 +16,7 @@ import org.springframework.security.web.authentication.AuthenticationFailureHand
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
 
-import mp.procurement.CommonDao;
 import mp.procurement.model.Party;
-import mp.procurement.model.PartyLots;
 import mp.procurement.model.SessionUser;
 
 @Component("authenticationSuccessHandler")
@@ -46,14 +44,12 @@ public class AuthenticationSuccessHandlerImpl implements AuthenticationSuccessHa
 		Party party=null;
 		try {
 			party=dao.loadUserByName(username);
-			List<PartyLots> party_lots = dao.getPartyLots(party.getId());
+			
 			if (party!=null){
 				sessionUser.setUserId(party.getId());
 				sessionUser.setUser_name(party.getParty_name());
-				sessionUser.setLot_allowed(party.getLot_report_allowed());
-				sessionUser.setLot_consumed(party_lots.size());
 				sessionUser.setRole("customer");
-				sessionUser.setParty_lots(party_lots);
+				
 			}
 			session.setAttribute("sessionUser", sessionUser);
 		} catch (Exception e) {

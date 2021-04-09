@@ -24,10 +24,8 @@ public class SessionUser implements Serializable {
     
     private Integer userId;
     private String user_name;
-    private Integer lot_allowed;
-    private Integer lot_consumed;
     private String role;
-    private List<PartyLots> party_lots;
+    
 	public Integer getUserId() {
 		return userId;
 	}
@@ -46,23 +44,6 @@ public class SessionUser implements Serializable {
 	public void setRole(String role) {
 		this.role = role;
 	}
-	public Integer getLot_allowed() {
-		return lot_allowed;
-	}
-	public void setLot_allowed(Integer lot_allowed) {
-		this.lot_allowed = lot_allowed;
-	}
-	public Integer getLot_consumed() {
-		return lot_consumed;
-	}
-	public void setLot_consumed(Integer lot_consumed) {
-		this.lot_consumed = lot_consumed;
-	}
-	public List<PartyLots> getParty_lots() {
-		return party_lots;
-	}
-	public void setParty_lots(List<PartyLots> party_lots) {
-		this.party_lots = party_lots;
-	}
+
 
 }
