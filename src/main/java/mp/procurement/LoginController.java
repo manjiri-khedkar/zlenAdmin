@@ -19,9 +19,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import mp.procurement.email.ApplicationMailer;
+import mp.procurement.model.Appuser;
 import mp.procurement.model.Login;
 import mp.procurement.model.Party;
 import mp.procurement.model.SessionUser;
+import mp.procurement.repository.AppuserRepository;
 import mp.procurement.security.PasswordGenerator;
 
 
@@ -38,6 +40,9 @@ public class LoginController {
 	
 	@Autowired
     private SessionUser sessionUser;
+	
+	@Autowired
+	private  AppuserRepository appuserRepository;
 	
  
 	private HashMap<String,Integer> map_lot = new HashMap<String,Integer>();
@@ -61,17 +66,18 @@ public class LoginController {
 	@ResponseBody
 	  public String resetPassword(String emailId) {
 		try{
-			Party user = common.loadUserByName(emailId);
+			Appuser user = appuserRepository.findByEmail(emailId);
 			if (user==null){
 				return "User doesnt exist";
 			}else{
 				String newPassword = PasswordGenerator.generateRandomPassword(10);
 				user.setPassword(newPassword);
-				common.updateParty(user);
+				appuserRepository.save(user);
 				List emails = new ArrayList();
 				emails.add(emailId);
 				HashMap<String, String> values = new HashMap<String, String>();
-				values.put("user_name", user.getParty_name());
+				String uname = user.getFirstName()+" "+user.getLastName();
+				values.put("user_name", uname);
 				values.put("new_password", newPassword);
 				mailer.sendHTMLMail(emails, "Reset Password", "<html> <head></head><body>Hello ##user_name##,<br><br> Your new password is ##new_password##. Please change the password once you login in.<br><br> Thank you <br>Admin,<br>Infosane </body></html>", null,values);
 				return "You will receive the new password on above email address.";
@@ -112,10 +118,10 @@ public class LoginController {
 	  public ModelAndView loginProcess(HttpServletRequest request, HttpServletResponse response,
 	  @ModelAttribute("login") Login login) {
 	    ModelAndView mav = null;
-	    Party user = common.validateUser(login);
+	    Appuser user = appuserRepository.validateUser(login);
 	    if (null != user) {
 	    	mav = new ModelAndView("home");
-	    	mav.addObject("firstname", user.getParty_name());
+	    	mav.addObject("firstname", user.getFirstName());
 	    } else {
 	    	mav = new ModelAndView("login");
 	    	mav.addObject("message", "Username or Password is wrong!!");

@@ -1,5 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ page import="mp.procurement.model.Tender" %>
+<%-- <%@ page import="mp.procurement.model.Tender" %> --%>
 <html>
 <head>
 

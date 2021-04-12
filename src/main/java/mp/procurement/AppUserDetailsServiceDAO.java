@@ -19,7 +19,9 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import mp.procurement.model.Appuser;
 import mp.procurement.model.Party;
+import mp.procurement.repository.AppuserRepository;
 
 @Component(value = "userDetailsService")
 @Transactional
@@ -29,9 +31,9 @@ public class AppUserDetailsServiceDAO implements UserDetailsService {
 	protected final Log logger = LogFactory.getLog(getClass());
 	
 	@Autowired
-	private CommonDao dao ;
+	private AppuserRepository appuserRepository;
 	
-	private User buildUserForAuthentication(Party user, List<GrantedAuthority> authorities) {
+	private User buildUserForAuthentication(Appuser user, List<GrantedAuthority> authorities) {
         // Following code is changed once tables and spring security will be completed this need to be handle again.
 		System.out.println(user.getEmail() + " " + user.getPassword());
         return new User(user.getEmail(), user.getPassword(), true, true, true, true, authorities);
@@ -52,16 +54,16 @@ public class AppUserDetailsServiceDAO implements UserDetailsService {
 	public UserDetails loadUserByUsername(final String username)
 			throws UsernameNotFoundException {
 		
-		Party party=null;
+		Appuser user=null;
 		try {
-			party=dao.loadUserByName(username);
+			user=appuserRepository.findByUserId(username);
 			
-			if (party!=null){
-				System.out.println("party...." + party.getId() + party.getParty_name());
+			if (user!=null){
+				//System.out.println("party...." + user.getId() + user.getParty_name());
 				List<GrantedAuthority> authorities = buildUserAuthority();
-				User user = buildUserForAuthentication(party,authorities);
-				System.out.println("party....2" + user.getUsername()+"  " + user.getPassword());
-				return user;
+				User user1 = buildUserForAuthentication(user,authorities);
+				//System.out.println("party....2" + user.getUsername()+"  " + user.getPassword());
+				return user1;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

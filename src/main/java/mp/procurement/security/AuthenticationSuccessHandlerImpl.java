@@ -16,14 +16,16 @@ import org.springframework.security.web.authentication.AuthenticationFailureHand
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
 
+import mp.procurement.model.Appuser;
 import mp.procurement.model.Party;
 import mp.procurement.model.SessionUser;
+import mp.procurement.repository.AppuserRepository;
 
 @Component("authenticationSuccessHandler")
 public class AuthenticationSuccessHandlerImpl implements AuthenticationSuccessHandler, AuthenticationFailureHandler {
 
 	@Autowired
-	private CommonDao dao ;
+	private AppuserRepository appuserRepository ;
 	
 	@Autowired
 	 private SessionUser sessionUser;
@@ -41,13 +43,14 @@ public class AuthenticationSuccessHandlerImpl implements AuthenticationSuccessHa
 		User springuser = (User)arg2.getPrincipal();
 		String username = springuser.getUsername();
 		
-		Party party=null;
+		Appuser user =null;
 		try {
-			party=dao.loadUserByName(username);
+			user=appuserRepository.findByUserId(username);
 			
-			if (party!=null){
-				sessionUser.setUserId(party.getId());
-				sessionUser.setUser_name(party.getParty_name());
+			if (user!=null){
+				sessionUser.setUserId(user.getId());
+				String uname = user.getFirstName()+" "+user.getLastName();
+				sessionUser.setUser_name(uname);
 				sessionUser.setRole("customer");
 				
 			}

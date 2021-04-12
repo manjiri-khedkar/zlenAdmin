@@ -63,7 +63,7 @@
                         <label class="custom-control-label" for="customCheck">Remember Me</label>
                       </div>
                     </div>
-                    <button id="login" class="btn btn-primary btn-user btn-block"  name="login">Login</form:button>
+                    <button id="login" class="btn btn-primary btn-user btn-block"name="login">Login </button>
                   </form>
                   
                 </div>
