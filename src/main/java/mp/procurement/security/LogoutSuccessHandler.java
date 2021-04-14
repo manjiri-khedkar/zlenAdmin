@@ -16,7 +16,6 @@ public class LogoutSuccessHandler implements org.springframework.security.web.au
 	public void onLogoutSuccess(HttpServletRequest arg0, HttpServletResponse arg1, Authentication arg2)
 			throws IOException, ServletException {
 		// TODO Auto-generated method stub
-		
 	}
 
 }

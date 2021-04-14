@@ -1,29 +1,18 @@
 package mp.procurement;
 
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.openqa.selenium.WebDriver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.annotation.SessionScope;
 import org.springframework.web.servlet.ModelAndView;
-
 import mp.procurement.email.ApplicationMailer;
-import mp.procurement.model.Party;
-import mp.procurement.model.ReportBean;
+import mp.procurement.model.AppUser;
 import mp.procurement.model.SessionUser;
 import mp.procurement.repository.AppuserRepository;
 
@@ -41,11 +30,13 @@ public class MainPage {
 
 	@Autowired
 	private AppuserRepository appuserRepository;
-
-	private HashMap<String, Integer> map_lot = new HashMap<String, Integer>();
-	private HashMap<Integer, Integer> map_party = new HashMap<Integer, Integer>();
-	private static int stateId;
-
+	
+	@GetMapping(value = "/")
+	public String indexView(@ModelAttribute AppUser users) 
+	{
+		return "redirect:/login";
+	} 
+	
 	@RequestMapping("/adminHomeDashboard")
 	public ModelAndView showMessage() {
 

@@ -3,11 +3,9 @@ package mp.procurement;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
@@ -17,46 +15,35 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
-
 import mp.procurement.email.ApplicationMailer;
-import mp.procurement.model.Appuser;
+import mp.procurement.model.AppUser;
 import mp.procurement.model.Login;
-import mp.procurement.model.Party;
 import mp.procurement.model.SessionUser;
 import mp.procurement.repository.AppuserRepository;
 import mp.procurement.security.PasswordGenerator;
-
-
 
 @Controller
 @Component
 public class LoginController {
 
-	//@Autowired
-	//CommonService common;
 	@Autowired
 	ApplicationMailer mailer; 
-	
 	
 	@Autowired
     private SessionUser sessionUser;
 	
 	@Autowired
 	private  AppuserRepository appuserRepository;
-	
- 
-	private HashMap<String,Integer> map_lot = new HashMap<String,Integer>();
-	private HashMap<Integer,Integer> map_party = new HashMap<Integer,Integer>();
-	private static int stateId;
-	
+ 	
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	  public ModelAndView showLogin(HttpServletRequest request, HttpServletResponse response) {
+		System.err.println("Inside login...");
 		HttpSession session= request.getSession(false);
         SecurityContextHolder.clearContext();
         
         if(session != null) {
             session.invalidate();
-        }
+        } 
 	    ModelAndView mav = new ModelAndView("login");
 	    mav.addObject("login", new Login());
 	    return mav;
@@ -66,7 +53,7 @@ public class LoginController {
 	@ResponseBody
 	  public String resetPassword(String emailId) {
 		try{
-			Appuser user = appuserRepository.findByEmail(emailId);
+			AppUser user = appuserRepository.findByEmail(emailId);
 			if (user==null){
 				return "User doesnt exist";
 			}else{
@@ -118,7 +105,7 @@ public class LoginController {
 	  public ModelAndView loginProcess(HttpServletRequest request, HttpServletResponse response,
 	  @ModelAttribute("login") Login login) {
 	    ModelAndView mav = null;
-	    Appuser user = appuserRepository.validateUser(login);
+	    AppUser user = appuserRepository.validateUser(login);
 	    if (null != user) {
 	    	mav = new ModelAndView("home");
 	    	mav.addObject("firstname", user.getFirstName());
@@ -128,6 +115,4 @@ public class LoginController {
 	    }
 	    return mav;
 	  }
-	
-	
 }

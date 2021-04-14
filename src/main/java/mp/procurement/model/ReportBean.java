@@ -66,12 +66,10 @@ public class ReportBean {
 	private Integer rank;
 	private String division;
 	private Double capacity;
-	
 	private Double purchase_capacity;
 	private Double emd;
 	private Double consumed_capacity;
 	private Double bid_capacity;
-	
 	
 	public Double getPurchase_capacity() {
 		return purchase_capacity;

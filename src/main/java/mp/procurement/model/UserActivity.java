@@ -1,8 +1,6 @@
 package mp.procurement.model;
 
 import java.io.Serializable;
-import java.util.Date;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -10,7 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "user_activity",schema="main")
+@Table(name = "user_activity",schema="zlenadmin")
 public class UserActivity implements Serializable  {
 	
 	private static final long serialVersionUID = 1L;

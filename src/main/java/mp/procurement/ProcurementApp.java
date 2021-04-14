@@ -28,7 +28,5 @@ public class ProcurementApp extends SpringBootServletInitializer{
         message.setText("Mail from Infosane..");
         return message;
     }
-	
-	
 
 }

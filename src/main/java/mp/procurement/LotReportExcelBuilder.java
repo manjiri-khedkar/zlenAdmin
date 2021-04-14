@@ -1,12 +1,9 @@
 package mp.procurement;
 
 import java.util.List;
-
 import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
 import org.apache.poi.hssf.usermodel.HSSFFont;
 import org.apache.poi.hssf.usermodel.HSSFRow;
@@ -18,8 +15,8 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.util.CellRangeAddress;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.view.document.AbstractXlsView;
-
 import mp.procurement.model.ReportBean;
+
 @Component("lotReportExcel")
 public class LotReportExcelBuilder extends AbstractXlsView {
 	

@@ -1,11 +1,9 @@
 package mp.procurement;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,9 +16,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import mp.procurement.model.Appuser;
-import mp.procurement.model.Party;
+import mp.procurement.model.AppUser;
 import mp.procurement.repository.AppuserRepository;
 
 @Component(value = "userDetailsService")
@@ -33,7 +29,7 @@ public class AppUserDetailsServiceDAO implements UserDetailsService {
 	@Autowired
 	private AppuserRepository appuserRepository;
 	
-	private User buildUserForAuthentication(Appuser user, List<GrantedAuthority> authorities) {
+	private User buildUserForAuthentication(AppUser user, List<GrantedAuthority> authorities) {
         // Following code is changed once tables and spring security will be completed this need to be handle again.
 		System.out.println(user.getEmail() + " " + user.getPassword());
         return new User(user.getEmail(), user.getPassword(), true, true, true, true, authorities);
@@ -54,7 +50,7 @@ public class AppUserDetailsServiceDAO implements UserDetailsService {
 	public UserDetails loadUserByUsername(final String username)
 			throws UsernameNotFoundException {
 		
-		Appuser user=null;
+		AppUser user=null;
 		try {
 			user=appuserRepository.findByUserId(username);
 			

@@ -1,13 +1,10 @@
 package mp.procurement.security;
 
 import java.io.IOException;
-import java.util.List;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
@@ -15,9 +12,7 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
-
-import mp.procurement.model.Appuser;
-import mp.procurement.model.Party;
+import mp.procurement.model.AppUser;
 import mp.procurement.model.SessionUser;
 import mp.procurement.repository.AppuserRepository;
 
@@ -43,7 +38,7 @@ public class AuthenticationSuccessHandlerImpl implements AuthenticationSuccessHa
 		User springuser = (User)arg2.getPrincipal();
 		String username = springuser.getUsername();
 		
-		Appuser user =null;
+		AppUser user =null;
 		try {
 			user=appuserRepository.findByUserId(username);
 			

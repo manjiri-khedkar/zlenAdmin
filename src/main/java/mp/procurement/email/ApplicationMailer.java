@@ -2,18 +2,14 @@ package mp.procurement.email;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.FileSystemResource;
-import org.springframework.mail.MailSendException;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -27,7 +23,6 @@ public class ApplicationMailer
      
     @Value( "${emailFolder}")
     private String emailFolder;
-    
      
     @Autowired
     private SimpleMailMessage preConfiguredMessage;
@@ -107,8 +102,7 @@ public class ApplicationMailer
     	 		} 
 
     }
-    
- 
+   
     /**
      * This method will send a pre-configured message
      * */
@@ -116,9 +110,7 @@ public class ApplicationMailer
     {
         SimpleMailMessage mailMessage = new SimpleMailMessage(preConfiguredMessage);
         mailMessage.setText(message);
-        
-        mailSender.send(mailMessage);
-        
-        
+        mailSender.send(mailMessage);      
     }
+    
 }
