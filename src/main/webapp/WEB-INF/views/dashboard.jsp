@@ -1,6 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
-<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
+<!--  <html lang="en">  -->
+<html xmlns:th="http://www.thymeleaf.org">
+
+<%--  <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  --%>
+
 
 <head>
 
@@ -10,12 +13,12 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>Infosane - Dashboard</title>
+   <title>Infosane - Dashboard</title>
 	<script src="${pageContext.request.contextPath}/resources/vendor/jquery/jquery.min.js"></script>
   <!-- Custom fonts for this template-->
   <link href="${pageContext.request.contextPath}/resources/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
   <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-
+ 
 	<style>
 	
 	#page-top { display:block; }
@@ -65,8 +68,13 @@
      -ms-transform: rotate(0deg);
      transform: rotate(0deg);
   }
-	
+  
+
 	</style>
+	
+	<script type='text/javascript' src="<c:url value="/resources/js/dashboard/dashboardchart.js"  />" ></script>
+	
+	
   <!-- Custom styles for this template-->
   <link href="${pageContext.request.contextPath}/resources/css/sb-admin-2.min.css" rel="stylesheet">
 	<script>
@@ -76,7 +84,7 @@
 			
 		});
 		
-		function loadStateData(state){
+		/* function loadStateData(state){
 			$.ajax({
 				url : "chartData",
 				type : "GET",
@@ -89,7 +97,7 @@
 					
 				}
 			});
-		}
+		} */
 		function loadCharts(data){
 			loadYearWiseRates(data["yearWiseRates"]);
 			loadYearWiseAmount(data["yearWiseAmount"]);
@@ -157,6 +165,7 @@
 					      data: min_data,
 					    }],
 			  },
+			 
 			  options: {
 			    maintainAspectRatio: false,
 			    layout: {
@@ -315,6 +324,7 @@
 			  }
 			});
 		}
+
 		function savePass(){
 		    var pass = $("#pass").val();
 		    var valid = pass == $("#passConfirm").val();
@@ -350,22 +360,22 @@
         <div class="container-fluid">
 
           <!-- Page Heading -->
-          <div class="d-sm-flex align-items-center justify-content-between mb-4">
+<!--           <div class="d-sm-flex align-items-center justify-content-between mb-4">
             <h1 class="h3 mb-0 text-gray-800">Year Comparison</h1>
              <select name="state" id="id_selectState" onchange="loadStateData(this.value)">
 	            <option value="1" selected>Madhya Pradesh</option>
 	            <option value="2">Chattishgrah</option>
   			</select>
           </div>
-
+ -->
          <!-- Content Row -->
 
           <div class="row">
 
             <!-- Area Chart -->
-            <div class="col-xl-6 col-lg-6">
+<!--             <div class="col-xl-6 col-lg-6">
               <div class="card shadow mb-4">
-                <!-- Card Header - Dropdown -->
+                Card Header - Dropdown
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                   <h6 class="m-0 font-weight-bold text-primary">Year Wise Rates</h6>
                   <div class="dropdown no-arrow">
@@ -377,19 +387,20 @@
                     </div>
                   </div>
                 </div>
-                <!-- Card Body -->
-                <div class="card-body">
+ -->            
+     <!-- Card Body -->
+               <!--  <div class="card-body">
                   <div class="chart-area">
                     <canvas id="myAreaChart"></canvas>
                   </div>
                 </div>
               </div>
-            </div>
+            </div> -->
             
             <!-- Area Chart -->
-            <div class="col-xl-6 col-lg-6">
+        <!--     <div class="col-xl-6 col-lg-6">
               <div class="card shadow mb-4">
-                <!-- Card Header - Dropdown -->
+                Card Header - Dropdown
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                   <h6 class="m-0 font-weight-bold text-primary">Year Wise Amount</h6>
                   <div class="dropdown no-arrow">
@@ -400,7 +411,8 @@
                     </div>
                   </div>
                 </div>
-                <!-- Card Body -->
+                
+                Card Body
                 <div class="card-body">
                   <div class="chart-area">
                     <canvas id="yearWiseAmount"></canvas>
@@ -411,22 +423,34 @@
 
           </div>
 
-         
+        --> 
+					<div align="center">
+		     <a th:href="@{/displayBarGraph}">Bar-Graph</a><br />
+		      
+		      
+		    <a href="/displayBarGraph"><button type="button" name="b10" class="btn btn-primary">Add</button></a>  
+		
+	</div>
+
 
         </div>
         <!-- /.container-fluid -->
 
       </div>
+       
       <!-- End of Main Content -->
+      
+         
+    
 
       <!-- Footer -->
-      <footer class="sticky-footer bg-white">
+   <!--    <footer class="sticky-footer bg-white">
         <div class="container my-auto">
           <div class="copyright text-center my-auto">
             <span>Copyright &copy;Infosane.co.in</span>
           </div>
         </div>
-      </footer>
+      </footer> -->
       <!-- End of Footer -->
 
     </div>
@@ -464,13 +488,13 @@
         	</tr>
         	</thead>
         
-      		  <c:forEach items="${sessionScope.sessionUser.party_lots}" var="tender">
+      		 <%--  <c:forEach items="${sessionScope.sessionUser.party_lots}" var="tender">
 	      		  <tr>
 		      		  <td>${tender.lot_name}		</td>
 		        		<td> ${tender.lot_given_name}		</td>
 		        		<td>${tender.division}		</td>
 				</tr>
-		     </c:forEach>
+		     </c:forEach> --%>
 		     </table>
         </div>
         <div class="modal-footer">

@@ -1,16 +1,7 @@
-package mp.procurement.model;
+package mp.procurement.dto;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
-@Entity
-public class AppUser {
+public class AppUserRegistrationDto {
 	
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-
 	private Integer id;
 	private String firstName;
 	private String lastName;
@@ -20,27 +11,20 @@ public class AppUser {
 	private String mobileNo;
 	private String userId;
 	private String password;
-	private String gender;
-	private String aadhaar;
+	private String phone;
 	private String date;
-   
+	
 	public String getDate() {
 		return date;
 	}
 	public void setDate(String date) {
 		this.date = date;
 	}
-	public String getPassword() {
-		return password;
+	public String getPhone() {
+		return phone;
 	}
-	public void setPassword(String password) {
-		this.password = password;
-	}
-	public String getUserId() {
-		return userId;
-	}
-	public void setUserId(String userId) {
-		this.userId = userId;
+	public void setPhone(String phone) {
+		this.phone = phone;
 	}
 	public Integer getId() {
 		return id;
@@ -66,7 +50,6 @@ public class AppUser {
 	public void setAddress(String address) {
 		this.address = address;
 	}
-	
 	public String getEmail() {
 		return email;
 	}
@@ -85,17 +68,17 @@ public class AppUser {
 	public void setMobileNo(String mobileNo) {
 		this.mobileNo = mobileNo;
 	}
-	public String getGender() {
-		return gender;
+	public String getUserId() {
+		return userId;
 	}
-	public void setGender(String gender) {
-		this.gender = gender;
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
-	public String getAadhaar() {
-		return aadhaar;
+	public String getPassword() {
+		return password;
 	}
-	public void setAadhaar(String aadhaar) {
-		this.aadhaar = aadhaar;
+	public void setPassword(String password) {
+		this.password = password;
 	}
-		
+
 }

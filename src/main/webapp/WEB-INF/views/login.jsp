@@ -65,11 +65,16 @@
                     </div>
                     <button id="login" class="btn btn-primary btn-user btn-block"name="login">Login </button>
                   </form>
+                  <br>
+                  <br>
                   
-                </div>
+                 <!--  <button id="registration" class="btn btn-primary" name="registration">Registration</button></div> -->
+            
+              
                	 <hr>
                   <div class="text-center">
                     <a class="small" href="#" data-toggle="modal" data-target="#changePasswordModal">Reset Password?</a>
+                    
                   </div>
               </div>
             </div>

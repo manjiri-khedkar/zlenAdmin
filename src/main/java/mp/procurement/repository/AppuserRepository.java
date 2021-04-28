@@ -9,9 +9,11 @@ public interface AppuserRepository extends JpaRepository<AppUser, Long> {
 	AppUser findByUserId(String userId);
 	
 	AppUser findByEmail(String emailId);
+
+	AppUser deleteById(long id);
    	
-	AppUser validateUser(Login login);
+	//AppUser validateUser(Login login);
 	
-   	AppUser addActivity(Integer userId, String string, long currentTimeMillis);
+   	//AppUser addActivity(Integer userId, String string, long currentTimeMillis);
 
 }

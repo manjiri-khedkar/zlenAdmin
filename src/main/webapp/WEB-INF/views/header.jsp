@@ -71,7 +71,7 @@
           <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
             <i class="fa fa-bars"></i>
           </button>
-			Lot Reports Utilized: ${sessionScope.sessionUser.lot_consumed}/${sessionScope.sessionUser.lot_allowed}
+		<%-- 	Lot Reports Utilized: ${sessionScope.sessionUser.lot_consumed}/${sessionScope.sessionUser.lot_allowed} --%>
 			&nbsp;&nbsp;&nbsp;&nbsp;
 			<a href="#" class="btn btn-secondary" data-toggle="modal" data-target="#id_lotList"  >Show List</a>
 			 
@@ -96,6 +96,10 @@
                   <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                   Logout
                 </a>
+                 <a class="dropdown-item" href="/user">
+                  <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                  USER-List
+                </a>	
               </div>
             </li>
 
