@@ -101,18 +101,15 @@ public class LoginController {
 	    return mav;
 	  }
 	
-	  @RequestMapping(value = "/loginProcess", method = RequestMethod.POST)
-	  public ModelAndView loginProcess(HttpServletRequest request, HttpServletResponse response,
-	  @ModelAttribute("login") Login login) {
-	    ModelAndView mav = null;
-	    AppUser user = appuserRepository.validateUser(login);
-	    if (null != user) {
-	    	mav = new ModelAndView("home");
-	    	mav.addObject("firstname", user.getFirstName());
-	    } else {
-	    	mav = new ModelAndView("login");
-	    	mav.addObject("message", "Username or Password is wrong!!");
-	    }
-	    return mav;
-	  }
+		/*
+		 * @RequestMapping(value = "/loginProcess", method = RequestMethod.POST) public
+		 * ModelAndView loginProcess(HttpServletRequest request, HttpServletResponse
+		 * response,
+		 * 
+		 * @ModelAttribute("login") Login login) { ModelAndView mav = null; AppUser user
+		 * = appuserRepository.validateUser(login); if (null != user) { mav = new
+		 * ModelAndView("home"); mav.addObject("firstname", user.getFirstName()); } else
+		 * { mav = new ModelAndView("login"); mav.addObject("message",
+		 * "Username or Password is wrong!!"); } return mav; }
+		 */
 }

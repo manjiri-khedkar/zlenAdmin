@@ -1,5 +1,7 @@
 package mp.procurement.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -35,6 +37,7 @@ public class RegistrationServiceImpl implements RegistrationService {
 	        user.setMobileNo(registration.getMobileNo());
 	        user.setAadhaar(registration.getAadhaar());
 	        user.setDate(registration.getDate());
+	      
 		
 		  return appuserRepository.save(user);
 	}
@@ -43,6 +46,12 @@ public class RegistrationServiceImpl implements RegistrationService {
 	public AppUser findByEmail(String email) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	public List<AppUser> findAll() {
+		// TODO Auto-generated method stub
+		
+		return appuserRepository.findAll();
 	}
 
 	

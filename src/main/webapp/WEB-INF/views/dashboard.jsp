@@ -1,8 +1,7 @@
 <!DOCTYPE html>
-<!--  <html lang="en">  -->
-<html xmlns:th="http://www.thymeleaf.org">
+ <html lang="en"> 
 
-<%--  <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  --%>
+   
 
 
 <head>
@@ -72,7 +71,9 @@
 
 	</style>
 	
-	<script type='text/javascript' src="<c:url value="/resources/js/dashboard/dashboardchart.js"  />" ></script>
+	
+	 
+	<script type='text/javascript' src="${pageContext.request.contextPath}/resources/js/dashboard/dashboardchart.js" ></script>
 	
 	
   <!-- Custom styles for this template-->
@@ -84,7 +85,7 @@
 			
 		});
 		
-		/* function loadStateData(state){
+		function loadStateData(state){
 			$.ajax({
 				url : "chartData",
 				type : "GET",
@@ -93,11 +94,10 @@
 				success : function (response) {
 					loadCharts(response);
 				},
-				error : function (error) {
-					
+				error : function (error) {			
 				}
 			});
-		} */
+		} 
 		function loadCharts(data){
 			loadYearWiseRates(data["yearWiseRates"]);
 			loadYearWiseAmount(data["yearWiseAmount"]);
@@ -424,15 +424,12 @@
           </div>
 
         --> 
-					<div align="center">
-		     <a th:href="@{/displayBarGraph}">Bar-Graph</a><br />
-		      
-		      
-		    <a href="/displayBarGraph"><button type="button" name="b10" class="btn btn-primary">Add</button></a>  
-		
-	</div>
+					
+            <div align="center">
+		<a href="/user/barChart">Bar-Chart</a>
+	   </div>
 
-
+<!-- <button id="xy" onclick="document.location='/user/barChart'">HTML Tutorial</button> -->
         </div>
         <!-- /.container-fluid -->
 

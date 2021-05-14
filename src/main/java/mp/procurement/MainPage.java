@@ -135,18 +135,19 @@ public class MainPage {
 	 * model; }
 	 */
 
-	@RequestMapping("/chartData")
-	public @ResponseBody Object chartData(int state_id) {
-
-		//List<Map<String, Integer>> yearWiseRates = (List<Map<String, Integer>>) appuserRepository.getYearWiseMinMaxAvgRate(state_id);
-		//List<Map<String, Double>> yearWiseAmount = (List<Map<String, Double>>) appuserRepository.getYearWiseAmount(state_id);
-		HashMap<String, Object> resp = new HashMap<String, Object>();
-
-		//resp.put("yearWiseRates", yearWiseRates);
-		//resp.put("yearWiseAmount", yearWiseAmount);
-		return resp;
-	}
-
+	/*
+	 * @RequestMapping("/chartData") public @ResponseBody Object chartData(int
+	 * state_id) {
+	 * 
+	 * //List<Map<String, Integer>> yearWiseRates = (List<Map<String, Integer>>)
+	 * appuserRepository.getYearWiseMinMaxAvgRate(state_id); //List<Map<String,
+	 * Double>> yearWiseAmount = (List<Map<String, Double>>)
+	 * appuserRepository.getYearWiseAmount(state_id); HashMap<String, Object> resp =
+	 * new HashMap<String, Object>();
+	 * 
+	 * //resp.put("yearWiseRates", yearWiseRates); //resp.put("yearWiseAmount",
+	 * yearWiseAmount); return resp; }
+	 */
 	/*
 	 * @RequestMapping(value = "/lotReport", method = RequestMethod.GET) public
 	 * ModelAndView getLotReport(HttpServletRequest request) { String chk =
