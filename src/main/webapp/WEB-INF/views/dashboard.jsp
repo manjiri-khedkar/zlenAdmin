@@ -3,7 +3,6 @@
 
    
 
-
 <head>
 
   <meta charset="utf-8">
@@ -82,7 +81,6 @@
 		$(document).ready(function (){
 			
 			//loadStateData();
-			
 		});
 
 		$(function()
@@ -254,7 +252,6 @@
           </div>
 
         --> 
-
 <!-- <button id="xy" onclick="document.location='/user/barChart'">HTML Tutorial</button> -->
         </div>
         <!-- /.container-fluid -->

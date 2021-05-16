@@ -27,7 +27,92 @@
    
 	     
 	     
+<<<<<<< HEAD
 	
+=======
+	$(function()
+			{
+		var name, date, listt, datecounter;
+		$.ajax( {
+		      type : "Get", 
+		      url : "http://localhost:8080/user/bar-chart", 
+		      contentType : "application/json", 
+		      dataType : 'json', 
+		      //data : data,
+		         /*  data :  {
+		          "firstName" : [[${Name}]],
+		          "Date" : [[${Date}]],
+		          "List" : [[${listt}]]
+		      },     */
+		      success : function (data) {
+		    	  //name =  data.name;
+		    	  //date = data.date;
+		    	  listt = data.listt;
+		    	  count = data.count;
+		    	  datecounter = data.datecounter;
+		    	  
+		    	  console.log("success", data.name );
+		    	  //console.log(data);
+		    	  console.log("listt", listt);
+		    	  //console.log("name", name);
+		    	 // console.log("date", date);
+		    	  console.log("datecounter", datecounter);
+		   
+		
+    Highcharts.chart('container', {
+        chart: {
+            type: 'column'
+        }, 
+       /*  title: {
+            text: 'Organization'
+        }, */
+        subtitle: {
+            text: 'User-Details'
+        },
+        xAxis: {
+            categories : listt, 
+            //categories: ["akshay","rock","john","will","kiti"],
+            crosshair: true
+        },
+        yAxis: {
+            min: 0,
+            max:100,
+            title: {
+                text: '<b>Users Count</b>'
+                
+            }       
+        },
+        tooltip: {
+            headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+            pointFormat: '<tr><td style="color:{series.color};padding:1">{series.name}: </td>' +
+            '<td style="padding:0"><b>{point.y}</b></td></tr>',
+            footerFormat: '</table>',
+            shared: true,
+            useHTML: true
+        },
+        plotOptions: {
+            column: {
+                pointPadding: 0.3,
+                borderWidth: 2
+            }
+        },
+         series: [{
+        	
+            name: 'User Count',
+           //data : [12,14,16,23,23,24]
+           data : datecounter
+         
+        }] 
+       
+      });
+		 },
+	     /*   error : function() {
+             console("not success");
+         }  */
+		   });
+	     
+			});
+>>>>>>> branch 'aniket' of https://github.com/vivekrajagrawal/zlenAdmin.git
 </script>
 </body>
 </html>
