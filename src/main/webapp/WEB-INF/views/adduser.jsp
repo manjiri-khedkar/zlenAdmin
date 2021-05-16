@@ -5,13 +5,13 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
 <head>
-   <meta charset="utf-8">
+  <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
   <meta name="author" content="">
-  
-  <title>Edit User</title>
+
+  <title>Add User</title>
 	<script src="${pageContext.request.contextPath}/resources/vendor/jquery/jquery.min.js"></script>
   <!-- Custom fonts for this template-->
   <link href="${pageContext.request.contextPath}/resources/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -84,37 +84,37 @@
    		<jsp:include page="header.jsp"></jsp:include>
 
         <!--====== Section Start ======-->
-    <section class="login min-height">
-        <div class="container">
+<div class="container">
+	<div class="clearfix">&nbsp;</div>                        
+                      
+       <form:form action="/user" modelAttribute="user" id="frmAddNew" method="post">
+            
             <div class="row">
-                <div class="col-md-12">
-                    <div class="login-holder">
-                        <div class="login-body">
-                           <h2 class="text-center" style="color: black;"><b>User Master</b></h2><br/>
-
-                          <form:form action="/user/update" modelAttribute="user" id="frm" method="post">
-                          
-                          <form:hidden path="id" />
-                          
-                          <div class="row">
+			     <div class="col-md-12">
+				 <div class="panel panel-primary">
+					<div class="panel-heading">
+						<h2 class="text-center" style="color: black;"><b>User Master</b></h2>
+					</div><br/>
+					<div class="panel-body">
+                          <div class="row justify-content-center">
                            <div class="col-md-2 text-right">
 								<form:label path="firstName" class="control-label">First Name 
 								 <span class="text-danger">*</span>
 								</form:label>
 							</div>
-							<div class="col-md-2">
+							<div class="col-md-3">
 								<div class="form-group form-group-sm">
 									<form:input path="firstName" class="form-control"
 										placeholder="Enter First Name" autofocus="autofocus" />
-									<form:errors path="firstName" cssClass="text-danger" />
+									<form:errors path="firstName" cssClass="text-danger" /> 
 								</div>
 							</div>
 							<div class="col-md-2 text-right">
 								<form:label path="lastName" class="control-label">Last Name
-								  <span class="text-danger">*</span>
+								 <span class="text-danger">*</span>
 								</form:label>
 							</div>
-							<div class="col-md-2 ">
+							<div class="col-md-3">
 								<div class="form-group form-group-sm">
 									<form:input path="lastName" class="form-control"
 										placeholder="Enter Last Name" autofocus="autofocus" />
@@ -122,16 +122,16 @@
 								</div>
 							</div>
 						</div>
-              
-						<div class="row">
+               
+						<div class="row justify-content-center">
                            <div class="col-md-2 text-right">
 								<form:label path="mobileNo" class="control-label">Mobile No 
 								 <span class="text-danger">*</span>
 								</form:label>
 							</div>
-							<div class="col-md-2">
+							<div class="col-md-3">
 								<div class="form-group form-group-sm">
-									<form:input path="mobileNo" class="form-control"
+									<form:input  path="mobileNo" class="form-control" 
 										placeholder="Enter Mobile No" autofocus="autofocus" />
 									<form:errors path="mobileNo" cssClass="text-danger" />
 								</div>
@@ -141,22 +141,24 @@
 								 <span class="text-danger">*</span>
 								</form:label>
 							</div>
-							<div class="col-md-2">
+							<div class="col-md-3">
 								<div class="form-group form-group-sm">
 									<form:input path="email" class="form-control"
 										placeholder="Enter Email" autofocus="autofocus" />
 									<form:errors path="email" cssClass="text-danger" />
+									<c:if test="${user.email eq null}"></c:if> 
 								</div>
-							</div>						
+							</div>
+							
 						</div>
 						
-						 <div class="row">
+						<div class="row justify-content-center">
                             <div class="col-md-2 text-right">
 								 <form:label path="password" class="control-label">Password 
-								   <span class="text-danger">*</span>
+								  <span class="text-danger">*</span>
 								 </form:label>
 							</div>
-							<div class="col-md-2">
+							<div class="col-md-3">
 								<div class="form-group form-group-sm">
 									<form:password path="password" class="form-control"
 										placeholder="Enter Password" autofocus="autofocus" />
@@ -168,44 +170,48 @@
 								 <span class="text-danger">*</span>
 								</form:label>
 							</div>
-							<div class="col-md-2 ">
+							
+							<div class="col-md-3">
 								<div class="form-group form-group-sm">
 									<form:password path="confirmPass" class="form-control"
 										placeholder="Enter Confirm Password" autofocus="autofocus" />
-									   <form:errors path="confirmPass" cssClass="text-danger" />
+									  <form:errors path="confirmPass" cssClass="text-danger" />
 								</div>
 							</div>
 						</div>
 						<div class="row justify-content-center">
 							<div class="col-md-2 text-right">
 								 <form:label path="roles" class="control-label">Roles
-<!--  								  <span class="text-danger">*</span> -->
+  								  <span class="text-danger">*</span> 
 								 </form:label>
 							</div>
 							<div class="col-md-8">
 								<div class="form-group form-group-md">
 									<form:checkboxes items = "${roleList}" path = "roles" itemLabel="roleName" itemValue="id" />
-<%-- 									<form:errors path="roles" cssClass="error" />  --%>
-								</div> 
+<%--  									<form:errors path="roles" cssClass="error" />   --%>
+								</div>
 							</div>
 						</div>
-						<br />
-						
-						<div class="col-md-12 text-center">
-                        <button type="submit" class="btn-primary btn">Update</button>
+						 
+<!-- 						<div class="row"> -->
+<!-- 							<div class="col-md-10"> -->
+<%-- 								Roles: <form:checkboxes items = "${roleList}" path = "roles" itemLabel="roleName" itemValue="id" /> --%>
+<%-- 									   <form:errors path="roles" cssClass="error" /> --%>
+<!-- 							</div> -->
+<!-- 						</div> -->
+					</div><br />
+				    <div class="col-md-12 text-center">
+                        <button type="submit" class="btn-primary btn">Submit</button>&nbsp;
                         <a href="${pageContext.request.contextPath}/user"
 							 class="btn btn-outline-danger" title="Cancel">Cancel</a>
-				       </div>
-					  </form:form>
-                     </div>    
-                    </div>  
-                   </div>
-                  </div>
-                 </div>
-            </section>
-          </div>
-        
-    <!--====== Section Ends ======-->
+				   </div>	
+				</div>
+			</div>
+		</div>	
+	  </form:form>
+    </div>
+  </div>  
+<!--====== Section Ends ======-->
       <!-- End of Main Content -->
 
       <!-- Footer -->
@@ -217,8 +223,6 @@
         </div>
       </footer>
       <!-- End of Footer -->
-
-   
     <!-- End of Content Wrapper -->
   <!-- End of Page Wrapper -->
 

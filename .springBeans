@@ -10,8 +10,6 @@
 		<config>src/main/webapp/WEB-INF/spring/appServlet/servlet-context.xml1</config>
 	</configs>
 	<autoconfigs>
-		<config>src/main/webapp/WEB-INF/spring/appServlet/spring-security.xml</config>
-		<config>java:mp.procurement.ProcurementApp</config>
 	</autoconfigs>
 	<configSets>
 	</configSets>

@@ -7,7 +7,7 @@
 
 	<security:global-method-security pre-post-annotations="enabled" />
 
-	<beans:import resource="servlet-context.xml"/>
+	<beans:import resource="servlet-context.xml1"/>
 
  	<security:http auto-config="true" use-expressions="true" >
 		<security:intercept-url pattern="/resources/**" access="permitAll()" />

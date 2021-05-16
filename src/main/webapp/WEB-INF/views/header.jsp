@@ -21,32 +21,18 @@
       
       <!-- Nav Item - Dashboard -->
       <li class="nav-item active">
-        <a class="nav-link" href="tenderMpDashboard">
+        <a class="nav-link" href="/user">
           <i class="fas fa-fw fa-tachometer-alt"></i>
-          <span>MP Tenders </span></a>
+          <span>User Master</span></a>
       </li>
       
          <!-- Nav Item - Dashboard -->
       <li class="nav-item active">
-        <a class="nav-link" href="tenderCgDashboard">
+        <a class="nav-link" href="/role">
           <i class="fas fa-fw fa-tachometer-alt"></i>
-          <span>CG Tenders </span></a>
+          <span>Role Master</span></a>
       </li>
       
-          <!-- Nav Item - Dashboard -->
-      <li class="nav-item active">
-        <a class="nav-link" href="lotMpDashboard">
-          <i class="fas fa-fw fa-tachometer-alt"></i>
-          <span>MP Lot Competition</span></a>
-      </li>
-      
-       <li class="nav-item active">
-        <a class="nav-link" href="lotCgDashboard">
-          <i class="fas fa-fw fa-tachometer-alt"></i>
-          <span>CG Lot Competition</span></a>
-      </li>
-
-    
       <!-- Divider -->
       <hr class="sidebar-divider d-none d-md-block">
 
@@ -96,10 +82,14 @@
                   <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                   Logout
                 </a>
-                 <a class="dropdown-item" href="/user">
+               <!--    <a class="dropdown-item" href="">
                   <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                  USER-List
-                </a>	
+                  User Master
+                </a>
+                <a class="dropdown-item" href="/role">
+                  <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                  Role Master
+                </a>	-->
               </div>
             </li>
 

@@ -5,19 +5,18 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
 <head>
-   <meta charset="utf-8">
+  <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
   <meta name="author" content="">
-  
-  <title>Edit User</title>
+
+  <title>Edit Role</title>
 	<script src="${pageContext.request.contextPath}/resources/vendor/jquery/jquery.min.js"></script>
   <!-- Custom fonts for this template-->
   <link href="${pageContext.request.contextPath}/resources/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
   <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-
-	<style>
+ <style>
 	
 	#page-top { display:block; }
 	#warning-message { 
@@ -84,127 +83,75 @@
    		<jsp:include page="header.jsp"></jsp:include>
 
         <!--====== Section Start ======-->
-    <section class="login min-height">
-        <div class="container">
+<div class="container">
+	<div class="clearfix">&nbsp;</div>                        
+       <form:form action="/role/update" modelAttribute="role" id="frm" method="post">
             <div class="row">
-                <div class="col-md-12">
-                    <div class="login-holder">
-                        <div class="login-body">
-                           <h2 class="text-center" style="color: black;"><b>User Master</b></h2><br/>
+			     <div class="col-md-12">
+				 <div class="panel panel-primary">
+					<div class="panel-heading">
+						<h2 class="text-center" style="color: black;"><b>Role Master</b></h2>
+					</div><br/>
 
-                          <form:form action="/user/update" modelAttribute="user" id="frm" method="post">
-                          
-                          <form:hidden path="id" />
-                          
+					<div class="panel-body">
+					      
+					      <form:hidden path="id" />
+					      
                           <div class="row">
                            <div class="col-md-2 text-right">
-								<form:label path="firstName" class="control-label">First Name 
+								<form:label path="roleName" class="control-label">Role Name 
 								 <span class="text-danger">*</span>
 								</form:label>
 							</div>
 							<div class="col-md-2">
 								<div class="form-group form-group-sm">
-									<form:input path="firstName" class="form-control"
-										placeholder="Enter First Name" autofocus="autofocus" />
-									<form:errors path="firstName" cssClass="text-danger" />
+									<form:input path="roleName" class="form-control"
+										placeholder="Enter Role Name" autofocus="autofocus" />
+									<form:errors path="roleName" cssClass="text-danger" /> 
 								</div>
 							</div>
 							<div class="col-md-2 text-right">
-								<form:label path="lastName" class="control-label">Last Name
-								  <span class="text-danger">*</span>
+								<form:label path="roleDescription" class="control-label">Role Description
+								 <span class="text-danger">*</span>
 								</form:label>
 							</div>
 							<div class="col-md-2 ">
 								<div class="form-group form-group-sm">
-									<form:input path="lastName" class="form-control"
-										placeholder="Enter Last Name" autofocus="autofocus" />
-									<form:errors path="lastName" cssClass="text-danger" />
+									<form:input path="roleDescription" class="form-control"
+										placeholder="Enter Role Description" autofocus="autofocus" />
+									<form:errors path="roleDescription" cssClass="text-danger" />
 								</div>
 							</div>
 						</div>
-              
-						<div class="row">
+                        <div class="row">
                            <div class="col-md-2 text-right">
-								<form:label path="mobileNo" class="control-label">Mobile No 
+								<form:label path="roleStatus" class="control-label">Select Status 
 								 <span class="text-danger">*</span>
 								</form:label>
 							</div>
 							<div class="col-md-2">
 								<div class="form-group form-group-sm">
-									<form:input path="mobileNo" class="form-control"
-										placeholder="Enter Mobile No" autofocus="autofocus" />
-									<form:errors path="mobileNo" cssClass="text-danger" />
-								</div>
-							</div>
-							<div class="col-md-2 text-right">
-								<form:label path="email" class="control-label">Email 
-								 <span class="text-danger">*</span>
-								</form:label>
-							</div>
-							<div class="col-md-2">
-								<div class="form-group form-group-sm">
-									<form:input path="email" class="form-control"
-										placeholder="Enter Email" autofocus="autofocus" />
-									<form:errors path="email" cssClass="text-danger" />
-								</div>
-							</div>						
-						</div>
-						
-						 <div class="row">
-                            <div class="col-md-2 text-right">
-								 <form:label path="password" class="control-label">Password 
-								   <span class="text-danger">*</span>
-								 </form:label>
-							</div>
-							<div class="col-md-2">
-								<div class="form-group form-group-sm">
-									<form:password path="password" class="form-control"
-										placeholder="Enter Password" autofocus="autofocus" />
-									<form:errors path="password" cssClass="text-danger" />
-								</div>
-							</div>
-							<div class="col-md-2 text-right">
-								<form:label path="confirmPass" class="control-label">Re-enter Password 
-								 <span class="text-danger">*</span>
-								</form:label>
-							</div>
-							<div class="col-md-2 ">
-								<div class="form-group form-group-sm">
-									<form:password path="confirmPass" class="form-control"
-										placeholder="Enter Confirm Password" autofocus="autofocus" />
-									   <form:errors path="confirmPass" cssClass="text-danger" />
+									<form:select path="roleStatus" class="form-control">
+									  <form:option value="-1">--Select--</form:option>
+									  <form:option value="Active" label="Active"/>  
+                                      <form:option value="Inactive" label="Inactive"/>
+									</form:select>
+									<form:errors path="roleStatus" cssClass="text-danger" />
 								</div>
 							</div>
 						</div>
-						<div class="row justify-content-center">
-							<div class="col-md-2 text-right">
-								 <form:label path="roles" class="control-label">Roles
-<!--  								  <span class="text-danger">*</span> -->
-								 </form:label>
-							</div>
-							<div class="col-md-8">
-								<div class="form-group form-group-md">
-									<form:checkboxes items = "${roleList}" path = "roles" itemLabel="roleName" itemValue="id" />
-<%-- 									<form:errors path="roles" cssClass="error" />  --%>
-								</div> 
-							</div>
-						</div>
-						<br />
-						
-						<div class="col-md-12 text-center">
+				</div>
+				   <div class="col-md-12 text-center">
                         <button type="submit" class="btn-primary btn">Update</button>
-                        <a href="${pageContext.request.contextPath}/user"
+                        <a href="${pageContext.request.contextPath}/role"
 							 class="btn btn-outline-danger" title="Cancel">Cancel</a>
-				       </div>
-					  </form:form>
-                     </div>    
-                    </div>  
-                   </div>
-                  </div>
-                 </div>
-            </section>
-          </div>
-        
+				  </div>	
+				</div>
+			</div>
+		</div>	
+	     </form:form>
+        </div>
+       </div>  
     <!--====== Section Ends ======-->
       <!-- End of Main Content -->
 
@@ -217,8 +164,6 @@
         </div>
       </footer>
       <!-- End of Footer -->
-
-   
     <!-- End of Content Wrapper -->
   <!-- End of Page Wrapper -->
 
@@ -244,4 +189,4 @@
   <script src="${pageContext.request.contextPath}/resources/js/demo/chart-area-demo.js"></script>
   <script src="${pageContext.request.contextPath}/resources/js/demo/chart-pie-demo.js"></script>
 </body>
-</html>        
+</html>

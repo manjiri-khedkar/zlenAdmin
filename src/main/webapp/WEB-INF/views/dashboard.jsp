@@ -1,8 +1,7 @@
 <!DOCTYPE html>
-<!--  <html lang="en">  -->
-<html xmlns:th="http://www.thymeleaf.org">
+ <html lang="en"> 
 
-<%--  <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  --%>
+   
 
 
 <head>
@@ -72,7 +71,9 @@
 
 	</style>
 	
-	<script type='text/javascript' src="<c:url value="/resources/js/dashboard/dashboardchart.js"  />" ></script>
+	
+	 
+	<script type='text/javascript' src="${pageContext.request.contextPath}/resources/js/dashboard/dashboardchart.js" ></script>
 	
 	
   <!-- Custom styles for this template-->
@@ -80,251 +81,80 @@
 	<script>
 		$(document).ready(function (){
 			
-			loadStateData();
+			//loadStateData();
 			
 		});
-		
-		/* function loadStateData(state){
-			$.ajax({
-				url : "chartData",
-				type : "GET",
-				data : {state_id: $("#id_selectState").val()},
-				async: false,
-				success : function (response) {
-					loadCharts(response);
-				},
-				error : function (error) {
-					
-				}
-			});
-		} */
-		function loadCharts(data){
-			loadYearWiseRates(data["yearWiseRates"]);
-			loadYearWiseAmount(data["yearWiseAmount"]);
-		}
-		function loadYearWiseRates(yearWisedata){
-			//var yearWisedata = JSON.parse(data);
-			var labels = yearWisedata.map(function(e) {
-				   return e.year +"("+e.round+")";
-				});
-			var avg_data = yearWisedata.map(function(e) {
-				   return e.avg_rate;
-			});
-			var min_data = yearWisedata.map(function(e) {
-				   return e.min_rate;
-			});
-			var max_data = yearWisedata.map(function(e) {
-				   return e.max_rate;
-			});
-			var ctx = $("#myAreaChart");
-			var myLineChart = new Chart(ctx, {
-			  type: 'line',
-			  data: {
-			    labels: labels,
-			    datasets: [{
-			      label: "Max Rate",
-			      lineTension: 0.3,
-			      backgroundColor: "rgba(78, 115, 223, 0.05)",
-			      borderColor: "rgba(78, 115, 223, 1)",
-			      pointRadius: 3,
-			      pointBackgroundColor: "rgba(78, 115, 223, 1)",
-			      pointBorderColor: "rgba(78, 115, 223, 1)",
-			      pointHoverRadius: 3,
-			      pointHoverBackgroundColor: "rgba(78, 115, 223, 1)",
-			      pointHoverBorderColor: "rgba(78, 115, 223, 1)",
-			      pointHitRadius: 10,
-			      pointBorderWidth: 2,
-			      data: max_data,
-			    },{
-				      label: "Avg Rate",
-				      lineTension: 0.3,
-				      backgroundColor: "rgba(178, 115, 223, 0.05)",
-				      borderColor: "rgba(178, 115, 223, 1)",
-				      pointRadius: 3,
-				      pointBackgroundColor: "rgba(178, 115, 223, 1)",
-				      pointBorderColor: "rgba(178, 115, 223, 1)",
-				      pointHoverRadius: 3,
-				      pointHoverBackgroundColor: "rgba(178, 115, 223, 1)",
-				      pointHoverBorderColor: "rgba(178, 115, 223, 1)",
-				      pointHitRadius: 10,
-				      pointBorderWidth: 2,
-				      data: avg_data,
-				    },{
-					      label: "Min Rate",
-					      lineTension: 0.3,
-					      backgroundColor: "rgba(78, 115, 78, 0.05)",
-					      borderColor: "rgba(78, 115, 78, 1)",
-					      pointRadius: 3,
-					      pointBackgroundColor: "rgba(78, 115, 78, 1)",
-					      pointBorderColor: "rgba(78, 115, 78, 1)",
-					      pointHoverRadius: 3,
-					      pointHoverBackgroundColor: "rgba(78, 115, 78, 1)",
-					      pointHoverBorderColor: "rgba(78, 115, 78, 1)",
-					      pointHitRadius: 10,
-					      pointBorderWidth: 2,
-					      data: min_data,
-					    }],
-			  },
-			 
-			  options: {
-			    maintainAspectRatio: false,
-			    layout: {
-			      padding: {
-			        left: 10,
-			        right: 25,
-			        top: 25,
-			        bottom: 0
-			      }
-			    },
-			    scales: {
-			      xAxes: [{
-			        time: {
-			          unit: 'date'
-			        },
-			        gridLines: {
-			          display: false,
-			          drawBorder: false
-			        },
-			        ticks: {
-			          maxTicksLimit: 15
-			        }
-			      }],
-			      yAxes: [{
-			        ticks: {
-			          maxTicksLimit: 5,
-			          padding: 10,
-			          // Include a dollar sign in the ticks
-			          callback: function(value, index, values) {
-			            return 'Rs' + number_format(value);
-			          }
-			        },
-			        gridLines: {
-			          color: "rgb(234, 236, 244)",
-			          zeroLineColor: "rgb(234, 236, 244)",
-			          drawBorder: false,
-			          borderDash: [2],
-			          zeroLineBorderDash: [2]
-			        }
-			      }],
-			    },
-			    legend: {
-			      display: true
-			    },
-			    tooltips: {
-			      backgroundColor: "rgb(255,255,255)",
-			      bodyFontColor: "#858796",
-			      titleMarginBottom: 10,
-			      titleFontColor: '#6e707e',
-			      titleFontSize: 14,
-			      borderColor: '#dddfeb',
-			      borderWidth: 1,
-			      xPadding: 15,
-			      yPadding: 15,
-			      displayColors: false,
-			      intersect: false,
-			      mode: 'index',
-			      caretPadding: 10,
-			      callbacks: {
-			        label: function(tooltipItem, chart) {
-			          var datasetLabel = chart.datasets[tooltipItem.datasetIndex].label || '';
-			          return datasetLabel + ': Rs' + number_format(tooltipItem.yLabel);
-			        }
-			      }
-			    }
-			  }
-			});
-		}
-		function loadYearWiseAmount(yearWisedata){
-			var labels = yearWisedata.map(function(e) {
-				   return e.year +"("+e.round+")";
-				});
-			var amount = yearWisedata.map(function(e) {
-				   return e.amount;
-			});
-			
-			var ctx =$("#yearWiseAmount");
-			var myLineChart = new Chart(ctx, {
-			  type: 'bar',
-			  data: {
-			    labels: labels,
-			    datasets: [{
-			      label: "Total Sale Amount (in Cr)",
-			      lineTension: 0.3,
-			      backgroundColor: "rgba(178, 115, 223)",
-			      borderColor: "rgba(178, 115, 223, 1)",
-			      
-			      data: amount,
-			    }],
-			  },
-			  options: {
-			    maintainAspectRatio: false,
-			    layout: {
-			      padding: {
-			        left: 10,
-			        right: 25,
-			        top: 25,
-			        bottom: 0
-			      }
-			    },
-			    scales: {
-			      xAxes: [{
-			        time: {
-			          unit: 'date'
-			        },
-			        gridLines: {
-			          display: false,
-			          drawBorder: false
-			        },
-			        ticks: {
-			          maxTicksLimit: 15
-			        }
-			      }],
-			      yAxes: [{
-			        ticks: {
-			          maxTicksLimit: 5,
-			          padding: 10,
-			          // Include a dollar sign in the ticks
-			          callback: function(value, index, values) {
-			            return 'Rs' + value;
-			          }
-			        },
-			        gridLines: {
-			          color: "rgb(234, 236, 244)",
-			          zeroLineColor: "rgb(234, 236, 244)",
-			          drawBorder: false,
-			          borderDash: [2],
-			          zeroLineBorderDash: [2]
-			        }
-			      }],
-			    },
-			    legend: {
-			      display: true
-			    },
-			    tooltips: {
-			      backgroundColor: "rgb(255,255,255)",
-			      bodyFontColor: "#858796",
-			      titleMarginBottom: 10,
-			      titleFontColor: '#6e707e',
-			      titleFontSize: 14,
-			      borderColor: '#dddfeb',
-			      borderWidth: 1,
-			      xPadding: 15,
-			      yPadding: 15,
-			      displayColors: false,
-			      intersect: false,
-			      mode: 'index',
-			      caretPadding: 10,
-			      callbacks: {
-			        label: function(tooltipItem, chart) {
-			          var datasetLabel = chart.datasets[tooltipItem.datasetIndex].label || '';
-			          return datasetLabel + ': Rs' +tooltipItem.yLabel;
-			        }
-			      }
-			    }
-			  }
-			});
-		}
 
+		$(function()
+				{
+			var name, date, listt, datecounter;
+			$.ajax( {
+			      type : "Get", 
+			      url : "/dashboard/bar-chart", 
+			      contentType : "application/json", 
+			      dataType : 'json', 
+			      success : function (data) {
+			    	 
+			    	  listt = data.listt;
+			    	  datecounter = data.datecounter;
+			    	  
+			    	  console.log("success", data.name );
+			    	  console.log("listt", listt);
+			    	  console.log("datecounter", datecounter);
+			   
+			
+	    Highcharts.chart('container', {
+	        chart: {
+	            type: 'column'
+	        }, 
+	         title: {
+	            text: 'User-Infomation'
+	        }, 
+	   
+	        xAxis: {
+	        	
+	            categories : listt, 
+	            crosshair: true
+	        },
+	        yAxis: {
+	            min: 0,
+	            max:100,
+	            title: {
+	                text: '<b>Users Count</b>'
+	                
+	            }       
+	        },
+	        tooltip: {
+	            headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+	            pointFormat: '<tr><td style="color:{series.color};padding:1">{series.name}: </td>' +
+	            '<td style="padding:0"><b>{point.y}add</b></td></tr>',
+	            footerFormat: '</table>',
+	            shared: true,
+	            useHTML: true
+	        },
+	        plotOptions: {
+	            column: {
+	                pointPadding: 0.3,
+	                borderWidth: 2
+	            }
+	        },
+	           
+	         series: 
+	        	 [{		 
+	            name : "Dates",
+	           //data : [12,14,16,23,23,24]
+	            data : datecounter
+	         
+	        }] 
+	       
+	      });
+			 },
+		    
+			   });
+		     
+				});
+		
+		
 		function savePass(){
 		    var pass = $("#pass").val();
 		    var valid = pass == $("#passConfirm").val();
@@ -371,7 +201,7 @@
          <!-- Content Row -->
 
           <div class="row">
-
+<div id="container"  style="width: 550px; height: 400px; margin: 0 auto"></div>
             <!-- Area Chart -->
 <!--             <div class="col-xl-6 col-lg-6">
               <div class="card shadow mb-4">
@@ -424,15 +254,8 @@
           </div>
 
         --> 
-					<div align="center">
-		     <a th:href="@{/displayBarGraph}">Bar-Graph</a><br />
-		      
-		      
-		    <a href="/displayBarGraph"><button type="button" name="b10" class="btn btn-primary">Add</button></a>  
-		
-	</div>
 
-
+<!-- <button id="xy" onclick="document.location='/user/barChart'">HTML Tutorial</button> -->
         </div>
         <!-- /.container-fluid -->
 
@@ -521,6 +344,8 @@
   <!-- Page level custom scripts -->
   <script src="${pageContext.request.contextPath}/resources/js/demo/chart-area-demo.js"></script>
   <script src="${pageContext.request.contextPath}/resources/js/demo/chart-pie-demo.js"></script>
+  <script src="https://code.highcharts.com/highcharts.js"></script>
+  <script src="https://code.highcharts.com/modules/exporting.js"></script>
 
 </body>
 
