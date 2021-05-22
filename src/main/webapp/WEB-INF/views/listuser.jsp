@@ -114,7 +114,7 @@
 	   		<h1>User List Table</h1>
 	   		<div class="row">
 		         <div class="col-md-12">
-		         	<a href="user/addUser"><button type="button" name="b10" class="btn btn-primary" title="Add New User">Add</button></a>
+		         	<a href="${pageContext.request.contextPath}/user/addUser"><button type="button" name="b10" class="btn btn-primary" title="Add New User">Add</button></a>
 	            </div>
 	        </div>
 	        <br>
@@ -141,8 +141,8 @@
 	                        		<td><c:out value="${list.mobileNo}" /></td>
 	                        		<td><c:out value="${list.email}" /></td>
 	        
-									<td><a href="/user/editUser/<c:out value='${list.id}'/>"><button class="btn btn-primary"><i class="fa fa-edit"></i></button></a>&nbsp;
-										<a href="/user/deleteUser/${list.id}" onclick="'return confirm(\'Are you sure to Delete Record?\');'" ><button class="btn btn-primary" ><i class="fa fa-trash"></i></button></a> 
+									<td><a href="${pageContext.request.contextPath}/user/editUser/<c:out value='${list.id}'/>"><button class="btn btn-primary"><i class="fa fa-edit"></i></button></a>&nbsp;
+										<a href="${pageContext.request.contextPath}/user/deleteUser/${list.id}" onclick="'return confirm(\'Are you sure to Delete Record?\');'" ><button class="btn btn-primary" ><i class="fa fa-trash"></i></button></a> 
 									</td>
 	                       		</tr>
 	                    	</c:forEach>

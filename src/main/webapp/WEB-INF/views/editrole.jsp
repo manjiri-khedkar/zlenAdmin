@@ -85,7 +85,7 @@
         <!--====== Section Start ======-->
 <div class="container">
 	<div class="clearfix">&nbsp;</div>                        
-       <form:form action="/role/update" modelAttribute="role" id="frm" method="post">
+       <form:form action="${pageContext.request.contextPath}/role/update" modelAttribute="role" id="frm" method="post">
             <div class="row">
 			     <div class="col-md-12">
 				 <div class="panel panel-primary">

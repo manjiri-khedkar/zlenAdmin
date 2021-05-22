@@ -2,7 +2,7 @@
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 	
       <!-- Sidebar - Brand -->
-      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="dashboard">
+      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="${pageContext.request.contextPath}/dashboard">
         <div class="sidebar-brand-icon rotate-n-15">
           <i class="fas fa-laugh-wink"></i>
         </div>
@@ -14,23 +14,27 @@
 
        <!-- Nav Item - Dashboard -->
       <li class="nav-item active">
-        <a class="nav-link" href="dashboard">
+        <a class="nav-link" href="${pageContext.request.contextPath}/dashboard">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>Dashboard</span></a>
       </li>
       
-      <!-- Nav Item - Dashboard -->
       <li class="nav-item active">
-        <a class="nav-link" href="/user">
+        <a class="nav-link" href="${pageContext.request.contextPath}/user">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>User Master</span></a>
       </li>
       
-         <!-- Nav Item - Dashboard -->
       <li class="nav-item active">
-        <a class="nav-link" href="/role">
+        <a class="nav-link" href="${pageContext.request.contextPath}/role">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>Role Master</span></a>
+      </li>
+      
+      <li class="nav-item active">
+        <a class="nav-link" href="${pageContext.request.contextPath}/stories">
+          <i class="fas fa-fw fa-tachometer-alt"></i>
+          <span>User Stories</span></a>
       </li>
       
       <!-- Divider -->

@@ -92,7 +92,7 @@
                         <div class="login-body">
                            <h2 class="text-center" style="color: black;"><b>User Master</b></h2><br/>
 
-                          <form:form action="/user/update" modelAttribute="user" id="frm" method="post">
+                          <form:form action="${pageContext.request.contextPath}/user/update" modelAttribute="user" id="frm" method="post">
                           
                           <form:hidden path="id" />
                           

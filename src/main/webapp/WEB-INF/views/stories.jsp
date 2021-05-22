@@ -1,39 +1,23 @@
-<!DOCTYPE html>
-<html lang="en">
- <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<head> 
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+
+<head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>Role List</title>
-  <meta name="description" content="">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <!--====== Favicon Icon ======-->
-    <link rel="shortcut icon" href="assets/images/favicon.png" type="image/png">
-
-    <!-- CSS
-    ============================================ -->
-
-    <!--===== Vendor CSS (Bootstrap & Icon Font) =====-->
-
-    <link rel="stylesheet" href="assets/css/plugins/bootstrap.min.css">
-    <link rel="stylesheet" href="assets/css/plugins/fontawesome.min.css">
-    <link rel="stylesheet" href="assets/css/plugins/default.css">
-
-    <!--====== Main Style CSS ======-->
-    <link rel="stylesheet" href="assets/css/style.css">
-  
-
+  <title>Stories</title>
 	<script src="${pageContext.request.contextPath}/resources/vendor/jquery/jquery.min.js"></script>
   <!-- Custom fonts for this template-->
   <link href="${pageContext.request.contextPath}/resources/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
   <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
-<style>
+	<style>
 	
 	#page-top { display:block; }
 	#warning-message { 
@@ -51,11 +35,14 @@
 	  font-weight:bold;
 	  text-align: center;
 	  color: white;
-	  padding: 40px;     
+	  padding: 40px;
 	  font-size: 25px;
 	}
 
 @media only screen and (orientation:portrait){
+
+	
+
     #warning-message { display:block; }
   /*  #page-top {
     height: 100vw;
@@ -80,81 +67,61 @@
      transform: rotate(0deg);
   }
 	
-</style>
+	</style>
   <!-- Custom styles for this template-->
   <link href="${pageContext.request.contextPath}/resources/css/sb-admin-2.min.css" rel="stylesheet">
-	<script>
-		function savePass(){
-		    var pass = $("#pass").val();
-		    var valid = pass == $("#passConfirm").val();
-		    if(!valid) {
-		      $("#error").show();
-		      return;
-		    }
-		    $.post( "changePassword",
-		      {newPwd: pass, pwd: $("#oldpass").val()} ,function(data){
-		    	  $("#error").show().html(data);
-		    	  $('#changePasswordModal').modal('hide');
-		    })
-		    .fail(function(data) {
-		        $("#error").show().html(data);
-		    });
-		}
-	</script>
+	
 </head>
 
 <body id="page-top">
 
+	<div  id="warning-message" style="">
+     	In Mobile, this web site works better in landscape view. Please rotate your mobile to experience the best view.  
+ 	</div> 
+  <!-- Page Wrapper -->
+  <div id="wrapper">
 
-    <!--====== Section Start ======-->
-<section class="login min-height">
-<div id="wrapper">
-	<jsp:include page="header.jsp"></jsp:include>
-   		<div class="container">
-	   		<h1>Role List Table</h1>
-	   		<div class="row">
-		         <div class="col-md-12">
-		         	<a href="${pageContext.request.contextPath}/role/addRole"><button type="button" name="b10" class="btn btn-primary" title="Add New Role">Add</button></a>
-	            </div>
-	        </div>
-	        <br>
-	         
-			<div class="row">
+   		<jsp:include page="header.jsp"></jsp:include>
+
+        <!--====== Section Start ======-->
+<div class="container">
+	<div class="clearfix">&nbsp;</div>   
+	
+	        <div class="row">
 				<div class="col-md-12">
 					<div class="table-responsive">
 						<table id="table1" class="table info-tbl text-left" style='border: 1px solid #d3d3d3;width: 98% !important; '>
 							<thead>
 								<tr>
-								    <th class="text-left" style="background: #d3d3d3">Sr. No.</th>
-									<th class="text-left" style="background: #d3d3d3">Role Name</th>
-									<th class="text-left" style="background: #d3d3d3">Description</th>
-									<th class="text-left" style="background: #d3d3d3">Status</th>
-									<th class="text-left" style="background: #d3d3d3">Action</th>
+								    <!--  <th class="text-left" style="background: #d3d3d3">Sr. No.</th> -->
+									<th class="text-left" style="background: #d3d3d3">Content</th>
 								</tr>
 							</thead>
 							
 							<tbody>
-                        	<c:forEach items="${roleList}" var="list" varStatus="status">
+                        	<c:forEach items="${storiesList}"  var="list" varStatus="status">
 	                        	<tr class="odd gradeX">
-	                        		<td><c:out value="${iStat.index + 1}" /></td>
-	                        		<td><c:out value="${list.roleName}" /></td>
-	                        		<td><c:out value="${list.roleDescription}" /></td>
-	                        		<td><c:out value="${list.roleStatus}" /></td>
-									<td><a href="${pageContext.request.contextPath}/role/editRole/<c:out value='${list.id}'/>"><button class="btn btn-primary"><i class="fa fa-edit"></i></button></a>&nbsp;
-										<a href="${pageContext.request.contextPath}/role/deleteRole/${list.id}" onclick="'return confirm(\'Are you sure to Delete Record?\');'" ><button class="btn btn-primary" ><i class="fa fa-trash"></i></button></a>
-									</td>
-	                       		</tr>
+	                        	<!--  <td><c:out value="${iStat.index + 1}" /></td> -->
+	                        	<!--  <td><c:out value="${list.mimeType}" /></td> -->
+	                        	  <td>
+	                        		<c:if test="${not empty list.uploadedPath}">
+	                        		   <c:out value="${list.uploadedPath}" />
+                                        <c:out <img alt="No Image Available" src="${pageContext.request.contextPath}/storyImage/${list.uploadedPath}"/> />
+                                    </c:if>
+	                        	  </td>
+	                        	</tr>
 	                    	</c:forEach>
                         </tbody>
 						</table>
 					</div>
 				</div>		
-			</div>  
-	</div>
-</div>
-</section>
-	
-<!-- Footer -->
+			</div>
+	    </div>
+  </div>  
+<!--====== Section Ends ======-->
+      <!-- End of Main Content -->
+
+      <!-- Footer -->
       <footer class="sticky-footer bg-white">
         <div class="container my-auto">
           <div class="copyright text-center my-auto">
@@ -162,15 +129,16 @@
           </div>
         </div>
       </footer>
-<!-- End of Footer -->
+      <!-- End of Footer -->
+    <!-- End of Content Wrapper -->
+  <!-- End of Page Wrapper -->
 
-    
   <!-- Scroll to Top Button-->
   <a class="scroll-to-top rounded" href="#page-top">
     <i class="fas fa-angle-up"></i>
   </a>
-
 <jsp:include page="otherModal.jsp"></jsp:include>
+
   <!-- Bootstrap core JavaScript-->
   
   <script src="${pageContext.request.contextPath}/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -187,4 +155,4 @@
   <script src="${pageContext.request.contextPath}/resources/js/demo/chart-area-demo.js"></script>
   <script src="${pageContext.request.contextPath}/resources/js/demo/chart-pie-demo.js"></script>
 </body>
-</html>
+</html>        

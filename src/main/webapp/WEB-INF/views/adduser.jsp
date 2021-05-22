@@ -87,7 +87,7 @@
 <div class="container">
 	<div class="clearfix">&nbsp;</div>                        
                       
-       <form:form action="/user" modelAttribute="user" id="frmAddNew" method="post">
+       <form:form action="${pageContext.request.contextPath}/user" modelAttribute="user" id="frmAddNew" method="post">
             
             <div class="row">
 			     <div class="col-md-12">

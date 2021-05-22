@@ -1,16 +1,11 @@
 package com.zlenadmin;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
 import org.openqa.selenium.WebDriver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -26,6 +21,8 @@ import com.zlenadmin.email.ApplicationMailer;
 import com.zlenadmin.model.AppUser;
 import com.zlenadmin.model.SessionUser;
 import com.zlenadmin.repository.AppuserRepository;
+import com.zlenadmin.repository.UserDetailsRepository;
+import com.zlenadmin.repository.UserStoriesDetailsRepository;
 import com.zlenadmin.service.RegistrationServiceImpl;
 
 @Controller
@@ -43,9 +40,14 @@ public class MainPage {
 	@Autowired
 	private AppuserRepository appuserRepository;
 	
-	 @Autowired
-		private RegistrationServiceImpl serviceimpl;
-		
+	@Autowired
+	private RegistrationServiceImpl serviceimpl;
+	
+	@Autowired
+	UserDetailsRepository userDetailsRepository;
+	
+	@Autowired
+	UserStoriesDetailsRepository userStoriesDetailsRepository;
 	
 	@GetMapping(value = "/")
 	public String indexView(@ModelAttribute AppUser users) 
@@ -60,12 +62,6 @@ public class MainPage {
 		// System.currentTimeMillis());
 		if (true) {
 			ModelAndView model = new ModelAndView("home");
-			// model.addObject("tenderList", common.getAllTender());
-			//// model.addObject("divisionList", common.getAllDivision());
-			// .addObject("partyList", common.getAllParty());
-			// model.addObject("yearList", common.getYearList());
-
-			// common.getAllTender()
 			return model;
 		} else {
 			ModelAndView model = new ModelAndView("licenseError");
@@ -82,195 +78,104 @@ public class MainPage {
 	
 	@GetMapping("/dashboard/bar-chart")
 	 @ResponseBody
-	 public Map<String, Object> getAllAppUser(Model model)
-	  
-	 {
-		 int counter = 0;
-		 List<AppUser> list= serviceimpl.findAll();
-        System.out.println("list====" +list.size());
-       
-        JSONArray appUserArray = new JSONArray();
-        JSONObject finalObj = new JSONObject();
-		 Map<String, Object> finalMap = new HashMap();
+	 public Map<String, Object> registrationGraphData(Model model) {
+		 
+		List<Object[]> list = userDetailsRepository.getGraphQuery();
+		  
+		List<BigInteger> list1 = new ArrayList<BigInteger>();
+		List<Date> list2 = new ArrayList<Date>();
+		  
+		  
+		  for(Object[] dataList : list) {
+			BigInteger count =(BigInteger) dataList[0];
+			Date createdDate = (Date)dataList[1];
+			list1.add(count);
+			list2.add(createdDate);
+		  }
+		  
+		  Map<String, Object> finalMap = new HashMap();
+		      
+		 model.addAttribute("datecounter", list1);
+		      
+		 finalMap.put("date", list2);
+		 finalMap.put("listt", list2);
+		 finalMap.put("datecounter", list1);
+
+        return finalMap;
+	 }
 	
-		 int count = 0;
-		 List<String> firstname = new ArrayList<String>();
-		 List<String> date = new ArrayList<String>();
-       	AppUser appuser = new AppUser();
-		/*
-		 * for(int i=0;i<list.size();i++) {
-		 * 
-		 * Map<String, String> obj = new HashMap(); appuser = list.get(i);
-		 * firstname.add(list.get(i).getFirstName()); date.add(list.get(i).getDate()); }
-		 * Map<String, String> dateCount = new HashMap<String, String>(); Set<String>
-		 * uniqueDate = new HashSet<String>(date);
-		 */    
-		      List<String> listt = new ArrayList<String> ();
-				/*
-				 * for (String subset : uniqueDate) {
-				 * 
-				 * listt.add(subset); Collections.sort(listt); } for(int i = 0; i <
-				 * listt.size(); i++) { int counterr = 0; for(int j = 0; j< date.size(); j++) {
-				 * if(listt.get(i).equals(date.get(j))) counterr++; }
-				 * dateCounter.add(Integer.valueOf(counterr)); }
-				 */
-		      
-		     List<String> Namelist = Arrays.asList("Akshay", "Aniket", "Rajesh", "Swapnil", "Abhishek");
-		     List<String> datelist = Arrays.asList("2021-05-10", "2021-05-10", "2021-05-11", "2021-05-12", "2021-05-11");
-		     List<Integer> dateCounter = Arrays.asList(10, 20, 40, 5, 35);
-		     
-		      System.out.println("listt" + Namelist);
-		      System.out.println("name -->"+ firstname);
-		      System.out.println("date -->"+ datelist);
-		      
-		      model.addAttribute("datecounter", dateCounter);
-		      model.addAttribute("listt", Namelist);
-		      
-		      finalMap.put("name", firstname);
-		      finalMap.put("date", datelist);
-		      finalMap.put("listt", datelist);
-		      finalMap.put("datecounter", dateCounter);
-		      return finalMap;
-	  }
-	
-
-	/*
-	 * @RequestMapping("/tenderMpDashboard") public ModelAndView tenderMpDashboard()
-	 * { appuserRepository.addActivity(sessionUser.getUserId(), "tenderMpDashboard",
-	 * System.currentTimeMillis());
-	 * 
-	 * List<Map<String, String>> tenderList = (List<Map<String, String>>)
-	 * appuserRepository.getTenderList(1);
-	 * 
-	 * ModelAndView model = new ModelAndView("tenderDashboard");
-	 * 
-	 * model.addObject("tenderList", tenderList); model.addObject("state", 1);
-	 * return model; }
-	 */
-
-	/*
-	 * @RequestMapping("/tenderCgDashboard") public ModelAndView tenderCgDashboard()
-	 * { appuserRepository.addActivity(sessionUser.getUserId(), "tenderCgDashboard",
-	 * System.currentTimeMillis());
-	 * 
-	 * List<Map<String, String>> tenderList = (List<Map<String, String>>)
-	 * appuserRepository.getTenderList(2);
-	 * 
-	 * ModelAndView model = new ModelAndView("tenderDashboard");
-	 * 
-	 * model.addObject("tenderList", tenderList); model.addObject("state", 2);
-	 * return model; }
-	 */
-
-	/*
-	 * @RequestMapping("/lotMpDashboard") public ModelAndView lotMpDashboard() {
-	 * appuserRepository.addActivity(sessionUser.getUserId(), "lotMpDashboard",
-	 * System.currentTimeMillis());
-	 * 
-	 * List<Lot> lotList = (List<Lot>) appuserRepository.getAllLot(1);
-	 * 
-	 * ModelAndView model = new ModelAndView("lotDashboard");
-	 * 
-	 * model.addObject("lotList", lotList); model.addObject("state", 1); return
-	 * model; }
-	 */
-
-	/*
-	 * @RequestMapping("/changePassword")
-	 * 
-	 * @ResponseBody public String changePassword(String pwd, String newPwd) {
-	 * appuserRepository.addActivity(sessionUser.getUserId(), "changePassword",
-	 * System.currentTimeMillis());
-	 * 
-	 * try { // Appuser user =appuserRepository.getAppuser(sessionUser.getUserId());
-	 * if (newPwd == null || "".equals(newPwd)) { return
-	 * "New password can not be blank"; } else if (user.getPassword().equals(pwd)) {
-	 * user.setPassword(newPwd); appuserRepository.updateParty(user); } else {
-	 * return "Old password is wrong!"; }
-	 * 
-	 * return "Pass changes successfully."; } catch (Exception ex) { return
-	 * "There is some error while updating password."; } }
-	 */
-
-	/*
-	 * @RequestMapping("/lotCgDashboard") public ModelAndView lotCgDashboard() {
-	 * appuserRepository.addActivity(sessionUser.getUserId(), "lotCgDashboard",
-	 * System.currentTimeMillis());
-	 * 
-	 * List<Lot> lotList = (List<Lot>) appuserRepository.getAllLot(2);
-	 * 
-	 * ModelAndView model = new ModelAndView("lotDashboard");
-	 * 
-	 * model.addObject("lotList", lotList); model.addObject("state", 2); return
-	 * model; }
-	 */
-
-	@RequestMapping("/chartData")
-	public @ResponseBody Object chartData(int state_id) {
-
-		//List<Map<String, Integer>> yearWiseRates = (List<Map<String, Integer>>) appuserRepository.getYearWiseMinMaxAvgRate(state_id);
-		//List<Map<String, Double>> yearWiseAmount = (List<Map<String, Double>>) appuserRepository.getYearWiseAmount(state_id);
-		HashMap<String, Object> resp = new HashMap<String, Object>();
-
-		//resp.put("yearWiseRates", yearWiseRates);
-		//resp.put("yearWiseAmount", yearWiseAmount);
-		return resp;
+	@GetMapping("/dashboard/stories-bar-chart")
+	 @ResponseBody
+	 public Object getStoriesGraphData(Model model) {
+		 
+		List<Object[]> userList= userStoriesDetailsRepository.getStoriesGraphQuery();
+	    
+	    List<BigInteger> list1 = new ArrayList<BigInteger>();
+	    List<String> dateList = new ArrayList<String>();
+	    List<BigInteger> list2 = new ArrayList<BigInteger>();
+	    List<BigInteger> list3 = new ArrayList<BigInteger>();
+	    List<HashMap<String,Object>> mainList = new ArrayList<HashMap<String,Object>>();
+	    
+	    HashMap<String, HashMap<String,BigInteger>> datewise_hm= new HashMap<String, HashMap<String,BigInteger>>();
+	    Date curDate = null;
+	    HashMap<String,BigInteger> inner_hm= null;
+ 	    for(Object[] list :userList) {
+	    	BigInteger count = (BigInteger) list[0];
+	    	Date createdDate = (Date)list[1];
+	    	String mimeType = (String)list[2];
+	    	
+	    	if (curDate!=createdDate) {
+	    		curDate= createdDate;
+	    		inner_hm = new HashMap<String,BigInteger>();
+	    			datewise_hm.put(createdDate.toString(),inner_hm);
+	    	}
+	    	inner_hm.put(mimeType, count);
+	    }
+ 	    datewise_hm.put(curDate.toString(),inner_hm);
+ 	    
+ 	    for (String key : datewise_hm.keySet()) {
+ 	    	HashMap<String,BigInteger> datewiseData = datewise_hm.get(key);
+ 	    	dateList.add(key);
+ 	    		
+ 	    		if (datewiseData.containsKey("text/html")) {
+ 	    			
+					list1.add(datewiseData.get("text/html"));
+				}else {
+					list1.add(BigInteger.ZERO);
+				}
+ 	    		if (datewiseData.containsKey("image/jpg")) {
+					list2.add( datewiseData.get("image/jpg"));
+				}else {
+					list2.add(BigInteger.ZERO);
+				}
+ 	    		if (datewiseData.containsKey("video")) {
+					list3.add(datewiseData.get("video"));
+				}else {
+					list3.add(BigInteger.ZERO);
+				}
+ 	    }
+ 	    
+ 	     HashMap<String, Object> finalMap1 = new HashMap<String, Object>();
+    	 finalMap1.put("name","text/html");
+    	 finalMap1.put("data",list1);
+    	 
+    	 HashMap<String, Object> finalMap2 = new HashMap<String, Object>();
+    	 finalMap2.put("name","image/jpg");
+    	 finalMap2.put("data",list2);
+    	 
+    	 HashMap<String, Object> finalMap3 = new HashMap<String, Object>();
+    	 finalMap3.put("name","video");
+    	 finalMap3.put("data",list3);
+    	 
+    	 mainList.add(finalMap1);
+    	 mainList.add(finalMap2);
+    	 mainList.add(finalMap3);
+    	 
+    	 HashMap<String, Object> finalMap4 = new HashMap<String, Object>();
+    	 finalMap4.put("dates",dateList);
+    	 finalMap4.put("count",mainList);
+    	 
+    	return finalMap4;
 	}
-
-	/*
-	 * @RequestMapping(value = "/lotReport", method = RequestMethod.GET) public
-	 * ModelAndView getLotReport(HttpServletRequest request) { String chk =
-	 * request.getParameter("chk"); String to_email =
-	 * request.getParameter("emailId"); String[] arr_ids = chk.split(":");
-	 * List<ReportBean> list_report = appuserRepository.getReport("LOT", arr_ids,
-	 * -1);
-	 * 
-	 * HSSFWorkbook workbook = new HSSFWorkbook(); new
-	 * ExcelHelper().getLotReport(workbook, list_report); try { // Creating the
-	 * directory to store file String rootPath =
-	 * System.getProperty("catalina.home"); File dir = new File(rootPath +
-	 * File.separator + "tmpFiles"); if (!dir.exists()) dir.mkdirs();
-	 * 
-	 * // Create the file on server File serverFile = new File(dir.getAbsolutePath()
-	 * + File.separator + System.nanoTime() + ".xls"); BufferedOutputStream stream =
-	 * new BufferedOutputStream(new FileOutputStream(serverFile));
-	 * workbook.write(stream); stream.close(); if (to_email != null &&
-	 * !"".equals(to_email)) { mailer.sendMail(to_email, "Lot Wise Report",
-	 * "Please find the attachment for Lot wise data. ", serverFile);
-	 * 
-	 * }
-	 * 
-	 * } catch (Exception ex) { System.out.println(ex); } return new
-	 * ModelAndView("lotReportExcel", "reportBean", list_report); }
-	 */
-
-	/*
-	 * @RequestMapping(value="/emailSend",method= RequestMethod.GET ) public String
-	 * emailSend() {
-	 * 
-	 * List<Party> list_party = (List<Party>) appuserRepository.getAllParty();
-	 * String body =
-	 * "<html> <head></head> <body> Hello<br><br> Thank you for your feedback and support, we have designed a dedicated web portal for Tendu Patta Tenders.   <br><br> To login on portal please use the following url and user id and password. <BR> URL: <a href=\"http://infosane.co.in:8080/tender/login\"> http://infosane.co.in:8080/tender/login </a>"
-	 * +
-	 * "<br> login Id: ##login_id## <br> password: ##password##  <br><br> We request you to please change the password once you login with given login id and password.  <br><br> Thanks & Regards <br> Infosane,Nagpur<br>Vivek Agrawal<br>cell: 8989000400,7000384248<br>Email:vivek.agrawal@infosane.co.in </body></html> "
-	 * ; boolean start=false; List<String> list_to = new ArrayList<String>();
-	 * 
-	 * int count=0; for (Party p : list_party){ try{ list_to= new
-	 * ArrayList<String>(); if (p.getEmail()!=null && !"".equals(p.getEmail())){
-	 * list_to.add(p.getEmail()); count++;
-	 * 
-	 * 
-	 * //if (count==50){ HashMap<String,String> map = new HashMap<String, String>();
-	 * map.put("login_id", p.getEmail()); map.put("password", p.getPassword());
-	 * mailer.sendHTMLMail(list_to, "Tendu Patta: Dedicated Web Portal ", body,null,
-	 * map); count=0; }
-	 * 
-	 * }catch(Exception ex){
-	 * 
-	 * } } list_to.add("vivekraj.agrawal@gmail.com"); mailer.sendHTMLMail(list_to,
-	 * "Tendu Patta: Dedicated Web Portal ", body,null);
-	 * 
-	 * return "0"; }
-	 */
 
 }
