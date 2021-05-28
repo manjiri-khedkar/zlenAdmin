@@ -1,6 +1,12 @@
+ <style>
+   .nav-link {
+  cursor: pointer;
+}
+
+ </style>
  <!-- Sidebar -->
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
-	
+    
       <!-- Sidebar - Brand -->
       <a class="sidebar-brand d-flex align-items-center justify-content-center" href="${pageContext.request.contextPath}/dashboard">
         <div class="sidebar-brand-icon rotate-n-15">
@@ -8,7 +14,7 @@
         </div>
         <div class="sidebar-brand-text mx-3">Infosane </div>
       </a>
-
+ 
       <!-- Divider -->
       <hr class="sidebar-divider my-0">
 
@@ -36,6 +42,12 @@
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>User Stories</span></a>
       </li>
+      
+     <li class="nav-item active">
+       <a class="nav-link" href="${pageContext.request.contextPath}/usersList">
+         <i class="fas fa-fw fa-tachometer-alt"></i>
+         <span>User List</span></a>
+     </li>
       
       <!-- Divider -->
       <hr class="sidebar-divider d-none d-md-block">
@@ -96,10 +108,10 @@
                 </a>	-->
               </div>
             </li>
-
           </ul>
-
         </nav>
         <!-- End of Topbar -->
-        
-       
+
+<script type="text/javascript" src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script> 
+<script src="${pageContext.request.contextPath}/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>      
+      

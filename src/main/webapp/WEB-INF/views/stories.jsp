@@ -97,21 +97,23 @@
 									<th class="text-left" style="background: #d3d3d3">Content</th>
 								</tr>
 							</thead>
-							
 							<tbody>
-                        	<c:forEach items="${storiesList}"  var="list" varStatus="status">
-	                        	<tr class="odd gradeX">
+                        	<div class="row">
+                        	<c:forEach items="${storiesList}" var="list" varStatus="status">
 	                        	<!--  <td><c:out value="${iStat.index + 1}" /></td> -->
 	                        	<!--  <td><c:out value="${list.mimeType}" /></td> -->
-	                        	  <td>
+	                        	  <div class="col-md-4">
 	                        		<c:if test="${not empty list.uploadedPath}">
-	                        		   <c:out value="${list.uploadedPath}" />
-                                        <c:out <img alt="No Image Available" src="${pageContext.request.contextPath}/storyImage/${list.uploadedPath}"/> />
-                                    </c:if>
-	                        	  </td>
-	                        	</tr>
+                        			    <img alt="No Image Available" src="http://localhost:8080/resources/img/profile.png"/>
+	                        		   <div>
+	                        		   		Date: <c:out value="${list.uploadedDateTime}" />
+	                        		   		ZlenCode: 
+	                        		   </div>
+	                        	    </c:if>
+	                        	  </div>
 	                    	</c:forEach>
-                        </tbody>
+			              </div>
+	                    </tbody>
 						</table>
 					</div>
 				</div>		
