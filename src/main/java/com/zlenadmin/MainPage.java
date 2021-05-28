@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import org.openqa.selenium.WebDriver;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,6 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.zlenadmin.email.ApplicationMailer;
 import com.zlenadmin.model.AppUser;
 import com.zlenadmin.model.SessionUser;
+import com.zlenadmin.model.UserDetails;
 import com.zlenadmin.repository.AppuserRepository;
 import com.zlenadmin.repository.UserDetailsRepository;
 import com.zlenadmin.repository.UserStoriesDetailsRepository;
@@ -189,5 +191,39 @@ public class MainPage {
     	 
     	return finalMap4;
 	}
-
+	
+	@GetMapping("/usersList")
+	public ModelAndView userDetailsList() {
+		
+		ModelAndView mv = new ModelAndView();
+		List<UserDetails> userDetailsList = userDetailsRepository.findAll();
+		mv.addObject("userListDetails", new UserDetails());
+		mv.addObject("userListDetails", userDetailsList);
+		mv.setViewName("userDetailsList");
+		return mv;
+	}
+	
+	@GetMapping("/userDetailsListContents") 
+	@ResponseBody
+	public ArrayList<UserDetails> getUserDetails(Model model ,@Param("userName") String userName, @Param("userMobile") String userMobile,@Param("zlenCode") String zlenCode,@Param("deviceType") String deviceType)
+	{
+//		List<Object[]> userDetailsContentList= userDetailsRepository.getDetailsData();
+		
+		//ArrayList<UserDetails> userDetailsList1=userDetailsRepository.getUserDetails();
+		if ("All".equals(deviceType)) {
+			deviceType=null;
+		}
+		if ("".equals(userMobile)) {
+			userMobile=null;
+		}
+		if ("".equals(zlenCode)) {
+			zlenCode=null;
+		}
+		
+		ArrayList<UserDetails> userDetailsList = userDetailsRepository.getUserDetails(userName, userMobile, zlenCode, deviceType);
+	
+		return userDetailsList;
+		
+	}
+	
 }

@@ -1,13 +1,17 @@
 package com.zlenadmin;
 
 import java.util.List;
+import javax.persistence.Tuple;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.zlenadmin.model.UserDetails;
 import com.zlenadmin.model.UserStoriesDetails;
+import com.zlenadmin.repository.UserDetailsRepository;
 import com.zlenadmin.repository.UserStoriesDetailsRepository;
 
 @Controller
