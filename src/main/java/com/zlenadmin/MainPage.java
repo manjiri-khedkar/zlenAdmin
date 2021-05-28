@@ -124,7 +124,7 @@ public class MainPage {
 	    	Date createdDate = (Date)list[1];
 	    	String mimeType = (String)list[2];
 	    	
-	    	if (curDate!=createdDate) {
+	    	if ((curDate==null) || (curDate!=null && !curDate.equals(createdDate))) {
 	    		curDate= createdDate;
 	    		inner_hm = new HashMap<String,BigInteger>();
 	    			datewise_hm.put(createdDate.toString(),inner_hm);
@@ -143,11 +143,23 @@ public class MainPage {
 				}else {
 					list1.add(BigInteger.ZERO);
 				}
- 	    		if (datewiseData.containsKey("image/jpg")) {
-					list2.add( datewiseData.get("image/jpg"));
-				}else {
-					list2.add(BigInteger.ZERO);
+ 	    		
+ 	    		BigInteger count = BigInteger.ZERO;
+ 	    		if (datewiseData.containsKey("image/jpg") ) {
+ 	    			count = count.add(datewiseData.get("image/jpg"));
 				}
+
+ 	    		if (datewiseData.containsKey("image/png") ) {
+ 	    			count = count.add(datewiseData.get("image/png"));
+				}
+ 	    		
+ 	    		if (datewiseData.containsKey("image") ) {
+					count = count.add(datewiseData.get("image"));
+				}
+
+				list2.add(count);
+
+ 	    		
  	    		if (datewiseData.containsKey("video")) {
 					list3.add(datewiseData.get("video"));
 				}else {

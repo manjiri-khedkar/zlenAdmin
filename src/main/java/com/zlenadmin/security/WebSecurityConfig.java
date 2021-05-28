@@ -25,7 +25,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	  System.out.println("web security configure method... ");
     http
       .authorizeRequests()
-        .antMatchers("/","/resources/**","/loginProcess","/login","/loginError","/resetPassword","/user/barChart","/user/bar-chart").permitAll()
+        .antMatchers("/","/resources/**","/files/**","/loginProcess","/storyImage/**",
+        		"/login","/loginError","/resetPassword","/user/barChart","/user/bar-chart").permitAll()
         .anyRequest().authenticated()
         .and()
       .formLogin()

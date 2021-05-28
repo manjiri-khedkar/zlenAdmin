@@ -18,7 +18,7 @@ public interface UserStoriesDetailsRepository extends JpaRepository<UserStoriesD
 	
 	List<UserStoriesDetails> findAll();
 	
-	@Query(value="select count(usd.id) as count, DATE(usd.uploaded_date_time) as createDate, usd.mime_type from user_stories_details usd group by DATE(usd.uploaded_date_time), usd.mime_type order by DATE(usd.uploaded_date_time) desc ", nativeQuery=true)
+	@Query(value="select count(usd.id) as count, DATE(usd.uploaded_date_time) as createDate, usd.mime_type from public.user_stories_details usd group by DATE(usd.uploaded_date_time), usd.mime_type order by DATE(usd.uploaded_date_time) desc ", nativeQuery=true)
 	List<Object[]> getStoriesGraphQuery();
 	
 	

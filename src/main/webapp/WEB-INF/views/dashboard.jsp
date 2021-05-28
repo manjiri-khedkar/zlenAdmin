@@ -72,7 +72,7 @@
 			var name, date, listt, datecounter;
 			$.ajax( {
 			      type : "Get", 
-			      url : "/dashboard/bar-chart", 
+			      url : "${pageContext.request.contextPath}/dashboard/bar-chart", 
 			      contentType : "application/json", 
 			      dataType : 'json', 
 			      success : function (data) {
@@ -138,7 +138,7 @@
 				var dates, gdata;
 				$.ajax( {
 				      type : "Get", 
-				      url : "/dashboard/stories-bar-chart", 
+				      url : "${pageContext.request.contextPath}/dashboard/stories-bar-chart", 
 				      contentType : "application/json", 
 				      dataType : 'json', 
 				      success : function (data) {
@@ -231,6 +231,8 @@
  <div class="row">
 <div id="container" style="width: 550px; height: 400px; margin: 0 auto"></div>
 <div><br/></div>
+<br>
+<br>
 <div id="container1" style="width: 550px; height: 400px; margin: 0 auto"></div>
  
   <a class="scroll-to-top rounded" href="#page-top">

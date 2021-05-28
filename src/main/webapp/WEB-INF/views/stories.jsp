@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%-- <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%> --%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
@@ -88,33 +88,20 @@
 	<div class="clearfix">&nbsp;</div>   
 	
 	        <div class="row">
-				<div class="col-md-12">
-					<div class="table-responsive">
-						<table id="table1" class="table info-tbl text-left" style='border: 1px solid #d3d3d3;width: 98% !important; '>
-							<thead>
-								<tr>
-								    <!--  <th class="text-left" style="background: #d3d3d3">Sr. No.</th> -->
-									<th class="text-left" style="background: #d3d3d3">Content</th>
-								</tr>
-							</thead>
-							
-							<tbody>
                         	<c:forEach items="${storiesList}"  var="list" varStatus="status">
-	                        	<tr class="odd gradeX">
 	                        	<!--  <td><c:out value="${iStat.index + 1}" /></td> -->
 	                        	<!--  <td><c:out value="${list.mimeType}" /></td> -->
-	                        	  <td>
+	                        	  <div class="col-md-4">
 	                        		<c:if test="${not empty list.uploadedPath}">
-	                        		   <c:out value="${list.uploadedPath}" />
-                                        <c:out <img alt="No Image Available" src="${pageContext.request.contextPath}/storyImage/${list.uploadedPath}"/> />
+                        			    <img style="width: 100px" alt="No Image Available" src="${pageContext.request.contextPath}/storyImage/${list.uploadedPath}"/>
+	                        		   <div>
+	                        		   		Date: <c:out value="${list.uploadedDateTime}" />
+	                        		   		ZlenCode: 
+	                        		   </div>
+	                        		   
                                     </c:if>
-	                        	  </td>
-	                        	</tr>
+	                        	  </div>
 	                    	</c:forEach>
-                        </tbody>
-						</table>
-					</div>
-				</div>		
 			</div>
 	    </div>
   </div>  
