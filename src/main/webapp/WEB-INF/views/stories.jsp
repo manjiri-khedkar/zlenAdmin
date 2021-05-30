@@ -88,35 +88,20 @@
 	<div class="clearfix">&nbsp;</div>   
 	
 	        <div class="row">
-				<div class="col-md-12">
-					<div class="table-responsive">
-						<table id="table1" class="table info-tbl text-left" style='border: 1px solid #d3d3d3;width: 98% !important; '>
-							<thead>
-								<tr>
-								    <!--  <th class="text-left" style="background: #d3d3d3">Sr. No.</th> -->
-									<th class="text-left" style="background: #d3d3d3">Content</th>
-								</tr>
-							</thead>
-							<tbody>
-                        	<div class="row">
-                        	<c:forEach items="${storiesList}" var="list" varStatus="status">
+                        	<c:forEach items="${storiesList}"  var="list" varStatus="status">
 	                        	<!--  <td><c:out value="${iStat.index + 1}" /></td> -->
 	                        	<!--  <td><c:out value="${list.mimeType}" /></td> -->
 	                        	  <div class="col-md-4">
 	                        		<c:if test="${not empty list.uploadedPath}">
-                        			    <img alt="No Image Available" src="http://localhost:8080/resources/img/profile.png"/>
+                        			    <img style="width: 100px" alt="No Image Available" src="${pageContext.request.contextPath}/storyImage/${list.uploadedPath}"/>
 	                        		   <div>
 	                        		   		Date: <c:out value="${list.uploadedDateTime}" />
 	                        		   		ZlenCode: 
 	                        		   </div>
-	                        	    </c:if>
+	                        		   
+                                    </c:if>
 	                        	  </div>
 	                    	</c:forEach>
-			              </div>
-	                    </tbody>
-						</table>
-					</div>
-				</div>		
 			</div>
 	    </div>
   </div>  

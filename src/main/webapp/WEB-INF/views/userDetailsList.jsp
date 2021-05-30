@@ -122,7 +122,7 @@
 		        
   				<label for="userMobile"><b>Mobile No : </b></label>&nbsp;  
   				<input type="text"  id="inputMobile" placeholder="Enter Mobile No......">&nbsp;&nbsp;	  
-  				<button type="button" class="btn btn-danger btn-md" onclick="clearFilter()">Clear</button> 
+<!--   				<button type="button" class="btn btn-danger btn-md" onclick="clearFilter()">Clear</button> --> 
 			</div>	    
 			<br/>
 			
@@ -140,7 +140,7 @@
   				</select>&nbsp;&nbsp;&nbsp;&nbsp;	
   				
   				 <button type="submit" id="bth-search"
-                            class="btn btn-success btn-md"  onclick=search()>Search
+                            class="btn btn-success btn-md"  onclick="event.preventDefault(); search()">Search
                  </button> 
                     </div> 
                    </form>
@@ -236,6 +236,7 @@ $(document).ready(function () {
     });
 });
 function search() {
+
 	var udetailList;
 		udetailList = {}
 		udetailList["userName"] = $("#inputName").val();    
@@ -286,7 +287,7 @@ $("#btn-search").prop("disabled",false);
 					console.log("longitude", longitude);
 					
                                       
-                    result  = "<tr><td>"+ele.id+"</td><td>"+ele.userName+"</td><td>"+ele.userMobile+"</td><td>"+ele.zlenCode+"</td><td>"+ele.deviceType+"</td><td>"+ele.latitude+"</td><td>"+ele.longitude+"</td></tr>";                   
+                    result  += "<tr><td>"+ele.id+"</td><td>"+ele.userName+"</td><td>"+ele.userMobile+"</td><td>"+ele.zlenCode+"</td><td>"+ele.deviceType+"</td><td>"+ele.latitude+"</td><td>"+ele.longitude+"</td></tr>";                   
                                       
              	  });
             	  

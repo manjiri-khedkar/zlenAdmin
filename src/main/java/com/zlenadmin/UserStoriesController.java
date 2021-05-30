@@ -24,12 +24,10 @@ public class UserStoriesController {
 	@GetMapping
 	public ModelAndView list(Model model) {
 		
+		List<UserStoriesDetails> storieslist = userStoriesDetailsRepository.findAll();
 		ModelAndView mav = new ModelAndView();
-		List<Tuple> storiesList = userStoriesDetailsRepository.getStoriesDetails();
-		
-		
 		mav.addObject("stories", new UserStoriesDetails());
-		mav.addObject("storiesList", storiesList);
+		mav.addObject("storiesList", storieslist);
 		mav.setViewName("stories");
 		return mav;
 	}
