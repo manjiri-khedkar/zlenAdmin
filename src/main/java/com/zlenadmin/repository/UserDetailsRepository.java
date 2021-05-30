@@ -26,6 +26,7 @@ public interface UserDetailsRepository extends JpaRepository<UserDetails, Intege
 	ArrayList<UserDetails> getUserDetails();
 	
 
+
 	@Query("SELECT u FROM UserDetails u "
 			+ "WHERE u.userName LIKE  %:userName% "
 			+ "and ( u.userMobile LIKE %:userMobile% or :userMobile is null ) "

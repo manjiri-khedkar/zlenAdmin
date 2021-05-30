@@ -21,10 +21,12 @@ import org.springframework.web.context.annotation.SessionScope;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.zlenadmin.api.entity.UserDetails;
+import com.zlenadmin.api.entity.UserStoriesDetails;
 import com.zlenadmin.email.ApplicationMailer;
 import com.zlenadmin.model.AppUser;
 import com.zlenadmin.model.SessionUser;
 import com.zlenadmin.repository.AppuserRepository;
+import com.zlenadmin.repository.NewStoriesRepository;
 import com.zlenadmin.repository.UserDetailsRepository;
 import com.zlenadmin.repository.UserStoriesDetailsRepository;
 import com.zlenadmin.service.RegistrationServiceImpl;
@@ -52,6 +54,9 @@ public class MainPage {
 	
 	@Autowired
 	UserStoriesDetailsRepository userStoriesDetailsRepository;
+	
+	@Autowired
+	private NewStoriesRepository newStoriesRepository;
 	
 	@GetMapping(value = "/")
 	public String indexView(@ModelAttribute AppUser users) 
@@ -228,4 +233,48 @@ public class MainPage {
 		
 	}
 	
+	@GetMapping("/userStoriesListContents") 
+	@ResponseBody
+	public Map<String, Object> getUserStories(Model model)
+	{
+
+//		ArrayList<UserStoriesDetails> userDetailsContentList = newStoriesRepository.getUserStories(uploadedDateTime, mimeType, zlenCode);
+		List<Object[]> userDetailsContentList= newStoriesRepository.getUserStories();
+	    
+	    List<Date> list1 = new ArrayList<Date>();
+	    List<String> list2 = new ArrayList<String>();
+	    List<String> list3 = new ArrayList<String>();
+	    
+	    for(Object[] list :userDetailsContentList) {
+	    	Date uploadedDateTime = (Date)list[0];
+	    	String mimeType = (String)list[1];
+	    	String zlenCode = (String)list[2];
+	    	list1.add(uploadedDateTime);
+	    	list2.add(mimeType);
+	    	list3.add(zlenCode); 
+	    }
+	    Map<String, Object> finalMap = new HashMap<String, Object>();
+	      finalMap.put("uploadedDateTime", list1);
+	      finalMap.put("mimeType", list2);
+	      finalMap.put("zlenCode", list3);
+	      return finalMap;
+//		return (List<UserStoriesDetails>) newStoriesRepository;
+		
+	}
+	
+	@GetMapping("/userStoriesList")
+	public ModelAndView userStoriesList() {
+		
+		ModelAndView mv = new ModelAndView();
+		List<UserStoriesDetails> userStoriesList = userStoriesDetailsRepository.findAll();
+		System.err.println(userStoriesList);
+		mv.addObject("userStoriesList", new UserStoriesDetails());
+		mv.addObject("userStoriesList", userStoriesList);
+	
+		mv.setViewName("userStoriesList");
+		return mv;
+	}
+
+	
+		
 }

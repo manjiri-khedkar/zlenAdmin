@@ -44,10 +44,16 @@
       </li>
       
      <li class="nav-item active">
-       <a class="nav-link" href="${pageContext.request.contextPath}/usersList">
+       <a class="nav-link" href="${pageContext.request.contextPath}/usersList"> 
          <i class="fas fa-fw fa-tachometer-alt"></i>
          <span>User List</span></a>
      </li>
+     
+      <li class="nav-item active">
+        <a class="nav-link" href="${pageContext.request.contextPath}/userStoriesList">
+          <i class="fas fa-fw fa-tachometer-alt"></i>
+          <span>Stories List</span></a>
+      </li>
       
       <!-- Divider -->
       <hr class="sidebar-divider d-none d-md-block">
