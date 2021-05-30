@@ -93,7 +93,8 @@
 	                        	<!--  <td><c:out value="${list.mimeType}" /></td> -->
 	                        	  <div class="col-md-4">
 	                        		<c:if test="${not empty list.uploadedPath}">
-                        			    <img style="width: 100px" alt="No Image Available" src="${pageContext.request.contextPath}/storyImage/${list.uploadedPath}"/>
+                        			    <%-- <img style="width: 100px" alt="No Image Available" src="${pageContext.request.contextPath}/storyImage/${list.uploadedPath}"/> --%>
+                        			    <img style="width: 100px" alt="No Image Available" src="${list.uploadedPath}"/>
 	                        		   <div>
 	                        		   		Date: <c:out value="${list.uploadedDateTime}" />
 	                        		   		ZlenCode: 

@@ -7,7 +7,8 @@ import javax.persistence.Tuple;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
-import com.zlenadmin.model.UserStoriesDetails;
+
+import com.zlenadmin.api.entity.UserStoriesDetails;
 
 @Repository
 public interface UserStoriesDetailsRepository extends JpaRepository<UserStoriesDetails, Long> {

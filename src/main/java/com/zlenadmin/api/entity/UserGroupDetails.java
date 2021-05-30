@@ -1,15 +1,13 @@
-package com.zlenadmin.model;
+package com.zlenadmin.api.entity;
 
 import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Table;
 
 @Entity
-@Table()
-public class UserStoriesDetails {
+public class UserGroupDetails {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -17,7 +15,7 @@ public class UserStoriesDetails {
 	
 	private String userId;
 	
-	private String mimeType;
+	private String groupId;
 	
 	private String uploadedPath;
 	
@@ -25,7 +23,7 @@ public class UserStoriesDetails {
 	
 	private String isActive;
 	
-	public UserStoriesDetails() { }
+	public UserGroupDetails() { }
 
 	public long getId() {
 		return id;
@@ -43,12 +41,12 @@ public class UserStoriesDetails {
 		this.userId = userId;
 	}
 
-	public String getMimeType() {
-		return mimeType;
+	public String getGroupId() {
+		return groupId;
 	}
 
-	public void setMimeType(String mimeType) {
-		this.mimeType = mimeType;
+	public void setGroupId(String groupId) {
+		this.groupId = groupId;
 	}
 
 	public String getUploadedPath() {
@@ -77,7 +75,7 @@ public class UserStoriesDetails {
 
 	@Override
 	public String toString() {
-		return "UserStoriesDetails [id=" + id + ", userId=" + userId + ", mimeType=" + mimeType + ", uploadedPath="
+		return "UserGroupDetails [id=" + id + ", userId=" + userId + ", groupId=" + groupId + ", uploadedPath="
 				+ uploadedPath + ", uploadedDateTime=" + uploadedDateTime + ", isActive=" + isActive + "]";
 	}
 	

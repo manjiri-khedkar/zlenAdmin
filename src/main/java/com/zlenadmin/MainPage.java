@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import org.openqa.selenium.WebDriver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
@@ -18,10 +19,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.annotation.SessionScope;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.zlenadmin.api.entity.UserDetails;
 import com.zlenadmin.email.ApplicationMailer;
 import com.zlenadmin.model.AppUser;
 import com.zlenadmin.model.SessionUser;
-import com.zlenadmin.model.UserDetails;
 import com.zlenadmin.repository.AppuserRepository;
 import com.zlenadmin.repository.UserDetailsRepository;
 import com.zlenadmin.repository.UserStoriesDetailsRepository;

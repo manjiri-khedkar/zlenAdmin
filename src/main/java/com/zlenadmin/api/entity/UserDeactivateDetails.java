@@ -1,25 +1,23 @@
-package com.zlenadmin.model;
+package com.zlenadmin.api.entity;
 
 import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Table;
 
 @Entity
-@Table()
-public class UserDetails {
+public class UserDeactivateDetails {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Integer id;
+	private long id;
 	
 	private String userId;
 	
-	private String userName;
-	
 	private String userMobile;
+	
+	private String userName;
 	
 	private String userEmailID;
 	
@@ -32,10 +30,6 @@ public class UserDetails {
 	private String longitude;
 	
 	private String latitude;
-	
-	private Date createdOn;
-	
-	private Date modifiedOn;
 	
 	private String userProfileImagePath;
 	
@@ -53,21 +47,23 @@ public class UserDetails {
 	
 	private String onlineStatus;
 	
-	private String statusMessage;
+	private String statusMessage; 
 	
 	private String SignUpDeviceId;
 	
-	private String isActive; 
+	private Date deActivateDateTime;
+	
+	private Date activateDateTime;
 	
 	private String isDeActivatedByAdmin;
-		
-	public UserDetails() { }
+	
+	public UserDeactivateDetails() { }
 
-	public Integer getId() {
+	public long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 
@@ -79,20 +75,20 @@ public class UserDetails {
 		this.userId = userId;
 	}
 
-	public String getUserName() {
-		return userName;
-	}
-
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
-
 	public String getUserMobile() {
 		return userMobile;
 	}
 
 	public void setUserMobile(String userMobile) {
 		this.userMobile = userMobile;
+	}
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 
 	public String getUserEmailID() {
@@ -141,22 +137,6 @@ public class UserDetails {
 
 	public void setLatitude(String latitude) {
 		this.latitude = latitude;
-	}
-
-	public Date getCreatedOn() {
-		return createdOn;
-	}
-
-	public void setCreatedOn(Date createdOn) {
-		this.createdOn = createdOn;
-	}
-
-	public Date getModifiedOn() {
-		return modifiedOn;
-	}
-
-	public void setModifiedOn(Date modifiedOn) {
-		this.modifiedOn = modifiedOn;
 	}
 
 	public String getUserProfileImagePath() {
@@ -239,12 +219,20 @@ public class UserDetails {
 		SignUpDeviceId = signUpDeviceId;
 	}
 
-	public String getIsActive() {
-		return isActive;
+	public Date getDeActivateDateTime() {
+		return deActivateDateTime;
 	}
 
-	public void setIsActive(String isActive) {
-		this.isActive = isActive;
+	public void setDeActivateDateTime(Date deActivateDateTime) {
+		this.deActivateDateTime = deActivateDateTime;
+	}
+
+	public Date getActivateDateTime() {
+		return activateDateTime;
+	}
+
+	public void setActivateDateTime(Date activateDateTime) {
+		this.activateDateTime = activateDateTime;
 	}
 
 	public String getIsDeActivatedByAdmin() {
@@ -257,15 +245,15 @@ public class UserDetails {
 
 	@Override
 	public String toString() {
-		return "UserDetails [id=" + id + ", userId=" + userId + ", userName=" + userName + ", userMobile=" + userMobile
-				+ ", userEmailID=" + userEmailID + ", userPassword=" + userPassword + ", deviceID=" + deviceID
-				+ ", deviceType=" + deviceType + ", longitude=" + longitude + ", latitude=" + latitude + ", createdOn="
-				+ createdOn + ", modifiedOn=" + modifiedOn + ", userProfileImagePath=" + userProfileImagePath
-				+ ", zlenCode=" + zlenCode + ", QRCodePath=" + QRCodePath + ", notificationID=" + notificationID
-				+ ", readReceiptStatus=" + readReceiptStatus + ", lastSeenStatus=" + lastSeenStatus + ", displayName="
-				+ displayName + ", onlineStatus=" + onlineStatus + ", statusMessage=" + statusMessage
-				+ ", SignUpDeviceId=" + SignUpDeviceId + ", isActive=" + isActive + ", isDeActivatedByAdmin="
-				+ isDeActivatedByAdmin + "]";
+		return "UserDeActivateDetails [id=" + id + ", userId=" + userId + ", userMobile=" + userMobile + ", userName="
+				+ userName + ", userEmailID=" + userEmailID + ", userPassword=" + userPassword + ", deviceID="
+				+ deviceID + ", deviceType=" + deviceType + ", longitude=" + longitude + ", latitude=" + latitude
+				+ ", userProfileImagePath=" + userProfileImagePath + ", zlenCode=" + zlenCode + ", QRCodePath="
+				+ QRCodePath + ", notificationID=" + notificationID + ", readReceiptStatus=" + readReceiptStatus
+				+ ", lastSeenStatus=" + lastSeenStatus + ", displayName=" + displayName + ", onlineStatus="
+				+ onlineStatus + ", statusMessage=" + statusMessage + ", SignUpDeviceId=" + SignUpDeviceId
+				+ ", deActivateDateTime=" + deActivateDateTime + ", activateDateTime=" + activateDateTime
+				+ ", isDeActivatedByAdmin=" + isDeActivatedByAdmin + "]";
 	}
 	
 }
