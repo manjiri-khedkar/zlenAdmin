@@ -249,7 +249,7 @@ $("#btn-search").prop("disabled",false);
     $.ajax({
         type: "GET",
         //contentType: "application/json",
-        url: "http://localhost:8080/userDetailsListContents",
+        url: ${pageContext.request.contextPath}+"/userDetailsListContents",
        // success:function(result)
         data: udetailList,
         //dataType: 'json',

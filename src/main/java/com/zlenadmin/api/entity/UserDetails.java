@@ -1,5 +1,6 @@
 package com.zlenadmin.api.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,7 +10,7 @@ import javax.persistence.Id;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-public class UserDetails {
+public class UserDetails implements Serializable{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)

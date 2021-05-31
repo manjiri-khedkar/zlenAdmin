@@ -15,42 +15,10 @@
 	<style>
 	
 	#page-top { display:block; }
-	#warning-message { 
-	position: fixed; /* Sit on top of the page content */
-  display: none; /* Hidden by default */
-  width: 100%; /* Full width (cover the whole page) */
-  height: 100%; /* Full height (cover the whole page) */
-  top: 0; 
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0,0,0,0.5); /* Black background with opacity */
-  z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
-  cursor: pointer; /* Add a pointer on hover */
-	font-weight:bold;
-	text-align: center;
-	color: white;
-	padding: 40px;
-	font-size: 25px;
-	}
-
-@media only screen and (orientation:portrait){
-
-    #warning-message { display:block; }
-  /*  #page-top {
-    height: 100vw;
-    width: 100vh;
-    -webkit-transform: rotate(90deg);
-    -moz-transform: rotate(90deg);
-    -o-transform: rotate(90deg);
-    -ms-transform: rotate(90deg);
-    transform: rotate(90deg);
-  }  */
-
-}
+	
 
 @media only screen and (orientation:landscape){
-	#warning-message { display:none; }
+	
   #page-top {
      -webkit-transform: rotate(0deg);
      -moz-transform: rotate(0deg);
@@ -219,22 +187,18 @@
 
 <body id="page-top">
 
-	<div  id="warning-message" style="">
-
-     	In Mobile, this web site works better in landscape view. Please rotate your mobile to experience the best view.  
-
- 	</div>
   <!-- Page Wrapper -->
   <div id="wrapper">
  <jsp:include page="header.jsp"></jsp:include>
  <div class="container-fluid">
  <div class="row">
-<div id="container" style="width: 550px; height: 400px; margin: 0 auto"></div>
-<div><br/></div>
-<br>
-<br>
-<div id="container1" style="width: 550px; height: 400px; margin: 0 auto"></div>
- 
+ 	
+	<div class="col-md-6" id="container" style=""></div>
+
+	<div class="col-md-6" id="container1" style=""></div>
+ </div>
+ </div>
+ </div>
   <a class="scroll-to-top rounded" href="#page-top">
     <i class="fas fa-angle-up"></i>
   </a>

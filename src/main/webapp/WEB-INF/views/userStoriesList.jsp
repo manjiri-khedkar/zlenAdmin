@@ -115,7 +115,7 @@
    		<div class="container">
 	   		<h1>User Stories List</h1>	 
 	        <br/>
- 	        <form id="search-form"> 
+ 	         
  	        <div class="row" > 
   		        <label for="uploadedDateTime"><b>Date : </b></label>&nbsp; 
  				<input type="text" id="inputDate">&nbsp;&nbsp;
@@ -128,7 +128,7 @@
     				<label for="zlenCode"><b>Zlen Code: </b></label>&nbsp;   
     				<input type="text"  id="inputCode" placeholder="Enter Zlen Code......">&nbsp;&nbsp; 
    				
-   					<button type="submit" id="bth-search" class="btn btn-success btn-md"  onclick=search()>Search</button>&nbsp;&nbsp;	
+   					<button type="button" id="bth-search" class="btn btn-success btn-md"  onclick="search()">Search</button>&nbsp;&nbsp;	
    					<button type="button" class="btn btn-danger btn-md" onclick="clearFilter()">Clear</button>  
  			</div>	     
  	         <br/>
@@ -203,15 +203,11 @@
 
  $(document).ready(function () {
 
-     $("#search-form").submit(function (event) {
-      
-         //stop submit the form, we will post it manually.
-         event.preventDefault();
-         search();
-        // fire_ajax_submit();
-     });
+     
  });
  function search() {
+	 
+ 	
  	var ustoriesList;
  		ustoriesList = {} 		
  		ustoriesList["uploadedDateTime"] = $("#inputDate").val();
@@ -224,7 +220,7 @@
      $.ajax({
          type: "GET",
          //contentType: "application/json",
-         url: "http://localhost:8085/userStoriesListContents",
+         url:  "${pageContext.request.contextPath}/userStoriesListContents",
         // success:function(result)
          data: ustoriesList,
          //dataType: 'json',
@@ -239,7 +235,7 @@
   		      	  var zlenCode;
 				  
               	  $(data).each(function (index,ele){
-                  	alert('ele===>'+ele);
+                  	
                   	id = ele.id;
                   	uploadedDateTime = ele.uploadedDateTime;
                     mimeType = ele.mimeType;

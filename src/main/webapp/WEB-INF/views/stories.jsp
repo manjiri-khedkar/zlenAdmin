@@ -20,45 +20,11 @@
 	<style>
 	
 	#page-top { display:block; }
-	#warning-message { 
-	  position: fixed; /* Sit on top of the page content */
-	  display: none; /* Hidden by default */
-	  width: 100%; /* Full width (cover the whole page) */
-	  height: 100%; /* Full height (cover the whole page) */
-	  top: 0; 
-	  left: 0;
-	  right: 0;
-	  bottom: 0;
-	  background-color: rgba(0,0,0,0.5); /* Black background with opacity */
-	  z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
-	  cursor: pointer; /* Add a pointer on hover */
-	  font-weight:bold;
-	  text-align: center;
-	  color: white;
-	  padding: 40px;
-	  font-size: 25px;
-	}
-
-@media only screen and (orientation:portrait){
-
 	
-
-    #warning-message { display:block; }
-  /*  #page-top {
-    height: 100vw;
-    width: 100vh;
-    -webkit-transform: rotate(90deg);
-    -moz-transform: rotate(90deg);
-    -o-transform: rotate(90deg);
-    -ms-transform: rotate(90deg);
-    transform: rotate(90deg);
-  }  */
-
-}
 
 
 @media only screen and (orientation:landscape){
-	#warning-message { display:none; }
+
   #page-top {
      -webkit-transform: rotate(0deg);
      -moz-transform: rotate(0deg);
@@ -75,9 +41,7 @@
 
 <body id="page-top">
 
-	<div  id="warning-message" style="">
-     	In Mobile, this web site works better in landscape view. Please rotate your mobile to experience the best view.  
- 	</div> 
+	 
   <!-- Page Wrapper -->
   <div id="wrapper">
 
@@ -91,15 +55,18 @@
                         	<c:forEach items="${storiesList}"  var="list" varStatus="status">
 	                        	<!--  <td><c:out value="${iStat.index + 1}" /></td> -->
 	                        	<!--  <td><c:out value="${list.mimeType}" /></td> -->
-	                        	  <div class="col-md-4">
+	                        	  <div class="col-md-4" class="center-align">
+	                        	  	
 	                        		<c:if test="${not empty list.uploadedPath}">
-                        			    <%-- <img style="width: 100px" alt="No Image Available" src="${pageContext.request.contextPath}/storyImage/${list.uploadedPath}"/> --%>
+	                        			<div style="background-color: white; padding: 5px;">
+                        			    
                         			    <img style="width: 100px" alt="No Image Available" src="${list.uploadedPath}"/>
 	                        		   <div>
-	                        		   		Date: <c:out value="${list.uploadedDateTime}" />
-	                        		   		ZlenCode: 
+	                        		   		<b>Date:</b> <c:out value="${list.uploadedDateTime}" />
+	                        		   		<br>
+	                        		   		<b>ZlenCode:</b> 
 	                        		   </div>
-	                        		   
+	                        		   </div>
                                     </c:if>
 	                        	  </div>
 	                    	</c:forEach>
