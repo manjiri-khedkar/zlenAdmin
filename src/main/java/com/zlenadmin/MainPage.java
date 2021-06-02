@@ -7,6 +7,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.validation.Valid;
+
 import org.openqa.selenium.WebDriver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
@@ -23,6 +25,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.zlenadmin.api.entity.UserDetails;
 import com.zlenadmin.api.entity.UserStoriesDetails;
 import com.zlenadmin.dao.UserStories;
+import com.zlenadmin.dto.StoriesDto;
 import com.zlenadmin.email.ApplicationMailer;
 import com.zlenadmin.model.AppUser;
 import com.zlenadmin.model.SessionUser;
@@ -56,9 +59,7 @@ public class MainPage {
 	UserStoriesDetailsRepository userStoriesDetailsRepository;
 	
 	@Autowired
-	private UserStories userStoriesRepo;
-	
-	
+	private UserStories userStories;
 	
 
 	
@@ -239,12 +240,26 @@ public class MainPage {
 	
 	@GetMapping("/userStoriesListContents") 
 	@ResponseBody
-	public Object getUserStories(Model model)
+	public Object getUserStories(Model model,@Param("mimeType") String mimeType,@Param("zlenCode") String zlenCode)
 	{
+//		String uploadDateTime = null;
+//	
+//		if(uploadedDateTime!=null) {
+//			uploadDateTime = uploadedDateTime.toString();
+//		}
 
-		//List result= service.queryForMovies();
-		//List result = newrepo.getUserStories();
-		List result = userStoriesRepo.getUserStories(null);
+//		if ("".equals(uploadedDateTime)) {
+//			uploadedDateTime=null;
+//		}
+
+		if ("".equals(mimeType)) {
+			mimeType=null;
+		}
+		if ("".equals(zlenCode)) {
+			zlenCode=null;
+		}
+		
+		List<StoriesDto> result = userStories.getUserStories(mimeType, "%" + zlenCode + "%");
 		return  result;
 		
 	}
@@ -257,11 +272,56 @@ public class MainPage {
 		System.err.println(userStoriesList);
 		mv.addObject("userStoriesList", new UserStoriesDetails());
 		mv.addObject("userStoriesList", userStoriesList);
-	
 		mv.setViewName("userStoriesList");
 		return mv;
 	}
-
 	
-		
+	
+//	@GetMapping("/userStoriesListContents") 
+//	@ResponseBody
+//	public List<StoriesDto> getUserStories(Model model,@Param("uploadedDateTime") Date uploadedDateTime,@Param("mimeType") String mimeType,@Param("zlenCode") String zlenCode)
+//	{
+////		List<Object[]> userDetailsContentList= userDetailsRepository.getDetailsData();
+//		
+//		//ArrayList<UserDetails> userDetailsList1=userDetailsRepository.getUserDetails();
+//		
+////		if ("".equals(uploadedDateTime)) {
+////		uploadedDateTime=null;
+////		}
+////	
+////		if ("".equals(mimeType)) {
+////			mimeType=null;
+////		}
+////		if ("".equals(zlenCode)) {
+////			zlenCode=null;
+////		}
+//			
+//		List<StoriesDto> result = userStories.getUserStories(uploadedDateTime, mimeType, "%" + zlenCode + "%");
+//	
+//		return result;
+//		
+//	}
+//	
 }
+
+
+//@GetMapping("/userStoriesList")
+//public ModelAndView userStoriesList(@Valid StoriesDto storiesDto) {
+//	
+//	ModelAndView mv = new ModelAndView();
+////	String uploadDateTime = " ";
+////	
+////	if(storiesDto.getUploadedDateTime()!=null) {
+////		uploadDateTime = storiesDto.getUploadedDateTime().toString();
+////	}
+//	List<StoriesDto> userStoriesList = userStories.getUserStories(storiesDto.getMimeType(), storiesDto.getZlenCode());
+//	System.err.println(userStoriesList);
+//	mv.addObject("userStoriesList", new StoriesDto());
+//	mv.addObject("userStoriesList", userStoriesList);
+//
+//	mv.setViewName("userStoriesList");
+//	return mv;
+//}
+	
+	
+
