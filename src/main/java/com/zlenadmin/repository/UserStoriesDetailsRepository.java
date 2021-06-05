@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import com.zlenadmin.api.entity.UserStoriesDetails;
+import com.zlenadmin.dto.StoriesDto;
 
 @Repository
 public interface UserStoriesDetailsRepository extends JpaRepository<UserStoriesDetails, Long> {
