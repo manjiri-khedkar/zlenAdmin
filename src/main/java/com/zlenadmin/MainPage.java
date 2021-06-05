@@ -7,8 +7,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.validation.Valid;
-
 import org.openqa.selenium.WebDriver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
@@ -23,9 +21,7 @@ import org.springframework.web.context.annotation.SessionScope;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.zlenadmin.api.entity.UserDetails;
-import com.zlenadmin.api.entity.UserStoriesDetails;
 import com.zlenadmin.dao.UserStories;
-import com.zlenadmin.dto.StoriesDto;
 import com.zlenadmin.email.ApplicationMailer;
 import com.zlenadmin.model.AppUser;
 import com.zlenadmin.model.SessionUser;
@@ -246,43 +242,19 @@ public class MainPage {
 	
 	@GetMapping("/userStoriesListContents") 
 	@ResponseBody
-<<<<<<< HEAD
-	public Object getUserStories(Model model,@Param("zlenCode") String  zlenCode,@Param("mimeType") String  mimeType )
-=======
-	public Object getUserStories(Model model,@Param("mimeType") String mimeType,@Param("zlenCode") String zlenCode)
->>>>>>> 7fb8d8315599592e290f5955618ac35fdebdae67
-	{
-//		String uploadDateTime = null;
-//	
-//		if(uploadedDateTime!=null) {
-//			uploadDateTime = uploadedDateTime.toString();
-//		}
-
-<<<<<<< HEAD
+	public Object getUserStories(Model model,@Param("zlenCode") String  zlenCode,@Param("mimeType") String  mimeType ) {
 		//List result= service.queryForMovies();
 		//List result = newrepo.getUserStories();
 		if ("".equals(zlenCode)) {
 			zlenCode=null;
 		}
+	
 		if ("All".equals(mimeType)) {
 			mimeType=null;
 		}
 		
-		List result = userStoriesRepo.getUserStories(zlenCode,mimeType);
-=======
-//		if ("".equals(uploadedDateTime)) {
-//			uploadedDateTime=null;
-//		}
+		List result = userStories.getUserStories(zlenCode,mimeType);
 
-		if ("".equals(mimeType)) {
-			mimeType=null;
-		}
-		if ("".equals(zlenCode)) {
-			zlenCode=null;
-		}
-		
-		List<StoriesDto> result = userStories.getUserStories(mimeType, "%" + zlenCode + "%");
->>>>>>> 7fb8d8315599592e290f5955618ac35fdebdae67
 		return  result;
 		
 	}
@@ -291,7 +263,7 @@ public class MainPage {
 	public ModelAndView userStoriesList() {
 		
 		ModelAndView mv = new ModelAndView();
-		List userStoriesList = userStoriesRepo.getUserStories("", "");
+		List userStoriesList = userStories.getUserStories("", "");
 		//List<UserStoriesDetails> userStoriesList = userStoriesDetailsRepository.findAll();
 		mv.addObject("userStoriesList", userStoriesList);
 		mv.setViewName("userStoriesList");
