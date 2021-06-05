@@ -162,6 +162,7 @@
 									<th class="text-left" style="background: #d3d3d3">Device Type</th>
 									<th class="text-left" style="background: #d3d3d3">Latitude</th>
 									<th class="text-left" style="background: #d3d3d3">Longitude</th>
+									<th class="text-left" style="background: #d3d3d3">Action</th>
 								</tr>
 							</thead>
 							
@@ -176,6 +177,13 @@
 	 	                        		<td><c:out value="${list.deviceType}" /></td>
 	 	                        		<td><c:out value="${list.latitude}" /></td>
 	 	                        		<td><c:out value="${list.longitude}" /></td>
+										<td>
+	 	                    				<a href="${pageContext.request.contextPath}/userViewForm/<c:out value='${list.id}'/>">
+	 	                    					<button class="btn btn-primary">View</button></a>&nbsp;
+	 	                    				<a href="${pageContext.request.contextPath}/friendList/<c:out value='${list.id}'/>">
+	 	                    					<button class="btn btn-success">Friend</button></a>&nbsp;
+	 	                    				
+	 	                        		</td>
  	                       			</tr> 
  	                    		</c:forEach> 
                            </tbody>

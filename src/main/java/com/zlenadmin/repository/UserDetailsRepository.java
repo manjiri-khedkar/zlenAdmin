@@ -25,7 +25,7 @@ public interface UserDetailsRepository extends JpaRepository<UserDetails, Intege
 	@Query("SELECT u.userName, u.userMobile, u.zlenCode, u.deviceType FROM UserDetails u")
 	ArrayList<UserDetails> getUserDetails();
 	
-
+	UserDetails findById(long id);
 
 	@Query("SELECT u FROM UserDetails u "
 			+ "WHERE (u.userName LIKE  %:userName% or :userName is null )"
@@ -33,5 +33,10 @@ public interface UserDetailsRepository extends JpaRepository<UserDetails, Intege
 			+ "and (( u.zlenCode  LIKE %:zlenCode% or :zlenCode is null )) "
 			+ "and (u.deviceType = :deviceType or :deviceType is null) ")
 	ArrayList<UserDetails> getUserDetails(@Param("userName") String userName, @Param("userMobile") String userMobile, @Param("zlenCode") String zlenCode, @Param("deviceType") String deviceType);
+	
+	
+	@Query(value ="SELECT ud.user_name, ud.user_mobile, ud.zlen_code, ud.device_Type, ud.longitude, ud.latitude  FROM user_details ud where ud.user_id =? ", nativeQuery = true)
+    List<Object> getUserDetails(@Param("userId") String userId); 
+
 	
 }
