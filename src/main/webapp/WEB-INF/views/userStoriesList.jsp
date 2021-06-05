@@ -117,16 +117,23 @@
 	        <br/>
  	         
  	        <div class="row" > 
-  		        <label for="uploadedDateTime"><b>Date : </b></label>&nbsp; 
- 				<input type="text" id="inputDate">&nbsp;&nbsp;
+  		        <!-- <label for="uploadedDateTime"><b>Date : </b></label>&nbsp; --> 
+ 				<input style="display: none" type="text" id="inputDate">&nbsp;&nbsp;
  						    
    				<label for="mimeType"><b>Mime Type : </b></label>&nbsp;  
-   				<input type="text"  id="inputMimeType" placeholder="Enter Mime Type......">&nbsp;&nbsp;	 	
+   				<!-- <input type="text"  id="inputMimeType" placeholder="Enter Mime Type......">&nbsp;&nbsp; -->	 
+   				<select id="inputMimeType">  
+ 					<option value="All" selected>All</option>  
+  					<option value="image">Image</option> 
+  					<option value="video">Video</option>
+ 					<option value="text">Text</option>  
+  				</select>&nbsp;&nbsp;&nbsp;&nbsp;	
    			</div>
    			<br/>
    			<div class="row" > 
     				<label for="zlenCode"><b>Zlen Code: </b></label>&nbsp;   
-    				<input type="text"  id="inputCode" placeholder="Enter Zlen Code......">&nbsp;&nbsp; 
+    				<input type="text"  id="inputCode" placeholder="Enter Zlen Code......">&nbsp;&nbsp;
+    				 
    				
    					<button type="button" id="bth-search" class="btn btn-success btn-md"  onclick="search()">Search</button>&nbsp;&nbsp;	
    					<button type="button" class="btn btn-danger btn-md" onclick="clearFilter()">Clear</button>  
@@ -152,7 +159,8 @@
 	                        		
  	                        			<td><c:out value="${status.index+1}" /></td>
  	                        			<td><c:out value="${list.uploadedDateTime}" /></td> 
-	 	                        		<td><c:out value="${list.mimeType}" /></td> 
+	 	                        		<td><c:out value="${list.mimeType}" /></td>
+	 	                        		<td><c:out value="${list.zlenCode}" /></td> 
  	                       			</tr> 
  	                    		</c:forEach> 
                            </tbody>
@@ -228,7 +236,7 @@
         /// data:{userName:inputName, userMobile:inputMobile, zlenCode:inputCode, deviceType:inputType},
                success:function(data){
                 
-             	  var result ;
+             	  var result ="";
              	  var id;
  				  var uploadedDateTime;
   		      	  var mimeType;
@@ -248,7 +256,7 @@
                      console.log("mimeType", mimeType);
                      console.log("zlenCode", zlenCode);
 				
-                     result  = "<tr><td>"+ele.id+"</td><td>"+ele.uploadedDateTime+"</td><td>"+ele.mimeType+"</td><td>"+ele.zlenCode+"</td></tr>";                   
+                     result  += "<tr><td>"+ele.id+"</td><td>"+ele.uploadedDateTime+"</td><td>"+ele.mimeType+"</td><td>"+ele.zlenCode+"</td></tr>";                   
                                      
               	  });
             	  

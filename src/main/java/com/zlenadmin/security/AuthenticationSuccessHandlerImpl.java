@@ -41,7 +41,7 @@ public class AuthenticationSuccessHandlerImpl implements AuthenticationSuccessHa
 		
 		AppUser user =null;
 		try {
-			user=appuserRepository.findByUserId(username);
+			user=appuserRepository.findByEmail(username);
 			
 			if (user!=null){
 				sessionUser.setUserId(user.getId());

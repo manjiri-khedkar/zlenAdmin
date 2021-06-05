@@ -161,6 +161,9 @@ public class MainPage {
  	    		if (datewiseData.containsKey("image/jpg") ) {
  	    			count = count.add(datewiseData.get("image/jpg"));
 				}
+ 	    		if (datewiseData.containsKey("image/jpeg") ) {
+ 	    			count = count.add(datewiseData.get("image/jpeg"));
+				}
 
  	    		if (datewiseData.containsKey("image/png") ) {
  	    			count = count.add(datewiseData.get("image/png"));
@@ -231,6 +234,9 @@ public class MainPage {
 			zlenCode=null;
 		}
 		
+		if ("".equals(userName)) {
+			userName=null;
+		}
 		ArrayList<UserDetails> userDetailsList = userDetailsRepository.getUserDetails(userName, userMobile, zlenCode, deviceType);
 	
 		return userDetailsList;
@@ -239,12 +245,19 @@ public class MainPage {
 	
 	@GetMapping("/userStoriesListContents") 
 	@ResponseBody
-	public Object getUserStories(Model model)
+	public Object getUserStories(Model model,@Param("zlenCode") String  zlenCode,@Param("mimeType") String  mimeType )
 	{
 
 		//List result= service.queryForMovies();
 		//List result = newrepo.getUserStories();
-		List result = userStoriesRepo.getUserStories(null);
+		if ("".equals(zlenCode)) {
+			zlenCode=null;
+		}
+		if ("All".equals(mimeType)) {
+			mimeType=null;
+		}
+		
+		List result = userStoriesRepo.getUserStories(zlenCode,mimeType);
 		return  result;
 		
 	}
@@ -253,9 +266,8 @@ public class MainPage {
 	public ModelAndView userStoriesList() {
 		
 		ModelAndView mv = new ModelAndView();
-		List<UserStoriesDetails> userStoriesList = userStoriesDetailsRepository.findAll();
-		System.err.println(userStoriesList);
-		mv.addObject("userStoriesList", new UserStoriesDetails());
+		List userStoriesList = userStoriesRepo.getUserStories("", "");
+		//List<UserStoriesDetails> userStoriesList = userStoriesDetailsRepository.findAll();
 		mv.addObject("userStoriesList", userStoriesList);
 	
 		mv.setViewName("userStoriesList");

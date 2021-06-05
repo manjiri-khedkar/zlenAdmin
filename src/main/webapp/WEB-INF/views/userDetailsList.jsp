@@ -115,7 +115,6 @@
    		<div class="container">
 	   		<h1>User Details List</h1>	 
 	        <br/>
-	        <form id="search-form">
 	        <div class="row" >
  		        <label for="userName"><b>User Name : </b></label>&nbsp;
 				<input type="text" id="inputName" placeholder="Enter User Name......">&nbsp;&nbsp;		    
@@ -133,13 +132,13 @@
   				<b>Select Device Type : </b>&nbsp;&nbsp;&nbsp;&nbsp;				
   				<select id="inputType">  
  					<option value="All" selected>All</option>  
-  					<option value="Android">Android</option> 
-  					<option value="Apple">Apple</option>
+  					<option value="android">Android</option> 
+  					<option value="ios">Apple</option>
  					<option value="Window">Window</option>  
  					<option value="Desktop">Desktop</option>  
   				</select>&nbsp;&nbsp;&nbsp;&nbsp;	
   				
-  				 <button type="submit" id="bth-search"
+  				 <button type="button" id="bth-search"
                             class="btn btn-success btn-md"  onclick="event.preventDefault(); search()">Search
                  </button> 
                     </div> 
@@ -249,7 +248,7 @@ $("#btn-search").prop("disabled",false);
     $.ajax({
         type: "GET",
         //contentType: "application/json",
-        url: ${pageContext.request.contextPath}+"/userDetailsListContents",
+        url: "${pageContext.request.contextPath}/userDetailsListContents",
        // success:function(result)
         data: udetailList,
         //dataType: 'json',

@@ -23,7 +23,6 @@ public class RegistrationServiceImpl implements RegistrationService {
 		  AppUser user = new AppUser();
 	        
 	        user.setEmail(registration.getEmail());
-	        user.setUserId(registration.getUserId());
 	        user.setPassword(registration.getPassword());
 	        user.setFirstName(registration.getFirstName());
 	        user.setLastName(registration.getLastName());

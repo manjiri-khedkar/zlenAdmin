@@ -74,12 +74,6 @@ private final Logger logger = LoggerFactory.getLogger(UserController.class);
 			return "adduser";
 		}
 
-		System.out.println("First Name :"+userDto.getFirstName());
-		System.out.println("Last Name :"+userDto.getLastName());
-		System.out.println("Mobile No. :"+userDto.getMobileNo());
-		System.out.println("Email :"+userDto.getEmail());
-		System.out.println("Password :"+userDto.getPassword());
-		System.out.println("Confirm Password :"+userDto.getConfirmPass());
 		userService.save(userDto); 
 		 	
 	   return "redirect:/user?success"; 

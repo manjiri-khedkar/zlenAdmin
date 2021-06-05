@@ -27,7 +27,7 @@ public class AppUser {
 	private String mobileNo;
 	private String email;
 	private String password;
-	private String userId;
+	
 	private String date;
 	
 	@Transient
@@ -44,7 +44,7 @@ public class AppUser {
 	@Override
 	public String toString() {
 		return "AppUser [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", mobileNo=" + mobileNo
-				+ ", email=" + email + ", password=" + password + ", userId=" + userId + ", confirmPass=" + confirmPass
+				+ ", email=" + email + ", password=" + password +  ", confirmPass=" + confirmPass
 				+ ", roles=" + roles + "]";
 	}
 	
@@ -72,12 +72,7 @@ public class AppUser {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public String getUserId() {
-		return userId;
-	}
-	public void setUserId(String userId) {
-		this.userId = userId;
-	}
+	
 	public Integer getId() {
 		return id;
 	}

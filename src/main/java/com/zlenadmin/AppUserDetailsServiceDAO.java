@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,7 +54,7 @@ public class AppUserDetailsServiceDAO implements UserDetailsService {
 		
 		AppUser user=null;
 		try {
-			user=appuserRepository.findByUserId(username);
+			user=appuserRepository.findByEmail(username);
 			
 			if (user!=null){
 				//System.out.println("party...." + user.getId() + user.getParty_name());
