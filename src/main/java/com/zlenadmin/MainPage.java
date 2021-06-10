@@ -263,7 +263,7 @@ public class MainPage {
 	public ModelAndView userStoriesList() {
 		
 		ModelAndView mv = new ModelAndView();
-		List userStoriesList = userStories.getUserStories("", "");
+		List userStoriesList = userStories.getUserStories(null, null);
 		//List<UserStoriesDetails> userStoriesList = userStoriesDetailsRepository.findAll();
 		mv.addObject("userStoriesList", userStoriesList);
 		mv.setViewName("userStoriesList");

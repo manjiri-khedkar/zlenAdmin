@@ -130,19 +130,19 @@
 									</thead>
 					
 									<tbody>
-		<%-- 								<c:forEach items="${UserDetails}"  var="userdetails" varStatus="status">  --%>
+										<c:forEach items="${friendDetails}"  var="userdetails" varStatus="status"> 
 		 	                        		<tr class="odd gradeX"> 
 												
 												<td><c:out value="${status.index+1}" /></td> 
-												<td><c:out value="${friendDetails.id}" /></td> 
-												<td><c:out value="${friendDetails.userName}" /></td> 
-												<td><c:out value="${friendDetails.deviceType}" /></td>
-												<td><c:out value="${friendDetails.zlenCode}" /></td>
-												<td><c:out value="${friendDetails.userMobile}" /></td>
-												<td><c:out value="${friendDetails.latitude}" /></td>
-												<td><c:out value="${friendDetails.longitude}" /></td>
+												<td><c:out value="${userdetails.id}" /></td> 
+												<td><c:out value="${userdetails.userName}" /></td> 
+												<td><c:out value="${userdetails.deviceType}" /></td>
+												<td><c:out value="${userdetails.zlenCode}" /></td>
+												<td><c:out value="${userdetails.userMobile}" /></td>
+												<td><c:out value="${userdetails.latitude}" /></td>
+												<td><c:out value="${userdetails.longitude}" /></td>
 											</tr> 
-		<%--  	                    		</c:forEach>  --%>
+		 	                    		</c:forEach> 
 		                           </tbody>
 								</table>
 							</div>

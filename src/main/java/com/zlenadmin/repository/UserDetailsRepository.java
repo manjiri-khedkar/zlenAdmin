@@ -36,7 +36,15 @@ public interface UserDetailsRepository extends JpaRepository<UserDetails, Intege
 	
 	
 	@Query(value ="SELECT ud.user_name, ud.user_mobile, ud.zlen_code, ud.device_Type, ud.longitude, ud.latitude  FROM user_details ud where ud.user_id =? ", nativeQuery = true)
-    List<Object> getUserDetails(@Param("userId") String userId); 
+    List<Object> getUserDetails(@Param("userId") String userId);
+	
+	
+	
+	@Query(value = "SELECT u.* FROM public.user_details u "
+			+ "inner join public.user_friends_details ufd on ufd.friend_user_id=u.user_id "
+			+ "WHERE ufd.user_id = :userId ", nativeQuery = true)
+	ArrayList<UserDetails> getUserFriends(@Param("userId") String userId);
+	
 
 	
 }

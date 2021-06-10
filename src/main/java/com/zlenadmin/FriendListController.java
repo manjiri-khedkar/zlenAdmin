@@ -27,7 +27,8 @@ public class FriendListController {
 	@GetMapping("/friendList/{id}")
 	public String getUseStoriesDetails(@PathVariable Long id, Model model, @Param("userId") String userId) {
 		
-		model.addAttribute("friendDetails", userdetailsRepository.findById(id));
+		UserDetails user = userdetailsRepository.findById(id);
+		model.addAttribute("friendDetails", userdetailsRepository.getUserFriends(user.getUserId()));
 		return "friendList";
 	} 
 }
