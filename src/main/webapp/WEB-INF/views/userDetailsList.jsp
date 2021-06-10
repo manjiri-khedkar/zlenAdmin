@@ -179,9 +179,13 @@
 	 	                        		<td><c:out value="${list.longitude}" /></td>
 										<td>
 	 	                    				<a href="${pageContext.request.contextPath}/userViewForm/<c:out value='${list.id}'/>">
-	 	                    					<button class="btn btn-primary">View</button></a>&nbsp;
+	 	                    					<button class="btn btn-primary  btn-sm">View</button></a>&nbsp;
+	 	                    					
 	 	                    				<a href="${pageContext.request.contextPath}/friendList/<c:out value='${list.id}'/>">
-	 	                    					<button class="btn btn-success">Friend</button></a>&nbsp;
+	 	                    					<button class="btn btn-success  btn-sm">Friend</button></a>&nbsp;
+ 	                    					
+	 	                    				<a href="${pageContext.request.contextPath}/contact/<c:out value='${list.id}'/>">
+	 	                    					<button class="btn btn-danger btn-sm">Contact</button></a>&nbsp;
 	 	                    				
 	 	                        		</td>
  	                       			</tr> 

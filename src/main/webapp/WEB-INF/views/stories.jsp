@@ -42,15 +42,37 @@
 <body id="page-top">
 
 	 
-  <!-- Page Wrapper -->
-  <div id="wrapper">
-
-   		<jsp:include page="header.jsp"></jsp:include>
-
-        <!--====== Section Start ======-->
-<div class="container">
-	<div class="clearfix">&nbsp;</div>   
+<!--====== Section Start ======-->
+<section class="login min-height">
+<div id="wrapper">
+	<jsp:include page="header.jsp"></jsp:include>
 	
+   		<div class="container">
+	   		<h1>Stories Hostory</h1>	 
+	        <br/>
+	        
+	        <div class="row" > 
+  		        <!-- <label for="uploadedDateTime"><b>Date : </b></label>&nbsp; --> 
+ 				<input style="display: none" type="text" id="inputDate">&nbsp;&nbsp;
+ 						    
+   				<label for="mimeType"><b>Mime Type : </b></label>&nbsp;  
+   				<!-- <input type="text"  id="inputMimeType" placeholder="Enter Mime Type......">&nbsp;&nbsp; -->	 
+   				<select id="inputMimeType">  
+ 					<option value="All" selected>All</option>  
+  					<option value="image">Image</option> 
+  					<option value="video">Video</option>
+ 					<option value="text">Text</option>  
+  				</select>&nbsp;&nbsp;&nbsp;&nbsp;	
+  				
+  				<label for="zlenCode"><b>Zlen Code: </b></label>&nbsp;   
+    				<input type="text"  id="inputCode" placeholder="Enter Zlen Code......">&nbsp;&nbsp;
+    				 
+   				
+   					<button type="button" id="bth-search" class="btn btn-success btn-md"  onclick="search()">Search</button>&nbsp;&nbsp;	
+  				
+   			</div>
+   			<br/> <br/>
+	        
 	        <div class="row">
                         	<c:forEach items="${storiesList}"  var="list" varStatus="status">
 	                        	<!--  <td><c:out value="${iStat.index + 1}" /></td> -->
@@ -59,8 +81,12 @@
 	                        	  	
 	                        		<c:if test="${not empty list.uploadedPath}">
 	                        			<div style="background-color: white; padding: 5px;">
+	                        			<div>
+	 	                    				<a href="${pageContext.request.contextPath}/userViewComment/<c:out value='${list.id}'/>">
+	 	                    					<button class="btn btn-info" style="margin-left: 185px;">View Comments</button></a>
+	 	                 				</div>
                         			    
-                        			    <img style="width: 100px" alt="No Image Available" src="${list.uploadedPath}"/>
+                        			    <img style="width: 100px;margin-top: -40px;" alt="No Image Available" src="${list.uploadedPath}"/>
 	                        		   <div>
 	                        		   		<b>Date:</b> <c:out value="${list.uploadedDateTime}" />
 	                        		   		<br>
@@ -73,6 +99,7 @@
 			</div>
 	    </div>
   </div>  
+ </section> 
 <!--====== Section Ends ======-->
       <!-- End of Main Content -->
 
@@ -109,5 +136,75 @@
   <!-- Page level custom scripts -->
   <script src="${pageContext.request.contextPath}/resources/js/demo/chart-area-demo.js"></script>
   <script src="${pageContext.request.contextPath}/resources/js/demo/chart-pie-demo.js"></script>
+  
+  <script type="text/javascript"> 
+
+ $(document).ready(function () {
+
+     
+ });
+ function search() {
+	 
+ 	
+ 	var ustoriesList;
+ 		ustoriesList = {} 		
+ 		ustoriesList["uploadedDateTime"] = $("#inputDate").val();
+ 		ustoriesList["mimeType"] = $("#inputMimeType").val();    
+ 		ustoriesList["zlenCode"] = $("#inputCode").val();    
+		
+ 		
+ $("#btn-search").prop("disabled",false);
+     
+     $.ajax({
+         type: "GET",
+         //contentType: "application/json",
+         url:  "${pageContext.request.contextPath}/storiesViews",
+        // success:function(result)
+         data: ustoriesList,
+         //dataType: 'json',
+
+        /// data:{userName:inputName, userMobile:inputMobile, zlenCode:inputCode, deviceType:inputType},
+               success:function(data){
+                
+             	  var result ="";
+             	  var id;
+ 				  var uploadedDateTime;
+  		      	  var mimeType;
+  		      	  var zlenCode;
+				  
+              	  $(data).each(function (index,ele){
+                  	
+                  	id = ele.id;
+                  	uploadedDateTime = ele.uploadedDateTime;
+                    mimeType = ele.mimeType;
+                    zlenCode = ele.zlenCode;
+ 				     
+  				     console.log("data", data);
+                     console.log("ele", ele);   
+                     console.log("id", id);                 
+                     console.log("uploadedDateTime", uploadedDateTime);
+                     console.log("mimeType", mimeType);
+                     console.log("zlenCode", zlenCode);
+				
+                     result  += "<tr><td>"+ele.id+"</td><td>"+ele.uploadedDateTime+"</td><td>"+ele.mimeType+"</td><td>"+ele.zlenCode+"</td></tr>";                   
+                                     
+              	  });
+            	  
+                   $('#table1 tbody').html(result);
+                   
+                   return;  
+                   alert(ele.success);        			   
+               }
+
+ 		});
+ }
+
+</script>
+
+<!-- <script type="text/javascript"> -->
+// 	function clearFilter(){
+// 		window.location = '/storiesViews';
+// 		}
+<!-- </script> -->
 </body>
 </html>        

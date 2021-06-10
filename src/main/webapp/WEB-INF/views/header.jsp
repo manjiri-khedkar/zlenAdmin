@@ -54,6 +54,12 @@
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>Stories List</span></a>
       </li>
+	  
+	   <li class="nav-item active">
+        <a class="nav-link" href="${pageContext.request.contextPath}/activitylog">
+          <i class="fas fa-fw fa-tachometer-alt"></i>
+          <span>User Activity</span></a>
+      </li>
       
       <!-- Divider -->
       <hr class="sidebar-divider d-none d-md-block">
