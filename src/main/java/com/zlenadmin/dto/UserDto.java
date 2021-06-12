@@ -1,9 +1,12 @@
 package com.zlenadmin.dto;
 
 import java.util.List;
+
 import javax.persistence.Column;
+
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
+
 import com.zlenadmin.constraint.FieldMatch;
 import com.zlenadmin.model.Role;
 

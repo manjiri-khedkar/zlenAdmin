@@ -5,7 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import com.zlenadmin.dto.UserDto;
+
 import com.zlenadmin.repository.UserDetailsRepository;
 
 @Controller

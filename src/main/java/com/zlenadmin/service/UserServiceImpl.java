@@ -6,10 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.zlenadmin.dto.RoleDto;
 import com.zlenadmin.dto.UserDto;
 import com.zlenadmin.model.AppUser;
-import com.zlenadmin.model.Role;
 import com.zlenadmin.repository.AppuserRepository;
 
 @Service

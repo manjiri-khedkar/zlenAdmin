@@ -2,9 +2,7 @@ package com.zlenadmin;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.Collections;
-import java.util.List;
 
 class Combination {
 	private static double max_no=-1;

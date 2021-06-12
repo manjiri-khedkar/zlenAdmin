@@ -4,12 +4,13 @@ import java.util.List;
 
 import javax.persistence.Tuple;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import com.zlenadmin.api.entity.UserStoriesDetails;
-import com.zlenadmin.dto.StoriesDto;
 
 @Repository
 public interface UserStoriesDetailsRepository extends JpaRepository<UserStoriesDetails, Long> {
@@ -23,4 +24,6 @@ public interface UserStoriesDetailsRepository extends JpaRepository<UserStoriesD
 	
 	@Query(value="select usd.mime_type, DATE(usd.uploaded_date_time), usd.uploaded_path, ud.user_name from public.user_stories_details usd inner join user_details ud on usd.user_id = ud.user_id", nativeQuery=true)
 	List<Tuple> getStoriesDetails();
+	
+	Page<UserStoriesDetails> findAll(Pageable pageable);
 }

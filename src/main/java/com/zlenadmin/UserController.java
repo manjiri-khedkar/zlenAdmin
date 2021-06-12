@@ -1,17 +1,11 @@
 package com.zlenadmin;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
+
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+
 import org.apache.tomcat.jni.User;
-import org.json.JSONArray;
-import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,15 +18,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
-import com.zlenadmin.dto.RoleDto;
+
 import com.zlenadmin.dto.UserDto;
 import com.zlenadmin.model.AppUser;
-import com.zlenadmin.model.Role;
 import com.zlenadmin.repository.AppuserRepository;
 import com.zlenadmin.repository.RoleRepository;
-import com.zlenadmin.service.RegistrationServiceImpl;
 import com.zlenadmin.service.UserService;
 
 @Controller
