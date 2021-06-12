@@ -184,7 +184,7 @@
 	 	                    				<a href="${pageContext.request.contextPath}/friendList/<c:out value='${list.id}'/>">
 	 	                    					<button class="btn btn-success  btn-sm">Friend</button></a>&nbsp;
  	                    					
-	 	                    				<a href="${pageContext.request.contextPath}/contact/<c:out value='${list.id}'/>">
+	 	                    				<a href="${pageContext.request.contextPath}/contactlist/<c:out value='${list.id}'/>">
 	 	                    					<button class="btn btn-danger btn-sm">Contact</button></a>&nbsp;
 	 	                    				
 	 	                        		</td>

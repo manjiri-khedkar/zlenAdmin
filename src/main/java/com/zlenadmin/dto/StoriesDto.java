@@ -9,6 +9,11 @@ public class StoriesDto {
 	private String mimeType;
 	
 	private String zlenCode;
+	
+	private String uploadedPath;
+	
+	private Long id;
+	
 
 	public Date getUploadedDateTime() {
 		return uploadedDateTime;
@@ -32,6 +37,22 @@ public class StoriesDto {
 
 	public void setZlenCode(String zlenCode) {
 		this.zlenCode = zlenCode;
+	}
+
+	public String getUploadedPath() {
+		return uploadedPath;
+	}
+
+	public void setUploadedPath(String uploadedPath) {
+		this.uploadedPath = uploadedPath;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 	
 	

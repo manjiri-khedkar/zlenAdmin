@@ -21,7 +21,7 @@ public class UserStoriesImpl implements UserStories {
 //			+ "from public.user_stories_details usd inner join public.user_details ud on usd.user_id = ud.user_id "
 //			+ "where ud.zlen_code like :zlenCode "; 
 
-	private String SQL="select usd.uploaded_date_time as uploadedDateTime, usd.mime_type mimeType, ud.zlen_code as zlenCode "
+	private String SQL="select usd.id id, usd.uploaded_date_time as uploadedDateTime, usd.mime_type mimeType, usd.uploaded_path as uploadedPath, ud.zlen_code as zlenCode "
 			+ "from public.user_stories_details usd inner join public.user_details ud on usd.user_id = ud.user_id "
 			+ "where (ud.zlen_code LIKE :zlenCode or :zlenCode1 is null) "
 			+ "and (usd.mime_type LIKE :mimeType or :mimeType1 is null)"; 
@@ -41,7 +41,8 @@ public class UserStoriesImpl implements UserStories {
 				ud.setZlenCode(rs.getString("zlenCode"));
 				ud.setUploadedDateTime(rs.getDate("uploadedDateTime"));
 				ud.setMimeType(rs.getString("mimeType"));
-				
+				ud.setUploadedPath(rs.getString("uploadedPath"));
+				ud.setId(rs.getLong("id"));
 				return ud;
 			}
 		});

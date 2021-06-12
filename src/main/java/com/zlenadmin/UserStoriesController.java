@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.zlenadmin.api.entity.UserStoriesDetails;
+import com.zlenadmin.dao.UserStories;
 import com.zlenadmin.repository.UserStoriesDetailsRepository;
 
 @Controller
@@ -19,12 +20,14 @@ public class UserStoriesController {
 	@Autowired
 	UserStoriesDetailsRepository userStoriesDetailsRepository;
 	
+	@Autowired
+	private UserStories userStories;
+	
 	@GetMapping
 	public ModelAndView list(Model model) {
 		
-		List<UserStoriesDetails> storieslist = userStoriesDetailsRepository.findAll();
+		List storieslist = userStories.getUserStories(null, null);
 		ModelAndView mav = new ModelAndView();
-		mav.addObject("stories", new UserStoriesDetails());
 		mav.addObject("storiesList", storieslist);
 		mav.setViewName("stories");
 		return mav;

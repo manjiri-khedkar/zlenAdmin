@@ -112,10 +112,9 @@
 		<jsp:include page="header.jsp"></jsp:include>
 			<div class="container">
 				<div class="clearfix">&nbsp;</div>                        
-<%--        				<form:form action="${pageContext.request.contextPath}/friendList/{id}" id="table1" method="post"  modelAttribute="friendDetails"> --%>
        
 			   			<div class="panel-heading">
-							<h2 class="text-center" style="color: black;"><b>Activity Log Details</b></h2>
+							<h2 class="text-center" style="color: black;"><b>Activity Log Lists</b></h2>
 						</div><br/>       
                    
                    
@@ -128,24 +127,26 @@
 									<thead>
 										<tr>
 										    <th class="text-left" style="background: #d3d3d3">Sr.No.</th>
+										    <th class="text-left" style="background: #d3d3d3">ID</th>
 											<th class="text-left" style="background: #d3d3d3">Activity</th>
-											<th class="text-left" style="background: #d3d3d3">Date</th> 
-											<th class="text-left" style="background: #d3d3d3">UserName</th>
-											<th class="text-left" style="background: #d3d3d3">Mobile</th>
-											<th class="text-left" style="background: #d3d3d3">ZlenCode</th>
+											<th class="text-left" style="background: #d3d3d3">Created Date</th> 
+											<th class="text-left" style="background: #d3d3d3">Notify User Device ID</th>
+											<th class="text-left" style="background: #d3d3d3">Notify User ID</th>
+											<th class="text-left" style="background: #d3d3d3">User ID</th>
 										</tr>
 									</thead>
 					
 									<tbody>
-										<c:forEach items="${userActivityList}"  var="userActivityList" varStatus="status"> 
+										<c:forEach items="${userActivity}"  var="list" varStatus="status"> 
 		 	                        		<tr class="odd gradeX"> 
 												
-												<td><c:out value="${status.index+1}" /></td> 
-												<td><c:out value="${userActivityList.activity}" /></td> 
-												<td><c:out value="${userActivityList.createdDate}" /></td> 
-												<td><c:out value="${userActivityList.userName}" /></td>
-												<td><c:out value="${userActivityList.userMobile}" /></td>
-												<td><c:out value="${userActivityList.zlenCode}" /></td>
+												<td><c:out value="${status.index+1}" /></td>
+												<td><c:out value="${list.id}" /></td>  
+												<td><c:out value="${list.activity}" /></td> 
+												<td><c:out value="${list.createdDate}" /></td> 
+												<td><c:out value="${list.notifyUserDeviceId}" /></td>
+												<td><c:out value="${list.notifyUserId}" /></td>
+												<td><c:out value="${list.userId}" /></td>
 											</tr> 
 		 	                    		</c:forEach> 
 		                           </tbody>
@@ -154,7 +155,6 @@
 						</div>		
 					</div>
 				</div>
-<%--              </form:form> --%>
 		</div>
 	</div>
 </section> 

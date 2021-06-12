@@ -75,23 +75,22 @@
 	        
 	        <div class="row">
                         	<c:forEach items="${storiesList}"  var="list" varStatus="status">
-	                        	<!--  <td><c:out value="${iStat.index + 1}" /></td> -->
-	                        	<!--  <td><c:out value="${list.mimeType}" /></td> -->
-	                        	  <div class="col-md-4" class="center-align">
+	                        	
+	                        	
+	                        	  <div class="col-md-4"  class="center-align">
 	                        	  	
 	                        		<c:if test="${not empty list.uploadedPath}">
 	                        			<div style="background-color: white; padding: 5px;">
-	                        			<div>
-	 	                    				<a href="${pageContext.request.contextPath}/userViewComment/<c:out value='${list.id}'/>">
-	 	                    					<button class="btn btn-info" style="margin-left: 185px;">View Comments</button></a>
-	 	                 				</div>
                         			    
-                        			    <img style="width: 100px;margin-top: -40px;" alt="No Image Available" src="${list.uploadedPath}"/>
-	                        		   <div>
-	                        		   		<b>Date:</b> <c:out value="${list.uploadedDateTime}" />
-	                        		   		<br>
-	                        		   		<b>ZlenCode:</b> 
-	                        		   </div>
+                        			   		 <img style="width: 100px;" alt="No Image Available" src="${list.uploadedPath}"/>
+			                        		   <div>
+			                        		   		<b>Date:</b> <c:out value="${list.uploadedDateTime}" />
+			                        		   		<br>
+			                        		   		<b>ZlenCode:</b> <c:out value="${list.zlenCode}" />
+			                        		   		<br>
+			                        		   		<a href="${pageContext.request.contextPath}/userViewComment/<c:out value='${list.id}'/>">
+			 	                    					<button class="btn btn-sm btn-info" >View Comments</button></a> 
+			                        		   </div>
 	                        		   </div>
                                     </c:if>
 	                        	  </div>
