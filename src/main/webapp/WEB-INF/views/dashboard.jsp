@@ -205,35 +205,7 @@
 
 <jsp:include page="otherModal.jsp"></jsp:include>
   
-   <div>
-     <!-- Logout Modal-->
-  <div class="modal fade" id="id_lotList" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Lot List</h5>
-          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">×</span>
-          </button>
-        </div>
-        <div class="modal-body">
-        <table class="table table-bordered"  width="100%" cellspacing="0">
-        	<thead>
-        	<tr>
-        		<td>Lot No	</td>
-        		<td>Lot Name </td>
-        		<td>Division </td>
-        	</tr>
-        	</thead>
-        </table>
-        </div>
-        <div class="modal-footer">
-        	<button class="btn btn-secondary" type="button" data-dismiss="modal">Close</button>
-        </div>
-      </div>
-    </div>
-  </div>                 
-</div>
+
 
   <!-- Bootstrap core JavaScript-->
   

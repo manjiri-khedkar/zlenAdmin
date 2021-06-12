@@ -178,14 +178,16 @@
 	 	                        		<td><c:out value="${list.latitude}" /></td>
 	 	                        		<td><c:out value="${list.longitude}" /></td>
 										<td>
-	 	                    				<a href="${pageContext.request.contextPath}/userViewForm/<c:out value='${list.id}'/>">
-	 	                    					<button class="btn btn-primary  btn-sm">View</button></a>&nbsp;
+	 	                    				<a href="${pageContext.request.contextPath}/userViewForm/<c:out value='${list.id}'/>"
+	 	                    					class="btn btn-info btn-sm showData"
+	 	                    				>
+	 	                    					View</a>&nbsp;
 	 	                    					
-	 	                    				<a href="${pageContext.request.contextPath}/friendList/<c:out value='${list.id}'/>">
-	 	                    					<button class="btn btn-success  btn-sm">Friend</button></a>&nbsp;
+	 	                    				<a href="${pageContext.request.contextPath}/friendList/<c:out value='${list.id}'/>" class="btn btn-primary  btn-sm showData">
+	 	                    					Friend</a>&nbsp;
  	                    					
-	 	                    				<a href="${pageContext.request.contextPath}/contactlist/<c:out value='${list.id}'/>">
-	 	                    					<button class="btn btn-danger btn-sm">Contact</button></a>&nbsp;
+	 	                    				<a href="${pageContext.request.contextPath}/contactlist/<c:out value='${list.id}'/>" 
+	 	                    					 class="btn btn-danger btn-sm showData">  Contact</a>&nbsp;
 	 	                    				
 	 	                        		</td>
  	                       			</tr> 
@@ -217,11 +219,12 @@
 
 <jsp:include page="otherModal.jsp"></jsp:include>
   <!-- Bootstrap core JavaScript-->
-  
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script src="${pageContext.request.contextPath}/resources/vendor/jquery-easing/jquery.easing.min.js"></script>
   <script src="${pageContext.request.contextPath}/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
   <!-- Core plugin JavaScript-->
-  <script src="${pageContext.request.contextPath}/resources/vendor/jquery-easing/jquery.easing.min.js"></script>
+  
 
   <!-- Custom scripts for all pages-->
   <script src="${pageContext.request.contextPath}/resources/js/sb-admin-2.min.js"></script>
@@ -231,7 +234,7 @@
   <!-- Page level custom scripts -->
   <script src="${pageContext.request.contextPath}/resources/js/demo/chart-area-demo.js"></script>
   <script src="${pageContext.request.contextPath}/resources/js/demo/chart-pie-demo.js"></script>
-  	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  	
   	
 
 <script type="text/javascript">
@@ -245,6 +248,26 @@ $(document).ready(function () {
         search();
        // fire_ajax_submit();
     });
+    $(".showData").click(function (event){
+    	
+
+    	var modal = $("#dataModal");
+    	
+    	event.preventDefault();
+    	var get = $(this).attr('href');
+    	 alert(modal);
+    	 $.ajax({
+    	        type: "GET",
+    	        url: get,
+                success:function(data){
+                
+                		console.log(data);
+    	            	modal.find(".modal-body").html(data);
+    	            	$("#dataModal").modal('show');
+    	        }
+    	 });
+    });
+    
 });
 function search() {
 
@@ -323,73 +346,3 @@ $("#btn-search").prop("disabled",false);
 
 
 
-
-
-<!-- //     const api_url = "/userDetailsListContents"; -->
-<!-- //   //Defining async function -->
-<!-- //     async function getapi(url) {  -->
-      
-<!-- //         // Storing response -->
-<!-- //         const response = await fetch(url); -->
-      
-<!-- //         // Storing data in form of JSON -->
-<!-- //         var data = await response.json(); -->
-<!-- //         console.log(data); -->
-<!-- //         if (response) { -->
-<!-- //             hideloader(); -->
-<!-- //         } -->
-<!-- //         show(data); -->
-<!-- //     } -->
-<!-- //     // Calling that async function -->
-<!-- //     getapi(api_url); -->
-  
-<!-- //    	const searchFun = () =>{ -->
-
-<!-- //    		let filter = document.getElementById('inputName').value.toUpperCase();  -->
-
-<!-- //    		let table1 = document.getElementById('table1'); -->
-
-<!-- //    		let tr = table1.getElementsByTagName('tr'); -->
-		
-<!-- //    		for(var i=0; i<tr.length; i++){ -->
-<!-- //    		let td = tr[i].getElementsByTagName('td')[1]; -->
-
-<!-- //    			if(td){ -->
-<!-- //    				let textvalue = td.textContent || td.innerHTML; -->
-<!-- //    				if(textvalue.toUpperCase().indexOf(filter) > -1){ -->
-<!-- //    					tr[i].style.display = "";  -->
-<!-- //    				}else{ -->
-<!-- //    					tr[i].style.display = "none"; -->
-<!-- //    				}   -->
-<!-- //    				} -->
-<!-- //    			} -->
-<!-- //   		} -->
-<!--    	</script> -->
-
-<!--    	 $(searchFun() -->
-<!--   					{ -->
-<!--   				var userName, userMobile, zlenCode, devicetype; -->
-<!--   				$.ajax( { -->
-<!--   				      type : "Get",  -->
-<!--   				      url : "/userDetailsListContents",  -->
-<!--   				      contentType : "application/json",  -->
-<!--   				      dataType : 'json',  -->
-<!--   				      success : function (data) { -->
-
-<!--   				    	  userName = data.userName; -->
-<!--   				    	  Mobile_no. = data.userMobile; -->
-<!--   				    	  zlenCode = data.zlenCode; -->
-<!--   				    	  devicetype = data.devicetype; -->
-				    	  
-<!--   				    	  console.log("success", data ); -->
-					       
-<!--   					      }); -->
-<!--   							 }, -->
-						    
-<!--   							   }); -->
-						     
-<!--   								}); -->
-					
- 
-  
-  

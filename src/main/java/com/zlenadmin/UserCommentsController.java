@@ -22,7 +22,7 @@ public class UserCommentsController {
 	
 //		UserStoriesCommentDetails userComments = userCommentsRepository.findById(id);
 
-		List <UserStoriesCommentDetails>  userComments = userCommentsRepository.findAll();
+		List <UserStoriesCommentDetails>  userComments = userCommentsRepository.findBySnapId(id);
 //		model.addAttribute("userComments", userCommentsRepository.getUserComments(userComments.getSnapId()));
 
 		

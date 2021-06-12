@@ -75,10 +75,7 @@
 	        
 	        <div class="row">
                         	<c:forEach items="${storiesList}"  var="list" varStatus="status">
-	                        	
-	                        	
 	                        	  <div class="col-md-4"  class="center-align">
-	                        	  	
 	                        		<c:if test="${not empty list.uploadedPath}">
 	                        			<div style="background-color: white; padding: 5px;">
                         			    
@@ -88,6 +85,7 @@
 			                        		   		<br>
 			                        		   		<b>ZlenCode:</b> <c:out value="${list.zlenCode}" />
 			                        		   		<br>
+			                        		   		
 			                        		   		<a href="${pageContext.request.contextPath}/userViewComment/<c:out value='${list.id}'/>">
 			 	                    					<button class="btn btn-sm btn-info" >View Comments</button></a> 
 			                        		   </div>
