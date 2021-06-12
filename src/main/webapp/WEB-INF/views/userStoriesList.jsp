@@ -150,17 +150,26 @@
 									<th class="text-left" style="background: #d3d3d3">Uploaded Date Time</th>
 									<th class="text-left" style="background: #d3d3d3">Mime Type</th>
 									<th class="text-left" style="background: #d3d3d3">Zlen Code</th>
+									<th class="text-left" style="background: #d3d3d3">Action</th>
 								</tr>
 							</thead>
 							
  							<tbody> 
                         		<c:forEach items="${userStoriesList}" var="list" varStatus="status"> 
  	                        		<tr class="odd gradeX"> 
-	                        		
  	                        			<td><c:out value="${status.index+1}" /></td>
  	                        			<td><c:out value="${list.uploadedDateTime}" /></td> 
 	 	                        		<td><c:out value="${list.mimeType}" /></td>
-	 	                        		<td><c:out value="${list.zlenCode}" /></td> 
+	 	                        		<td> 
+	 	                        			<a href="${pageContext.request.contextPath}/userViewZlen/<c:out value='${list.zlenCode}'/>" class="showData">
+	 	                        				<c:out value="${list.zlenCode}" />
+	 	                        			</a>
+	 	                        		</td> 
+	 	                        		<td>
+	 	                        			<a href="#" src='${list.uploadedPath}' class="btn btn-info btn-sm img-view"> 
+	 	                        				View
+	 	                        			</a>
+	 	                        		</td>
  	                       			</tr> 
  	                    		</c:forEach> 
                            </tbody>
@@ -190,11 +199,15 @@
 
 <jsp:include page="otherModal.jsp"></jsp:include>
   <!-- Bootstrap core JavaScript-->
-  
-  <script src="${pageContext.request.contextPath}/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 
   <!-- Core plugin JavaScript-->
   <script src="${pageContext.request.contextPath}/resources/vendor/jquery-easing/jquery.easing.min.js"></script>
+    
+  <script src="${pageContext.request.contextPath}/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+
 
   <!-- Custom scripts for all pages-->
   <script src="${pageContext.request.contextPath}/resources/js/sb-admin-2.min.js"></script>
@@ -204,7 +217,7 @@
   <!-- Page level custom scripts -->
   <script src="${pageContext.request.contextPath}/resources/js/demo/chart-area-demo.js"></script>
   <script src="${pageContext.request.contextPath}/resources/js/demo/chart-pie-demo.js"></script>
-  	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  
   	
 
  <script type="text/javascript"> 

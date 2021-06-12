@@ -173,21 +173,22 @@
  	                        			<td><c:out value="${status.index+1}" /></td>
  	                        			<td><c:out value="${list.userName}" /></td> 
 	 	                        		<td><c:out value="${list.userMobile}" /></td> 
-	 	                        		<td><c:out value="${list.zlenCode}" /></td>
+	 	                        		<td>
+	 	                        		<a href="${pageContext.request.contextPath}/userViewForm/<c:out value='${list.id}'/>"
+	 	                    					class="btn btn-info btn-sm showData">
+	 	                        			<c:out value="${list.zlenCode}" />
+	 	                        		</a>
+	 	                        		</td>
 	 	                        		<td><c:out value="${list.deviceType}" /></td>
 	 	                        		<td><c:out value="${list.latitude}" /></td>
 	 	                        		<td><c:out value="${list.longitude}" /></td>
 										<td>
-	 	                    				<a href="${pageContext.request.contextPath}/userViewForm/<c:out value='${list.id}'/>"
-	 	                    					class="btn btn-info btn-sm showData"
-	 	                    				>
-	 	                    					View</a>&nbsp;
 	 	                    					
 	 	                    				<a href="${pageContext.request.contextPath}/friendList/<c:out value='${list.id}'/>" class="btn btn-primary  btn-sm showData">
-	 	                    					Friend</a>&nbsp;
+	 	                    					Friends</a>&nbsp;
  	                    					
 	 	                    				<a href="${pageContext.request.contextPath}/contactlist/<c:out value='${list.id}'/>" 
-	 	                    					 class="btn btn-danger btn-sm showData">  Contact</a>&nbsp;
+	 	                    					 class="btn btn-danger btn-sm showData">  Contacts</a>&nbsp;
 	 	                    				
 	 	                        		</td>
  	                       			</tr> 
@@ -248,22 +249,7 @@ $(document).ready(function () {
         search();
        // fire_ajax_submit();
     });
-    $(".showData").click(function (event){
-    	
-
-    	var modal = $("#dataModal");
-    	
-    	event.preventDefault();
-    	var get = $(this).attr('href');
-    	 $.ajax({
-    	        type: "GET",
-    	        url: get,
-                success:function(data){
-    	            	modal.find(".modal-body").html(data);
-    	            	$("#dataModal").modal('show');
-    	        }
-    	 });
-    });
+    
     
 });
 function search() {

@@ -75,19 +75,24 @@
 	        
 	        <div class="row">
                         	<c:forEach items="${storiesList}"  var="list" varStatus="status">
-	                        	  <div class="col-md-4"  class="center-align">
+	                        	  <div class="col-md-4"  class="center-align" style="margin: 5px" >
 	                        		<c:if test="${not empty list.uploadedPath}">
-	                        			<div style="background-color: white; padding: 5px;">
-                        			    
-                        			   		 <img style="width: 100px;" alt="No Image Available" src="${list.uploadedPath}"/>
+	                        			<div style="background-color: white; padding: 5px;" class="border">
+                        			    		<div style="text-align:center">
+                        			   		 		<img class="img-fluid img-view" style="max-height: 175px;" alt="No Image Available" src="${list.uploadedPath}"/>
+                        			   		 	</div>
 			                        		   <div>
 			                        		   		<b>Date:</b> <c:out value="${list.uploadedDateTime}" />
 			                        		   		<br>
-			                        		   		<b>ZlenCode:</b> <c:out value="${list.zlenCode}" />
+			                        		   		<b>ZlenCode:</b> 
+			                        		   		<a href="${pageContext.request.contextPath}/userViewZlen/<c:out value='${list.zlenCode}'/>" class="showData">
+			                        		   			<c:out value="${list.zlenCode}" />
+			                        		   		</a>
 			                        		   		<br>
 			                        		   		
-			                        		   		<a href="${pageContext.request.contextPath}/userViewComment/<c:out value='${list.id}'/>">
-			 	                    					<button class="btn btn-sm btn-info" >View Comments</button></a> 
+			                        		   		<a href="${pageContext.request.contextPath}/userViewComment/<c:out value='${list.id}'/>" class="btn btn-sm btn-info showData">
+			 	                    					View Comments
+			 	                    				</a> 
 			                        		   </div>
 	                        		   </div>
                                     </c:if>
@@ -136,10 +141,6 @@
   
   <script type="text/javascript"> 
 
- $(document).ready(function () {
-
-     
- });
  function search() {
 	 
  	

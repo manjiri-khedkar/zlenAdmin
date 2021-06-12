@@ -27,10 +27,7 @@
 								     <form:label path="userId" class="control-label"><b>User ID :</b></form:label>&nbsp;
 								     <c:out value="${user.userId}" />
 							    </div>
-							    <div class="col">
-								   <form:label path="userPassword" class="control-label"><b>User Password :</b></form:label>&nbsp;
-								     <c:out value="${user.userPassword}" />
-							     </div>
+							    
 							  </div>
 					   			
 							  <div class="row">

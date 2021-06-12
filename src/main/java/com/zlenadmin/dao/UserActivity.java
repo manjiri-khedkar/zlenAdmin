@@ -1,11 +1,13 @@
 package com.zlenadmin.dao;
 
+import java.util.Date;
 import java.util.List;
 
 import com.zlenadmin.dto.ActivityDto;
 
 public interface UserActivity {
 
-	List<ActivityDto> getUserActivity(String userId);
-	
+	List<ActivityDto> getUserActivity(long id, String zlenCode, Integer activity, Date createdDate, String notifyUserId,
+										String notifyUserDeviceId);
+
 }

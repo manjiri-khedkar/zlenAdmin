@@ -30,7 +30,13 @@ public class UserFormController {
 	public String viewProfile(@PathVariable Long id, Model model) {
 		model.addAttribute("user", userDetailsRepository.findById(id));
 		return "userViewForm";
-	} 
+	}
+	
+	@GetMapping("/userViewZlen/{zlenCode}")
+	public String viewProfile(@PathVariable String zlenCode, Model model) {
+		model.addAttribute("user", userDetailsRepository.findByZlenCode(zlenCode));
+		return "userViewForm";
+	}
 	
 
 

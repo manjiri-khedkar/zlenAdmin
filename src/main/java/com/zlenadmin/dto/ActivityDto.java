@@ -4,19 +4,28 @@ import java.util.Date;
 
 public class ActivityDto {
 	
+	private long id;
+	
 	private String userId;
-
+	
 	private int activity;
 	
 	private Date createdDate;
 	
-	private String userName;
+	private String notifyUserId;
 	
-	private String userMobile;
-	
+	private String notifyUserDeviceId;
+		
 	private String zlenCode;
 
-	
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
 	public String getUserId() {
 		return userId;
 	}
@@ -24,8 +33,6 @@ public class ActivityDto {
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
-	
-	
 
 	public int getActivity() {
 		return activity;
@@ -43,20 +50,20 @@ public class ActivityDto {
 		this.createdDate = createdDate;
 	}
 
-	public String getUserName() {
-		return userName;
+	public String getNotifyUserId() {
+		return notifyUserId;
 	}
 
-	public void setUserName(String userName) {
-		this.userName = userName;
+	public void setNotifyUserId(String notifyUserId) {
+		this.notifyUserId = notifyUserId;
 	}
 
-	public String getUserMobile() {
-		return userMobile;
+	public String getNotifyUserDeviceId() {
+		return notifyUserDeviceId;
 	}
 
-	public void setUserMobile(String userMobile) {
-		this.userMobile = userMobile;
+	public void setNotifyUserDeviceId(String notifyUserDeviceId) {
+		this.notifyUserDeviceId = notifyUserDeviceId;
 	}
 
 	public String getZlenCode() {
@@ -66,5 +73,6 @@ public class ActivityDto {
 	public void setZlenCode(String zlenCode) {
 		this.zlenCode = zlenCode;
 	}
-
+	
+	
 }
