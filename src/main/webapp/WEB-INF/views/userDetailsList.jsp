@@ -255,13 +255,10 @@ $(document).ready(function () {
     	
     	event.preventDefault();
     	var get = $(this).attr('href');
-    	 alert(modal);
     	 $.ajax({
     	        type: "GET",
     	        url: get,
                 success:function(data){
-                
-                		console.log(data);
     	            	modal.find(".modal-body").html(data);
     	            	$("#dataModal").modal('show');
     	        }
