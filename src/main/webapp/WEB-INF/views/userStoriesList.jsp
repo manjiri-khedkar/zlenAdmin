@@ -117,8 +117,6 @@
 	        <br/>
  	         
  	        <div class="row" > 
-  		        <!-- <label for="uploadedDateTime"><b>Date : </b></label>&nbsp; --> 
- 				<input style="display: none" type="text" id="inputDate">&nbsp;&nbsp;
  						    
    				<label for="mimeType"><b>Mime Type : </b></label>&nbsp;  
    				<!-- <input type="text"  id="inputMimeType" placeholder="Enter Mime Type......">&nbsp;&nbsp; -->	 
@@ -128,12 +126,12 @@
   					<option value="video">Video</option>
  					<option value="text">Text</option>  
   				</select>&nbsp;&nbsp;&nbsp;&nbsp;	
-   			</div>
-   			<br/>
-   			<div class="row" > 
-    				<label for="zlenCode"><b>Zlen Code: </b></label>&nbsp;   
+   			
+    				<label for="zlenCode"><b>Zlen Code : </b></label>&nbsp;   
     				<input type="text"  id="inputCode" placeholder="Enter Zlen Code......">&nbsp;&nbsp;
     				 
+    				<label for="uploadedDateTime"><b>Date : </b></label>&nbsp;   
+ 		    		<input type="text"  id="inputDate" placeholder="Enter Date......">&nbsp;&nbsp;
    				
    					<button type="button" id="bth-search" class="btn btn-success btn-md"  onclick="search()">Search</button>&nbsp;&nbsp;	
    					<button type="button" class="btn btn-danger btn-md" onclick="clearFilter()">Clear</button>  
@@ -231,10 +229,9 @@
  	
  	var ustoriesList;
  		ustoriesList = {} 		
- 		ustoriesList["uploadedDateTime"] = $("#inputDate").val();
  		ustoriesList["mimeType"] = $("#inputMimeType").val();    
  		ustoriesList["zlenCode"] = $("#inputCode").val();    
-		
+ 		ustoriesList["uploadedDateTime"] = $("#inputDate").val();
  		
  $("#btn-search").prop("disabled",false);
      
@@ -269,7 +266,7 @@
                      console.log("mimeType", mimeType);
                      console.log("zlenCode", zlenCode);
 				
-                     result  += "<tr><td>"+ele.id+"</td><td>"+ele.uploadedDateTime+"</td><td>"+ele.mimeType+"</td><td>"+ele.zlenCode+"</td></tr>";                   
+                     result  += "<tr><td>"+index+"</td><td>"+ele.uploadedDateTime+"</td><td>"+ele.mimeType+"</td><td>"+ele.zlenCode+"</td></tr>";                   
                                      
               	  });
             	  

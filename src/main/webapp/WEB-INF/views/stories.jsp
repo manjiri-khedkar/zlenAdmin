@@ -52,9 +52,7 @@
 	        <br/>
 	        
 	        <div class="row" > 
-  		        <!-- <label for="uploadedDateTime"><b>Date : </b></label>&nbsp; --> 
- 				<input style="display: none" type="text" id="inputDate">&nbsp;&nbsp;
- 						    
+  		        
    				<label for="mimeType"><b>Mime Type : </b></label>&nbsp;  
    				<!-- <input type="text"  id="inputMimeType" placeholder="Enter Mime Type......">&nbsp;&nbsp; -->	 
    				<select id="inputMimeType">  
@@ -64,16 +62,20 @@
  					<option value="text">Text</option>  
   				</select>&nbsp;&nbsp;&nbsp;&nbsp;	
   				
-  				<label for="zlenCode"><b>Zlen Code: </b></label>&nbsp;   
+  				<label for="zlenCode"><b>Zlen Code : </b></label>&nbsp;   
     				<input type="text"  id="inputCode" placeholder="Enter Zlen Code......">&nbsp;&nbsp;
-    				 
-   				
-   					<button type="button" id="bth-search" class="btn btn-success btn-md"  onclick="search()">Search</button>&nbsp;&nbsp;	
-  				
+    				
+    				<label for="uploadedDateTime"><b>Date : </b></label>&nbsp;   
+ 		    		<input type="text"  id="inputDate" placeholder="Enter Date......">&nbsp;&nbsp;	   
+    				
+    				<button type="button" id="bth-search" class="btn btn-success btn-md"  onclick="search()">Search</button>&nbsp;&nbsp;	
+   					<button type="button" class="btn btn-danger btn-md" onclick="clearFilter()">Clear</button>  				
    			</div>
    			<br/> <br/>
 	        
 	        <div class="row">
+	        	<table id="table1" class="table info-tbl text-left" style='border: 1px solid #d3d3d3;width: 98% !important; '>
+	        			<tbody>
                         	<c:forEach items="${storiesList}"  var="list" varStatus="status">
 	                        	  <div class="col-md-4"  class="center-align" style="margin: 5px" >
 	                        		<c:if test="${not empty list.uploadedPath}">
@@ -98,6 +100,8 @@
                                     </c:if>
 	                        	  </div>
 	                    	</c:forEach>
+	                    </tbody>
+	                  </table>
 			</div>
 	    </div>
   </div>  
@@ -146,9 +150,9 @@
  	
  	var ustoriesList;
  		ustoriesList = {} 		
- 		ustoriesList["uploadedDateTime"] = $("#inputDate").val();
  		ustoriesList["mimeType"] = $("#inputMimeType").val();    
- 		ustoriesList["zlenCode"] = $("#inputCode").val();    
+ 		ustoriesList["zlenCode"] = $("#inputCode").val();  
+ 		ustoriesList["uploadedDateTime"] = $("#inputDate").val();  
 		
  		
  $("#btn-search").prop("disabled",false);
@@ -156,7 +160,7 @@
      $.ajax({
          type: "GET",
          //contentType: "application/json",
-         url:  "${pageContext.request.contextPath}/storiesViews",
+         url:  "${pageContext.request.contextPath}/stories/storiesImg",
         // success:function(result)
          data: ustoriesList,
          //dataType: 'json',
@@ -179,17 +183,23 @@
  				     
   				     console.log("data", data);
                      console.log("ele", ele);   
-                     console.log("id", id);                 
-                     console.log("uploadedDateTime", uploadedDateTime);
+                     console.log("id", id);                
                      console.log("mimeType", mimeType);
                      console.log("zlenCode", zlenCode);
+                     console.log("uploadedDateTime", uploadedDateTime);
 				
-                     result  += "<tr><td>"+ele.id+"</td><td>"+ele.uploadedDateTime+"</td><td>"+ele.mimeType+"</td><td>"+ele.zlenCode+"</td></tr>";                   
-                                     
+//                      result  += "<tr><td>"+ele.id+"</td><td>"+ele.uploadedDateTime+"</td><td>"+ele.mimeType+"</td><td>"+ele.zlenCode+"</td></tr>";                   
+
+					result += "<div style="background-color: white; padding: 5px;" class="border"><div style="background-color: white; padding: 5px;" class="border">
+		    						<div style="text-align:center">"+ele.uploadedPath+"</div>
+		    						<div>"+ele.uploadedDateTime+" "+ele.zlenCode+" "+ele.id+"</div>
+		    					</div></div>"
+                                    
               	  });
-            	  
-                   $('#table1 tbody').html(result);
-                   
+
+              	  $("div_data").html(result);
+//                    $('#table1 tbody').html(result);
+                  
                    return;  
                    alert(ele.success);        			   
                }
@@ -199,10 +209,10 @@
 
 </script>
 
-<!-- <script type="text/javascript"> -->
-// 	function clearFilter(){
-// 		window.location = '/storiesViews';
-// 		}
-<!-- </script> -->
+<script type="text/javascript"> 
+ 	function clearFilter(){
+ 		window.location = '/stories';
+ 		}
+</script> 
 </body>
 </html>        

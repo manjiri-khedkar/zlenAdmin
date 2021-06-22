@@ -7,7 +7,9 @@ import com.zlenadmin.dto.ActivityDto;
 
 public interface UserActivity {
 
-	List<ActivityDto> getUserActivity(long id, String zlenCode, Integer activity, Date createdDate, String notifyUserId,
-										String notifyUserDeviceId);
+
+//	List<ActivityDto> getUserActivity(String zlenCode);
+
+	List<ActivityDto> getUserActivity(String zlenCode, Date createdDate);
 
 }

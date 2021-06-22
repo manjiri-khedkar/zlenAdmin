@@ -1,6 +1,8 @@
 package com.zlenadmin;
 
 import java.math.BigInteger;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -10,6 +12,7 @@ import java.util.Map;
 import org.openqa.selenium.WebDriver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -242,9 +245,10 @@ public class MainPage {
 	
 	@GetMapping("/userStoriesListContents") 
 	@ResponseBody
-	public Object getUserStories(Model model,@Param("zlenCode") String  zlenCode,@Param("mimeType") String  mimeType ) {
+	public Object getUserStories(Model model, @Param("zlenCode") String  zlenCode, @Param("mimeType") String  mimeType, @Param("uploadedDateTime")@DateTimeFormat(pattern = "yyyy-MM-dd") Date uploadedDateTime) {
 		//List result= service.queryForMovies();
 		//List result = newrepo.getUserStories();
+				
 		if ("".equals(zlenCode)) {
 			zlenCode=null;
 		}
@@ -253,7 +257,11 @@ public class MainPage {
 			mimeType=null;
 		}
 		
-		List result = userStories.getUserStories(zlenCode,mimeType);
+		if ("".equals(uploadedDateTime)) {
+			uploadedDateTime=null;
+		}
+		
+		List result = userStories.getUserStories(zlenCode,mimeType,uploadedDateTime);
 
 		return  result;
 		
@@ -263,7 +271,17 @@ public class MainPage {
 	public ModelAndView userStoriesList() {
 		
 		ModelAndView mv = new ModelAndView();
-		List userStoriesList = userStories.getUserStories(null, null);
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		
+		java.util.Date d=null;
+		try {
+			d = sdf.parse("2021-06-05");
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		
+		List userStoriesList = userStories.getUserStories(null, null, null);
 		//List<UserStoriesDetails> userStoriesList = userStoriesDetailsRepository.findAll();
 		mv.addObject("userStoriesList", userStoriesList);
 		mv.setViewName("userStoriesList");

@@ -11,7 +11,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>Stories</title>
+  <title>Activity Log</title>
 	<script src="${pageContext.request.contextPath}/resources/vendor/jquery/jquery.min.js"></script>
   <!-- Custom fonts for this template-->
   <link href="${pageContext.request.contextPath}/resources/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -52,7 +52,21 @@
        
 			   			<div class="panel-heading">
 							<h2 class="text-center" style="color: black;"><b>Activity Log Lists</b></h2>
-						</div><br/>       
+						</div><br/>   
+						
+						<div class="row"> 
+		    				&nbsp;&nbsp;<label for="zlenCode"><b>Zlen Code : </b></label>&nbsp;   
+		    				<input type="text"  id="inputCode" placeholder="Enter Zlen Code......">&nbsp;&nbsp;	
+		    				
+ 		    				&nbsp;&nbsp;<label for="createdDate"><b>Date : </b></label>&nbsp;   
+ 		    				<input type="text"  id="inputDate" placeholder="Enter Date......">&nbsp;&nbsp;	    				 
+		   				
+							 <button type="button" id="bth-search"
+							      class="btn btn-success btn-md"  onclick="event.preventDefault(); search()">Search
+							 </button>&nbsp;&nbsp;       		   					
+							 <button type="button" class="btn btn-danger btn-md" onclick="clearFilter()">Clear</button>  
+			 			</div>	     
+			 	         <br/>    
                    
                    
               <div class="panel-body">
@@ -68,8 +82,8 @@
 											<th class="text-left" style="background: #d3d3d3">Activity</th>
 											<th class="text-left" style="background: #d3d3d3">Created Date</th> 
 											<th class="text-left" style="background: #d3d3d3">Notify User Device ID</th>
-											<th class="text-left" style="background: #d3d3d3">Notify User ID</th>
 											<th class="text-left" style="background: #d3d3d3">Zlen Code</th>
+											<th class="text-left" style="background: #d3d3d3">Notify ZlenCode</th>
 										</tr>
 									</thead>
 					
@@ -82,12 +96,17 @@
 												<td><c:out value="${list.activity}" /></td> 
 												<td><c:out value="${list.createdDate}" /></td> 
 												<td><c:out value="${list.notifyUserDeviceId}" /></td>
-												<td><c:out value="${list.notifyUserId}" /></td>
+<%-- 												<td><c:out value="${list.notifyUserId}" /></td> --%>
 												<td>
-												<a href="${pageContext.request.contextPath}/userViewZlen/<c:out value='${list.zlenCode}'/>" class="showData">
-													<c:out value="${list.zlenCode}" />
+													<a href="${pageContext.request.contextPath}/userViewZlen/<c:out value='${list.zlenCode}'/>" class="showData">
+														<c:out value="${list.zlenCode}" />
 													</a>
-													</td>
+												</td>
+												<td>
+													<a href="${pageContext.request.contextPath}/userViewZlen/<c:out value='${list.notifyUserId}'/>" class="showData">
+														<c:out value="${list.notifyUserId}" />
+													</a>
+												</td>
 											</tr> 
 		 	                    		</c:forEach> 
 		                           </tbody>
@@ -138,18 +157,25 @@
   
   <script type="text/javascript"> 
 
- $(document).ready(function () {
+  $(document).ready(function () {
 
-     
- });
+	    $("#search-form").submit(function (event) {
+	      
+	        //stop submit the form, we will post it manually.
+	        event.preventDefault();
+	        search();
+	       // fire_ajax_submit();
+	    });
+	    
+	    
+	});
  function search() {
 	 
  	
- 	var ustoriesList;
- 		ustoriesList = {} 		
- 		ustoriesList["uploadedDateTime"] = $("#inputDate").val();
- 		ustoriesList["mimeType"] = $("#inputMimeType").val();    
- 		ustoriesList["zlenCode"] = $("#inputCode").val();    
+ 	var activityLogList;
+ 		activityLogList = {} 		
+ 		activityLogList["zlenCode"] = $("#inputCode").val();    
+  		activityLogList["createdDate"] = $("#inputDate").val();    
 		
  		
  $("#btn-search").prop("disabled",false);
@@ -157,35 +183,30 @@
      $.ajax({
          type: "GET",
          //contentType: "application/json",
-         url:  "${pageContext.request.contextPath}/storiesViews",
+         url:  "${pageContext.request.contextPath}/userActivityListContents",
         // success:function(result)
-         data: ustoriesList,
-         //dataType: 'json',
-
-        /// data:{userName:inputName, userMobile:inputMobile, zlenCode:inputCode, deviceType:inputType},
+         data: activityLogList,
+  
                success:function(data){
                 
              	  var result ="";
              	  var id;
- 				  var uploadedDateTime;
-  		      	  var mimeType;
   		      	  var zlenCode;
+  				  var createdDate;
 				  
               	  $(data).each(function (index,ele){
-                  	
+
                   	id = ele.id;
-                  	uploadedDateTime = ele.uploadedDateTime;
-                    mimeType = ele.mimeType;
                     zlenCode = ele.zlenCode;
- 				     
+                     createdDate = ele.createdDate;
+				     
   				     console.log("data", data);
                      console.log("ele", ele);   
                      console.log("id", id);                 
-                     console.log("uploadedDateTime", uploadedDateTime);
-                     console.log("mimeType", mimeType);
                      console.log("zlenCode", zlenCode);
-				
-                     result  += "<tr><td>"+ele.id+"</td><td>"+ele.uploadedDateTime+"</td><td>"+ele.mimeType+"</td><td>"+ele.zlenCode+"</td></tr>";                   
+ 					 console.log("createdDate",createdDate);
+ 					
+                     result  += "<tr><td>"+index+"</td><td>"+ele.id+"</td><td>"+ele.activity+"</td><td>"+ele.createdDate+"</td><td>"+ele.notifyUserDeviceId+"</td><td>"+ele.zlenCode+"</td></tr>";                   
                                      
               	  });
             	  
@@ -200,10 +221,10 @@
 
 </script>
 
-<!-- <script type="text/javascript"> -->
-// 	function clearFilter(){
-// 		window.location = '/storiesViews';
-// 		}
-<!-- </script> -->
+<script type="text/javascript"> 
+ 	function clearFilter(){
+ 		window.location = '/activitylog';
+ 		}
+</script>
 </body>
 </html>        
