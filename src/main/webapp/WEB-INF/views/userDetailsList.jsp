@@ -183,12 +183,12 @@
 	 	                        		<td><c:out value="${list.latitude}" /></td>
 	 	                        		<td><c:out value="${list.longitude}" /></td>
 										<td>
-	 	                    					
+	 	                					
 	 	                    				<a href="${pageContext.request.contextPath}/friendList/<c:out value='${list.id}'/>" class="btn btn-primary  btn-sm showData">
 	 	                    					Friends</a>&nbsp;
  	                    					
 	 	                    				<a href="${pageContext.request.contextPath}/contactlist/<c:out value='${list.id}'/>" 
-	 	                    					 class="btn btn-danger btn-sm showData">  Contacts</a>&nbsp;
+	 	                    					 class="btn btn-danger btn-sm showData">Contacts</a>&nbsp;
 	 	                    				
 	 	                        		</td>
  	                       			</tr> 
@@ -304,12 +304,12 @@ $("#btn-search").prop("disabled",false);
 					console.log("longitude", longitude);
 					
                                       
-                    result  += "<tr><td>"+ele.id+"</td><td>"+ele.userName+"</td><td>"+ele.userMobile+"</td><td>"+ele.zlenCode+"</td><td>"+ele.deviceType+"</td><td>"+ele.latitude+"</td><td>"+ele.longitude+"</td></tr>";                   
+                    result  += "<tr><td>"+index+"</td><td>"+ele.userName+"</td><td>"+ele.userMobile+"</td><td><a href='${pageContext.request.contextPath}/userViewForm/"+ele.id +" ' class='btn btn-info btn-sm showData'>"+ ele.zlenCode+"</a></td><td>"+ele.deviceType+"</td><td>"+ele.latitude+"</td><td>"+ele.longitude+"</td><td><a href='${pageContext.request.contextPath}/friendList/"+ele.id+"' class='btn btn-primary  btn-sm showData'>Friends</a>&nbsp;<a href='${pageContext.request.contextPath}/contactlist/"+ele.id+"' class='btn btn-danger btn-sm showData'>Contacts</a>&nbsp;</td></tr>";                   
                                       
              	  });
             	  
                   $('#table1 tbody').html(result);
-                   
+                  bindFunction();
                   return;  
                   alert(ele.success);        			   
               }

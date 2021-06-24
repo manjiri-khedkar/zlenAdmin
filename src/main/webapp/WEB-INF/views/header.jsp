@@ -126,33 +126,36 @@
 <script src="${pageContext.request.contextPath}/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>      
       
       <script>
+      function bindFunction (){
+    	  $(".showData").off('click').click(function (event){
+  	      	
+    			
+  	      	var modal = $("#dataModal");
+  	      	
+  	      	event.preventDefault();
+  	      	var get = $(this).attr('href');
+  	      	 $.ajax({
+  	      	        type: "GET",
+  	      	        url: get,
+  	                  success:function(data){
+  	      	            	modal.find(".modal-body").html(data);
+  	      	            	$("#dataModal").modal('show');
+  	      	        }
+  	      	 });
+  	      });
+  	      
+  	      $(".img-view").off('click').click(function (event){
+  	    	  var modal = $("#dataModal");
+  	          event.preventDefault();
+  	          var src = $(this).attr('src');
+  	          
+  	          var tmp = "<img class='img-fluid' src='"+src+"' />" ;
+  	          console.log(tmp);
+  	          modal.find(".modal-body").html(tmp);
+  	          $("#dataModal").modal('show');
+  	      });
+      }
       $(document).ready(function () {
-	      $(".showData").off('click').click(function (event){
-	      	
-	
-	      	var modal = $("#dataModal");
-	      	
-	      	event.preventDefault();
-	      	var get = $(this).attr('href');
-	      	 $.ajax({
-	      	        type: "GET",
-	      	        url: get,
-	                  success:function(data){
-	      	            	modal.find(".modal-body").html(data);
-	      	            	$("#dataModal").modal('show');
-	      	        }
-	      	 });
-	      });
-	      
-	      $(".img-view").off('click').click(function (event){
-	    	  var modal = $("#dataModal");
-	          event.preventDefault();
-	          var src = $(this).attr('src');
-	          
-	          var tmp = "<img class='img-fluid' src='"+src+"' />" ;
-	          console.log(tmp);
-	          modal.find(".modal-body").html(tmp);
-	          $("#dataModal").modal('show');
-	      });
+    	  bindFunction();
       });
       </script>

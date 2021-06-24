@@ -206,12 +206,12 @@
                      console.log("zlenCode", zlenCode);
  					 console.log("createdDate",createdDate);
  					
-                     result  += "<tr><td>"+index+"</td><td>"+ele.id+"</td><td>"+ele.activity+"</td><td>"+ele.createdDate+"</td><td>"+ele.notifyUserDeviceId+"</td><td>"+ele.zlenCode+"</td></tr>";                   
+                     result  += "<tr><td>"+index+"</td><td>"+ele.id+"</td><td>"+ele.activity+"</td><td>"+ele.createdDate+"</td><td>"+ele.notifyUserDeviceId+"</td><td><a href='${pageContext.request.contextPath}/userViewZlen/"+ele.zlenCode+" ' class='showData'>"+ele.zlenCode+"</a></td><td><a href='${pageContext.request.contextPath}/userViewZlen/"+ele.notifyUserId+"' class='showData'>"+ele.notifyUserId+"</a></td></tr>";                   
                                      
               	  });
             	  
                    $('#table1 tbody').html(result);
-                   
+                   bindFunction();
                    return;  
                    alert(ele.success);        			   
                }

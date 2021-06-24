@@ -54,7 +54,6 @@
 	        <div class="row" > 
   		        
    				<label for="mimeType"><b>Mime Type : </b></label>&nbsp;  
-   				<!-- <input type="text"  id="inputMimeType" placeholder="Enter Mime Type......">&nbsp;&nbsp; -->	 
    				<select id="inputMimeType">  
  					<option value="All" selected>All</option>  
   					<option value="image">Image</option> 
@@ -74,8 +73,8 @@
    			<br/> <br/>
 	        
 	        <div class="row">
-	        	<table id="table1" class="table info-tbl text-left" style='border: 1px solid #d3d3d3;width: 98% !important; '>
-	        			<tbody>
+<!-- 	        	<table id="table1" class="table info-tbl text-left" style='border: 1px solid #d3d3d3;width: 98% !important; '> -->
+<!-- 	        			<tbody> -->
                         	<c:forEach items="${storiesList}"  var="list" varStatus="status">
 	                        	  <div class="col-md-4"  class="center-align" style="margin: 5px" >
 	                        		<c:if test="${not empty list.uploadedPath}">
@@ -100,8 +99,8 @@
                                     </c:if>
 	                        	  </div>
 	                    	</c:forEach>
-	                    </tbody>
-	                  </table>
+<!-- 	                    </tbody> -->
+<!-- 	                  </table> -->
 			</div>
 	    </div>
   </div>  
@@ -144,6 +143,18 @@
   <script src="${pageContext.request.contextPath}/resources/js/demo/chart-pie-demo.js"></script>
   
   <script type="text/javascript"> 
+  $(document).ready(function () {
+
+	    $("#search-form").submit(function (event) {
+	      
+	        //stop submit the form, we will post it manually.
+	        event.preventDefault();
+	        search();
+	       // fire_ajax_submit();
+	    });
+	    
+	    
+	});
 
  function search() {
 	 
@@ -160,7 +171,7 @@
      $.ajax({
          type: "GET",
          //contentType: "application/json",
-         url:  "${pageContext.request.contextPath}/stories/storiesImg",
+         url:  "${pageContext.request.contextPath}/storiesImg",
         // success:function(result)
          data: ustoriesList,
          //dataType: 'json',
@@ -189,21 +200,22 @@
                      console.log("uploadedDateTime", uploadedDateTime);
 				
 //                      result  += "<tr><td>"+ele.id+"</td><td>"+ele.uploadedDateTime+"</td><td>"+ele.mimeType+"</td><td>"+ele.zlenCode+"</td></tr>";                   
+				  
+				  alert("Before RESULTS====>"+ele.zlenCode);
 
-					result += "<div style="background-color: white; padding: 5px;" class="border"><div style="background-color: white; padding: 5px;" class="border">
-		    						<div style="text-align:center">"+ele.uploadedPath+"</div>
-		    						<div>"+ele.uploadedDateTime+" "+ele.zlenCode+" "+ele.id+"</div>
-		    					</div></div>"
-                                    
+ 				  result += "<div class='col-md-4' class='center-align' style='margin: 5px'><div style='background-color: white; padding: 5px;' class='border'><div style='text-align:center'><img class='img-fluid img-view' style='max-height: 175px;' alt='No Image Available' "+ele.uploadedPath+"'></div><div>"+ele.uploadedDateTime+"<br><a href='${pageContext.request.contextPath}/userViewZlen/"+ele.zlenCode+"' class='showData'></a><br><a href='${pageContext.request.contextPath}/userViewComment/"+ele.id+"' class='btn btn-sm btn-info showData'>View Comments</a></div></div></div>";
+                                     
               	  });
 
               	  $("div_data").html(result);
 //                    $('#table1 tbody').html(result);
-                  
+				   alert("ABC");
+                   bindFunction();
                    return;  
-                   alert(ele.success);        			   
+                   alert(ele.success);      
+               			   
+                         			   
                }
-
  		});
  }
 
