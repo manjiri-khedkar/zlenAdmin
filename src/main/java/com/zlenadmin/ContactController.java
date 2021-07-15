@@ -27,6 +27,7 @@ import com.google.gson.reflect.TypeToken;
 import com.zlenadmin.api.entity.Contact;
 import com.zlenadmin.api.entity.UserDetails;
 import com.zlenadmin.repository.ContactRepository;
+import com.zlenadmin.repository.UserDetailsRepository;
 
 
 @Controller
@@ -34,6 +35,9 @@ public class ContactController {
 	
 	@Autowired
 	ContactRepository contactRepository;
+	
+	@Autowired
+	UserDetailsRepository userRepository;
 	
 	
 //	  @RequestMapping(value = "/contactlist/{id}", method = RequestMethod.GET) 
@@ -49,7 +53,9 @@ public class ContactController {
 	
 	@GetMapping("/contactlist/{id}")
 	public String Contact(@PathVariable Long id, Model model) {
-		 Contact contact =    contactRepository.findById(id);
+		UserDetails usd =  userRepository.findById(id);
+		
+		 Contact contact= contactRepository.getContactTable(usd.getUserId());
 		 Gson gson = new Gson();
 		 
 		 Type listType = new TypeToken<List<HashMap<String, String>>>(){}.getType();

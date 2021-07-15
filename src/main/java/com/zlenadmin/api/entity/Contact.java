@@ -10,7 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="a_contact")
+@Table(name="contact")
 public class Contact {
 	
 	@Id
@@ -24,14 +24,15 @@ public class Contact {
 	private  Date created_at;
 	private  Date updated_at;
 	private Boolean is_deleted;
-	private String Data;
+	private String data;
+	private int data_type;
 	 
 	public Contact() {
 		
 	}
 
 	public Contact(Long id, String user_id, String user_mobile, Date created_at, Date updated_at, Boolean is_deleted,
-			String data) 
+			String data, int data_type) 
 	{
 		this.id = id;
 		this.user_id = user_id;
@@ -39,9 +40,18 @@ public class Contact {
 		this.created_at = created_at;
 		this.updated_at = updated_at;
 		this.is_deleted = is_deleted;
-		Data = data;
+		this.data = data;
+		this.data_type=data_type;
 	}
 	
+	public int getData_type() {
+		return data_type;
+	}
+
+	public void setData_type(int data_type) {
+		this.data_type = data_type;
+	}
+
 	public Long getId() {
 		return id;
 	}
@@ -79,10 +89,10 @@ public class Contact {
 		this.is_deleted = is_deleted;
 	}
 	public String getData() {
-		return Data;
+		return data;
 	}
 	public void setData(String data) {
-		Data = data;
+		this.data = data;
 	}
 	
 }
