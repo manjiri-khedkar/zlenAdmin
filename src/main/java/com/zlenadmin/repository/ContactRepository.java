@@ -12,14 +12,12 @@ import com.zlenadmin.api.entity.Contact;
 
 @Repository
 public interface ContactRepository extends JpaRepository<Contact, Long> {
-	
+
 	List<Contact> findAll();
-	
+
 	Contact findById(long id);
 
-	
-	@Query(value ="SELECT ct.created_at, ct.updated_at, ct.user_mobile From contact ct Where ct.user_id=ct.user_id", nativeQuery = true)
-	ArrayList<Contact> getContactTable(@Param("user_id") String user_id);
+	@Query(value = "SELECT ct.id,ct.data,ct.data_type,ct.is_deleted,ct.user_id,ct.created_at,ct.updated_at,ct.user_mobile From contact ct Where ct.user_id=:user_id order by ct.created_at desc limit 1", nativeQuery = true)
+	Contact getContactTable(@Param("user_id") String user_id);
 
 }
-
