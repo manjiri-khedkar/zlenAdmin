@@ -4,7 +4,9 @@ import java.math.BigInteger;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -172,12 +174,15 @@ public class MainPage {
  	    		if (datewiseData.containsKey("image") ) {
 					count = count.add(datewiseData.get("image"));
 				}
+ 	    		if (datewiseData.containsKey("") ) {
+					count = count.add(datewiseData.get(""));
+				}
 
 				list2.add(count);
 
  	    		
- 	    		if (datewiseData.containsKey("video")) {
-					list3.add(datewiseData.get("video"));
+ 	    		if (datewiseData.containsKey("video/mp4")) {
+					list3.add(datewiseData.get("video/mp4"));
 				}else {
 					list3.add(BigInteger.ZERO);
 				}
@@ -272,16 +277,11 @@ public class MainPage {
 		
 		ModelAndView mv = new ModelAndView();
 		
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		Calendar cal = new GregorianCalendar();
+		cal.add(Calendar.DAY_OF_MONTH, -3);
+		Date daysAgo = cal.getTime();
 		
-		java.util.Date d=null;
-		try {
-			d = sdf.parse("2021-06-05");
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
-		
-		List userStoriesList = userStories.getUserStories(null, null, null);
+		List userStoriesList = userStories.getLatestUserStories(null, null, daysAgo);
 		//List<UserStoriesDetails> userStoriesList = userStoriesDetailsRepository.findAll();
 		mv.addObject("userStoriesList", userStoriesList);
 		mv.setViewName("userStoriesList");

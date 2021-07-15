@@ -19,11 +19,12 @@ import com.zlenadmin.dto.StoriesDto;
 @Repository
 public class ImageStoriesImple implements ImageStories{
 	
-	private String SQL="select usd.uploaded_date_time as uploadedDateTime, usd.mime_type mimeType, ud.zlen_code as zlenCode "
+	private String SQL="select usd.uploaded_date_time as uploadedDateTime, usd.mime_type mimeType, ud.zlen_code as zlenCode, usd.uploaded_path as uploadedPath "
 			+ "from public.user_stories_details usd inner join public.user_details ud on usd.user_id = ud.user_id "
 			+ "where (ud.zlen_code LIKE :zlenCode or :zlenCode1 is null) "
 			+ "and (usd.mime_type LIKE :mimeType or :mimeType1 is null)"
-			+ "and (cast(usd.uploaded_date_time as date) = :uploadedDateTime or :uploadedDateTime1 is null)  "; 
+			+ "and (cast(usd.uploaded_date_time as date) = :uploadedDateTime or :uploadedDateTime1 is null)  "
+			+ "order by usd.uploaded_date_time desc "; 
 	@Autowired
     private NamedParameterJdbcTemplate jdbcTemplate;
 	
@@ -41,6 +42,7 @@ public class ImageStoriesImple implements ImageStories{
 				imd.setZlenCode(rs.getString("zlenCode"));
 				imd.setUploadedDateTime(rs.getDate("uploadedDateTime"));
 				imd.setMimeType(rs.getString("mimeType"));
+				imd.setUploadedPath(rs.getString("uploadedPath"));
 				
 				return imd;
 			}

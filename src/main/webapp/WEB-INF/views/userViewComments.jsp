@@ -20,9 +20,9 @@
 									<thead>
 										<tr>
 										    <th class="text-left" style="background: #d3d3d3">Sr.No.</th>
- 											<th class="text-left" style="background: #d3d3d3">Commenter User ID</th> 
+ 											<th class="text-left" style="background: #d3d3d3">ZlenCode</th> 
 											<th class="text-left" style="background: #d3d3d3">Comments Message</th> 
-											<th class="text-left" style="background: #d3d3d3">Active Status</th>				
+											<th class="text-left" style="background: #d3d3d3">Date</th>				
 										</tr>
 									</thead>
 					
@@ -31,9 +31,9 @@
 		 	                        		<tr class="odd gradeX"> 
 												
 												<td><c:out value="${status.index+1}" /></td> 
- 												<td><c:out value="${list.commenterUserId}" /></td> 
-												<td><c:out value="${list.commentMessage}" /></td> 
-												<td><c:out value="${list.isActive}" /></td>
+ 												<td><c:out value="${list.zlenCode}" /></td> 
+												<td><c:out value="${list.comment}" /></td> 
+												<td><c:out value="${list.dateTime}" /></td>
 											</tr> 
 		 	                    		</c:forEach> 
 		                           </tbody> 

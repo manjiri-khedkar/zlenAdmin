@@ -114,7 +114,6 @@
 	
    		<div class="container">
 	   		<h1>User Stories List</h1>	 
-	        <br/>
  	         
  	        <div class="row" > 
  						    
@@ -259,14 +258,9 @@
                     mimeType = ele.mimeType;
                     zlenCode = ele.zlenCode;
  				     
-  				     console.log("data", data);
-                     console.log("ele", ele);   
-                     console.log("id", id);                 
-                     console.log("uploadedDateTime", uploadedDateTime);
-                     console.log("mimeType", mimeType);
-                     console.log("zlenCode", zlenCode);
-				
-                     result  += "<tr><td>"+index+"</td><td>"+ele.uploadedDateTime+"</td><td>"+ele.mimeType+"</td><td><a href='${pageContext.request.contextPath}/userViewZlen/"+ele.zlenCode+"' class='showData'>"+ele.zlenCode+"</a></td><td><a href='#' src='${list.uploadedPath}' class='btn btn-info btn-sm img-view'>View</a></td></tr>";                   
+                     result  += "<tr><td>"+index+"</td><td>"+ele.uploadedDateTime+"</td><td>"+ele.mimeType+"</td><td><a href='${pageContext.request.contextPath}/userViewZlen/"+ele.zlenCode+"' class='showData'>"+ele.zlenCode+"</a></td>"+
+                     "<td><a href='#' src='"+ele.uploadedPath+"' class='btn btn-info btn-sm img-view'>View</a></td></tr>";                   
+                     
                                      
               	  });
             	  

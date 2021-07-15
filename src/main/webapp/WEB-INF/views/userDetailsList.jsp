@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
  <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+ <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>  
  
 <head> 
   <meta charset="utf-8">
@@ -114,7 +115,7 @@
 	
    		<div class="container">
 	   		<h1>User Details List</h1>	 
-	        <br/>
+	        
 	        <div class="row" >
  		        <label for="userName"><b>User Name : </b></label>&nbsp;
 				<input type="text" id="inputName" placeholder="Enter User Name......">&nbsp;&nbsp;		    
@@ -146,16 +147,16 @@
 <!--  			 <button type="submit" class="btn-primary btn" id="ajaxBtn">Search</button>  -->
 			<!--   <button class="btn btn-success" type="submit" id="ajaxBtn" value="Search" onclick="searchFun()">Search</button>
  -->			
- 	         <br/><br/>
 	         <!-- onclick ="searchFun()"  -->
 	         
 			<div class="row">
 				<div class="col-md-12">
 					<div class="table-responsive">
-						<table id="table1" class="table info-tbl text-left" style='border: 1px solid #d3d3d3;width: 98% !important; '>
+						<table id="table1" class="table info-tbl text-left " style='border: 1px solid #d3d3d3;width: 98% !important; '>
 							<thead>
 								<tr>
 								    <th class="text-left" style="background: #d3d3d3">Sr. No.</th>
+								    <th class="text-left" style="background: #d3d3d3">Create Date</th>
 									<th class="text-left" style="background: #d3d3d3">User Name</th>
 									<th class="text-left" style="background: #d3d3d3">Mobile No.</th>
 									<th class="text-left" style="background: #d3d3d3">Zlen Code</th>
@@ -166,11 +167,15 @@
 								</tr>
 							</thead>
 							
- 							<tbody> 
+ 							<tbody class=> 
                         		<c:forEach items="${userListDetails}" var="list" varStatus="status"> 
  	                        		<tr class="odd gradeX"> 
 	                        		
  	                        			<td><c:out value="${status.index+1}" /></td>
+ 	                        			<td>
+ 	                        			<fmt:formatDate value="${list.createdOn}" pattern="dd/MM/yyyy" />
+ 	                        			
+ 	                        			</td>
  	                        			<td><c:out value="${list.userName}" /></td> 
 	 	                        		<td><c:out value="${list.userMobile}" /></td> 
 	 	                        		<td>
@@ -184,7 +189,8 @@
 	 	                        		<td><c:out value="${list.longitude}" /></td>
 										<td>
 	 	                					
-	 	                    				<a href="${pageContext.request.contextPath}/friendList/<c:out value='${list.id}'/>" class="btn btn-primary  btn-sm showData">
+	 	                    				<a href="${pageContext.request.contextPath}/friendList/<c:out value='${list.id}'/>" 
+	 	                    				class="btn btn-primary btn-sm showData">
 	 	                    					Friends</a>&nbsp;
  	                    					
 	 	                    				<a href="${pageContext.request.contextPath}/contactlist/<c:out value='${list.id}'/>" 
@@ -218,7 +224,7 @@
     <i class="fas fa-angle-up"></i>
   </a>
 
-<jsp:include page="otherModal.jsp"></jsp:include>
+
   <!-- Bootstrap core JavaScript-->
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
   <script src="${pageContext.request.contextPath}/resources/vendor/jquery-easing/jquery.easing.min.js"></script>
@@ -325,6 +331,7 @@ $("#btn-search").prop("disabled",false);
 		}
 </script>
 </body>
+<jsp:include page="otherModal.jsp"></jsp:include>
 </html>
 
 

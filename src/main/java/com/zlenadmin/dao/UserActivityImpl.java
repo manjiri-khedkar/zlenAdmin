@@ -34,7 +34,8 @@ public class UserActivityImpl implements UserActivity {
 			+ "from public.user_activity_details uad inner join public.user_details ud on uad.user_id = ud.user_id "
 			+ "inner join public.user_details ud1 on uad.notify_user_id = ud1.user_id  "
 			+ "where (cast(uad.created_date as date) = :createdDate or :createdDate1 is null)  "
-			+ "and (ud.zlen_code LIKE :zlenCode or :zlenCode1 is null) ";
+			+ "and (ud.zlen_code LIKE :zlenCode or :zlenCode1 is null) "
+			+ "order by uad.created_date desc ";
 	
 	@Autowired
     private NamedParameterJdbcTemplate jdbcTemplate;

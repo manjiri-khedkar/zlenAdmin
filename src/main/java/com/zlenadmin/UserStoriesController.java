@@ -1,6 +1,8 @@
 package com.zlenadmin;
 
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.zlenadmin.api.entity.UserStoriesDetails;
 import com.zlenadmin.dao.ImageStories;
 import com.zlenadmin.dao.UserStories;
 import com.zlenadmin.repository.UserStoriesDetailsRepository;
@@ -34,7 +35,11 @@ public class UserStoriesController {
 	@GetMapping
 	public ModelAndView list(Model model) {
 		
-		List storieslist = userStories.getUserStories(null, null, null);
+		Calendar cal = new GregorianCalendar();
+		cal.add(Calendar.DAY_OF_MONTH, -3);
+		Date daysAgo = cal.getTime();
+		
+		List storieslist = userStories.getLatestUserStories(null, null, daysAgo);
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("storiesList", storieslist);
 		mav.setViewName("stories");

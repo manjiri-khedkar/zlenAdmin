@@ -21,8 +21,6 @@ public interface UserCommentsRepository extends JpaRepository<UserStoriesComment
 
 	@Query(value ="SELECT uscd.commenter_user_id, uscd.comment_message,uscd.snap_id, uscd.is_active "
 			+ "FROM public.user_stories_comment_details uscd WHERE uscd.snap_id = :snapId", nativeQuery = true)
-//   List<UserStoriesCommentDetails> getUserComments(@Param("snapId") Long snapId);
-
 	ArrayList<UserStoriesCommentDetails> getUserComments(@Param("snapId") Long snapId);
 
 		

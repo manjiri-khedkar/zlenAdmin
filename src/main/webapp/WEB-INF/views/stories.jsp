@@ -72,13 +72,11 @@
    			</div>
    			<br/> <br/>
 	        
-	        <div class="row">
-<!-- 	        	<table id="table1" class="table info-tbl text-left" style='border: 1px solid #d3d3d3;width: 98% !important; '> -->
-<!-- 	        			<tbody> -->
+	        <div class="row" id="div_data">
                         	<c:forEach items="${storiesList}"  var="list" varStatus="status">
-	                        	  <div class="col-md-4"  class="center-align" style="margin: 5px" >
+	                        	  <div class="col-md-3"  class="center-align" style="padding: 3px" >
 	                        		<c:if test="${not empty list.uploadedPath}">
-	                        			<div style="background-color: white; padding: 5px;" class="border">
+	                        			<div style="background-color: white; padding: 3px;" class="border">
                         			    		<div style="text-align:center">
                         			   		 		<img class="img-fluid img-view" style="max-height: 175px;" alt="No Image Available" src="${list.uploadedPath}"/>
                         			   		 	</div>
@@ -99,8 +97,6 @@
                                     </c:if>
 	                        	  </div>
 	                    	</c:forEach>
-<!-- 	                    </tbody> -->
-<!-- 	                  </table> -->
 			</div>
 	    </div>
   </div>  
@@ -142,7 +138,8 @@
   <script src="${pageContext.request.contextPath}/resources/js/demo/chart-area-demo.js"></script>
   <script src="${pageContext.request.contextPath}/resources/js/demo/chart-pie-demo.js"></script>
   
-  <script type="text/javascript"> 
+  <script type="text/javascript">
+  var ctx = "${pageContext.request.contextPath}"
   $(document).ready(function () {
 
 	    $("#search-form").submit(function (event) {
@@ -171,7 +168,7 @@
      $.ajax({
          type: "GET",
          //contentType: "application/json",
-         url:  "${pageContext.request.contextPath}/storiesImg",
+         url:  "${pageContext.request.contextPath}/stories/storiesImg",
         // success:function(result)
          data: ustoriesList,
          //dataType: 'json',
@@ -192,27 +189,20 @@
                     mimeType = ele.mimeType;
                     zlenCode = ele.zlenCode;
  				     
-  				     console.log("data", data);
-                     console.log("ele", ele);   
-                     console.log("id", id);                
-                     console.log("mimeType", mimeType);
-                     console.log("zlenCode", zlenCode);
-                     console.log("uploadedDateTime", uploadedDateTime);
-				
-//                      result  += "<tr><td>"+ele.id+"</td><td>"+ele.uploadedDateTime+"</td><td>"+ele.mimeType+"</td><td>"+ele.zlenCode+"</td></tr>";                   
-				  
-				  alert("Before RESULTS====>"+ele.zlenCode);
-
- 				  result += "<div class='col-md-4' class='center-align' style='margin: 5px'><div style='background-color: white; padding: 5px;' class='border'><div style='text-align:center'><img class='img-fluid img-view' style='max-height: 175px;' alt='No Image Available' "+ele.uploadedPath+"'></div><div>"+ele.uploadedDateTime+"<br><a href='${pageContext.request.contextPath}/userViewZlen/"+ele.zlenCode+"' class='showData'></a><br><a href='${pageContext.request.contextPath}/userViewComment/"+ele.id+"' class='btn btn-sm btn-info showData'>View Comments</a></div></div></div>";
+ 				  result += "<div class='col-md-3' class='center-align' style='padding: 3px'> "+
+ 				  	"<div style='background-color: white; padding: 3px;' class='border'>"+
+ 				  	"<div style='text-align:center'>"
+ 				  		+"<img class='img-fluid img-view' style='max-height: 175px;' alt='No Image Available' src='"+ele.uploadedPath+"'/>"
+ 				  		+"</div> <div>"+ele.uploadedDateTime+"<br> "
+ 				  		+"<a href='"+ctx+"/userViewZlen/"+ele.zlenCode+"' class='showData'>" + ele.zlenCode + " </a><br>"
+ 				  		+"<a href='"+ctx+"/userViewComment/"+ele.id+"' class='btn btn-sm btn-info showData'>View Comments</a>"
+ 				  		+"</div></div></div>";
                                      
               	  });
 
-              	  $("div_data").html(result);
-//                    $('#table1 tbody').html(result);
-				   alert("ABC");
+              	  $("#div_data").html(result);
                    bindFunction();
                    return;  
-                   alert(ele.success);      
                			   
                          			   
                }

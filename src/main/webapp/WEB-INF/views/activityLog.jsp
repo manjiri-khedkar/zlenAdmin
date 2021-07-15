@@ -81,7 +81,6 @@
 										    <th class="text-left" style="background: #d3d3d3">ID</th>
 											<th class="text-left" style="background: #d3d3d3">Activity</th>
 											<th class="text-left" style="background: #d3d3d3">Created Date</th> 
-											<th class="text-left" style="background: #d3d3d3">Notify User Device ID</th>
 											<th class="text-left" style="background: #d3d3d3">Zlen Code</th>
 											<th class="text-left" style="background: #d3d3d3">Notify ZlenCode</th>
 										</tr>
@@ -95,7 +94,7 @@
 												<td><c:out value="${list.id}" /></td>  
 												<td><c:out value="${list.activity}" /></td> 
 												<td><c:out value="${list.createdDate}" /></td> 
-												<td><c:out value="${list.notifyUserDeviceId}" /></td>
+												
 <%-- 												<td><c:out value="${list.notifyUserId}" /></td> --%>
 												<td>
 													<a href="${pageContext.request.contextPath}/userViewZlen/<c:out value='${list.zlenCode}'/>" class="showData">
@@ -206,7 +205,7 @@
                      console.log("zlenCode", zlenCode);
  					 console.log("createdDate",createdDate);
  					
-                     result  += "<tr><td>"+index+"</td><td>"+ele.id+"</td><td>"+ele.activity+"</td><td>"+ele.createdDate+"</td><td>"+ele.notifyUserDeviceId+"</td><td><a href='${pageContext.request.contextPath}/userViewZlen/"+ele.zlenCode+" ' class='showData'>"+ele.zlenCode+"</a></td><td><a href='${pageContext.request.contextPath}/userViewZlen/"+ele.notifyUserId+"' class='showData'>"+ele.notifyUserId+"</a></td></tr>";                   
+                     result  += "<tr><td>"+index+"</td><td>"+ele.id+"</td><td>"+ele.activity+"</td><td>"+ele.createdDate+"</td><td><a href='${pageContext.request.contextPath}/userViewZlen/"+ele.zlenCode+" ' class='showData'>"+ele.zlenCode+"</a></td><td><a href='${pageContext.request.contextPath}/userViewZlen/"+ele.notifyUserId+"' class='showData'>"+ele.notifyUserId+"</a></td></tr>";                   
                                      
               	  });
             	  

@@ -121,8 +121,8 @@
 	         
 			<div class="row">
 				<div class="col-md-12">
-					<div class="table-responsive">
-						<table id="table1" class="table info-tbl text-left" style='border: 1px solid #d3d3d3;width: 98% !important; '>
+					<div >
+						<table id="table1" class="table table-responsive info-tbl text-left" style='border: 1px solid #d3d3d3;width: 98% !important; '>
 							<thead>
 								<tr>
 								    <th class="text-left" style="background: #d3d3d3">Sr. No.</th>

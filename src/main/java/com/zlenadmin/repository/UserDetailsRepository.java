@@ -17,7 +17,7 @@ public interface UserDetailsRepository extends JpaRepository<UserDetails, Intege
 	
 	UserDetails findByZlenCode(String zlenCode);
 	
-	@Query(value="select count(ud.id) as count, DATE(ud.created_on) as createDate from user_details ud group by DATE(ud.created_on) order by DATE(ud.created_on) desc", nativeQuery = true)
+	@Query(value="select count(ud.id) as count, DATE(ud.created_on) as createDate from public.user_details ud group by DATE(ud.created_on) order by DATE(ud.created_on) desc", nativeQuery = true)
 	List<Object[]> getGraphQuery();
 	
 	List<UserDetails> findAll();
@@ -42,7 +42,11 @@ public interface UserDetailsRepository extends JpaRepository<UserDetails, Intege
 	
 	@Query(value = "SELECT u.* FROM public.user_details u "
 			+ "inner join public.user_friends_details ufd on ufd.friend_user_id=u.user_id "
-			+ "WHERE ufd.user_id = :userId ", nativeQuery = true)
+			+ "WHERE ufd.user_id = :userId "
+			+ "union "
+			+"SELECT u.* FROM public.user_details u "
+			+ "inner join public.user_friends_details ufd on ufd.user_id=u.user_id "
+			+ "WHERE ufd.friend_user_id = :userId ", nativeQuery = true)
 	ArrayList<UserDetails> getUserFriends(@Param("userId") String userId);
 	
 

@@ -3,6 +3,16 @@
   cursor: pointer;
 }
 
+.table-responsive {
+    max-height:350px;
+}
+.table td, .table th {
+    padding: .25rem !important;
+}
+.sticky-footer{
+	padding: .5rem !important;
+}
+
  </style>
  <!-- Sidebar -->
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
@@ -12,7 +22,7 @@
         <div class="sidebar-brand-icon rotate-n-15">
           <i class="fas fa-laugh-wink"></i>
         </div>
-        <div class="sidebar-brand-text mx-3">Infosane </div>
+        <div class="sidebar-brand-text mx-3">Zlen </div>
       </a>
  
       <!-- Divider -->
