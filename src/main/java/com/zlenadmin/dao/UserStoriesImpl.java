@@ -33,10 +33,10 @@ public class UserStoriesImpl implements UserStories {
 			+ "order by usd.uploaded_date_time desc ";
 	
 	private String SQL_LATEST="select usd.id id, usd.uploaded_date_time as uploadedDateTime, usd.mime_type mimeType, "
-			+ "usd.uploaded_path as uploadedPath, ud.zlen_code as zlenCode "
+			+ "usd.uploaded_path as uploadedPath, ud.zlen_code as zlenCode, ud.user_name as userName "
 			+ "from public.user_stories_details usd "
 			+ "inner join public.user_details ud on usd.user_id = ud.user_id "  
-			+ "where (ud.zlen_code LIKE :zlenCode or :zlenCode1 is null) " 
+			+ "where (ud.zlen_code LIKE :zlenCode or :zlenCode1 is null) "  
 			+ "and (usd.mime_type LIKE :mimeType or :mimeType1 is null)"  
 			+ "and (cast(usd.uploaded_date_time as date) >= :uploadedDateTime   )"
 			+ "order by usd.uploaded_date_time desc ";
@@ -63,6 +63,7 @@ public class UserStoriesImpl implements UserStories {
 			public StoriesDto mapRow(ResultSet rs, int rownumber) throws SQLException {  
 				StoriesDto ud = new StoriesDto();
 				ud.setZlenCode(rs.getString("zlenCode"));
+				ud.setUserName(rs.getString("userName"));
 				ud.setUploadedDateTime(rs.getDate("uploadedDateTime"));
 				ud.setMimeType(rs.getString("mimeType"));
 				ud.setUploadedPath(rs.getString("uploadedPath"));
@@ -73,7 +74,7 @@ public class UserStoriesImpl implements UserStories {
 	}
 	
 	@Override
-	public List<StoriesDto> getLatestUserStories(final String zlenCode,final String mimeType,final Date uploadedDateTime) {
+	public List<StoriesDto> getLatestUserStories(final String zlenCode,final String mimeType,final String userName,final Date uploadedDateTime) {
 		SqlParameterSource namedParameters = new MapSqlParameterSource()
 				.addValue("zlenCode", "%"+zlenCode+"%",Types.VARCHAR)
 				.addValue("zlenCode1", zlenCode,Types.VARCHAR)

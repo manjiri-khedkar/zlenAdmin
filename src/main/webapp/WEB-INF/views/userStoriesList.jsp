@@ -113,7 +113,7 @@
 	<jsp:include page="header.jsp"></jsp:include>
 	
    		<div class="container">
-	   		<h1>User Stories List</h1>	 
+	   		<h1>User Post List</h1>	 
  	         
  	        <div class="row" > 
  						    
@@ -147,6 +147,7 @@
 									<th class="text-left" style="background: #d3d3d3">Uploaded Date Time</th>
 									<th class="text-left" style="background: #d3d3d3">Mime Type</th>
 									<th class="text-left" style="background: #d3d3d3">Zlen Code</th>
+									<th class="text-left" style="background: #d3d3d3">Name</th>
 									<th class="text-left" style="background: #d3d3d3">Action</th>
 								</tr>
 							</thead>
@@ -161,7 +162,8 @@
 	 	                        			<a href="${pageContext.request.contextPath}/userViewZlen/<c:out value='${list.zlenCode}'/>" class="showData">
 	 	                        				<c:out value="${list.zlenCode}" />
 	 	                        			</a>
-	 	                        		</td> 
+	 	                        		</td>
+	 	                        		<td><c:out value="${list.userName}" /></td> 
 	 	                        		<td>
 	 	                        			<a href="#" src='${list.uploadedPath}' class="btn btn-info btn-sm img-view"> 
 	 	                        				View

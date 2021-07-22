@@ -121,10 +121,13 @@ public class MainPage {
 	
 	@GetMapping("/dashboard/stories-bar-chart")
 	 @ResponseBody
-	 public Object getStoriesGraphData(Model model) {
-		 
-		List<Object[]> userList= userStoriesDetailsRepository.getStoriesGraphQuery();
-	    
+	 public Object getStoriesGraphData(Model model,@Param("date") Date date ) {
+		
+		Calendar cal = new GregorianCalendar();
+		cal.add(Calendar.DAY_OF_MONTH, -7);
+		Date daysAgo = cal.getTime();		
+		List<Object[]> userList= userStoriesDetailsRepository.getStoriesGraphQuery(daysAgo);
+		
 	    List<BigInteger> list1 = new ArrayList<BigInteger>();
 	    List<String> dateList = new ArrayList<String>();
 	    List<BigInteger> list2 = new ArrayList<BigInteger>();

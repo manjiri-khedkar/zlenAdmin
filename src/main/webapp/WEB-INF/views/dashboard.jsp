@@ -28,6 +28,9 @@
   }
   	</style>
 	<script type='text/javascript' src="${pageContext.request.contextPath}/resources/js/dashboard/dashboardchart.js" ></script>
+	<script src="https://blacklabel.github.io/custom_events/js/customEvents.js"></script>
+<!-- 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script> -->
+<!-- 	<script src="components/highstock/highstock.js;"></script> -->
 	
   <!-- Custom styles for this template-->
   <link href="${pageContext.request.contextPath}/resources/css/sb-admin-2.min.css" rel="stylesheet">
@@ -130,10 +133,26 @@
 		            text: 'Loading...'
 		        },
 
-			  xAxis: {
-                 categories: dates,
-                 crosshair: true
-                 },
+		        
+ 			  xAxis: {
+                  categories: dates,        
+                 
+                   labels: {
+                      events: {
+                           click: function () {
+                         	 // reloadFlash();
+                           	alert("Hello it is clickable");
+//                           	//alert(this.xAxis[0].tickPositions.length);
+                          	
+                          	
+                           }			                        
+                       }
+                   },
+                  
+                crosshair: true
+                
+                
+                },
 
     		  yAxis: {
 			    min: 0,

@@ -161,8 +161,8 @@
 									<th class="text-left" style="background: #d3d3d3">Mobile No.</th>
 									<th class="text-left" style="background: #d3d3d3">Zlen Code</th>
 									<th class="text-left" style="background: #d3d3d3">Device Type</th>
-									<th class="text-left" style="background: #d3d3d3">Latitude</th>
-									<th class="text-left" style="background: #d3d3d3">Longitude</th>
+									<!--  <th class="text-left" style="background: #d3d3d3">Latitude</th>
+									<th class="text-left" style="background: #d3d3d3">Longitude</th>-->
 									<th class="text-left" style="background: #d3d3d3">Action</th>
 								</tr>
 							</thead>
@@ -173,7 +173,7 @@
 	                        		
  	                        			<td><c:out value="${status.index+1}" /></td>
  	                        			<td>
- 	                        			<fmt:formatDate value="${list.createdOn}" pattern="dd/MM/yyyy" />
+ 	                        			<fmt:formatDate value="${list.createdOn}" pattern="dd/MM/yyyy HH:mm" />
  	                        			
  	                        			</td>
  	                        			<td><c:out value="${list.userName}" /></td> 
@@ -185,8 +185,8 @@
 	 	                        		</a>
 	 	                        		</td>
 	 	                        		<td><c:out value="${list.deviceType}" /></td>
-	 	                        		<td><c:out value="${list.latitude}" /></td>
-	 	                        		<td><c:out value="${list.longitude}" /></td>
+	 	                        		<!--  <td><c:out value="${list.latitude}" /></td>
+	 	                        		<td><c:out value="${list.longitude}" /></td>-->
 										<td>
 	 	                					
 	 	                    				<a href="${pageContext.request.contextPath}/friendList/<c:out value='${list.id}'/>" 

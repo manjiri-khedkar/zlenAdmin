@@ -50,7 +50,7 @@
       <li class="nav-item active">
         <a class="nav-link" href="${pageContext.request.contextPath}/stories">
           <i class="fas fa-fw fa-tachometer-alt"></i>
-          <span>User Stories</span></a>
+          <span>User Post</span></a>
       </li>
       
      <li class="nav-item active">
@@ -62,7 +62,7 @@
       <li class="nav-item active">
         <a class="nav-link" href="${pageContext.request.contextPath}/userStoriesList">
           <i class="fas fa-fw fa-tachometer-alt"></i>
-          <span>Stories List</span></a>
+          <span>Post List</span></a>
       </li>
 	  
 	   <li class="nav-item active">

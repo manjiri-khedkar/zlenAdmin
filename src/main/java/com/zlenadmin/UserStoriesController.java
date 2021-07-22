@@ -39,7 +39,7 @@ public class UserStoriesController {
 		cal.add(Calendar.DAY_OF_MONTH, -3);
 		Date daysAgo = cal.getTime();
 		
-		List storieslist = userStories.getLatestUserStories(null, null, daysAgo);
+		List storieslist = userStories.getLatestUserStories(null, null,null, daysAgo);
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("storiesList", storieslist);
 		mav.setViewName("stories");

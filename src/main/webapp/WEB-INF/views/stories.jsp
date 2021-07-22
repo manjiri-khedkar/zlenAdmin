@@ -48,7 +48,7 @@
 	<jsp:include page="header.jsp"></jsp:include>
 	
    		<div class="container">
-	   		<h1>Stories Hostory</h1>	 
+	   		<h1>Post History</h1>	 
 	        <br/>
 	        
 	        <div class="row" > 
@@ -87,6 +87,8 @@
 			                        		   		<a href="${pageContext.request.contextPath}/userViewZlen/<c:out value='${list.zlenCode}'/>" class="showData">
 			                        		   			<c:out value="${list.zlenCode}" />
 			                        		   		</a>
+			                        		   		<br>
+			                        		   		<b>Name:</b><c:out value="${list.userName}" />
 			                        		   		<br>
 			                        		   		
 			                        		   		<a href="${pageContext.request.contextPath}/userViewComment/<c:out value='${list.id}'/>" class="btn btn-sm btn-info showData">
@@ -181,6 +183,7 @@
  				  var uploadedDateTime;
   		      	  var mimeType;
   		      	  var zlenCode;
+  		      	  var name;
 				  
               	  $(data).each(function (index,ele){
                   	
