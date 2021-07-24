@@ -240,7 +240,6 @@ public class MainPage {
 		
 		ModelAndView mv = new ModelAndView();
 		List<UserDetails> userDetailsList = userDetailsRepository.getUserDetails(userName, userMobile, zlenCode, deviceType, createdOn);
-		mv.addObject("userListDetails", new UserDetails());
 		mv.addObject("userListDetails", userDetailsList);
 		mv.setViewName("userDetailsList");
 		return mv;

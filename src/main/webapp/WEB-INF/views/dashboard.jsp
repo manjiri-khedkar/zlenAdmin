@@ -103,9 +103,7 @@
 							 	label.style.cursor = "pointer";
 							    label.onclick = function(){
 							   	//alert('You clicked on '+this.textContent);
-							    {
-							   	  location.replace("http://localhost:8080/usersList?createdOn="+this.textContent)
-								   	}
+							   	  location.replace("${pageContext.request.contextPath}/usersList?createdOn="+this.textContent)
 							   }
 							 }); //chart end here
 	  },
@@ -177,9 +175,7 @@
 							 {
 							 	label.style.cursor = "pointer";
 							    label.onclick = function(){
-							   	 	//alert('You clicked on '+this.textContent);
-							    
-							   	  location.replace("http://localhost:8080/stories?uploadedDateTime="+this.textContent)
+							   	  location.replace("${pageContext.request.contextPath}/stories?uploadedDateTime="+this.textContent)
 							   	
 							   }
 							 });

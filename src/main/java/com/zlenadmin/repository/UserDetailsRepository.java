@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.jpa.repository.Temporal;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
@@ -33,8 +34,8 @@ public interface UserDetailsRepository extends JpaRepository<UserDetails, Intege
 			+ "and ( u.userMobile LIKE %:userMobile% or :userMobile is null ) "
 			+ "and (( u.zlenCode  LIKE %:zlenCode% or :zlenCode is null )) "
 			+ "and (u.deviceType = :deviceType or :deviceType is null) "
-			+ "and (Date(u.createdOn) = :createdOn) ")
-	ArrayList<UserDetails> getUserDetails(@Param("userName") String userName, @Param("userMobile") String userMobile, @Param("zlenCode") String zlenCode, @Param("deviceType") String deviceType, @Param("createdOn") Date createdOn);
+			+ "and (Date(u.createdOn) = :createdOn  or cast(:createdOn as date) is null) ")
+	ArrayList<UserDetails> getUserDetails(@Param("userName") String userName, @Param("userMobile") String userMobile, @Param("zlenCode") String zlenCode, @Param("deviceType") String deviceType, @Param("createdOn") @Temporal  Date createdOn);
 	
 	
 	@Query(value ="SELECT ud.user_name, ud.user_mobile, ud.zlen_code, ud.device_Type, ud.longitude, ud.latitude  FROM user_details ud where ud.user_id =? ", nativeQuery = true)
