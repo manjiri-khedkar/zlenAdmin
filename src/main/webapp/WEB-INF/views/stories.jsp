@@ -92,8 +92,9 @@
 			                        		   		<br>
 			                        		   		
 			                        		   		<a href="${pageContext.request.contextPath}/userViewComment/<c:out value='${list.id}'/>" class="btn btn-sm btn-info showData">
-			 	                    					View Comments
-			 	                    				</a> 
+			 	                    					View Comments&nbsp;&nbsp;(<c:out value='${list.commentCount}'/>)
+			 	                    				</a>
+			 	                    				 
 			                        		   </div>
 	                        		   </div>
                                     </c:if>

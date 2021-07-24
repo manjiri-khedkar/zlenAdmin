@@ -28,9 +28,6 @@
   }
   	</style>
 	<script type='text/javascript' src="${pageContext.request.contextPath}/resources/js/dashboard/dashboardchart.js" ></script>
-	<script src="https://blacklabel.github.io/custom_events/js/customEvents.js"></script>
-<!-- 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script> -->
-<!-- 	<script src="components/highstock/highstock.js;"></script> -->
 	
   <!-- Custom styles for this template-->
   <link href="${pageContext.request.contextPath}/resources/css/sb-admin-2.min.css" rel="stylesheet">
@@ -56,7 +53,7 @@
 			    	  console.log("datecounter", datecounter);
 			   
 			
-	    Highcharts.chart('container', {
+	  var chart =  Highcharts.chart('container', {
 	        chart: {
 	            type: 'column'
 	        }, 
@@ -100,13 +97,24 @@
 	        }] 
 	       
 	      });
-		},
+	  //start
+	  chart.xAxis[0].labelGroup.element.childNodes.forEach(function(label)
+							 {
+							 	label.style.cursor = "pointer";
+							    label.onclick = function(){
+							   	//alert('You clicked on '+this.textContent);
+							    {
+							   	  location.replace("http://localhost:8080/usersList?createdOn="+this.textContent)
+								   	}
+							   }
+							 }); //chart end here
+	  },
 	  });
 		     
  });
 
 		 $(function() {
-				var dates, gdata;
+				var dates,  gdata;
 				$.ajax( {
 				      type : "Get", 
 				      url : "${pageContext.request.contextPath}/dashboard/stories-bar-chart", 
@@ -120,70 +128,67 @@
 				      console.log("dates", dates);
 			    	  console.log("graphdata", gdata);
 			    	
-		    Highcharts.chart('container1', {
-		        chart: {
-		            type: 'column'
-		        }, 
-		        
-		        title: {
-		            text: 'Stories-Information'
-		        }, 
-
-		        noData: {
-		            text: 'Loading...'
-		        },
-
-		        
- 			  xAxis: {
-                  categories: dates,        
-                 
-                   labels: {
-                      events: {
-                           click: function () {
-                         	 // reloadFlash();
-                           	alert("Hello it is clickable");
-//                           	//alert(this.xAxis[0].tickPositions.length);
-                          	
-                          	
-                           }			                        
-                       }
-                   },
-                  
-                crosshair: true
-                
-                
-                },
-
-    		  yAxis: {
-			    min: 0,
-			    max:100,
-			     title: {
-			      text: 'User Count'
-			    }
-              },
-		        
-		        tooltip: {
-		            headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-		            pointFormat: '<tr><td style="color:{series.color};padding:1">{series.name}: </td>' +
-		            '<td style="padding:0"><b>{point.y}add</b></td></tr>',
-		            footerFormat: '</table>',
-		            shared: true,
-		            useHTML: true
-		        },
-		        plotOptions: {
-		            column: {
-		                pointPadding: 0.3,
-		                borderWidth: 2
-		            }
-		        },
-		        legend: {
-                  reversed: true
-			    },
-		        series: gdata,
-		     });
+				    var chart = Highcharts.chart('container1', {
+				        chart: {
+				            type: 'column'
+				        }, 
+				        
+				        title: {
+				            text: 'Stories-Information'
+				        }, 
+		
+				        noData: {
+				            text: 'Loading...'
+				        },
+		
+					  xAxis: {
+		                 categories: dates,
+		                // crosshair: true
+		                 },
+		
+		    		  yAxis: {
+					    min: 0,
+					    max:100,
+					     title: {
+					      text: 'User Count'
+					    }
+		              },
+				        
+				        tooltip: {
+				            headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+				            pointFormat: '<tr><td style="color:{series.color};padding:1">{series.name}: </td>' +
+				            '<td style="padding:0"><b>{point.y}add</b></td></tr>',
+				            footerFormat: '</table>',
+				            shared: true,
+				            useHTML: true
+				        },
+				        plotOptions: {
+				            column: {
+				                pointPadding: 0.3,
+				                borderWidth: 2
+				            }
+				        },
+				        legend: {
+		                  reversed: true
+					    },
+				        series: gdata,
+				     }); // ending the chart here
+				    chart.xAxis[0].labelGroup.element.childNodes.forEach(function(label)
+							 {
+							 	label.style.cursor = "pointer";
+							    label.onclick = function(){
+							   	 	//alert('You clicked on '+this.textContent);
+							    
+							   	  location.replace("http://localhost:8080/stories?uploadedDateTime="+this.textContent)
+							   	
+							   }
+							 });
 		 },
-	});
+	});//ajax end here
 });
+		 
+		 
+		 
 		
 		function savePass(){
 		    var pass = $("#pass").val();

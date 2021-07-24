@@ -24,7 +24,7 @@ public class UserStoriesImpl implements UserStories {
 //			+ "where ud.zlen_code like :zlenCode "; 
 
 	private String SQL="select usd.id id, usd.uploaded_date_time as uploadedDateTime, usd.mime_type mimeType, "
-			+ "usd.uploaded_path as uploadedPath, ud.zlen_code as zlenCode "
+			+ "usd.uploaded_path as uploadedPath, ud.zlen_code as zlenCode, ud.user_name as userName "
 			+ "from public.user_stories_details usd "
 			+ "inner join public.user_details ud on usd.user_id = ud.user_id "  
 			+ "where (ud.zlen_code LIKE :zlenCode or :zlenCode1 is null) " 
@@ -33,12 +33,15 @@ public class UserStoriesImpl implements UserStories {
 			+ "order by usd.uploaded_date_time desc ";
 	
 	private String SQL_LATEST="select usd.id id, usd.uploaded_date_time as uploadedDateTime, usd.mime_type mimeType, "
-			+ "usd.uploaded_path as uploadedPath, ud.zlen_code as zlenCode, ud.user_name as userName "
+			+ "usd.uploaded_path as uploadedPath, ud.zlen_code as zlenCode, ud.user_name as userName,count(uscd.id) as commentCount "
 			+ "from public.user_stories_details usd "
+			+"left join public.user_stories_comment_details uscd  on usd.id = uscd.snap_id "
 			+ "inner join public.user_details ud on usd.user_id = ud.user_id "  
-			+ "where (ud.zlen_code LIKE :zlenCode or :zlenCode1 is null) "  
-			+ "and (usd.mime_type LIKE :mimeType or :mimeType1 is null)"  
+			+"where (ud.zlen_code LIKE :zlenCode or :zlenCode1 is null)  " 
+			+"and (usd.mime_type LIKE :mimeType or :mimeType1 is null)"   
 			+ "and (cast(usd.uploaded_date_time as date) >= :uploadedDateTime   )"
+			+"group by usd.id , usd.uploaded_date_time , usd.mime_type ,"
+			+"usd.uploaded_path , ud.zlen_code , ud.user_name "
 			+ "order by usd.uploaded_date_time desc ";
 	
 	private String SQL_comments = "SELECT ud.zlen_code as zlenCode, uscd.comment_message as comment, uscd.snap_id, "
@@ -74,7 +77,7 @@ public class UserStoriesImpl implements UserStories {
 	}
 	
 	@Override
-	public List<StoriesDto> getLatestUserStories(final String zlenCode,final String mimeType,final String userName,final Date uploadedDateTime) {
+	public List<StoriesDto> getLatestUserStories(final String zlenCode,final String mimeType,final Date uploadedDateTime) {
 		SqlParameterSource namedParameters = new MapSqlParameterSource()
 				.addValue("zlenCode", "%"+zlenCode+"%",Types.VARCHAR)
 				.addValue("zlenCode1", zlenCode,Types.VARCHAR)
@@ -87,6 +90,8 @@ public class UserStoriesImpl implements UserStories {
 			public StoriesDto mapRow(ResultSet rs, int rownumber) throws SQLException {  
 				StoriesDto ud = new StoriesDto();
 				ud.setZlenCode(rs.getString("zlenCode"));
+				ud.setUserName(rs.getString("userName"));
+				ud.setCommentCount(rs.getLong("commentCount"));
 				ud.setUploadedDateTime(rs.getDate("uploadedDateTime"));
 				ud.setMimeType(rs.getString("mimeType"));
 				ud.setUploadedPath(rs.getString("uploadedPath"));

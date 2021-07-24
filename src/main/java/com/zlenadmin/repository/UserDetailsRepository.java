@@ -1,6 +1,7 @@
 package com.zlenadmin.repository;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -31,12 +32,13 @@ public interface UserDetailsRepository extends JpaRepository<UserDetails, Intege
 			+ "WHERE (u.userName LIKE  %:userName% or :userName is null )"
 			+ "and ( u.userMobile LIKE %:userMobile% or :userMobile is null ) "
 			+ "and (( u.zlenCode  LIKE %:zlenCode% or :zlenCode is null )) "
-			+ "and (u.deviceType = :deviceType or :deviceType is null) ")
-	ArrayList<UserDetails> getUserDetails(@Param("userName") String userName, @Param("userMobile") String userMobile, @Param("zlenCode") String zlenCode, @Param("deviceType") String deviceType);
+			+ "and (u.deviceType = :deviceType or :deviceType is null) "
+			+ "and (u.createdOn = :createdOn) ")
+	ArrayList<UserDetails> getUserDetails(@Param("userName") String userName, @Param("userMobile") String userMobile, @Param("zlenCode") String zlenCode, @Param("deviceType") String deviceType, @Param("createdOn") Date createdOn);
 	
 	
 	@Query(value ="SELECT ud.user_name, ud.user_mobile, ud.zlen_code, ud.device_Type, ud.longitude, ud.latitude  FROM user_details ud where ud.user_id =? ", nativeQuery = true)
-    List<Object> getUserDetails(@Param("userId") String userId);
+    List<UserDetails> getUserDetails(@Param("userId") String userId);
 	
 	
 	
