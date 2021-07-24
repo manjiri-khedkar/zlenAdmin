@@ -23,6 +23,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.annotation.SessionScope;
 import org.springframework.web.servlet.ModelAndView;
@@ -213,10 +214,32 @@ public class MainPage {
 	}
 	
 	@GetMapping("/usersList")
-	public ModelAndView userDetailsList() {
+	//public ModelAndView userDetailsList() {
+	
+	public Object userDetailsList(Model model,@RequestParam(required=false) String userName, 
+			@RequestParam(required=false) String userMobile,@RequestParam(required=false) String zlenCode,@RequestParam(required=false) String deviceType, 
+			@RequestParam(required=false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date  createdOn)
+	{	
+		if ("All".equals(deviceType)) {
+			deviceType=null;
+		}
+		if ("".equals(userMobile)) {
+			userMobile=null;
+		}
+		if ("".equals(zlenCode)) {
+			zlenCode=null;
+		}
+		
+		if ("".equals(userName)) {
+			userName=null;
+		}
+		
+		if ("".equals(createdOn)) {
+			createdOn=null;
+		}
 		
 		ModelAndView mv = new ModelAndView();
-		List<UserDetails> userDetailsList = userDetailsRepository.findAll();
+		List<UserDetails> userDetailsList = userDetailsRepository.getUserDetails(userName, userMobile, zlenCode, deviceType, createdOn);
 		mv.addObject("userListDetails", new UserDetails());
 		mv.addObject("userListDetails", userDetailsList);
 		mv.setViewName("userDetailsList");
@@ -225,7 +248,7 @@ public class MainPage {
 	
 	@GetMapping("/userDetailsListContents") 
 	@ResponseBody
-	public ArrayList<UserDetails> getUserDetails(Model model ,@Param("userName") String userName, @Param("userMobile") String userMobile,@Param("zlenCode") String zlenCode,@Param("deviceType") String deviceType)
+	public ArrayList<UserDetails> getUserDetails(Model model ,@Param("userName") String userName, @Param("userMobile") String userMobile,@Param("zlenCode") String zlenCode,@Param("deviceType") String deviceType, @Param("createdOn") @DateTimeFormat(pattern = "yyyy-MM-dd")Date createdOn)
 	{
 //		List<Object[]> userDetailsContentList= userDetailsRepository.getDetailsData();
 		
@@ -243,7 +266,11 @@ public class MainPage {
 		if ("".equals(userName)) {
 			userName=null;
 		}
-		ArrayList<UserDetails> userDetailsList = userDetailsRepository.getUserDetails(userName, userMobile, zlenCode, deviceType);
+		if ("".equals(createdOn)) {
+			createdOn=null;
+		}
+
+		ArrayList<UserDetails> userDetailsList = userDetailsRepository.getUserDetails(userName, userMobile, zlenCode, deviceType, createdOn);
 	
 		return userDetailsList;
 		

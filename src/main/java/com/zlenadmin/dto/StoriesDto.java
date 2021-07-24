@@ -14,10 +14,20 @@ public class StoriesDto {
 	
 	private String userName;
 	
+	private Long commentCount;
+	
 	private Long id;
 	
 
 	
+	public Long getCommentCount() {
+		return commentCount;
+	}
+
+	public void setCommentCount(Long commentCount) {
+		this.commentCount = commentCount;
+	}
+
 	public String getUserName() {
 		return userName;
 	}

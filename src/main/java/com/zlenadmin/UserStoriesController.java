@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -33,13 +34,46 @@ public class UserStoriesController {
 	ImageStories imageStories;
 	
 	@GetMapping
-	public ModelAndView list(Model model) {
+	/*
+	 * public ModelAndView list(Model model)
+	 * 
+	 * public Object getUserStories(Model model, @RequestParam(required=false)
+	 * String zlenCode, @RequestParam(required=false) String
+	 * mimeType, @RequestParam(required=false) @DateTimeFormat(pattern =
+	 * "yyyy-MM-dd") Date uploadedDateTime) { if ("".equals(zlenCode)) {
+	 * zlenCode=null; }
+	 * 
+	 * if ("All".equals(mimeType)) { mimeType=null; }
+	 * 
+	 * if ("".equals(uploadedDateTime)) { uploadedDateTime=null; }
+	 * 
+	 * Calendar cal = new GregorianCalendar(); cal.add(Calendar.DAY_OF_MONTH, -3);
+	 * Date daysAgo = cal.getTime();
+	 * 
+	 * List storieslist =
+	 * userStories.getLatestUserStories(zlenCode,mimeType,uploadedDateTime,
+	 * daysAgo); ModelAndView mav = new ModelAndView(); mav.addObject("storiesList",
+	 * storieslist); mav.setViewName("stories"); return mav; }
+	 */
+	public ModelAndView getUserStories(Model model, @RequestParam(required=false) String  zlenCode, @RequestParam(required=false) String mimeType, @RequestParam(required=false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date uploadedDateTime)
+	{	
+		if ("".equals(zlenCode)) {
+			zlenCode=null;
+		}
+	
+		if ("All".equals(mimeType)) {
+			mimeType=null;
+		}
 		
-		Calendar cal = new GregorianCalendar();
-		cal.add(Calendar.DAY_OF_MONTH, -3);
-		Date daysAgo = cal.getTime();
+		if ("".equals(uploadedDateTime)) {
+			uploadedDateTime=null;
+		}
 		
-		List storieslist = userStories.getLatestUserStories(null, null, daysAgo);
+		//Calendar cal = new GregorianCalendar(); cal.add(Calendar.DAY_OF_MONTH, -3);
+		//Date daysAgo = cal.getTime();
+		
+		//List storieslist = userStories.getLatestUserStories(null, null, daysAgo);
+		List storieslist = userStories.getUserStories(zlenCode,mimeType,uploadedDateTime);
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("storiesList", storieslist);
 		mav.setViewName("stories");
