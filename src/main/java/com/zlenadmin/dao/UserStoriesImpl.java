@@ -74,7 +74,7 @@ public class UserStoriesImpl implements UserStories {
 	}
 	
 	@Override
-	public List<StoriesDto> getLatestUserStories(final String zlenCode,final String mimeType,final String userName,final Date uploadedDateTime) {
+	public List<StoriesDto> getLatestUserStories(final String zlenCode,final String mimeType,final Date uploadedDateTime) {
 		SqlParameterSource namedParameters = new MapSqlParameterSource()
 				.addValue("zlenCode", "%"+zlenCode+"%",Types.VARCHAR)
 				.addValue("zlenCode1", zlenCode,Types.VARCHAR)
@@ -87,6 +87,7 @@ public class UserStoriesImpl implements UserStories {
 			public StoriesDto mapRow(ResultSet rs, int rownumber) throws SQLException {  
 				StoriesDto ud = new StoriesDto();
 				ud.setZlenCode(rs.getString("zlenCode"));
+				ud.setUserName(rs.getString("userName"));
 				ud.setUploadedDateTime(rs.getDate("uploadedDateTime"));
 				ud.setMimeType(rs.getString("mimeType"));
 				ud.setUploadedPath(rs.getString("uploadedPath"));
