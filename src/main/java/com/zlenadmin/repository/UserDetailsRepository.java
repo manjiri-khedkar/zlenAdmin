@@ -51,6 +51,14 @@ public interface UserDetailsRepository extends JpaRepository<UserDetails, Intege
 			+ "WHERE ufd.friend_user_id = :userId ", nativeQuery = true)
 	ArrayList<UserDetails> getUserFriends(@Param("userId") String userId);
 	
+	@Query(value="select count(ud.id) as count from public.user_details ud where ud.created_on=ud.created_on", nativeQuery= true)
+	Integer getUserDetails1();
+	
+	@Query(value="select count(ud.id) as count from public.user_details ud where ud.created_on >= ud.created_on", nativeQuery= true)
+	Integer getUserDetails2();
+
+	
+	
 
 	
 }

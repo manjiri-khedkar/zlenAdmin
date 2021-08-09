@@ -16,10 +16,20 @@ public class StoriesDto {
 	
 	private Long commentCount;
 	
+	private Long likesCount;
+	
 	private Long id;
 	
-
 	
+	
+	public Long getLikesCount() {
+		return likesCount;
+	}
+
+	public void setLikesCount(Long likesCount) {
+		this.likesCount = likesCount;
+	}
+
 	public Long getCommentCount() {
 		return commentCount;
 	}

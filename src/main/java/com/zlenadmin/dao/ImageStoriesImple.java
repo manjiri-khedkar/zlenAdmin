@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -26,6 +27,7 @@ public class ImageStoriesImple implements ImageStories{
 			+ "and (cast(usd.uploaded_date_time as date) = :uploadedDateTime or :uploadedDateTime1 is null)  "
 			+ "order by usd.uploaded_date_time desc "; 
 	@Autowired
+	@Qualifier("zlen-jdbc")
     private NamedParameterJdbcTemplate jdbcTemplate;
 	
 	public List<StoriesDto> getStories(final String zlenCode,final String mimeType,final Date uploadedDateTime) {

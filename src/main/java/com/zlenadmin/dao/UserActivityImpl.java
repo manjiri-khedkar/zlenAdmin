@@ -6,6 +6,7 @@ import java.sql.Types;
 import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -38,6 +39,7 @@ public class UserActivityImpl implements UserActivity {
 			+ "order by uad.created_date desc ";
 	
 	@Autowired
+	@Qualifier("zlen-jdbc")
     private NamedParameterJdbcTemplate jdbcTemplate;
 	
 	
