@@ -55,7 +55,7 @@ public class UserStoriesController {
 	 * daysAgo); ModelAndView mav = new ModelAndView(); mav.addObject("storiesList",
 	 * storieslist); mav.setViewName("stories"); return mav; }
 	 */
-	public Object getUserStories(Model model, @RequestParam(required=false) String  zlenCode, @RequestParam(required=false) String mimeType, @RequestParam(required=false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date uploadedDateTime)
+	public ModelAndView getUserStories(Model model, @RequestParam(required=false) String  zlenCode, @RequestParam(required=false) String mimeType, @RequestParam(required=false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date uploadedDateTime)
 	{	
 		if ("".equals(zlenCode)) {
 			zlenCode=null;
@@ -69,6 +69,10 @@ public class UserStoriesController {
 			uploadedDateTime=null;
 		}
 		
+		//Calendar cal = new GregorianCalendar(); cal.add(Calendar.DAY_OF_MONTH, -3);
+		//Date daysAgo = cal.getTime();
+		
+		//List storieslist = userStories.getLatestUserStories(null, null, daysAgo);
 		List storieslist = userStories.getUserStories(zlenCode,mimeType,uploadedDateTime);
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("storiesList", storieslist);

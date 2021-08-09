@@ -10,6 +10,8 @@ import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.SortedMap;
+import java.util.TreeMap;
 
 import org.openqa.selenium.WebDriver;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,15 +38,13 @@ import com.zlenadmin.model.SessionUser;
 import com.zlenadmin.repository.AppuserRepository;
 import com.zlenadmin.repository.UserDetailsRepository;
 import com.zlenadmin.repository.UserStoriesDetailsRepository;
-import com.zlenadmin.service.RegistrationServiceImpl;
 
 @Controller
 @Component
 @SessionScope
 public class MainPage {
 
-	@Autowired
-	ApplicationMailer mailer;
+	
 	WebDriver dr = null;
 
 	@Autowired
@@ -52,9 +52,6 @@ public class MainPage {
 
 	@Autowired
 	private AppuserRepository appuserRepository;
-	
-	@Autowired
-	private RegistrationServiceImpl serviceimpl;
 	
 	@Autowired
 	UserDetailsRepository userDetailsRepository;
@@ -143,12 +140,12 @@ public class MainPage {
 		List<Object[]> userList= userStoriesDetailsRepository.getStoriesGraphQuery(daysAgo);
 		
 	    List<BigInteger> list1 = new ArrayList<BigInteger>();
-	    List<String> dateList = new ArrayList<String>();
+	    List<Date> dateList = new ArrayList<Date>();
 	    List<BigInteger> list2 = new ArrayList<BigInteger>();
 	    List<BigInteger> list3 = new ArrayList<BigInteger>();
 	    List<HashMap<String,Object>> mainList = new ArrayList<HashMap<String,Object>>();
 	    
-	    HashMap<String, HashMap<String,BigInteger>> datewise_hm= new HashMap<String, HashMap<String,BigInteger>>();
+	    SortedMap<Date, HashMap<String,BigInteger>> datewise_hm= new TreeMap<Date, HashMap<String,BigInteger>>();
 	    Date curDate = null;
 	    HashMap<String,BigInteger> inner_hm= null;
  	    for(Object[] list :userList) {
@@ -158,14 +155,16 @@ public class MainPage {
 	    	
 	    	if ((curDate==null) || (curDate!=null && !curDate.equals(createdDate))) {
 	    		curDate= createdDate;
+	    		System.out.println(curDate);
 	    		inner_hm = new HashMap<String,BigInteger>();
-	    			datewise_hm.put(createdDate.toString(),inner_hm);
+	    			datewise_hm.put(createdDate,inner_hm);
 	    	}
 	    	inner_hm.put(mimeType, count);
 	    }
- 	    datewise_hm.put(curDate.toString(),inner_hm);
+ 	    datewise_hm.put(curDate,inner_hm);
  	    
- 	    for (String key : datewise_hm.keySet()) {
+ 	    for (Date key : datewise_hm.keySet()) {
+ 	    	System.out.println("Processing:" + key);
  	    	HashMap<String,BigInteger> datewiseData = datewise_hm.get(key);
  	    	dateList.add(key);
  	    		
@@ -259,7 +258,9 @@ public class MainPage {
 	@GetMapping("/usersList")
 	//public ModelAndView userDetailsList() {
 	
-	public Object userDetailsList(Model model,@RequestParam(required=false) String userName, @RequestParam(required=false) String userMobile,@RequestParam(required=false) String zlenCode,@RequestParam(required=false) String deviceType, @RequestParam(required=false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date  createdOn)
+	public Object userDetailsList(Model model,@RequestParam(required=false) String userName, 
+			@RequestParam(required=false) String userMobile,@RequestParam(required=false) String zlenCode,@RequestParam(required=false) String deviceType, 
+			@RequestParam(required=false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date  createdOn)
 	{	
 		if ("All".equals(deviceType)) {
 			deviceType=null;
@@ -280,8 +281,7 @@ public class MainPage {
 		}
 		
 		ModelAndView mv = new ModelAndView();
-	List<UserDetails> userDetailsList = userDetailsRepository.findAll();
-		mv.addObject("userListDetails", new UserDetails());
+		List<UserDetails> userDetailsList = userDetailsRepository.getUserDetails(userName, userMobile, zlenCode, deviceType, createdOn);
 		mv.addObject("userListDetails", userDetailsList);
 		mv.setViewName("userDetailsList");
 		return mv;

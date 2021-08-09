@@ -51,8 +51,7 @@
 
 	$(function() {
 		var name, date, listt, datecounter;
-		$
-				.ajax({
+		$.ajax({
 					type : "Get",
 					url : "${pageContext.request.contextPath}/dashboard/bar-chart",
 					contentType : "application/json",
@@ -113,22 +112,24 @@
 
 										});
 						//start
-						chart.xAxis[0].labelGroup.element.childNodes
-								.forEach(function(label) {
-									label.style.cursor = "pointer";
-									label.onclick = function() {
-										//alert('You clicked on '+this.textContent);
-										{
-											location
-													.replace("http://localhost:8080/usersList?createdOn="
-															+ this.textContent)
-										}
-									}
-								}); //chart end here
-					},
-				});
+						
+						 chart.xAxis[0].labelGroup.element.childNodes.forEach(function(label)
+								 {
+								 	label.style.cursor = "pointer";
+								    label.onclick = function(){
+								   	//alert('You clicked on '+this.textContent);
+								    {
+								   	  location.replace("http://localhost:8080/usersList?createdOn="+this.textContent)
+								    }
+								   }
+								 }); //chart end here
+		  },
+		  });
+			     
+	 });
+	
+	
 
-	});
 
 	$(function() {
 		var dates, gdata;
@@ -226,10 +227,9 @@
 	
 
     //3rd chart
-		$(function() {
+		$(function() 
 			var datescount, count;
-			$
-					.ajax({
+			$.ajax({
 						type : "Get",
 						url : "${pageContext.request.contextPath}/dashboard/lastseen",
 						contentType : "application/json",
@@ -301,6 +301,7 @@
 		if (!valid) {
 			$("#error").show();
 			return;
+
 		}
 		$.post("changePassword", {
 			newPwd : pass,
@@ -323,45 +324,44 @@
 		<div class="container-fluid text-center ">
 			<br>
 
-					<h5>
-					<b>Register Ratio Count</b>
-					</h5>
+			<h5>
+				<b>Register Ratio Count</b>
+			</h5>
 			<div class="row  center-align"
 				style="padding: 8px; text-align: center;">
-				
-
-			
-				
-					<div class="col-md-5 bg-primary  align-center"
-						style=" border-radius: 15px; color: #ffff;">
-					
-						<b>Total Count</b>
-						 <br> <br>
-						<c:out value="${totalRegistrationCount}" />
-				
-					</div>
-				 		
-				 		<div class="col-md-2"></div>
 
 
-				
-					<div class="col-md-5 bg-primary  align-center"
-						style=" border-radius: 15px; color: #ffff;">
-						<b>Last 24 Hours Count</b> <br> <br>
-						<c:out value="${last24HoursCount}" />
-					
-					</div>
-				
+
+
+				<div class="col-md-5 bg-primary  align-center"
+					style="border-radius: 15px; color: #ffff;">
+
+					<b>Total Count</b> <br> <br>
+					<c:out value="${totalRegistrationCount}" />
+
+				</div>
+
+				<div class="col-md-2"></div>
+
+
+
+				<div class="col-md-5 bg-primary  align-center"
+					style="border-radius: 15px; color: #ffff;">
+					<b>Last 24 Hours Count</b> <br> <br>
+					<c:out value="${last24HoursCount}" />
+
+				</div>
+
 			</div>
 			<br> <br>
-						<div class="row">
+			<div class="row">
 				<div class="col-md-4" id="container" style=""></div>
 
 				<div class="col-md-4" id="container1" style=""></div>
-				
+
 				<div class="col-md-4" id="container2" style=""></div>
 			</div>
- 
+
 		</div>
 	</div>
 	<a class="scroll-to-top rounded" href="#page-top"> <i
