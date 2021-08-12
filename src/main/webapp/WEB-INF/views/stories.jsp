@@ -16,7 +16,9 @@
   <!-- Custom fonts for this template-->
   <link href="${pageContext.request.contextPath}/resources/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
   <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+	
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<style>
 	
 	#page-top { display:block; }
@@ -81,7 +83,7 @@
                         			   		 		<img class="img-fluid img-view" style="max-height: 175px;" alt="No Image Available" src="${list.uploadedPath}"/>
                         			   		 	</div>
 			                        		   <div>
-			                        		   		<b>Date:</b> <c:out value="${list.uploadedDateTime}" />
+			                        		   		<b>Date:</b> <c:out  value="${list.uploadedDateTime}" />
 			                        		   		<br>
 			                        		   		<b>ZlenCode:</b> 
 			                        		   		<a href="${pageContext.request.contextPath}/userViewZlen/<c:out value='${list.zlenCode}'/>" class="showData">
@@ -91,8 +93,14 @@
 			                        		   		<b>Name:</b><c:out value="${list.userName}" />
 			                        		   		<br>
 			                        		   		
-			                        		   		<a href="${pageContext.request.contextPath}/userViewComment/<c:out value='${list.id}'/>" class="btn btn-sm btn-info showData">
-			 	                    					View Comments&nbsp;&nbsp;(<c:out value='${list.commentCount}'/>)
+			                        		   		<a href="${pageContext.request.contextPath}/userViewComment/<c:out value='${list.id}'/>" class=" btn btn-sm btn-primary showData">
+			 	    									<i class="fa fa-comments" style="font-size: 20px; color: #ffff;"></i>
+			 	                    				 &nbsp;<c:out value='${list.commentCount}'/> <%-- <img class="circular--square" src="${pageContext.request.contextPath}/resources/img/chat.png"> --%>
+			 	                    					
+			 	                    				</a>
+			 	                    				<a href="${pageContext.request.contextPath}/userviewLikes/<c:out value='${list.id}'/>" class="btn btn-sm btn-primary showData">
+			 	                    					<i class="fa fa-thumbs-up" style="font-size: 20px; color: #ffff;"></i>
+			 	                    				  &nbsp;<c:out value='${list.likesCount}'/>
 			 	                    				</a>
 			 	                    				 
 			                        		   </div>

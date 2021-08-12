@@ -191,10 +191,13 @@
 	 	                					
 	 	                    				<a href="${pageContext.request.contextPath}/friendList/<c:out value='${list.id}'/>" 
 	 	                    				class="btn btn-primary btn-sm showData">
-	 	                    					Friends</a>&nbsp;
+	 	                    				<i class="fas fa-user-friends" style="font-size: 20px; color: #ffff;"></i>
+	 	                    					</a>&nbsp;
  	                    					
 	 	                    				<a href="${pageContext.request.contextPath}/contactlist/<c:out value='${list.id}'/>" 
-	 	                    					 class="btn btn-danger btn-sm showData">Contacts</a>&nbsp;
+	 	                    					 class="btn btn-danger btn-sm showData">
+	 	                    					 <i class="fas fa-address-book" style="font-size: 20px; color: #ffff;"></i>
+	 	                    					 </a>&nbsp;
 	 	                    				
 	 	                        		</td>
  	                       			</tr> 

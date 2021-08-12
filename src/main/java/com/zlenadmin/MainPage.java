@@ -29,7 +29,10 @@ import org.springframework.web.context.annotation.SessionScope;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.zlenadmin.api.entity.UserDetails;
+import com.zlenadmin.dao.Accounts;
 import com.zlenadmin.dao.UserStories;
+import com.zlenadmin.dto.AccountsDto;
+import com.zlenadmin.email.ApplicationMailer;
 import com.zlenadmin.model.AppUser;
 import com.zlenadmin.model.SessionUser;
 import com.zlenadmin.repository.AppuserRepository;
@@ -59,7 +62,8 @@ public class MainPage {
 	@Autowired
 	private UserStories userStories;
 	
-
+	@Autowired
+	private Accounts accountDao ;
 	
 	@GetMapping(value = "/")
 	public String indexView(@ModelAttribute AppUser users) 
@@ -85,8 +89,18 @@ public class MainPage {
 	public ModelAndView dashboard() {
 		//appuserRepository.addActivity(sessionUser.getUserId(), "dashboard", System.currentTimeMillis());
 		ModelAndView model = new ModelAndView("dashboard");
+		Integer totalRegistrationCount=userDetailsRepository.getUserDetails1();
+		model.addObject("totalRegistrationCount", totalRegistrationCount);
+		Calendar cal = new GregorianCalendar();
+		cal.add(Calendar.DAY_OF_MONTH, -1);
+		Date daysAgo = cal.getTime();
+		Integer last24HoursCount=userDetailsRepository.getUserDetails2();
+		model.addObject("last24HoursCount", last24HoursCount);
+		
 		return model;
 	}
+	
+	
 	
 	@GetMapping("/dashboard/bar-chart")
 	 @ResponseBody
@@ -212,6 +226,34 @@ public class MainPage {
     	 
     	return finalMap4;
 	}
+	
+	@GetMapping("/dashboard/lastseen")	  
+	  @ResponseBody 
+	  public Map<String, Object> registrationGraphData1(Model model)
+	  {
+			List<AccountsDto> list = accountDao.getGraphQuery31();
+
+			List<Date> list1 = new ArrayList<Date>();
+			List<Integer> list2 = new ArrayList<Integer>();
+
+			for (int j = 0; j <= list.size() - 1; j++) {
+				Date cdate = list.get(j).getCdate();
+				Integer count = list.get(j).getCount();
+				list1.add(cdate);
+				list2.add(count);
+			}
+			Map<String, Object> finalMap = new HashMap();
+
+			model.addAttribute("datescount", list1);
+
+			finalMap.put("datescount", list1);
+			finalMap.put("count", list2);
+			
+			return finalMap;
+		}
+
+
+
 	
 	@GetMapping("/usersList")
 	//public ModelAndView userDetailsList() {
