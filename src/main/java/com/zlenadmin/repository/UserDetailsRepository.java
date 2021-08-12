@@ -55,8 +55,8 @@ public interface UserDetailsRepository extends JpaRepository<UserDetails, Intege
 	@Query(value="select count(ud.id) as count from public.user_details ud where ud.created_on=ud.created_on", nativeQuery= true)
 	Integer getUserDetails1();
 	
-	@Query(value="select count(ud.id) as count from public.user_details ud where ud.created_on >= ud.created_on", nativeQuery= true)
-	Integer getUserDetails2();
+	@Query(value="select count(ud.id) as count from public.user_details ud where ud.created_on >= :createdDate", nativeQuery= true)
+	Integer getUserDetails2(@Param("createdDate") Date createdDate);
 
 	
 	

@@ -38,8 +38,8 @@ public class JpaConfig {
 	        DataSourceBuilder dataSourceBuilder = DataSourceBuilder.create();
 	        dataSourceBuilder.driverClassName("org.postgresql.Driver");
 	        dataSourceBuilder.url("jdbc:postgresql://prod-zlen.ckxmoibfumh8.ap-south-1.rds.amazonaws.com:5432/zlendb");
-	        dataSourceBuilder.username("zlenadmin");
-	        dataSourceBuilder.password("zlen-123");
+	        dataSourceBuilder.username("admin_zlen");
+	        dataSourceBuilder.password("Eg3ezgxygepoxg8JgSAabkx2K4cXo7GT");
 	        return dataSourceBuilder.build();
 	    }
       
