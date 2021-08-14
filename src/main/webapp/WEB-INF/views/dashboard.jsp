@@ -333,24 +333,32 @@
 
 
 
-				<div class="col-md-5 bg-primary  align-center" style="border-radius: 15px; color: #ffff;">
+				<div class="col-md-3 bg-primary  align-center" style="border-radius: 15px; color: #ffff;">
 
-					<span style="font-size: 20pt"> <b>Total Count</b> </span>
+					<span style="font-size: 20pt"> <b>Total Downloads</b> </span>
 					
 					<br> <br>
 					<span style="font-size: 24pt"> <c:out value="${totalRegistrationCount}" /> </span>
 
 				</div>
 
-				<div class="col-md-2"></div>
+				<div class="col-md-1"></div>
 
 
 
-				<div class="col-md-5 bg-primary  align-center"
+				<div class="col-md-3 bg-primary  align-center"
 					style="border-radius: 15px; color: #ffff;">
-					<span style="font-size: 20pt">  <b>Last 24 Hours Count</b>  </span> 
+					<span style="font-size: 20pt">  <b>Last 24 Hrs Downloads</b>  </span> 
 					<br> <br>
 					<span style="font-size: 24pt"> <c:out value="${last24HoursCount}" /> </span>
+
+				</div>
+				<div class="col-md-1"></div>
+				<div class="col-md-3 bg-primary  align-center"
+					style="border-radius: 15px; color: #ffff;">
+					<span style="font-size: 20pt">  <b>Today's Active Users</b>  </span> 
+					<br> <br>
+					<span style="font-size: 24pt"> <c:out value="${todaysActiveUser}" /> </span>
 
 				</div>
 

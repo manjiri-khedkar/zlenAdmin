@@ -19,8 +19,12 @@ public interface UserDetailsRepository extends JpaRepository<UserDetails, Intege
 	
 	UserDetails findByZlenCode(String zlenCode);
 	
-	@Query(value="select count(ud.id) as count, DATE(ud.created_on) as createDate from public.user_details ud group by DATE(ud.created_on) order by DATE(ud.created_on) desc", nativeQuery = true)
-	List<Object[]> getGraphQuery();
+	@Query(value="select count(ud.id) as count, DATE(ud.created_on) as createDate "
+			+ "from public.user_details ud "
+			+ "where DATE(ud.created_on) >= :varDate "
+			+ "group by DATE(ud.created_on) "
+			+ "order by DATE(ud.created_on) desc", nativeQuery = true)
+	List<Object[]> getGraphQuery(@Param("varDate") Date varDate);
 	
 	List<UserDetails> findAll();
 	

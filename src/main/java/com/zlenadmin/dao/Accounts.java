@@ -9,7 +9,8 @@ import com.zlenadmin.dto.AccountsDto;
 
 public interface Accounts {
 	
-	List<AccountsDto> getGraphQuery31();
-	List<LastSeenSummary> getCreate(Date daysAgo);
+	LastSeenSummary getCreate(Date daysAgo);
 	void insert(LastSeenSummary lSS);
+	List<LastSeenSummary> getSummary();
+	List<AccountsDto> getGraphQuery31(Date daysAgo);
    }

@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.Date;
 import java.util.List;
 
@@ -26,22 +27,37 @@ public class AccountsImpl implements Accounts {
 	private String SQL = " select to_timestamp((data -> 'devices'-> 0 -> 'lastSeen')::text::numeric/1000)::date as cdate, count(*) as count  from public.accounts\r\n"
 			+ "group by to_timestamp((data -> 'devices'-> 0 -> 'lastSeen')::text::numeric/1000)::date\r\n"
 			+ "order by cdate";
+	
+	private String SELECT_LASTSEEN_SUMMARY = " select  cdate, count from last_seen_summary \r\n"
+			+ "where cdate::date >= :varDate::date "
+			+ "order by cdate";
 
-	private String lastSql = "select count(data -> 'devices'-> 0 ->'id') as count , "
-			+ "Max(to_timestamp((data -> 'devices'-> 0 -> 'lastSeen')::text::numeric/1000)::date) as cdate "
+	private String lastSql = "select count(data -> 'devices'-> 0 ->'id') as count "
+			//+ "to_timestamp((data -> 'devices'-> 0 -> 'lastSeen')::text::numeric/1000)::date as cdate "
 			+ "from public.accounts "
-			+ "where to_timestamp((data -> 'devices'-> 0 -> 'lastSeen')::text::numeric/1000)::date <= "
-			+ "to_timestamp((data -> 'devices'-> 0 -> 'lastSeen')::text::numeric/1000)::date";
+			+ "where to_timestamp((data -> 'devices'-> 0 -> 'lastSeen')::text::numeric/1000)::date = :varDate::date";
 
+	private String lastSeenSummary = "select count(data -> 'devices'-> 0 ->'id') as count , "
+			+ "to_timestamp((data -> 'devices'-> 0 -> 'lastSeen')::text::numeric/1000)::date as cdate "
+			+ "from public.accounts "
+			+ "group by to_timestamp((data -> 'devices'-> 0 -> 'lastSeen')::text::numeric/1000)::date ";
+
+	private String INSERT_SQL = "INSERT INTO last_seen_summary " + "(cdate, count) VALUES (?, ?)";
+	
 	@Autowired
 	@Qualifier("admin-jdbc")
 	private NamedParameterJdbcTemplate jdbcTemplate;
+	
+	@Autowired
+	@Qualifier("zlen-jdbc")
+	private NamedParameterJdbcTemplate zlenjdbcTemplate;
 
 	@Override
-	public List<AccountsDto> getGraphQuery31() {
-		SqlParameterSource namedParameters = new MapSqlParameterSource();
-
-		return jdbcTemplate.query(SQL, namedParameters, new RowMapper<AccountsDto>() {
+	public List<AccountsDto> getGraphQuery31(Date daysAgo) {
+		SqlParameterSource namedParameters = new MapSqlParameterSource()
+				.addValue("varDate", daysAgo,Types.DATE);
+		
+		return zlenjdbcTemplate.query(SELECT_LASTSEEN_SUMMARY, namedParameters, new RowMapper<AccountsDto>() {
 			public AccountsDto mapRow(ResultSet rs, int rownumber) throws SQLException {
 
 				AccountsDto acc = new AccountsDto();
@@ -53,20 +69,38 @@ public class AccountsImpl implements Accounts {
 	}
 
 	@Override
-	public List<LastSeenSummary> getCreate(Date daysAgo) {
-		SqlParameterSource namedParameters = new MapSqlParameterSource();
+	public LastSeenSummary getCreate(Date daysAgo) {
 
-		return jdbcTemplate.query(lastSql, namedParameters, new RowMapper<LastSeenSummary>() {
+		SqlParameterSource namedParameters = new MapSqlParameterSource()
+				.addValue("varDate", daysAgo,Types.DATE);
+		
+		
+		return jdbcTemplate.queryForObject(lastSql, namedParameters, new RowMapper<LastSeenSummary>() {
 			public LastSeenSummary mapRow(ResultSet rs, int rownumber) throws SQLException {
-
 				LastSeenSummary acc = new LastSeenSummary();
-				acc.setCdate(rs.getDate("cdate"));
+				//acc.setCdate(daysAgo);
 				acc.setCount(rs.getInt("count"));
 				return acc;
 			}
 		});
 
 	}
+	
+	@Override
+	public List<LastSeenSummary> getSummary() {
+		SqlParameterSource namedParameters = new MapSqlParameterSource();
+
+		return jdbcTemplate.query(lastSeenSummary, namedParameters, new RowMapper<LastSeenSummary>() {
+			public LastSeenSummary mapRow(ResultSet rs, int rownumber) throws SQLException {
+				LastSeenSummary acc = new LastSeenSummary();
+				acc.setCdate(new Date(rs.getDate("cdate").getTime()));
+				acc.setCount(rs.getInt("count"));
+				return acc;
+			}
+		});
+
+	}
+
 
 	@Autowired
 	private DataSource dataSource;
@@ -78,20 +112,19 @@ public class AccountsImpl implements Accounts {
 	@Override
 	public void insert(LastSeenSummary lastSeenSummary) {
 
-		String sql = "INSERT INTO last_seen_summary " + "(cdate, count) VALUES (?, ?)";
+		
 		Connection conn = null;
 
 		try {
 			conn = dataSource.getConnection();
-			PreparedStatement ps = conn.prepareStatement(sql);
-			ps.setDate(1, (java.sql.Date) lastSeenSummary.getCdate());
+			PreparedStatement ps = conn.prepareStatement(INSERT_SQL);
+			ps.setDate(1, new java.sql.Date(lastSeenSummary.getCdate().getTime()));
 			ps.setLong(2, lastSeenSummary.getCount());
 			ps.executeUpdate();
 			ps.close();
 
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
-
 		} finally {
 			if (conn != null) {
 				try {

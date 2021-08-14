@@ -47,12 +47,12 @@
           <span>Role Master</span></a>
       </li>
       
-      <li class="nav-item active">
+<%--       <li class="nav-item active">
         <a class="nav-link" href="${pageContext.request.contextPath}/stories">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>User Post</span></a>
       </li>
-      
+       --%>
      <li class="nav-item active">
        <a class="nav-link" href="${pageContext.request.contextPath}/usersList"> 
          <i class="fas fa-fw fa-tachometer-alt"></i>

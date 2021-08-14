@@ -17,6 +17,7 @@ import org.openqa.selenium.WebDriver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -98,6 +99,8 @@ public class MainPage {
 		Integer last24HoursCount=userDetailsRepository.getUserDetails2(daysAgo);
 		model.addObject("last24HoursCount", last24HoursCount);
 		
+		LastSeenSummary summary = accountDao.getCreate(new Date());
+		model.addObject("todaysActiveUser", summary.getCount());
 		return model;
 	}
 	
@@ -106,8 +109,12 @@ public class MainPage {
 	@GetMapping("/dashboard/bar-chart")
 	 @ResponseBody
 	 public Map<String, Object> registrationGraphData(Model model) {
-		 
-		List<Object[]> list = userDetailsRepository.getGraphQuery();
+		
+		Calendar cal = new GregorianCalendar();
+		cal.add(Calendar.DAY_OF_MONTH, -7);
+		Date daysAgo = cal.getTime();		
+		
+		List<Object[]> list = userDetailsRepository.getGraphQuery(daysAgo);
 		  
 		List<BigInteger> list1 = new ArrayList<BigInteger>();
 		List<Date> list2 = new ArrayList<Date>();
@@ -228,11 +235,16 @@ public class MainPage {
     	return finalMap4;
 	}
 	
+	
+	
 	@GetMapping("/dashboard/lastseen")	  
 	  @ResponseBody 
 	  public Map<String, Object> registrationGraphData1(Model model)
 	  {
-			List<AccountsDto> list = accountDao.getGraphQuery31();
+		Calendar cal = new GregorianCalendar();
+		cal.add(Calendar.DAY_OF_MONTH, -7);
+		Date daysAgo = cal.getTime();
+			List<AccountsDto> list = accountDao.getGraphQuery31(daysAgo);
 
 			List<Date> list1 = new ArrayList<Date>();
 			List<Integer> list2 = new ArrayList<Integer>();
@@ -243,6 +255,7 @@ public class MainPage {
 				list1.add(cdate);
 				list2.add(count);
 			}
+	
 			Map<String, Object> finalMap = new HashMap();
 
 			model.addAttribute("datescount", list1);
@@ -250,23 +263,9 @@ public class MainPage {
 			finalMap.put("datescount", list1);
 			finalMap.put("count", list2);
 			
-			Calendar cal = new GregorianCalendar();
-			cal.add(Calendar.DAY_OF_MONTH, -1);
-			Date daysAgo = cal.getTime();
-			List<LastSeenSummary> lastSeen = accountDao.getCreate(daysAgo);
-			for(int i=0;i<=lastSeen.size();i++) {				
-				LastSeenSummary lSS=new LastSeenSummary();
-				lSS.setCdate(lastSeen.get(i).getCdate());
-				lSS.setCount(lastSeen.get(i).getCount());
-				lastSeen.add(lSS);
-				accountDao.insert(lSS);
-				
-				System.out.println("cdate==>"+lastSeen.get(i).getCdate());
-				System.out.println("count==>"+lastSeen.get(i).getCount());
-				break;
-			}
-			System.out.println("last==>"+lastSeen);
-			finalMap.put("lastSeen", lastSeen);
+			
+//			System.out.println("last==>"+lastSeen);
+	//		finalMap.put("lastSeen", lastSeen);
 			
 			return finalMap;
 		}
