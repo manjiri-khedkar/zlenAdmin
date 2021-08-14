@@ -28,6 +28,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.annotation.SessionScope;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.zlenadmin.api.entity.LastSeenSummary;
 import com.zlenadmin.api.entity.UserDetails;
 import com.zlenadmin.dao.Accounts;
 import com.zlenadmin.dao.UserStories;
@@ -248,6 +249,24 @@ public class MainPage {
 
 			finalMap.put("datescount", list1);
 			finalMap.put("count", list2);
+			
+			Calendar cal = new GregorianCalendar();
+			cal.add(Calendar.DAY_OF_MONTH, -1);
+			Date daysAgo = cal.getTime();
+			List<LastSeenSummary> lastSeen = accountDao.getCreate(daysAgo);
+			for(int i=0;i<=lastSeen.size();i++) {				
+				LastSeenSummary lSS=new LastSeenSummary();
+				lSS.setCdate(lastSeen.get(i).getCdate());
+				lSS.setCount(lastSeen.get(i).getCount());
+				lastSeen.add(lSS);
+				accountDao.insert(lSS);
+				
+				System.out.println("cdate==>"+lastSeen.get(i).getCdate());
+				System.out.println("count==>"+lastSeen.get(i).getCount());
+				break;
+			}
+			System.out.println("last==>"+lastSeen);
+			finalMap.put("lastSeen", lastSeen);
 			
 			return finalMap;
 		}
