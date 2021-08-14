@@ -50,7 +50,9 @@
 	                        		
  	                        			<td><c:out value="${status.index+1}" /></td>
  	                        			<td><c:out value="${list.name}" /></td> 
-	 	                        		<td><c:out value="${list.phoneNumber}" /></td>
+	 	                        		<td>
+        								<c:out value="${list.phoneNumbers}" /> 
+	 	                        		</td>
 	 	                        		 
  	                       			</tr> 
  	                    		</c:forEach> 

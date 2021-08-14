@@ -35,9 +35,9 @@ public class SmsController<callableservice> {
 		
 		
 		
-		String url="https://www.smsidea.co.in/smsstatuswithid.aspx?mobile="+yourMobileNo.trim()+"&pass="+yourPassword+"&senderid="+senderID+"&to="+toMobile+"&msg="+URLEncoder.encode(msg, StandardCharsets.UTF_8);
-		com.zlenadmin.service.CallableService cs =new com.zlenadmin.service.CallableService(url,null,"GET",null);
-		cs.call();
+		//String url="https://www.smsidea.co.in/smsstatuswithid.aspx?mobile="+yourMobileNo.trim()+"&pass="+yourPassword+"&senderid="+senderID+"&to="+toMobile+"&msg="+URLEncoder.encode(msg, StandardCharsets.UTF_8);
+		//com.zlenadmin.service.CallableService cs =new com.zlenadmin.service.CallableService(url,null,"GET",null);
+		//cs.call();
 				
 		
 		return "sms";

@@ -95,7 +95,7 @@ public class MainPage {
 		Calendar cal = new GregorianCalendar();
 		cal.add(Calendar.DAY_OF_MONTH, -1);
 		Date daysAgo = cal.getTime();
-		Integer last24HoursCount=userDetailsRepository.getUserDetails2();
+		Integer last24HoursCount=userDetailsRepository.getUserDetails2(daysAgo);
 		model.addObject("last24HoursCount", last24HoursCount);
 		
 		return model;
