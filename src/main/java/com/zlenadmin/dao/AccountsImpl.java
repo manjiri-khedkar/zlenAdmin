@@ -20,6 +20,7 @@ import org.springframework.stereotype.Repository;
 
 import com.zlenadmin.api.entity.LastSeenSummary;
 import com.zlenadmin.dto.AccountsDto;
+import com.zlenadmin.dto.PendingRegistrationDto;
 
 @Repository
 public class AccountsImpl implements Accounts {
@@ -31,6 +32,13 @@ public class AccountsImpl implements Accounts {
 	private String SELECT_LASTSEEN_SUMMARY = " select  cdate, count from last_seen_summary \r\n"
 			+ "where cdate::date >= :varDate::date "
 			+ "order by cdate";
+	
+	private String pending_Registration ="select(data ->'devices'-> 0 ->'name') as name , \r\n" + 
+			"to_timestamp((data -> 'devices'-> 0 -> 'lastSeen')::text::numeric/1000)::date as cdate ,\r\n" + 
+			"pa.number as number\r\n" + 
+			"from public.accounts acc\r\n" + 
+			"inner join public.pending_accounts pa on pa.number = acc.number\r\n" + 
+			"where pa.push_code is null";
 
 	private String lastSql = "select count(data -> 'devices'-> 0 ->'id') as count "
 			//+ "to_timestamp((data -> 'devices'-> 0 -> 'lastSeen')::text::numeric/1000)::date as cdate "
@@ -96,6 +104,22 @@ public class AccountsImpl implements Accounts {
 				acc.setCdate(new Date(rs.getDate("cdate").getTime()));
 				acc.setCount(rs.getInt("count"));
 				return acc;
+			}
+		});
+
+	}
+	
+	@Override
+	public List<PendingRegistrationDto> getPendingRegistrationDto() {
+		SqlParameterSource namedParameters = new MapSqlParameterSource();
+
+		return jdbcTemplate.query(pending_Registration, namedParameters, new RowMapper<PendingRegistrationDto>() {
+			public PendingRegistrationDto mapRow(ResultSet rs, int rownumber) throws SQLException {
+				PendingRegistrationDto prd = new PendingRegistrationDto();
+				prd.setName(rs.getString("name"));
+				prd.setCdate(new Date(rs.getDate("cdate").getTime()));
+				prd.setNumber(rs.getString("number"));
+				return prd;
 			}
 		});
 

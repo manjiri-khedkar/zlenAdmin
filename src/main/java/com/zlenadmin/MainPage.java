@@ -31,14 +31,20 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.zlenadmin.api.entity.LastSeenSummary;
 import com.zlenadmin.api.entity.UserDetails;
+import com.zlenadmin.api.entity.UserFeedBack;
 import com.zlenadmin.dao.Accounts;
 import com.zlenadmin.dao.UserStories;
 import com.zlenadmin.dto.AccountsDto;
+import com.zlenadmin.dto.InactiveDto;
+import com.zlenadmin.dto.PendingRegistrationDto;
+import com.zlenadmin.dto.RegisterPendingDto;
+import com.zlenadmin.dto.UserFeedBackDto;
 import com.zlenadmin.email.ApplicationMailer;
 import com.zlenadmin.model.AppUser;
 import com.zlenadmin.model.SessionUser;
 import com.zlenadmin.repository.AppuserRepository;
 import com.zlenadmin.repository.UserDetailsRepository;
+import com.zlenadmin.repository.UserFeedBackRepository;
 import com.zlenadmin.repository.UserStoriesDetailsRepository;
 
 @Controller
@@ -66,6 +72,9 @@ public class MainPage {
 	
 	@Autowired
 	private Accounts accountDao ;
+	
+	@Autowired
+	private UserFeedBackRepository userFeedBackRepository;
 	
 	@GetMapping(value = "/")
 	public String indexView(@ModelAttribute AppUser users) 
@@ -348,7 +357,7 @@ public class MainPage {
 		if ("All".equals(mimeType)) {
 			mimeType=null;
 		}
-		
+		 
 		if ("".equals(uploadedDateTime)) {
 			uploadedDateTime=null;
 		}
@@ -372,6 +381,40 @@ public class MainPage {
 		//List<UserStoriesDetails> userStoriesList = userStoriesDetailsRepository.findAll();
 		mv.addObject("userStoriesList", userStoriesList);
 		mv.setViewName("userStoriesList");
+		return mv;
+	}
+	
+	@GetMapping("/userFeedBackList")
+	public ModelAndView userFeedBackList() {
+		ModelAndView mv = new ModelAndView();
+		List<UserFeedBack>  userFeedBackList=userFeedBackRepository.getUserFeedBack();
+		mv.addObject("userFeedBackList", userFeedBackList);
+		mv.setViewName("userFeedBackList");
+		return mv;
+	}
+	
+	@GetMapping("/pendingRegistration")
+	public ModelAndView pendingRegitration() {
+		ModelAndView mv = new ModelAndView();
+		List<PendingRegistrationDto>  pendingRegistration = accountDao.getPendingRegistrationDto();
+		mv.addObject("pendingRegistration", pendingRegistration);
+		List<RegisterPendingDto> registerPending = userDetailsRepository.getRegisterPending();
+		mv.addObject("registerPending", registerPending);
+		mv.setViewName("pendingRegistration");
+		return mv;
+	}
+	
+	@GetMapping("/inActive")
+	public ModelAndView InactiveUsers() {
+		ModelAndView mv = new ModelAndView();
+		
+//		Calendar cal = new GregorianCalendar();
+//		cal.add(Calendar.DAY_OF_MONTH, -30);
+//		Date daysAgo = cal.getTime(); 
+		
+		List<InactiveDto> inActive = userDetailsRepository.getInactiveDto();
+		mv.addObject("inActive", inActive);
+		mv.setViewName("inActive");
 		return mv;
 	}
 	
