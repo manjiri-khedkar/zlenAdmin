@@ -28,7 +28,7 @@ public interface UserDetailsRepository extends JpaRepository<UserDetails, Intege
 	
 	List<UserDetails> findAll();
 	
-	@Query("SELECT u.userName, u.userMobile, u.zlenCode, u.deviceType FROM UserDetails u")
+	@Query("SELECT u.userName, u.userMobile, u.zlenCode, u.deviceType FROM UserDetails u order by createdOn desc ")
 	ArrayList<UserDetails> getUserDetails();
 	
 	UserDetails findById(long id);
@@ -38,7 +38,8 @@ public interface UserDetailsRepository extends JpaRepository<UserDetails, Intege
 			+ "and ( u.userMobile LIKE %:userMobile% or :userMobile is null ) "
 			+ "and (( u.zlenCode  LIKE %:zlenCode% or :zlenCode is null )) "
 			+ "and (u.deviceType = :deviceType or :deviceType is null) "
-			+ "and (Date(u.createdOn) = :createdOn  or cast(:createdOn as date) is null) ")
+			+ "and (Date(u.createdOn) = :createdOn  or cast(:createdOn as date) is null) "
+			+ "order by u.createdOn desc ")
 	ArrayList<UserDetails> getUserDetails(@Param("userName") String userName, @Param("userMobile") String userMobile, @Param("zlenCode") String zlenCode, @Param("deviceType") String deviceType, @Param("createdOn") @Temporal  Date createdOn);
 	
 	
@@ -49,11 +50,11 @@ public interface UserDetailsRepository extends JpaRepository<UserDetails, Intege
 	
 	@Query(value = "SELECT u.* FROM public.user_details u "
 			+ "inner join public.user_friends_details ufd on ufd.friend_user_id=u.user_id "
-			+ "WHERE ufd.user_id = :userId "
+			+ "WHERE ufd.user_id = :userId and ufd.is_deleted=false "
 			+ "union "
 			+"SELECT u.* FROM public.user_details u "
 			+ "inner join public.user_friends_details ufd on ufd.user_id=u.user_id "
-			+ "WHERE ufd.friend_user_id = :userId ", nativeQuery = true)
+			+ "WHERE ufd.friend_user_id = :userId and ufd.is_deleted=false ", nativeQuery = true)
 	ArrayList<UserDetails> getUserFriends(@Param("userId") String userId);
 	
 	@Query(value="select count(ud.id) as count from public.user_details ud where ud.created_on=ud.created_on", nativeQuery= true)

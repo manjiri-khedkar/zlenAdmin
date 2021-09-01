@@ -40,9 +40,10 @@ public class UserStoriesImpl implements UserStories {
 			+ "order by usd.uploaded_date_time desc ";
 
 	private String SQL_LATEST = "select usd.id id, usd.uploaded_date_time as uploadedDateTime, usd.mime_type mimeType, "
-			+ "usd.uploaded_path as uploadedPath, ud.zlen_code as zlenCode, ud.user_name as userName,count(uscd.id) as commentCount "
-			+ ", count(l.id) as likesCount  "
-			+ "from public.user_stories_details usd left join public.likes l  on usd.id = l.post_id "
+			+ "usd.uploaded_path as uploadedPath, ud.zlen_code as zlenCode, ud.user_name as userName,count(distinct uscd.id) as commentCount "
+			+ ", count(distinct l.id) as likesCount  "
+			+ "from public.user_stories_details usd "
+			+ "left join public.likes l  on usd.id = l.post_id "
 			+ "left join public.user_stories_comment_details uscd  on usd.id = uscd.snap_id "
 			+ "inner join public.user_details ud on usd.user_id = ud.user_id "
 			+ "where (ud.zlen_code LIKE :zlenCode or :zlenCode1 is null)  "
