@@ -8,6 +8,7 @@ import com.zlenadmin.api.entity.LastSeenSummary;
 import com.zlenadmin.dto.AccountsDto;
 import com.zlenadmin.dto.InactiveDto;
 import com.zlenadmin.dto.PendingRegistrationDto;
+import com.zlenadmin.dto.RegisterPendingDto;
 
 public interface Accounts {
 	
@@ -18,5 +19,6 @@ public interface Accounts {
 	
 	List<PendingRegistrationDto> getPendingRegistrationDto();
 	List<InactiveDto> getInactiveDto(Date daysAgo);
+	List<RegisterPendingDto> getPendingRegistration();
 	
    }

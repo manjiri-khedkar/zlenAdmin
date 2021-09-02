@@ -400,7 +400,7 @@ public class MainPage {
 		ModelAndView mv = new ModelAndView();
 		List<PendingRegistrationDto>  pendingRegistration = accountDao.getPendingRegistrationDto();
 		mv.addObject("pendingRegistration", pendingRegistration);
-		List<RegisterPendingDto> registerPending = userDetailsRepository.getRegisterPending();
+		List<RegisterPendingDto> registerPending = accountDao.getPendingRegistration();
 		mv.addObject("registerPending", registerPending);
 		mv.setViewName("pendingRegistration");
 		return mv;

@@ -22,6 +22,7 @@ import com.zlenadmin.api.entity.LastSeenSummary;
 import com.zlenadmin.dto.AccountsDto;
 import com.zlenadmin.dto.InactiveDto;
 import com.zlenadmin.dto.PendingRegistrationDto;
+import com.zlenadmin.dto.RegisterPendingDto;
 
 @Repository
 public class AccountsImpl implements Accounts {
@@ -33,6 +34,13 @@ public class AccountsImpl implements Accounts {
 	private String SELECT_LASTSEEN_SUMMARY = " select  cdate, count from last_seen_summary \r\n"
 			+ "where cdate::date >= :varDate::date "
 			+ "order by cdate";
+	
+	private String pending_Registration ="select(data ->'devices'-> 0 ->'name') as name , \r\n" + 
+			"to_timestamp((data -> 'devices'-> 0 -> 'lastSeen')::text::numeric/1000)::date as cdate ,\r\n" + 
+			"pa.number as number\r\n" + 
+			"from public.accounts acc\r\n" + 
+			"inner join public.pending_accounts pa on pa.number = acc.number\r\n" + 
+			"where pa.push_code is null";
 
 	private String pending_Registration = "select(data ->'devices'-> 0 ->'name') as name , \r\n"
 			+ "to_timestamp((data -> 'devices'-> 0 -> 'lastSeen')::text::numeric/1000)::date as cdate ,\r\n"
@@ -75,6 +83,23 @@ public class AccountsImpl implements Accounts {
 				AccountsDto acc = new AccountsDto();
 				acc.setCdate(rs.getDate("cdate"));
 				acc.setCount(rs.getInt("count"));
+				return acc;
+			}
+		});
+	}
+	
+	@Override
+	public List<RegisterPendingDto> getPendingRegistration() {
+		SqlParameterSource namedParameters = new MapSqlParameterSource();
+				//.addValue("varDate", daysAgo,Types.DATE);
+		
+		return zlenjdbcTemplate.query(PENDING_USER, namedParameters, new RowMapper<RegisterPendingDto>() {
+			public RegisterPendingDto mapRow(ResultSet rs, int rownumber) throws SQLException {
+
+				RegisterPendingDto acc = new RegisterPendingDto();
+				acc.setName(rs.getString("name"));
+				acc.setNumber(rs.getString("number"));
+				acc.setDate(rs.getDate("date"));
 				return acc;
 			}
 		});

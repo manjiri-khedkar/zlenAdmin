@@ -85,7 +85,7 @@
 												},
 												yAxis : {
 													min : 0,
-													max : 100,
+													max : null,
 													title : {
 														text : '<b>Users Count</b>'
 													}
@@ -172,7 +172,7 @@
 
     		  yAxis: {
 			    min: 0,
-			    max:100,
+			    max:null,
 			     title: {
 			      text: 'User Count'
 			    }
@@ -270,7 +270,7 @@
 													},
 													yAxis : {
 														min : 0,
-														max : 100,
+														max : null,
 														title : {
 															text : '<b>LastSeen Count</b>'
 														}
