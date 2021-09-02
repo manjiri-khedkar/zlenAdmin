@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
- <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+ <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <head> 
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -27,15 +27,17 @@
     <!--====== Main Style CSS ======-->
     <link rel="stylesheet" href="assets/css/style.css">
   
-
+  
 	<script src="${pageContext.request.contextPath}/resources/vendor/jquery/jquery.min.js"></script>
   <!-- Custom fonts for this template-->
   <link href="${pageContext.request.contextPath}/resources/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
   <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
+<link href="http://127.0.0.1:8000/entradas/1/comprar/1/detalle_ventaEntrada/200000/css/bootstrap.min.css", 
+rel="stylesheet">
 <style>
-	
-	#page-top { display:block; }
+
+#page-top { display:block; }
 	#warning-message { 
 	  position: fixed; /* Sit on top of the page content */
 	  display: none; /* Hidden by default */
@@ -55,6 +57,7 @@
 	  font-size: 25px;
 	}
 
+
 @media only screen and (orientation:portrait){
     #warning-message { display:block; }
   /*  #page-top {
@@ -66,9 +69,7 @@
     -ms-transform: rotate(90deg);
     transform: rotate(90deg);
   }  */
-
 }
-
 
 @media only screen and (orientation:landscape){
 	#warning-message { display:none; }
@@ -106,89 +107,167 @@
 <body id="page-top">
 
 
-    <!--====== Section Start ======-->
-<section class="login min-height">
-<div id="wrapper">
-	<jsp:include page="header.jsp"></jsp:include>
-   		<div class="container">
-	   		<h1>Inactive Users</h1>
-<!-- 	   		<div class="row"> -->
-<!-- 		         <div class="col-md-12"> -->
-<%-- 		         	<a href="${pageContext.request.contextPath}/role/addRole"><button type="button" name="b10" class="btn btn-primary" title="Add New Role">Add</button></a> --%>
-<!-- 	            </div> -->
-<!-- 	        </div> -->
-	        <br>
-	         
-			<div class="row">
-				<div class="col-md-12">
-					<div class="table-responsive">
-						<table id="table1" class="table info-tbl text-left" style='border: 1px solid #d3d3d3;width: 98% !important; '>
-							<thead>
-								<tr>
-								    <th class="text-left" style="background: #d3d3d3">Sr.No.</th>
-									<th class="text-left" style="background: #d3d3d3">Name</th>
-									<th class="text-left" style="background: #d3d3d3">Number</th>
-									<th class="text-left" style="background: #d3d3d3">Last Seen Date</th>
-<!-- 									<th class="text-left" style="background: #d3d3d3">Media Url</th> -->
-<!-- 									<th class="text-left" style="background: #d3d3d3">Media Type</th> -->
-								</tr>
-							</thead>
-							
-							<tbody>
-                        	<c:forEach items="${inActive}" var="list" varStatus="status">
-	                        	<tr class="odd gradeX">
-	                        		<td><c:out value="${status.index + 1}" /></td>
-	                        		<td><c:out value="${list.name}" /></td>
-	                        		<td><c:out value="${list.number}" /></td>
-	                        		<td><c:out value="${list.date}" /></td>
-<%-- 	                        		<td><c:out value="${list.media_url}" /></td> --%>
-<%-- 	                        		<td><c:out value="${list.media_type}" /></td> --%>
-<%-- 									<td><a href="${pageContext.request.contextPath}/role/editRole/<c:out value='${list.id}'/>"><button class="btn btn-primary"><i class="fa fa-edit"></i></button></a>&nbsp; --%>
-<%-- 										<a href="${pageContext.request.contextPath}/role/deleteRole/${list.id}" onclick="'return confirm(\'Are you sure to Delete Record?\');'" ><button class="btn btn-primary" ><i class="fa fa-trash"></i></button></a> --%>
-<!-- 									</td> -->
-	                       		</tr>
-	                    	</c:forEach>
-                        </tbody>
-						</table>
+	<!--====== Section Start ======-->
+	<section class="login min-height">
+		<div id="wrapper">
+			<jsp:include page="header.jsp"></jsp:include>
+			<div class="container">
+				<h1>Inactive Users</h1>
+				<div class="row">
+
+					<label for="days"><b>Last Seen Date : </b></label>&nbsp;
+					<select id="inputdays">
+						<option value="-30" selected>All</option>
+						<option value="-10">10</option>
+						<option value="-20">20</option>
+						<option value="-30">30</option>
+						<option value="-60">60</option>
+						<option value="-90">90</option>
+					</select>&nbsp;&nbsp;&nbsp;&nbsp;
+
+					<button type="button" id="bth-search"
+						class="btn btn-success btn-md" onclick="search()">Search</button>
+					&nbsp;&nbsp;
+					<button type="button" class="btn btn-danger btn-md"
+						onclick="clearFilter()">Clear</button>
+				</div>
+				<br>
+
+				<div class="row">
+					<div class="col-md-12">
+						<div class="table-responsive">
+							<table id="table1" class="table info-tbl text-left"
+								style='border: 1px solid #d3d3d3; width: 98% !important;'>
+								<thead>
+									<tr>
+										<th class="text-left" style="background: #d3d3d3">Sr.No.</th>
+										<th class="text-left" style="background: #d3d3d3">Name</th>
+										<th class="text-left" style="background: #d3d3d3">Number</th>
+										<th class="text-left" style="background: #d3d3d3">Last
+											Seen Date</th>
+										<!-- 									<th class="text-left" style="background: #d3d3d3">Media Url</th> -->
+										<!-- 									<th class="text-left" style="background: #d3d3d3">Media Type</th> -->
+									</tr>
+								</thead>
+
+								<tbody>
+									<c:forEach items="${inActive}" var="list" varStatus="status">
+										<tr class="odd gradeX">
+											<td><c:out value="${status.index + 1}" /></td>
+											<td><c:out value="${list.name}" /></td>
+											<td><c:out value="${list.number}" /></td>
+											<td><c:out value="${list.cdate}" /></td>
+											<%-- 	                        		<td><c:out value="${list.media_url}" /></td> --%>
+											<%-- 	                        		<td><c:out value="${list.media_type}" /></td> --%>
+											<%-- 									<td><a href="${pageContext.request.contextPath}/role/editRole/<c:out value='${list.id}'/>"><button class="btn btn-primary"><i class="fa fa-edit"></i></button></a>&nbsp; --%>
+											<%-- 										<a href="${pageContext.request.contextPath}/role/deleteRole/${list.id}" onclick="'return confirm(\'Are you sure to Delete Record?\');'" ><button class="btn btn-primary" ><i class="fa fa-trash"></i></button></a> --%>
+											<!-- 									</td> -->
+										</tr>
+									</c:forEach>
+								</tbody>
+							</table>
+						</div>
 					</div>
-				</div>		
-			</div>  
-				
-	</div>
-</div>
-</section>
-	
-<!-- Footer -->
-      <footer class="sticky-footer bg-white">
-        <div class="container my-auto">
-          <div class="copyright text-center my-auto">
-            <span>Copyright &copy;Infosane.co.in</span>
-          </div>
-        </div>
-      </footer>
-<!-- End of Footer -->
+				</div>
 
-    
-  <!-- Scroll to Top Button-->
-  <a class="scroll-to-top rounded" href="#page-top">
-    <i class="fas fa-angle-up"></i>
-  </a>
+			</div>
+		</div>
+	</section>
 
-<jsp:include page="otherModal.jsp"></jsp:include>
-  <!-- Bootstrap core JavaScript-->
-  
-  <script src="${pageContext.request.contextPath}/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<!-- Footer -->
+	<footer class="sticky-footer bg-white">
+		<div class="container my-auto">
+			<div class="copyright text-center my-auto">
+				<span>Copyright &copy;Infosane.co.in</span>
+			</div>
+		</div>
+	</footer>
+	<!-- End of Footer -->
 
-  <!-- Core plugin JavaScript-->
-  <script src="${pageContext.request.contextPath}/resources/vendor/jquery-easing/jquery.easing.min.js"></script>
 
-  <!-- Custom scripts for all pages-->
-  <script src="${pageContext.request.contextPath}/resources/js/sb-admin-2.min.js"></script>
+	<!-- Scroll to Top Button-->
+	<a class="scroll-to-top rounded" href="#page-top"> <i
+		class="fas fa-angle-up"></i>
+	</a>
 
-  <!-- Page level plugins -->
-  <script src="${pageContext.request.contextPath}/resources/vendor/chart.js/Chart.min.js"></script>
-  <!-- Page level custom scripts -->
-  <script src="${pageContext.request.contextPath}/resources/js/demo/chart-area-demo.js"></script>
-  <script src="${pageContext.request.contextPath}/resources/js/demo/chart-pie-demo.js"></script>
+	<jsp:include page="otherModal.jsp"></jsp:include>
+	<!-- Bootstrap core JavaScript-->
+
+	<script
+		src="${pageContext.request.contextPath}/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+	<!-- Core plugin JavaScript-->
+	<script
+		src="${pageContext.request.contextPath}/resources/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+	<!-- Custom scripts for all pages-->
+	<script
+		src="${pageContext.request.contextPath}/resources/js/sb-admin-2.min.js"></script>
+
+	<!-- Page level plugins -->
+	<script
+		src="${pageContext.request.contextPath}/resources/vendor/chart.js/Chart.min.js"></script>
+	<!-- Page level custom scripts -->
+	<script
+		src="${pageContext.request.contextPath}/resources/js/demo/chart-area-demo.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/js/demo/chart-pie-demo.js"></script>
+
+	<script type="text/javascript">
+		$(document).ready(function() {
+
+		});
+		function search() {
+
+			var inActive;
+			inActive = {}
+			inActive["days"] = $("#inputdays").val();
+
+			$("#btn-search").prop("disabled", false);
+
+			$.ajax({
+				type : "GET",
+				//contentType: "application/json",
+				url : "${pageContext.request.contextPath}/inActive",
+				timeout: 4000,
+				// success:function(result)
+				data : inActive,
+
+				success : function(data) {
+
+					var result = "";
+					var cdate;
+					var name;
+					var number;
+
+					$(data).each(
+							function(index, ele) {
+
+								cdate = ele.cdate;
+								name = ele.name;
+								number = ele.number;
+
+								result += "<tr><td>" + index + "</td><td>"
+										+ ele.name + "</td><td>" + ele.number
+										+ "</td><td>" + ele.cdate
+										+ "</td></tr>";
+
+							});
+
+					$('#table1 tbody').html(result);
+					bindFunction();
+					return;
+					alert(ele.success);
+				}
+
+			});
+		}
+	</script>
+	<script type="text/javascript">
+	function clearFilter(){
+		window.location = '/inActive';
+		}
+</script>
+
 </body>
 </html>

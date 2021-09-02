@@ -8,7 +8,7 @@ public class InactiveDto {
 	
 	private String number;
 	
-	private Date date;
+	private Date cdate;
 	
 	public InactiveDto() {} 
 
@@ -28,13 +28,16 @@ public class InactiveDto {
 		this.number = number;
 	}
 
-	public Date getDate() {
-		return date;
+	public Date getCdate() {
+		return cdate;
 	}
 
-	public void setDate(Date date) {
-		this.date = date;
+	public void setCdate(Date cdate) {
+		this.cdate = cdate;
 	}
+
+
+	
 
 	
 		

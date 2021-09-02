@@ -11,6 +11,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.SortedMap;
+import java.util.TimeZone;
 import java.util.TreeMap;
 
 import org.openqa.selenium.WebDriver;
@@ -29,6 +30,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.annotation.SessionScope;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.fasterxml.jackson.databind.ser.std.StdKeySerializers.Default;
 import com.zlenadmin.api.entity.LastSeenSummary;
 import com.zlenadmin.api.entity.UserDetails;
 import com.zlenadmin.api.entity.UserFeedBack;
@@ -404,15 +406,23 @@ public class MainPage {
 		return mv;
 	}
 	
+	@SuppressWarnings("unlikely-arg-type")
 	@GetMapping("/inActive")
-	public ModelAndView InactiveUsers() {
+	public Object InactiveUsers(@RequestParam(required=false,defaultValue = "-30") Integer days) {
+	
+		
+		if ("-30".equals(days)) {
+			days=null;
+		}
+		 
 		ModelAndView mv = new ModelAndView();
 		
-//		Calendar cal = new GregorianCalendar();
-//		cal.add(Calendar.DAY_OF_MONTH, -30);
-//		Date daysAgo = cal.getTime(); 
+			
+		Calendar cal = new GregorianCalendar();
+		cal.add(Calendar.DAY_OF_MONTH, days);
+		Date daysAgo = cal.getTime(); 
 		
-		List<InactiveDto> inActive = userDetailsRepository.getInactiveDto();
+		List<InactiveDto> inActive = accountDao.getInactiveDto(daysAgo);
 		mv.addObject("inActive", inActive);
 		mv.setViewName("inActive");
 		return mv;
