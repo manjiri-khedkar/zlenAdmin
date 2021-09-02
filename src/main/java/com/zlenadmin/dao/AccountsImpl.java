@@ -42,10 +42,10 @@ public class AccountsImpl implements Accounts {
 			"inner join public.pending_accounts pa on pa.number = acc.number\r\n" + 
 			"where pa.push_code is null";
 
-	private String pending_Registration = "select(data ->'devices'-> 0 ->'name') as name , \r\n"
-			+ "to_timestamp((data -> 'devices'-> 0 -> 'lastSeen')::text::numeric/1000)::date as cdate ,\r\n"
-			+ "pa.number as number\r\n" + "from public.accounts acc\r\n"
-			+ "inner join public.pending_accounts pa on pa.number = acc.number\r\n" + "where pa.push_code is null";
+//	private String pending_Registration = "select(data ->'devices'-> 0 ->'name') as name , \r\n"
+//			+ "to_timestamp((data -> 'devices'-> 0 -> 'lastSeen')::text::numeric/1000)::date as cdate ,\r\n"
+//			+ "pa.number as number\r\n" + "from public.accounts acc\r\n"
+//			+ "inner join public.pending_accounts pa on pa.number = acc.number\r\n" + "where pa.push_code is null";
 
 	private String inActive="select(data ->'devices'-> 0 ->'name') as name ,acc.number as number, \r\n"
 			+"to_timestamp((data -> 'devices'-> 0 -> 'lastSeen')::text::numeric/1000)::date as cdate \r\n"
@@ -63,6 +63,11 @@ public class AccountsImpl implements Accounts {
 			+ "group by to_timestamp((data -> 'devices'-> 0 -> 'lastSeen')::text::numeric/1000)::date ";
 
 	private String INSERT_SQL = "INSERT INTO last_seen_summary " + "(cdate, count) VALUES (?, ?)";
+	
+	private String PENDING_USER= "	select ud.user_name as name,otp.number as number,otp.created_at as date\r\n"
+			+ "	from public.otp_verification otp \r\n"
+			+ "	left outer join public.user_details ud on otp.number = ud.user_mobile\r\n"
+			+ "	where user_id is null ";
 
 	@Autowired
 	@Qualifier("admin-jdbc")
