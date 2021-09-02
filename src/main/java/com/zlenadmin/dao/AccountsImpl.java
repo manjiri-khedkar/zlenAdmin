@@ -21,6 +21,7 @@ import org.springframework.stereotype.Repository;
 import com.zlenadmin.api.entity.LastSeenSummary;
 import com.zlenadmin.dto.AccountsDto;
 import com.zlenadmin.dto.PendingRegistrationDto;
+import com.zlenadmin.dto.RegisterPendingDto;
 
 @Repository
 public class AccountsImpl implements Accounts {
@@ -52,6 +53,11 @@ public class AccountsImpl implements Accounts {
 
 	private String INSERT_SQL = "INSERT INTO last_seen_summary " + "(cdate, count) VALUES (?, ?)";
 	
+	private String PENDING_USER= "	select ud.user_name as name,otp.number as number,otp.created_at as date\r\n"
+			+ "	from public.otp_verification otp \r\n"
+			+ "	left outer join public.user_details ud on otp.number = ud.user_mobile\r\n"
+			+ "	where user_id is null ";
+	
 	@Autowired
 	@Qualifier("admin-jdbc")
 	private NamedParameterJdbcTemplate jdbcTemplate;
@@ -71,6 +77,23 @@ public class AccountsImpl implements Accounts {
 				AccountsDto acc = new AccountsDto();
 				acc.setCdate(rs.getDate("cdate"));
 				acc.setCount(rs.getInt("count"));
+				return acc;
+			}
+		});
+	}
+	
+	@Override
+	public List<RegisterPendingDto> getPendingRegistration() {
+		SqlParameterSource namedParameters = new MapSqlParameterSource();
+				//.addValue("varDate", daysAgo,Types.DATE);
+		
+		return zlenjdbcTemplate.query(PENDING_USER, namedParameters, new RowMapper<RegisterPendingDto>() {
+			public RegisterPendingDto mapRow(ResultSet rs, int rownumber) throws SQLException {
+
+				RegisterPendingDto acc = new RegisterPendingDto();
+				acc.setName(rs.getString("name"));
+				acc.setNumber(rs.getString("number"));
+				acc.setDate(rs.getDate("date"));
 				return acc;
 			}
 		});

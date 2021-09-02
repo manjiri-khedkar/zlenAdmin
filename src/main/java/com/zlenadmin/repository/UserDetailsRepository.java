@@ -66,12 +66,6 @@ public interface UserDetailsRepository extends JpaRepository<UserDetails, Intege
 	Integer getUserDetails2(@Param("createdDate") Date createdDate);
 
 	
-	@Query(value = "	select ud.user_name as name,otp.number as number,otp.created_at as date\r\n"
-			+ "	from public.user_details ud\r\n"
-			+ "	left outer join public.otp_verification otp on otp.number = ud.user_mobile\r\n"
-			+ "	where user_id is null ", nativeQuery = true)
-	List<RegisterPendingDto> getRegisterPending();
-
 	@Query(value = "select ud.user_name as name, ud.user_mobile as number, \r\n"
 			+ "DATE(ud.created_on) as lastseendate\r\n" + "from public.user_details ud \r\n"
 			+ "where DATE(ud.created_on) >= Date(ud.created_on) \r\n" + "and ud.is_active = 'N'\r\n"

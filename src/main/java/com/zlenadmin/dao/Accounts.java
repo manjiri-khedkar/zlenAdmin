@@ -7,6 +7,7 @@ import java.util.List;
 import com.zlenadmin.api.entity.LastSeenSummary;
 import com.zlenadmin.dto.AccountsDto;
 import com.zlenadmin.dto.PendingRegistrationDto;
+import com.zlenadmin.dto.RegisterPendingDto;
 
 public interface Accounts {
 	
@@ -16,5 +17,6 @@ public interface Accounts {
 	List<AccountsDto> getGraphQuery31(Date daysAgo);
 	
 	List<PendingRegistrationDto> getPendingRegistrationDto();
+	List<RegisterPendingDto> getPendingRegistration();
 	
    }
