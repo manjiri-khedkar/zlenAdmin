@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import com.zlenadmin.dto.RoleDto;
@@ -69,10 +70,12 @@ private final Logger logger = LoggerFactory.getLogger(UserController.class);
 	public String saveUser(@ModelAttribute("user") @Valid UserDto userDto, 
 			   BindingResult result, Model model){ 
 	    
-		if (result.hasErrors()) {
-
-			return "adduser";
-		}
+		if (result.hasErrors()){
+        	for (ObjectError error : result.getAllErrors()) {
+        		logger.error("Error :" + error.getDefaultMessage());
+			}
+        	return "adduser";
+        }
 
 		userService.save(userDto); 
 		 	
@@ -90,12 +93,15 @@ private final Logger logger = LoggerFactory.getLogger(UserController.class);
 		return mav;
 	}
 	
-	@GetMapping("/editUser/{id}")
-	public String editUser(@PathVariable Integer id, Model model) {
+	@GetMapping("/edituser/{id}")
+	public String editUser(@PathVariable int id, Model model) {
 		
 	  ModelAndView mv = new ModelAndView();
-	  model.addAttribute("user", appuserRepository.findById(id));
-	  mv.addObject("roleList", roleRepository.findAll()); 
+	  AppUser appuserList = appuserRepository.findById(id);
+	  model.addAttribute("user",appuserList );
+	  System.out.println("appuserList==="+ appuserList);
+	  List<Role> roleList =roleRepository.findAll();
+	  model.addAttribute("roleList", roleList) ;
 	  return "edituser";
 	}
 	

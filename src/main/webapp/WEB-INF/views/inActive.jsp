@@ -130,6 +130,10 @@ rel="stylesheet">
 					&nbsp;&nbsp;
 					<button type="button" class="btn btn-danger btn-md"
 						onclick="clearFilter()">Clear</button>
+						&nbsp;&nbsp;
+<%-- 						<a href="${pageContext.request.contextPath}/download?days"> --%>
+						<button type="button" id = "bth-download" onclick="download()" class="btn btn-success btn-md">
+						Download</button>
 				</div>
 				<br>
 
@@ -215,47 +219,54 @@ rel="stylesheet">
 
 	<script type="text/javascript">
 		$(document).ready(function() {
-
+			
+			 
 		});
 		function search() {
-
-			var inActive;
-			inActive = {}
-			inActive["days"] = $("#inputdays").val();
+			debugger
+			var inActivelist;
+			inActivelist = {}
+			inActivelist["days"] = $("#inputdays").val();
 
 			$("#btn-search").prop("disabled", false);
 
 			$.ajax({
 				type : "GET",
 				//contentType: "application/json",
-				url : "${pageContext.request.contextPath}/inActive",
-				timeout: 4000,
+				url : "${pageContext.request.contextPath}/inActivelist",
+				//timeout: 4000,
 				// success:function(result)
-				data : inActive,
+				data : inActivelist,
 
 				success : function(data) {
+					//alert("data==>"+ data);
+				
 
 					var result = "";
+					
 					var cdate;
 					var name;
 					var number;
-
+					//var newDate = dateFormat(cdate, "mm/dd/yyyy");
+					
 					$(data).each(
 							function(index, ele) {
-
+								
 								cdate = ele.cdate;
 								name = ele.name;
 								number = ele.number;
-
-								result += "<tr><td>" + index + "</td><td>"
-										+ ele.name + "</td><td>" + ele.number
-										+ "</td><td>" + ele.cdate
+						
+								
+								//alert(ele);
+								//console.log("ele==="+ele);
+								//console.log("cdate=="+cdate);
+								result += "<tr><td>" + index+1 + "</td><td>"+ ele.name + "</td><td>" + ele.number + "</td><td>" + ele.cdate
 										+ "</td></tr>";
 
 							});
 
 					$('#table1 tbody').html(result);
-					bindFunction();
+					//bindFunction();
 					return;
 					alert(ele.success);
 				}
@@ -263,11 +274,66 @@ rel="stylesheet">
 			});
 		}
 	</script>
+	
+	
 	<script type="text/javascript">
 	function clearFilter(){
 		window.location = '/inActive';
 		}
 </script>
+
+<script type="text/javascript">
+$(document).ready(function() {
+	
+	 
+});
+function download() {
+	debugger
+	var inActive;
+	inActive = {}
+	inActive["days"] = $('#inputdays').val();
+
+	$('#btn-download').prop("disabled", false);
+
+	$.ajax({
+		type : "GET",
+		//contentType: "application/json",
+		url : "${pageContext.request.contextPath}/inActivedownload" ,
+		url1: "D:\\infosane\\zlenAdmin\\src\\main\\resources\\Excel\\Inactive1.xls",
+		//timeout: 4000,
+		// success:function(result)
+		data : inActive,
+		 xhrFields: {
+	            responseType: 'blob'
+	        },
+		success : function(data) {
+			//alert("data==>"+ data);
+		
+
+			//var newDate = dateFormat(cdate, "mm/dd/yyyy");
+			debugger
+
+			var a = document.createElement('a');
+			 var url1 = window.URL.createObjectURL(data);
+	            a.href = url1;
+			 a.download = 'Inactive.xls';
+          document.body.append(a);
+          a.click();
+          a.remove();
+          window.URL.revokeObjectURL(url);
+			
+			//bindFunction();
+			return;
+			alert(ele.success);
+		}
+
+	});
+}
+
+
+
+
+	</script>
 
 </body>
 </html>

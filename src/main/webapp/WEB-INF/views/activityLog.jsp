@@ -92,7 +92,7 @@
 												
 												<td><c:out value="${status.index+1}" /></td>
 												<td><c:out value="${list.id}" /></td>  
-												<td><c:out value="${list.activity}" /></td> 
+												<td><c:out value="${list.status}" /></td> 
 												<td><c:out value="${list.createdDate}" /></td> 
 												
 <%-- 												<td><c:out value="${list.notifyUserId}" /></td> --%>
@@ -205,7 +205,7 @@
                      console.log("zlenCode", zlenCode);
  					 console.log("createdDate",createdDate);
  					
-                     result  += "<tr><td>"+index+"</td><td>"+ele.id+"</td><td>"+ele.activity+"</td><td>"+ele.createdDate+"</td><td><a href='${pageContext.request.contextPath}/userViewZlen/"+ele.zlenCode+" ' class='showData'>"+ele.zlenCode+"</a></td><td><a href='${pageContext.request.contextPath}/userViewZlen/"+ele.notifyUserId+"' class='showData'>"+ele.notifyUserId+"</a></td></tr>";                   
+                     result  += "<tr><td>"+index+"</td><td>"+ele.id+"</td><td>"+ele.status+"</td><td>"+ele.createdDate+"</td><td><a href='${pageContext.request.contextPath}/userViewZlen/"+ele.zlenCode+" ' class='showData'>"+ele.zlenCode+"</a></td><td><a href='${pageContext.request.contextPath}/userViewZlen/"+ele.notifyUserId+"' class='showData'>"+ele.notifyUserId+"</a></td></tr>";                   
                                      
               	  });
             	  

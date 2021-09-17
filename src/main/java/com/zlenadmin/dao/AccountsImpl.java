@@ -64,10 +64,11 @@ public class AccountsImpl implements Accounts {
 
 	private String INSERT_SQL = "INSERT INTO last_seen_summary " + "(cdate, count) VALUES (?, ?)";
 	
-	private String PENDING_USER= "	select ud.user_name as name,otp.number as number,otp.created_at as date\r\n"
-			+ "	from public.otp_verification otp \r\n"
-			+ "	left outer join public.user_details ud on otp.number = ud.user_mobile\r\n"
-			+ "	where user_id is null ";
+	private String PENDING_USER= "select ud.user_name as name,otp.number as number,otp.created_at as date\r\n" + 
+			"from public.otp_verification otp \r\n" + 
+			"left outer join public.user_details ud on otp.number = ud.user_mobile \r\n" + 
+			"where user_id is null and otp.created_at <= :varDate\r\n" + 
+			"order by date ";
 
 	@Autowired
 	@Qualifier("admin-jdbc")
@@ -94,9 +95,9 @@ public class AccountsImpl implements Accounts {
 	}
 	
 	@Override
-	public List<RegisterPendingDto> getPendingRegistration() {
-		SqlParameterSource namedParameters = new MapSqlParameterSource();
-				//.addValue("varDate", daysAgo,Types.DATE);
+	public List<RegisterPendingDto> getPendingRegistrations(Date daysAgo) {
+		SqlParameterSource namedParameters = new MapSqlParameterSource()
+				.addValue("varDate", daysAgo,Types.DATE);
 		
 		return zlenjdbcTemplate.query(PENDING_USER, namedParameters, new RowMapper<RegisterPendingDto>() {
 			public RegisterPendingDto mapRow(ResultSet rs, int rownumber) throws SQLException {
@@ -109,6 +110,10 @@ public class AccountsImpl implements Accounts {
 			}
 		});
 	}
+
+	
+
+	
 
 	@Override
 	public LastSeenSummary getCreate(Date daysAgo) {
