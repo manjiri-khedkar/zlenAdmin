@@ -40,7 +40,8 @@ public class AccountsImpl implements Accounts {
 			"pa.number as number\r\n" + 
 			"from public.accounts acc\r\n" + 
 			"inner join public.pending_accounts pa on pa.number = acc.number\r\n" + 
-			"where pa.push_code is null";
+			"where pa.push_code is null "
+			+ "and  ((to_timestamp((data -> 'devices'-> 0 -> 'lastSeen')::text::numeric/1000)::date) > :varDate or :varDate1 is null) ";
 
 //	private String pending_Registration = "select(data ->'devices'-> 0 ->'name') as name , \r\n"
 //			+ "to_timestamp((data -> 'devices'-> 0 -> 'lastSeen')::text::numeric/1000)::date as cdate ,\r\n"
@@ -66,8 +67,9 @@ public class AccountsImpl implements Accounts {
 	
 	private String PENDING_USER= "	select ud.user_name as name,otp.number as number,otp.created_at as date\r\n"
 			+ "	from public.otp_verification otp \r\n"
-			+ "	left outer join public.user_details ud on otp.number = ud.user_mobile\r\n"
-			+ "	where user_id is null ";
+			+ "	left outer join public.user_details ud on otp.number = replace(ud.user_mobile,' ', '') \r\n"
+			+ "	where user_id is null "
+			+ "and  (otp.created_at > :varDate or :varDate1 is null)";
 
 	@Autowired
 	@Qualifier("admin-jdbc")
@@ -94,9 +96,10 @@ public class AccountsImpl implements Accounts {
 	}
 	
 	@Override
-	public List<RegisterPendingDto> getPendingRegistration() {
-		SqlParameterSource namedParameters = new MapSqlParameterSource();
-				//.addValue("varDate", daysAgo,Types.DATE);
+	public List<RegisterPendingDto> getPendingRegistration(Date date) {
+		SqlParameterSource namedParameters = new MapSqlParameterSource()
+				.addValue("varDate", date,Types.DATE)
+				.addValue("varDate1", date,Types.VARCHAR);
 		
 		return zlenjdbcTemplate.query(PENDING_USER, namedParameters, new RowMapper<RegisterPendingDto>() {
 			public RegisterPendingDto mapRow(ResultSet rs, int rownumber) throws SQLException {
@@ -145,9 +148,10 @@ public class AccountsImpl implements Accounts {
 	}
 
 	@Override
-	public List<PendingRegistrationDto> getPendingRegistrationDto() {
-		SqlParameterSource namedParameters = new MapSqlParameterSource();
-
+	public List<PendingRegistrationDto> getPendingRegistrationDto(Date date) {
+		SqlParameterSource namedParameters = new MapSqlParameterSource()
+				.addValue("varDate1", date, Types.VARCHAR)
+				.addValue("varDate", date, Types.DATE);
 		return jdbcTemplate.query(pending_Registration, namedParameters, new RowMapper<PendingRegistrationDto>() {
 			public PendingRegistrationDto mapRow(ResultSet rs, int rownumber) throws SQLException {
 				PendingRegistrationDto prd = new PendingRegistrationDto();
@@ -159,6 +163,8 @@ public class AccountsImpl implements Accounts {
 		});
 
 	}
+	
+	
 	
 	@Override
 	public List<InactiveDto> getInactiveDto(Date daysAgo) {

@@ -17,8 +17,8 @@ public interface Accounts {
 	List<LastSeenSummary> getSummary();
 	List<AccountsDto> getGraphQuery31(Date daysAgo);
 	
-	List<PendingRegistrationDto> getPendingRegistrationDto();
+	List<PendingRegistrationDto> getPendingRegistrationDto(Date date);
 	List<InactiveDto> getInactiveDto(Date daysAgo);
-	List<RegisterPendingDto> getPendingRegistration();
+	List<RegisterPendingDto> getPendingRegistration(Date date);
 	
    }

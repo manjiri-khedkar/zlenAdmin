@@ -398,9 +398,9 @@ public class MainPage {
 	@GetMapping("/pendingRegistration")
 	public ModelAndView pendingRegitration() {
 		ModelAndView mv = new ModelAndView();
-		List<PendingRegistrationDto>  pendingRegistration = accountDao.getPendingRegistrationDto();
+		List<PendingRegistrationDto>  pendingRegistration = accountDao.getPendingRegistrationDto(null);
 		mv.addObject("pendingRegistration", pendingRegistration);
-		List<RegisterPendingDto> registerPending = accountDao.getPendingRegistration();
+		List<RegisterPendingDto> registerPending = accountDao.getPendingRegistration(null);
 		mv.addObject("registerPending", registerPending);
 		mv.setViewName("pendingRegistration");
 		return mv;
