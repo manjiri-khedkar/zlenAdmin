@@ -123,7 +123,7 @@ private final Logger logger = LoggerFactory.getLogger(UserController.class);
     }
 
 	@GetMapping("/deleteUser/{id}")
-	public String deleteAppUser(@PathVariable long id, Model model) {
+	public String deleteAppUser(@PathVariable Integer id, Model model) {
 		appuserRepository.deleteById(id);
 		return "redirect:/user?deleteSuccess";
     }
