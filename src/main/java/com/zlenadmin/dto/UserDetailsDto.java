@@ -3,10 +3,13 @@ package com.zlenadmin.dto;
 import java.math.BigInteger;
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class UserDetailsDto {
 
     private BigInteger count;
 	
+    @JsonFormat(pattern = "dd/MMM/yyyy")
 	private Date createDate;
 
 	public BigInteger getCount() {

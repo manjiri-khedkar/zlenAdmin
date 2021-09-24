@@ -5,42 +5,47 @@ import java.nio.charset.StandardCharsets;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.zlenadmin.model.AppUser;
 
 @Controller
 public class SmsController<callableservice> {
 	
-	@Value("${yourMobileNo}")
-	private String yourMobileNo;
+	@Value("${EndPoint}")
+	private String endpoint;
 	
-	@Value("${yourPassword}")
-	private String yourPassword;
+	@Value("${sdkKey}")
+	private String key;
 	
-	@Value("${senderID}")
-	private String senderID;
+	@Value("${sdkSecret}")
+	private String secret;
 	
-	@Value("${msg}")
-	private String otpMsg;
 
-	@RequestMapping(value = "/view", method = {RequestMethod.GET})
-	public  String SendOTP(String toMobile, String otp) throws Exception {
+	 @GetMapping("/notification")
+	 public ModelAndView SmsSender() {
+		 ModelAndView mv = new ModelAndView();
+		 mv.setViewName("smsSender");
+		return mv;
+	}
+	
+	@RequestMapping(value = "/smsSender", method = RequestMethod.POST)
+	@ResponseBody
+	public  String SendOTP(@RequestParam("groupNo") String groupNo, @RequestParam("message") String message) throws Exception {
 		
 		
-		String msg = otpMsg + " "+otp;
-		//String url = "http://trans.smsfresh.co/api/sendmsg.php?user=" +"freshtranss"+ "&pass=" 
-		//	       +yourPassword+ "&sender=" +senderID+ "&phone=" +yourMobileNo.trim()+"&to="+toMobile+ "&text=" +URLEncoder.encode(msg, StandardCharsets.UTF_8.toString());
+		String url = endpoint+"&key="+key+"&secret="+secret+"&groupno="+groupNo+"&msg="+URLEncoder.encode(message, StandardCharsets.UTF_8.toString());
+		String Response="Successfully notified";
 		
-		//https://www.twilio.com/
-		
-		
-		
-		//String url="https://www.smsidea.co.in/smsstatuswithid.aspx?mobile="+yourMobileNo.trim()+"&pass="+yourPassword+"&senderid="+senderID+"&to="+toMobile+"&msg="+URLEncoder.encode(msg, StandardCharsets.UTF_8);
-		//com.zlenadmin.service.CallableService cs =new com.zlenadmin.service.CallableService(url,null,"GET",null);
-		//cs.call();
-				
-		
-		return "sms";
+		return Response;
 		}
 				
 }
+
+

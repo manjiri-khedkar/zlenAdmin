@@ -148,7 +148,8 @@ public class ExcelHelper1 {
 			rowhead.createCell(1).setCellValue("Create Date");
 			rowhead.createCell(2).setCellValue("User Name");
 			rowhead.createCell(3).setCellValue("Mobile No.");
-			rowhead.createCell(3).setCellValue("Device Type");
+			rowhead.createCell(4).setCellValue("Zlen Code");
+			rowhead.createCell(5).setCellValue("Device Type");
 			for (int i = 0; i < userDetails.size(); i++) {
 
 				HSSFRow row = sheet.createRow((short) i + 3);
@@ -156,8 +157,9 @@ public class ExcelHelper1 {
 				row.createCell(0).setCellValue(i + 1);
 				row.createCell(1).setCellValue(userDetails.get(i).getCreatedOn());
 				row.createCell(2).setCellValue(userDetails.get(i).getUserName());
-				row.createCell(2).setCellValue(userDetails.get(i).getUserMobile());
-				row.createCell(2).setCellValue(userDetails.get(i).getDeviceType());
+				row.createCell(3).setCellValue(userDetails.get(i).getUserMobile());
+				row.createCell(4).setCellValue(userDetails.get(i).getZlenCode());
+				row.createCell(5).setCellValue(userDetails.get(i).getDeviceType());
 				
 			}
 

@@ -62,14 +62,16 @@ public class UserServiceImpl implements UserService {
         user.setPassword(userDto.getPassword());
         user.setConfirmPass(userDto.getConfirmPass());
         
-        if(userDto.getRoles().size() > 0 ) {
-            for(int i=0; i<userDto.getRoles().size(); i++) {
-	        	System.out.println("Inside FOR LOOP.....");
-	        	 user.setRoles(Arrays.asList(userDto.getRoles().get(i))); 
-	        }
-       } 
+//        if(userDto.getRoles().size() > 0 ) {
+//            for(int i=0; i<userDto.getRoles().size(); i++) {
+//	        	System.out.println("Inside FOR LOOP.....");
+//	        	 user.setRoles(Arrays.asList(userDto.getRoles().get(i))); 
+//	        }
+//       } 
         
 		return appuserRepository.save(user);
 	}
+
+	
 
 }

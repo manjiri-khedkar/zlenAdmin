@@ -357,13 +357,12 @@ public class MainPage {
 	}
 	
 	@GetMapping("/userDetailsDownload")
-	@ResponseBody
 	  public ResponseEntity<InputStreamResource> getuserDetailsDownload(@RequestParam(required=false) String userName, 
 				@RequestParam(required=false) String userMobile,@RequestParam(required=false) String zlenCode,@RequestParam(required=false) String deviceType, 
 				@RequestParam(required=false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date  createdOn) {
 		
 		if ("All".equals(deviceType)) {
-			deviceType=null;
+			deviceType= null;
 		}
 		if ("".equals(userMobile)) {
 			userMobile=null;
@@ -378,6 +377,8 @@ public class MainPage {
 		if ("".equals(createdOn)) {
 			createdOn=null;
 		}
+		//List<UserDetails> uu = userDetailsRepository.getUserDetails(userName, userMobile, zlenCode, deviceType, createdOn);
+		//System.out.println("uu=="+ uu);
 	    String filename = "D:\\infosane\\zlenAdmin\\src\\main\\resources\\Excel\\UserDetails.xls";
 	    InputStreamResource file = new InputStreamResource(fileService.loadUserDetails(deviceType,userMobile,userName,zlenCode,createdOn));
 
