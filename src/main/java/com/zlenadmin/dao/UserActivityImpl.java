@@ -31,9 +31,10 @@ public class UserActivityImpl implements UserActivity {
 //	+ "and (ud.zlen_code LIKE :zlenCode or :zlenCode1 is null) ";
 	
 	
-	private String SQL="select uad.id id, uad.activity as activity, uad.created_date as createdDate, uad.notify_user_device_id as notifyUserDeviceId, uad.notify_user_id as notifyUserId, ud.zlen_code as zlenCode , ud1.zlen_code as notify_zlenCode "
+	private String SQL="select uad.id id, et.status as activity, uad.created_date as createdDate, uad.notify_user_device_id as notifyUserDeviceId, uad.notify_user_id as notifyUserId, ud.zlen_code as zlenCode , ud1.zlen_code as notify_zlenCode "
 			+ "from public.user_activity_details uad inner join public.user_details ud on uad.user_id = ud.user_id "
 			+ "inner join public.user_details ud1 on uad.notify_user_id = ud1.user_id  "
+			+ "inner join public.event_type et on uad.activity = et.id "
 			+ "where (cast(uad.created_date as date) = :createdDate or :createdDate1 is null)  "
 			+ "and (ud.zlen_code LIKE :zlenCode or :zlenCode1 is null) "
 			+ "order by uad.created_date desc ";
@@ -58,7 +59,7 @@ public class UserActivityImpl implements UserActivity {
 				ActivityDto ad = new ActivityDto();
 				
 				ad.setId(rs.getLong("id"));
-				ad.setActivity(rs.getInt("activity"));
+				ad.setStatus(rs.getString("activity"));
 				ad.setCreatedDate(rs.getDate("createdDate"));
 				ad.setNotifyUserDeviceId(rs.getString("notifyUserDeviceId"));
 				ad.setZlenCode(rs.getString("zlenCode"));

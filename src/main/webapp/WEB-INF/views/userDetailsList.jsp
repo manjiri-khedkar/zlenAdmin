@@ -115,7 +115,7 @@
 	
    		<div class="container">
 	   		<h1>User Details List</h1>	 
-	        
+	       
 	        <div class="row" >
  		        <label for="userName"><b>User Name : </b></label>&nbsp;
 				<input type="text" id="inputName" placeholder="Enter User Name......">&nbsp;&nbsp;		    
@@ -141,9 +141,16 @@
   				
   				 <button type="button" id="bth-search"
                             class="btn btn-success btn-md"  onclick="event.preventDefault(); search()">Search
-                 </button> 
+                 </button>
+                 &nbsp;&nbsp;
+                 <button type="button" class="btn btn-danger btn-md"
+						onclick="clearFilter()">Clear</button>
+						&nbsp;&nbsp;
+<%-- 						<a href="${pageContext.request.contextPath}/download?days"> --%>
+						<button type="button" id = "bth-download" onclick="download()" class="btn btn-success btn-md">
+						Download</button> 
                     </div> 
-                   </form>
+<!--                    </form> -->
 <!--  			 <button type="submit" class="btn-primary btn" id="ajaxBtn">Search</button>  -->
 			<!--   <button class="btn btn-success" type="submit" id="ajaxBtn" value="Search" onclick="searchFun()">Search</button>
  -->			
@@ -289,8 +296,7 @@ $("#btn-search").prop("disabled",false);
 				  var userMobile;
 				  var zlenCode;
 				  var deviceType;
-				  var latitude;
-				  var longitude;
+				  var createdOn;
 				  
              	  $(data).each(function (index,ele){
 //                  	alert('ele===>'+ele);
@@ -299,8 +305,7 @@ $("#btn-search").prop("disabled",false);
                     userMobile = ele.userMobile;
                     zlenCode = ele.zlenCode;
  				    deviceType = ele.deviceType;
- 				    latitude = ele.latitude;
- 				    longitude = ele.longitude;
+ 				   createDate = ele.createdOn;
  				     
  				    console.log("data", data);
                     console.log("ele", ele);   
@@ -309,11 +314,11 @@ $("#btn-search").prop("disabled",false);
                     console.log("userMobile", userMobile);
                     console.log("zlenCode", zlenCode);
                     console.log("deviceType", deviceType);
-					console.log("latitude", latitude);
-					console.log("longitude", longitude);
+					console.log("createdOn", createdOn);
+					//console.log("longitude", longitude);
 					
                                       
-                    result  += "<tr><td>"+index+"</td><td>"+ele.userName+"</td><td>"+ele.userMobile+"</td><td><a href='${pageContext.request.contextPath}/userViewForm/"+ele.id +" ' class='btn btn-info btn-sm showData'>"+ ele.zlenCode+"</a></td><td>"+ele.deviceType+"</td><td>"+ele.latitude+"</td><td>"+ele.longitude+"</td><td><a href='${pageContext.request.contextPath}/friendList/"+ele.id+"' class='btn btn-primary  btn-sm showData'>Friends</a>&nbsp;<a href='${pageContext.request.contextPath}/contactlist/"+ele.id+"' class='btn btn-danger btn-sm showData'>Contacts</a>&nbsp;</td></tr>";                   
+                    result  += "<tr><td>"+ index+1 +"</td><td>"+ele.createdOn+"</td><td>"+ele.userName+"</td><td>"+ele.userMobile+"</td><td><a href='${pageContext.request.contextPath}/userViewForm/"+ele.id +" ' class='btn btn-info btn-sm showData'>"+ ele.zlenCode+"</a></td><td>"+ele.deviceType+"</td><td><td><a href='${pageContext.request.contextPath}/friendList/"+ele.id+"' class='btn btn-primary  btn-sm showData'>Friends</a>&nbsp;<a href='${pageContext.request.contextPath}/contactlist/"+ele.id+"' class='btn btn-danger btn-sm showData'>Contacts</a>&nbsp;</td></tr>";                   
                                       
              	  });
             	  
@@ -333,6 +338,65 @@ $("#btn-search").prop("disabled",false);
 		window.location = '/userDetailsList';
 		}
 </script>
+
+<script type="text/javascript">
+$(document).ready(function() {
+	
+	 
+});
+function download() {
+	debugger
+	var userDetails;
+	userDetails = {}
+	userDetails["userName"] = $('#inputName').val();    
+	userDetails["userMobile"] = $('#inputMobile').val();
+	userDetails["zlenCode"] = $('#inputCode').val();
+	userDetails["deviceType"] = $('#inputType').val();
+
+
+	$('#btn-download').prop("disabled", false);
+debugger
+	$.ajax({
+		type : "GET",
+		//contentType: "application/json",
+		url : "${pageContext.request.contextPath}/userDetailsDownload" ,
+		url1: "D:\\infosane\\zlenAdmin\\src\\main\\resources\\Excel\\UserDetails.xls",
+		//timeout: 4000,
+		// success:function(result)
+		data : userDetails,
+		 xhrFields: {
+	            responseType: 'blob'
+	        },
+		success : function(data) {
+			//alert("data==>"+ data);
+		
+
+			//var newDate = dateFormat(cdate, "mm/dd/yyyy");
+		
+
+			var a = document.createElement('a');
+			 var url1 = window.URL.createObjectURL(data);
+	            a.href = url1;
+	            debugger
+			 a.download = 'UserDetails.xls';
+          document.body.append(a);
+          a.click();
+          a.remove();
+          window.URL.revokeObjectURL(url);
+			
+			//bindFunction();
+			return;
+			alert(ele.success);
+		}
+
+	});
+}
+
+
+
+
+	</script>
+
 </body>
 <jsp:include page="otherModal.jsp"></jsp:include>
 </html>

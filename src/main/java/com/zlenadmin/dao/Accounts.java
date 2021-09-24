@@ -2,6 +2,7 @@ package com.zlenadmin.dao;
 
 
 import java.util.Date;
+
 import java.util.List;
 
 import com.zlenadmin.api.entity.LastSeenSummary;
@@ -19,6 +20,6 @@ public interface Accounts {
 	
 	List<PendingRegistrationDto> getPendingRegistrationDto(Date date);
 	List<InactiveDto> getInactiveDto(Date daysAgo);
-	List<RegisterPendingDto> getPendingRegistration(Date date);
+	List<RegisterPendingDto> getPendingRegistrations(Date daysAgo);
 	
    }

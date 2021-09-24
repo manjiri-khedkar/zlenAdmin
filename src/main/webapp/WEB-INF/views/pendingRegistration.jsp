@@ -119,40 +119,61 @@
 <!-- 	        </div> -->
 	        <br>
 	         
-			<div class="row">
-				<div class="col-md-12">
-					<div class="table-responsive">
-						<table id="table1" class="table info-tbl text-left" style='border: 1px solid #d3d3d3;width: 98% !important; '>
-							<thead>
-								<tr>
-								    <th class="text-left" style="background: #d3d3d3">Sr.No.</th>
-									<th class="text-left" style="background: #d3d3d3">Name</th>
-									<th class="text-left" style="background: #d3d3d3">Number</th>
-									<th class="text-left" style="background: #d3d3d3">Date</th>
-<!-- 									<th class="text-left" style="background: #d3d3d3">Media Url</th> -->
-<!-- 									<th class="text-left" style="background: #d3d3d3">Media Type</th> -->
-								</tr>
-							</thead>
+<!-- 			<div class="row"> -->
+<!-- 				<div class="col-md-12"> -->
+<!-- 					<div class="table-responsive"> -->
+<!-- 						<table id="table1" class="table info-tbl text-left" style='border: 1px solid #d3d3d3;width: 98% !important; '> -->
+<!-- 							<thead> -->
+<!-- 								<tr> -->
+<!-- 								    <th class="text-left" style="background: #d3d3d3">Sr.No.</th> -->
+<!-- 									<th class="text-left" style="background: #d3d3d3">Name</th> -->
+<!-- 									<th class="text-left" style="background: #d3d3d3">Number</th> -->
+<!-- 									<th class="text-left" style="background: #d3d3d3">Date</th> -->
+<!-- <!-- 									<th class="text-left" style="background: #d3d3d3">Media Url</th> --> 
+<!-- <!-- 									<th class="text-left" style="background: #d3d3d3">Media Type</th> --> 
+<!-- 								</tr> -->
+<!-- 							</thead> -->
 							
-							<tbody>
-                        	<c:forEach items="${pendingRegistration}" var="list" varStatus="status">
-	                        	<tr class="odd gradeX">
-	                        		<td><c:out value="${status.index + 1}" /></td>
-	                        		<td><c:out value="${list.name}" /></td>
-	                        		<td><c:out value="${list.number}" /></td>
-	                        		<td><c:out value="${list.cdate}" /></td>
-<%-- 	                        		<td><c:out value="${list.media_url}" /></td> --%>
-<%-- 	                        		<td><c:out value="${list.media_type}" /></td> --%>
-<%-- 									<td><a href="${pageContext.request.contextPath}/role/editRole/<c:out value='${list.id}'/>"><button class="btn btn-primary"><i class="fa fa-edit"></i></button></a>&nbsp; --%>
-<%-- 										<a href="${pageContext.request.contextPath}/role/deleteRole/${list.id}" onclick="'return confirm(\'Are you sure to Delete Record?\');'" ><button class="btn btn-primary" ><i class="fa fa-trash"></i></button></a> --%>
-<!-- 									</td> -->
-	                       		</tr>
-	                    	</c:forEach>
-                        </tbody>
-						</table>
-					</div>
-				</div>		
-			</div>  
+<!-- 							<tbody> -->
+<%--                         	<c:forEach items="${pendingRegistration}" var="list" varStatus="status"> --%>
+<!-- 	                        	<tr class="odd gradeX"> -->
+<%-- 	                        		<td><c:out value="${status.index + 1}" /></td> --%>
+<%-- 	                        		<td><c:out value="${list.name}" /></td> --%>
+<%-- 	                        		<td><c:out value="${list.number}" /></td> --%>
+<%-- 	                        		<td><c:out value="${list.cdate}" /></td> --%>
+<%-- <%-- 	                        		<td><c:out value="${list.media_url}" /></td> --%> 
+<%-- <%-- 	                        		<td><c:out value="${list.media_type}" /></td> --%> 
+<%-- <%-- 									<td><a href="${pageContext.request.contextPath}/role/editRole/<c:out value='${list.id}'/>"><button class="btn btn-primary"><i class="fa fa-edit"></i></button></a>&nbsp; --%> 
+<%-- <%-- 										<a href="${pageContext.request.contextPath}/role/deleteRole/${list.id}" onclick="'return confirm(\'Are you sure to Delete Record?\');'" ><button class="btn btn-primary" ><i class="fa fa-trash"></i></button></a> --%> 
+<!-- <!-- 									</td> --> 
+<!-- 	                       		</tr> -->
+<%-- 	                    	</c:forEach> --%>
+<!--                         </tbody> -->
+<!-- 						</table> -->
+<!-- 					</div> -->
+<!-- 				</div>		 -->
+<!-- 			</div>   -->
+
+				<div class="row">
+
+					<label for="days"><b>Last Seen Date : </b></label>&nbsp;
+					<select id="inputdays">
+						<option value="-15" selected>All</option>
+						<option value="-7">7</option>
+						<option value="-10">10</option>
+						<option value="-15">15</option>
+						<option value="-30">30</option>
+					</select>&nbsp;&nbsp;&nbsp;&nbsp;
+
+					<button type="button" id="bth-search"
+						class="btn btn-success btn-md" onclick="search()">Search</button>
+					&nbsp;&nbsp;
+					<button type="button" class="btn btn-danger btn-md"
+						onclick="clearFilter()">Clear</button>
+						&nbsp;&nbsp;
+						<button type="button" id = "bth-download" onclick="download()" class="btn btn-success btn-md">
+						Download</button>
+				</div>
 			<br><br>
 			<div class="row">
 				<div class="col-md-12">
@@ -225,5 +246,113 @@
   <!-- Page level custom scripts -->
   <script src="${pageContext.request.contextPath}/resources/js/demo/chart-area-demo.js"></script>
   <script src="${pageContext.request.contextPath}/resources/js/demo/chart-pie-demo.js"></script>
+  
+  <script type="text/javascript">
+		$(document).ready(function() {
+
+		});
+		function search() {
+				debugger
+			var pendingRegistration;
+				pendingRegistrationlist = {}
+				pendingRegistrationlist["days"] = $("#inputdays").val();
+
+			$("#btn-search").prop("disabled", false);
+
+			$.ajax({
+				type : "GET",
+				//contentType: "application/json",
+				url : "${pageContext.request.contextPath}/pendingRegistrationlist",
+// 				timeout: 4000,
+				// success:function(result)
+				data : pendingRegistrationlist,
+
+				success : function(data) {
+
+					var result = "";
+					var date;
+					var name;
+					var number;
+
+					$(data).each(
+							function(index, ele) {
+
+								date = ele.date;
+								name = ele.name;
+								number = ele.number;
+
+								result += "<tr><td>" + index + "</td><td>"
+										+ ele.name + "</td><td>" + ele.number
+										+ "</td><td>" + ele.date
+										+ "</td></tr>";
+
+							});
+
+					$('#table1 tbody').html(result);
+					bindFunction();
+					return;
+					alert(ele.success);
+				}
+
+			});
+		}
+	</script>
+	<script type="text/javascript">
+	function clearFilter(){
+		window.location = '/pendingRegistration';
+		}
+</script>
+  
+  <script type="text/javascript">
+$(document).ready(function() {
+	
+	 
+});
+function download() {
+	debugger
+	var PendingRegister;
+	PendingRegister = {}
+	PendingRegister["days"] = $('#inputdays').val();
+
+	$('#btn-download').prop("disabled", false);
+
+	$.ajax({
+		type : "GET",
+		//contentType: "application/json",
+		url : "${pageContext.request.contextPath}/pendingDownload" ,
+		url1: "D:\\infosane\\zlenAdmin\\src\\main\\resources\\Excel\\PendingRegister.xls",
+		//timeout: 4000,
+		// success:function(result)
+		data : PendingRegister,
+		 xhrFields: {
+	            responseType: 'blob'
+	        },
+		success : function(data) {
+			//alert("data==>"+ data);
+		
+
+			//var newDate = dateFormat(cdate, "mm/dd/yyyy");
+			debugger
+
+			var a = document.createElement('a');
+			 var url1 = window.URL.createObjectURL(data);
+	            a.href = url1;
+			 a.download = 'PendingRegister.xls';
+          document.body.append(a);
+          a.click();
+          a.remove();
+          window.URL.revokeObjectURL(url);
+			
+			//bindFunction();
+			return;
+			alert(ele.success);
+		}
+
+	});
+}
+
+
+	</script>
+  
 </body>
 </html>

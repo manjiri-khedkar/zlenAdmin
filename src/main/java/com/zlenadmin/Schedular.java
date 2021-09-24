@@ -62,8 +62,7 @@ public class Schedular {
 		Date daysAgo = cal.getTime();
 		
 		List<PendingRegistrationDto>  pendingRegistration = accountDao.getPendingRegistrationDto(daysAgo);
-		List<RegisterPendingDto> registerPending = accountDao.getPendingRegistration(daysAgo);
-		
+		List<RegisterPendingDto> registerPending = accountDao.getPendingRegistrations(daysAgo);
 		Set<String> numbers = new HashSet<String>();
 		for (PendingRegistrationDto curRec: pendingRegistration) {
 			numbers.add( curRec.getNumber());

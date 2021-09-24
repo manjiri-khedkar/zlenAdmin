@@ -141,7 +141,7 @@
 	                        		<td><c:out value="${list.mobileNo}" /></td>
 	                        		<td><c:out value="${list.email}" /></td>
 	        
-									<td><a href="${pageContext.request.contextPath}/user/editUser/<c:out value='${list.id}'/>"><button class="btn btn-primary"><i class="fa fa-edit"></i></button></a>&nbsp;
+									<td><a href="${pageContext.request.contextPath}/user/edituser/<c:out value='${list.id}'/>"><button class="btn btn-primary"><i class="fa fa-edit"></i></button></a>&nbsp;
 										<a href="${pageContext.request.contextPath}/user/deleteUser/${list.id}" onclick="'return confirm(\'Are you sure to Delete Record?\');'" ><button class="btn btn-primary" ><i class="fa fa-trash"></i></button></a> 
 									</td>
 	                       		</tr>

@@ -2,12 +2,15 @@ package com.zlenadmin.dto;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class InactiveDto {
 	
 	private String name;
 	
 	private String number;
 	
+	@JsonFormat(pattern = "dd/MMM/yyyy")
 	private Date cdate;
 	
 	public InactiveDto() {} 

@@ -1,8 +1,6 @@
 package com.zlenadmin;
 
 import java.math.BigInteger;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -11,14 +9,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.SortedMap;
-import java.util.TimeZone;
 import java.util.TreeMap;
 
 import org.openqa.selenium.WebDriver;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
 import org.springframework.data.repository.query.Param;
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,7 +30,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.annotation.SessionScope;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.fasterxml.jackson.databind.ser.std.StdKeySerializers.Default;
 import com.zlenadmin.api.entity.LastSeenSummary;
 import com.zlenadmin.api.entity.UserDetails;
 import com.zlenadmin.api.entity.UserFeedBack;
@@ -40,14 +39,13 @@ import com.zlenadmin.dto.AccountsDto;
 import com.zlenadmin.dto.InactiveDto;
 import com.zlenadmin.dto.PendingRegistrationDto;
 import com.zlenadmin.dto.RegisterPendingDto;
-import com.zlenadmin.dto.UserFeedBackDto;
-import com.zlenadmin.email.ApplicationMailer;
 import com.zlenadmin.model.AppUser;
 import com.zlenadmin.model.SessionUser;
 import com.zlenadmin.repository.AppuserRepository;
 import com.zlenadmin.repository.UserDetailsRepository;
 import com.zlenadmin.repository.UserFeedBackRepository;
 import com.zlenadmin.repository.UserStoriesDetailsRepository;
+import com.zlenadmin.service.ExcelService;
 
 @Controller
 @Component
@@ -77,6 +75,9 @@ public class MainPage {
 	
 	@Autowired
 	private UserFeedBackRepository userFeedBackRepository;
+	
+	@Autowired
+	 private ExcelService fileService;
 	
 	@GetMapping(value = "/")
 	public String indexView(@ModelAttribute AppUser users) 
@@ -346,6 +347,38 @@ public class MainPage {
 		
 	}
 	
+	@GetMapping("/userDetailsDownload")
+	  public ResponseEntity<InputStreamResource> getuserDetailsDownload(@RequestParam(required=false) String userName, 
+				@RequestParam(required=false) String userMobile,@RequestParam(required=false) String zlenCode,@RequestParam(required=false) String deviceType, 
+				@RequestParam(required=false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date  createdOn) {
+		
+		if ("All".equals(deviceType)) {
+			deviceType= null;
+		}
+		if ("".equals(userMobile)) {
+			userMobile=null;
+		}
+		if ("".equals(zlenCode)) {
+			zlenCode=null;
+		}
+		
+		if ("".equals(userName)) {
+			userName=null;
+		}
+		if ("".equals(createdOn)) {
+			createdOn=null;
+		}
+		//List<UserDetails> uu = userDetailsRepository.getUserDetails(userName, userMobile, zlenCode, deviceType, createdOn);
+		//System.out.println("uu=="+ uu);
+	    String filename = "D:\\infosane\\zlenAdmin\\src\\main\\resources\\Excel\\UserDetails.xls";
+	    InputStreamResource file = new InputStreamResource(fileService.loadUserDetails(deviceType,userMobile,userName,zlenCode,createdOn));
+
+	    return ResponseEntity.ok()
+	            .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + filename)
+	            .contentType(MediaType.parseMediaType("application/vnd.ms-excel"))
+	            .body(file);
+	  }
+	
 	@GetMapping("/userStoriesListContents") 
 	@ResponseBody
 	public Object getUserStories(Model model, @Param("zlenCode") String  zlenCode, @Param("mimeType") String  mimeType, @Param("uploadedDateTime")@DateTimeFormat(pattern = "yyyy-MM-dd") Date uploadedDateTime) {
@@ -400,7 +433,7 @@ public class MainPage {
 		ModelAndView mv = new ModelAndView();
 		List<PendingRegistrationDto>  pendingRegistration = accountDao.getPendingRegistrationDto(null);
 		mv.addObject("pendingRegistration", pendingRegistration);
-		List<RegisterPendingDto> registerPending = accountDao.getPendingRegistration(null);
+		List<RegisterPendingDto> registerPending = accountDao.getPendingRegistrations(null);
 		mv.addObject("registerPending", registerPending);
 		mv.setViewName("pendingRegistration");
 		return mv;
@@ -411,12 +444,11 @@ public class MainPage {
 	public Object InactiveUsers(@RequestParam(required=false,defaultValue = "-30") Integer days) {
 	
 		
-		if ("-30".equals(days)) {
+		if ("All".equals(days)) {
 			days=null;
 		}
 		 
 		ModelAndView mv = new ModelAndView();
-		
 			
 		Calendar cal = new GregorianCalendar();
 		cal.add(Calendar.DAY_OF_MONTH, days);
@@ -425,8 +457,42 @@ public class MainPage {
 		List<InactiveDto> inActive = accountDao.getInactiveDto(daysAgo);
 		mv.addObject("inActive", inActive);
 		mv.setViewName("inActive");
+		
 		return mv;
 	}
+	
+	@GetMapping("/inActivelist") 
+	@ResponseBody
+	public List<InactiveDto> getInactiveDto(Model model ,@Param("days") Integer days)
+	{
+	
+		if ("All".equals(days)) {
+			days=null;
+		}
+		Calendar cal = new GregorianCalendar();
+		cal.add(Calendar.DAY_OF_MONTH, days);
+		Date daysAgo = cal.getTime();
+		List<InactiveDto> inActivelist = accountDao.getInactiveDto(daysAgo);
+		 
+		return inActivelist; 
+	}
+	
+	@GetMapping("/inActivedownload")
+	@ResponseBody
+	  public ResponseEntity<InputStreamResource> getinActiveDownload(@RequestParam(required=false, defaultValue = "-30") Integer days) {
+		
+		if ("All".equals(days)) {
+			days=null;
+		}
+	    String filename = "D:\\infosane\\zlenAdmin\\src\\main\\resources\\Excel\\Inactive.xls";
+	    InputStreamResource file = new InputStreamResource(fileService.loadinActive(days));
+
+	    return ResponseEntity.ok()
+	            .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + filename)
+	            .contentType(MediaType.parseMediaType("application/vnd.ms-excel"))
+	            .body(file);
+	  }
+	
 	
 	
 //	@GetMapping("/userStoriesListContents") 

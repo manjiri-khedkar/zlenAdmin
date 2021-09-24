@@ -69,7 +69,8 @@ public class AccountsImpl implements Accounts {
 			+ "	from public.otp_verification otp \r\n"
 			+ "	left outer join public.user_details ud on otp.number = replace(ud.user_mobile,' ', '') \r\n"
 			+ "	where user_id is null "
-			+ "and  (otp.created_at > :varDate or :varDate1 is null)";
+			+ "and  (otp.created_at > :varDate or :varDate1 is null) " 
+			+" order by date ";
 
 	@Autowired
 	@Qualifier("admin-jdbc")
@@ -112,6 +113,10 @@ public class AccountsImpl implements Accounts {
 			}
 		});
 	}
+
+	
+
+	
 
 	@Override
 	public LastSeenSummary getCreate(Date daysAgo) {
@@ -163,8 +168,6 @@ public class AccountsImpl implements Accounts {
 		});
 
 	}
-	
-	
 	
 	@Override
 	public List<InactiveDto> getInactiveDto(Date daysAgo) {

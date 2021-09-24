@@ -17,6 +17,17 @@ public class ActivityDto {
 	private String notifyUserDeviceId;
 		
 	private String zlenCode;
+	
+	private String status;
+	
+	
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
 
 	public long getId() {
 		return id;
@@ -73,6 +84,8 @@ public class ActivityDto {
 	public void setZlenCode(String zlenCode) {
 		this.zlenCode = zlenCode;
 	}
+
+	
 	
 	
 }

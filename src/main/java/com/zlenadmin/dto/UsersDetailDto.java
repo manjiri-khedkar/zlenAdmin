@@ -2,8 +2,11 @@ package com.zlenadmin.dto;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class UsersDetailDto {
 	
+	@JsonFormat(pattern = "dd/MMM/yyyy")
 	private Date createdOn;
 	
 	private String zlenCode;
