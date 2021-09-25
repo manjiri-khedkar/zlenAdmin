@@ -348,9 +348,9 @@ function download() {
 	debugger
 	var userDetails;
 	userDetails = {}
-	userDetails["userName"] = $('#inputName').val();    
-	userDetails["userMobile"] = $('#inputMobile').val();
-	userDetails["zlenCode"] = $('#inputCode').val();
+	//userDetails["userName"] = $('#inputName').val();    
+	//userDetails["userMobile"] = $('#inputMobile').val();
+	//userDetails["zlenCode"] = $('#inputCode').val();
 	userDetails["deviceType"] = $('#inputType').val();
 
 
@@ -359,26 +359,37 @@ debugger
 	$.ajax({
 		type : "GET",
 		//contentType: "application/json",
-		url : "${pageContext.request.contextPath}/userDetailsDownload" ,
-		url1: "D:\\infosane\\zlenAdmin\\src\\main\\resources\\Excel\\UserDetails.xls",
+		url : "${pageContext.request.contextPath}/userDetailsDownload",
 		//timeout: 4000,
 		// success:function(result)
 		data : userDetails,
-		 xhrFields: {
-	            responseType: 'blob'
-	        },
-		success : function(data) {
-			//alert("data==>"+ data);
-		
+		cache: false,
+        xhr: function () {
+        	debugger;
+        
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 2) {
+                    if (xhr.status == 200) {
+                        xhr.responseType = "blob";
+                    } else {
+                        xhr.responseType = "text";
+                    }
+                }
+            };
+            return xhr;
+        },
+        success : function(data) {
+        	//alert("data==>"+ data);
+    		
 
 			//var newDate = dateFormat(cdate, "mm/dd/yyyy");
-		
+			debugger
 
 			var a = document.createElement('a');
 			 var url1 = window.URL.createObjectURL(data);
 	            a.href = url1;
-	            debugger
-			 a.download = 'UserDetails.xls';
+			 a.download = 'Inactive.xls';
           document.body.append(a);
           a.click();
           a.remove();
@@ -387,7 +398,31 @@ debugger
 			//bindFunction();
 			return;
 			alert(ele.success);
+			
+			
+        	/* var fileName='test.xlsx';
+        	var blob = new Blob([data], { type: "application/vnd.ms-excel" });
+        	 
+            //Check the Browser type and download the File.
+            var isIE = false || !!document.documentMode;
+            if (isIE) {
+                window.navigator.msSaveBlob(blob, fileName);
+            } else {
+                var url = window.URL || window.webkitURL;
+                link = url.createObjectURL(blob);
+                var a = $("<a />");
+                a.attr("download", fileName);
+                a.attr("href", link);
+                $("body").append(a);
+                a[0].click();
+                $("body").remove(a);
+            }
+ */		},
+		error:function(result){
+			//alert(data);
+			alert(result.status + ' ' + result.statusText);
 		}
+	       
 
 	});
 }

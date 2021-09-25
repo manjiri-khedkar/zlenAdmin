@@ -13,7 +13,7 @@ import com.zlenadmin.api.entity.Contact;
 @Repository
 public interface ContactRepository extends JpaRepository<Contact, Long> {
 
-	List<Contact> findAll();
+	public List<Contact> findAll();
 
 	Contact findById(long id);
 

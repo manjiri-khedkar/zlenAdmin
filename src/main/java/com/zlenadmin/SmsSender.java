@@ -22,6 +22,10 @@ public class SmsSender {
     private String AUTH_MOBILE ;
 
     public void sendSms(String to, String text) {
+    	if (ACCOUNT_SID==null || AUTH_TOKEN==null) {
+    		System.out.println("SMS is not configured.");
+    		return;
+    	}
         Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
 
         String[] arr_numbers = to.split(",");

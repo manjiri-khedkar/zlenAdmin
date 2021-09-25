@@ -97,7 +97,7 @@ public class AccountsImpl implements Accounts {
 	}
 	
 	@Override
-	public List<RegisterPendingDto> getPendingRegistration(Date date) {
+	public List<RegisterPendingDto> getPendingRegistrations(Date date) {
 		SqlParameterSource namedParameters = new MapSqlParameterSource()
 				.addValue("varDate", date,Types.DATE)
 				.addValue("varDate1", date,Types.VARCHAR);

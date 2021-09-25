@@ -158,8 +158,7 @@
 							
 							
 
-					<button type="button" id="bth-sms"
-						class="btn btn-success btn-md" onclick="sms()" > Send </button>
+					<button type="button" id="bth-sms" class="btn btn-success btn-md" onclick="sms()" > Send </button>
 						
 				</form:form>
 				</div>
@@ -210,7 +209,7 @@
 
 	<script type="text/javascript">
 		$(document).ready(function() {
-		sms();
+		//sms();
 		});
 		function sms() {
 			debugger

@@ -299,13 +299,23 @@ function download() {
 		type : "GET",
 		//contentType: "application/json",
 		url : "${pageContext.request.contextPath}/inActivedownload" ,
-		url1: "D:\\infosane\\zlenAdmin\\src\\main\\resources\\Excel\\Inactive1.xls",
 		//timeout: 4000,
 		// success:function(result)
 		data : inActive,
-		 xhrFields: {
-	            responseType: 'blob'
-	        },
+		cache: false,
+        xhr: function () {
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 2) {
+                    if (xhr.status == 200) {
+                        xhr.responseType = "blob";
+                    } else {
+                        xhr.responseType = "text";
+                    }
+                }
+            };
+            return xhr;
+        },
 		success : function(data) {
 			//alert("data==>"+ data);
 		

@@ -150,7 +150,7 @@
 									<th class="text-left" style="background: #d3d3d3">Name</th>
 									<th class="text-left" style="background: #d3d3d3">Comments</th>
 									<th class="text-left" style="background: #d3d3d3">Likes</th>
-									<!-- <th class="text-left" style="background: #d3d3d3">Action</th> -->
+									<th class="text-left" style="background: #d3d3d3">Action</th>
 								</tr>
 							</thead>
 							
@@ -169,11 +169,11 @@
 	 	                        		<td><c:out value="${list.userName}" /></td>
 	 	                        		<td><c:out value="${list.commentCount}" /></td>
 	 	                        		<td><c:out value="${list.likesCount}" /></td> 
-	 	                        		<%-- <td>
+	 	                        		<td>
 	 	                        			<a href="#" src='${list.uploadedPath}' class="btn btn-info btn-sm img-view"> 
 	 	                        				View
 	 	                        			</a>
-	 	                        		</td> --%>
+	 	                        		</td>
  	                       			</tr> 
  	                    		</c:forEach> 
                            </tbody>

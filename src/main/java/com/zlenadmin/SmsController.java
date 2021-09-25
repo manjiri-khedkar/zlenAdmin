@@ -2,6 +2,8 @@ package com.zlenadmin;
 
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -13,12 +15,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.JsonObject;
 import com.zlenadmin.model.AppUser;
+import com.zlenadmin.service.CallableService;
+
+import antlr.collections.List;
 
 @Controller
 public class SmsController<callableservice> {
 	
-	@Value("${EndPoint}")
+	@Value("${endPoint}")
 	private String endpoint;
 	
 	@Value("${sdkKey}")
@@ -41,6 +47,18 @@ public class SmsController<callableservice> {
 		
 		
 		String url = endpoint+"&key="+key+"&secret="+secret+"&groupno="+groupNo+"&msg="+URLEncoder.encode(message, StandardCharsets.UTF_8.toString());
+		
+		JsonObject obj = new JsonObject();
+		obj.addProperty("groupType", groupNo);
+		obj.addProperty("content", message);
+		
+		HashMap<String, String> headers= new HashMap<String, String>();
+		headers.put("sdkKey",key);
+		headers.put("sdkSecret",secret);
+		
+		CallableService call = new CallableService(endpoint,obj.toString(),"POST","application/json",headers);
+		call.call();
+		
 		String Response="Successfully notified";
 		
 		return Response;

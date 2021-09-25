@@ -24,6 +24,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -348,6 +349,7 @@ public class MainPage {
 	}
 	
 	@GetMapping("/userDetailsDownload")
+	@ResponseBody
 	  public ResponseEntity<InputStreamResource> getuserDetailsDownload(@RequestParam(required=false) String userName, 
 				@RequestParam(required=false) String userMobile,@RequestParam(required=false) String zlenCode,@RequestParam(required=false) String deviceType, 
 				@RequestParam(required=false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date  createdOn) {
@@ -370,9 +372,10 @@ public class MainPage {
 		}
 		//List<UserDetails> uu = userDetailsRepository.getUserDetails(userName, userMobile, zlenCode, deviceType, createdOn);
 		//System.out.println("uu=="+ uu);
-	    String filename = "D:\\infosane\\zlenAdmin\\src\\main\\resources\\Excel\\UserDetails.xls";
-	    InputStreamResource file = new InputStreamResource(fileService.loadUserDetails(deviceType,userMobile,userName,zlenCode,createdOn));
-
+	    String filename = "UserDetails.xls";
+	    //InputStreamResource file = new InputStreamResource(fileService.loadUserDetails(deviceType,userMobile,userName,zlenCode,createdOn));
+	    InputStreamResource file = new InputStreamResource(fileService.loadinActive(-30));
+    
 	    return ResponseEntity.ok()
 	            .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + filename)
 	            .contentType(MediaType.parseMediaType("application/vnd.ms-excel"))
@@ -484,7 +487,7 @@ public class MainPage {
 		if ("All".equals(days)) {
 			days=null;
 		}
-	    String filename = "D:\\infosane\\zlenAdmin\\src\\main\\resources\\Excel\\Inactive.xls";
+	    String filename = "Inactive.xls";
 	    InputStreamResource file = new InputStreamResource(fileService.loadinActive(days));
 
 	    return ResponseEntity.ok()
