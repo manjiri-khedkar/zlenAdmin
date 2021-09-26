@@ -319,8 +319,7 @@ function download() {
 	$.ajax({
 		type : "GET",
 		//contentType: "application/json",
-		url : "${pageContext.request.contextPath}/pendingDownload" ,
-		url1: "D:\\infosane\\zlenAdmin\\src\\main\\resources\\Excel\\PendingRegister.xls",
+		url : "${pageContext.request.contextPath}/pendingRegistrationDownload" ,
 		//timeout: 4000,
 		// success:function(result)
 		data : PendingRegister,

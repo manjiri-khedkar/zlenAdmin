@@ -157,7 +157,7 @@ rel="stylesheet">
 								<tbody>
 									<c:forEach items="${inActive}" var="list" varStatus="status">
 										<tr class="odd gradeX">
-											<td><c:out value="${status.index + 1}" /></td>
+											<td><c:out value="${status.index+  1}" /></td>
 											<td><c:out value="${list.name}" /></td>
 											<td><c:out value="${list.number}" /></td>
 											<td><c:out value="${list.cdate}" /></td>
@@ -260,7 +260,7 @@ rel="stylesheet">
 								//alert(ele);
 								//console.log("ele==="+ele);
 								//console.log("cdate=="+cdate);
-								result += "<tr><td>" + index+1 + "</td><td>"+ ele.name + "</td><td>" + ele.number + "</td><td>" + ele.cdate
+								result += "<tr><td>" + index + "</td><td>"+ ele.name + "</td><td>" + ele.number + "</td><td>" + ele.cdate
 										+ "</td></tr>";
 
 							});
@@ -306,6 +306,7 @@ function download() {
         xhr: function () {
             var xhr = new XMLHttpRequest();
             xhr.onreadystatechange = function () {
+            	
                 if (xhr.readyState == 2) {
                     if (xhr.status == 200) {
                         xhr.responseType = "blob";
@@ -317,9 +318,6 @@ function download() {
             return xhr;
         },
 		success : function(data) {
-			//alert("data==>"+ data);
-		
-
 			//var newDate = dateFormat(cdate, "mm/dd/yyyy");
 			debugger
 

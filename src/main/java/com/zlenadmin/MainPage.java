@@ -441,6 +441,18 @@ public class MainPage {
 		mv.setViewName("pendingRegistration");
 		return mv;
 	}
+	@GetMapping("/pendingRegistrationDownload")
+	public ResponseEntity<InputStreamResource> pendingRegitrationDownload() {
+		
+		
+	    String filename = "PendingRegistration.xls";
+	    InputStreamResource file = new InputStreamResource(fileService.loadPending(null));
+
+	    return ResponseEntity.ok()
+	            .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + filename)
+	            .contentType(MediaType.parseMediaType("application/vnd.ms-excel"))
+	            .body(file);
+	}
 	
 	@SuppressWarnings("unlikely-arg-type")
 	@GetMapping("/inActive")
@@ -454,7 +466,7 @@ public class MainPage {
 		ModelAndView mv = new ModelAndView();
 			
 		Calendar cal = new GregorianCalendar();
-		cal.add(Calendar.DAY_OF_MONTH, days);
+		cal.add(Calendar.DAY_OF_YEAR, days);
 		Date daysAgo = cal.getTime(); 
 		
 		List<InactiveDto> inActive = accountDao.getInactiveDto(daysAgo);
@@ -473,7 +485,7 @@ public class MainPage {
 			days=null;
 		}
 		Calendar cal = new GregorianCalendar();
-		cal.add(Calendar.DAY_OF_MONTH, days);
+		cal.add(Calendar.DAY_OF_YEAR, days);
 		Date daysAgo = cal.getTime();
 		List<InactiveDto> inActivelist = accountDao.getInactiveDto(daysAgo);
 		 
@@ -487,6 +499,9 @@ public class MainPage {
 		if ("All".equals(days)) {
 			days=null;
 		}
+		Calendar cal = new GregorianCalendar();
+		cal.add(Calendar.DAY_OF_YEAR, days);
+		Date daysAgo = cal.getTime();
 	    String filename = "Inactive.xls";
 	    InputStreamResource file = new InputStreamResource(fileService.loadinActive(days));
 

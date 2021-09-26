@@ -29,7 +29,7 @@ public class AccountsImpl implements Accounts {
 
 	private String SQL = " select to_timestamp((data -> 'devices'-> 0 -> 'lastSeen')::text::numeric/1000)::date as cdate, count(*) as count  from public.accounts\r\n"
 			+ "group by to_timestamp((data -> 'devices'-> 0 -> 'lastSeen')::text::numeric/1000)::date\r\n"
-			+ "order by cdate";
+			+ "order by cdate desc ";
 
 	private String SELECT_LASTSEEN_SUMMARY = " select  cdate, count from last_seen_summary \r\n"
 			+ "where cdate::date >= :varDate::date "
@@ -41,7 +41,8 @@ public class AccountsImpl implements Accounts {
 			"from public.accounts acc\r\n" + 
 			"inner join public.pending_accounts pa on pa.number = acc.number\r\n" + 
 			"where pa.push_code is null "
-			+ "and  ((to_timestamp((data -> 'devices'-> 0 -> 'lastSeen')::text::numeric/1000)::date) > :varDate or :varDate1 is null) ";
+			+ "and  ((to_timestamp((data -> 'devices'-> 0 -> 'lastSeen')::text::numeric/1000)::date) > :varDate or :varDate1 is null) "
+			+ "order by to_timestamp((data -> 'devices'-> 0 -> 'lastSeen')::text::numeric/1000)::date desc ";
 
 //	private String pending_Registration = "select(data ->'devices'-> 0 ->'name') as name , \r\n"
 //			+ "to_timestamp((data -> 'devices'-> 0 -> 'lastSeen')::text::numeric/1000)::date as cdate ,\r\n"
@@ -51,7 +52,8 @@ public class AccountsImpl implements Accounts {
 	private String inActive="select(data ->'devices'-> 0 ->'name') as name ,acc.number as number, \r\n"
 			+"to_timestamp((data -> 'devices'-> 0 -> 'lastSeen')::text::numeric/1000)::date as cdate \r\n"
 			+"from public.accounts acc \r\n"
-			+"where to_timestamp((data -> 'devices'-> 0 -> 'lastSeen')::text::numeric/1000)::date <= :varDate::date";
+			+"where to_timestamp((data -> 'devices'-> 0 -> 'lastSeen')::text::numeric/1000)::date <= :varDate::date "
+			+ "order by to_timestamp((data -> 'devices'-> 0 -> 'lastSeen')::text::numeric/1000)::date desc ";
 
 	private String lastSql = "select count(data -> 'devices'-> 0 ->'id') as count "
 			//+ "to_timestamp((data -> 'devices'-> 0 -> 'lastSeen')::text::numeric/1000)::date as cdate "
@@ -70,7 +72,7 @@ public class AccountsImpl implements Accounts {
 			+ "	left outer join public.user_details ud on otp.number = replace(ud.user_mobile,' ', '') \r\n"
 			+ "	where user_id is null "
 			+ "and  (otp.created_at > :varDate or :varDate1 is null) " 
-			+" order by date ";
+			+" order by date desc ";
 
 	@Autowired
 	@Qualifier("admin-jdbc")
@@ -179,7 +181,7 @@ public class AccountsImpl implements Accounts {
 			public InactiveDto mapRow(ResultSet rs, int rownumber) throws SQLException {
 				InactiveDto inActive = new InactiveDto();
 				inActive.setName(rs.getString("name"));
-				inActive.setCdate(new Date(rs.getDate("cdate").getTime()));
+				inActive.setCdate(rs.getDate("cdate"));
 				inActive.setNumber(rs.getString("number"));
 				return inActive;
 			}

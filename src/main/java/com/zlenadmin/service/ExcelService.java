@@ -48,14 +48,14 @@ public class ExcelService {
 	  
  public ByteArrayInputStream loadPending(@Param("days") Integer days) {
 		  
-		  if ("All".equals(days)) {
-				days=null;
-			}
-			
-			Calendar cal = new GregorianCalendar();
-			cal.add(Calendar.DAY_OF_MONTH, days);
-			Date daysAgo = cal.getTime(); 
-			List<RegisterPendingDto> registerPending = accountDao.getPendingRegistrations(daysAgo);
+//		  if ("All".equals(days) || days==null) {
+//				days=null;
+//			}
+//			
+//			Calendar cal = new GregorianCalendar();
+//			cal.add(Calendar.DAY_OF_MONTH, days);
+//			Date daysAgo = cal.getTime(); 
+			List<RegisterPendingDto> registerPending = accountDao.getPendingRegistrations(null);
 		  
 
 	    ByteArrayInputStream in = ExcelHelper1.PendingToExcel(registerPending);

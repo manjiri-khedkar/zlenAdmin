@@ -29,7 +29,7 @@
     <!--====== Main Style CSS ======-->
     <link rel="stylesheet" href="assets/css/style.css">
   
-	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+
 	<script src="${pageContext.request.contextPath}/resources/vendor/jquery/jquery.min.js"></script>
   <!-- Custom fonts for this template-->
   <link href="${pageContext.request.contextPath}/resources/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -236,7 +236,7 @@
 
 
   <!-- Bootstrap core JavaScript-->
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script src="${pageContext.request.contextPath}/resources/vendor/jquery/jquery.min.js"></script>
   <script src="${pageContext.request.contextPath}/resources/vendor/jquery-easing/jquery.easing.min.js"></script>
   <script src="${pageContext.request.contextPath}/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
@@ -345,17 +345,15 @@ $(document).ready(function() {
 	 
 });
 function download() {
-	debugger
 	var userDetails;
 	userDetails = {}
-	//userDetails["userName"] = $('#inputName').val();    
-	//userDetails["userMobile"] = $('#inputMobile').val();
-	//userDetails["zlenCode"] = $('#inputCode').val();
+	userDetails["userName"] = $('#inputName').val();    
+	userDetails["userMobile"] = $('#inputMobile').val();
+	userDetails["zlenCode"] = $('#inputCode').val();
 	userDetails["deviceType"] = $('#inputType').val();
 
 
 	$('#btn-download').prop("disabled", false);
-debugger
 	$.ajax({
 		type : "GET",
 		//contentType: "application/json",
@@ -365,11 +363,10 @@ debugger
 		data : userDetails,
 		cache: false,
         xhr: function () {
-        	debugger;
-        
             var xhr = new XMLHttpRequest();
             xhr.onreadystatechange = function () {
                 if (xhr.readyState == 2) {
+                	
                     if (xhr.status == 200) {
                         xhr.responseType = "blob";
                     } else {
