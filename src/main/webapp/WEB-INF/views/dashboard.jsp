@@ -102,13 +102,27 @@
 													column : {
 														pointPadding : 0.3,
 														borderWidth : 2
-													}
+													},
+													
+													series : {
+														cursor : 'pointer',
+														point : {
+															events : {
+																click : function() {
+																	// alert('Count: ' + this.y);
+																	location.replace("${pageContext.request.contextPath}/usersList?createdOn="+this.textContent)
+																}
+															}
+														}
+													},
 												},
 
 												series : [ {
 													name : "Dates",
 													//data : [12,14,16,23,23,24]
 													data : datecounter
+													
+													
 
 												} ]
 
@@ -169,7 +183,7 @@
                 
                 
                 },
-
+                
     		  yAxis: {
 			    min: 0,
 			    max:null,
@@ -198,8 +212,8 @@
 							events : {
 								click : function() {
 									// alert('Count: ' + this.y);
-									location
-									.replace("${pageContext.request.contextPath}/stories?uploadedDateTime=" + this.textContent)
+									location.replace("${pageContext.request.contextPath}/userStoriesList?uploadedDateTime="+ this.textContent)
+									console.log("textContent==",this.textContent)
 								}
 							}
 						}
@@ -215,21 +229,24 @@
                   reversed: true
 			    },
 		        series: gdata,
+		        
+// 		        series : [ {
+// 					name : "dates",
+// 					//data : [12,14,16,23,23,24]
+// 					data : dates
+// 				} ]
 		     });
-			    	  
-			    	  chart.xAxis[0].labelGroup.element.childNodes
-						.forEach(function(label) {
+			    	 
+			    	  chart.xAxis[0].labelGroup.element.childNodes.forEach(function(label) {
 							label.style.cursor = "pointer";
 							label.onclick = function() {
 								//alert('You clicked on '+this.textContent);
-
-								location
-										.replace("${pageContext.request.contextPath}/stories?uploadedDateTime="+ this.textContent)
-
+								{
+									console.log("data===="+this.textContent);
+								location.replace("${pageContext.request.contextPath}/userStoriesList?uploadedDateTime="+ this.textContent)
+								}
 							}
-						});
-   	  
-			    	  
+						});	  
 		 },
 	});
 });
@@ -297,6 +314,7 @@
 														data : count
 													} ]
 												});
+								
 							},
 						});
 		        	});

@@ -159,16 +159,23 @@ public class MainPage {
 		cal.add(Calendar.DAY_OF_MONTH, -7);
 		Date daysAgo = cal.getTime();		
 		List<Object[]> userList= userStoriesDetailsRepository.getStoriesGraphQuery(daysAgo);
-		
+		List<Object[]> poll = userStoriesDetailsRepository.getPollGraphQuery(daysAgo);
+		System.out.println("poll=="+ poll.size());
 	    List<BigInteger> list1 = new ArrayList<BigInteger>();
 	    List<Date> dateList = new ArrayList<Date>();
 	    List<BigInteger> list2 = new ArrayList<BigInteger>();
 	    List<BigInteger> list3 = new ArrayList<BigInteger>();
+	    List<BigInteger> list4 = new ArrayList<BigInteger>();
+	    List<Date> polldate = new ArrayList<Date>();
 	    List<HashMap<String,Object>> mainList = new ArrayList<HashMap<String,Object>>();
 	    
 	    SortedMap<Date, HashMap<String,BigInteger>> datewise_hm= new TreeMap<Date, HashMap<String,BigInteger>>();
+	    SortedMap<Date, HashMap<String,BigInteger>> datewise_hm1= new TreeMap<Date, HashMap<String,BigInteger>>();
 	    Date curDate = null;
+	    Date pollDate = null;
 	    HashMap<String,BigInteger> inner_hm= null;
+	    HashMap<String,BigInteger> inner_hm1= null;
+	    
  	    for(Object[] list :userList) {
 	    	BigInteger count = (BigInteger) list[0];
 	    	Date createdDate = (Date)list[1];
@@ -183,11 +190,12 @@ public class MainPage {
 	    	inner_hm.put(mimeType, count);
 	    }
  	    datewise_hm.put(curDate,inner_hm);
- 	    
+	    
  	    for (Date key : datewise_hm.keySet()) {
  	    	System.out.println("Processing:" + key);
  	    	HashMap<String,BigInteger> datewiseData = datewise_hm.get(key);
  	    	dateList.add(key);
+ 	    	//polldate.add(key);
  	    		
  	    		if (datewiseData.containsKey("text/html")) {
  	    			
@@ -222,8 +230,36 @@ public class MainPage {
 					list3.add(datewiseData.get("video/mp4"));
 				}else {
 					list3.add(BigInteger.ZERO);
-				}
+				}	
  	    }
+ 	    
+ 	   for(Object[] poll1 :poll) {
+	    	BigInteger pollcount = (BigInteger) poll1[0];
+	    	Date createAt = (Date)poll1[1];
+	    	//String mimeType = (String)list[2];
+	    	
+	    	if ((pollDate==null) || (pollDate!=null && !pollDate.equals(createAt))) {
+	    		pollDate= createAt;
+	    		System.out.println(pollDate);
+	    		inner_hm1 = new HashMap<String,BigInteger>();
+	    			datewise_hm1.put(createAt,inner_hm1);
+	    	}
+	    	inner_hm1.put("pollcount", pollcount);
+	    }
+	    datewise_hm1.put(pollDate,inner_hm1);
+ 	   for (Date keyvalue : datewise_hm1.keySet()) {
+	    	System.out.println("Processing:" + keyvalue);
+	    	HashMap<String,BigInteger> datewiseData1 = datewise_hm1.get(keyvalue);
+	    	//dateList.add(key);
+	    	polldate.add(keyvalue);
+	    	
+	    	if (datewiseData1.containsKey("pollcount")) {
+	    			
+				list4.add(datewiseData1.get("pollcount"));
+			}else {
+				list4.add(BigInteger.ZERO);
+			}
+ 	   }
  	    
  	     HashMap<String, Object> finalMap1 = new HashMap<String, Object>();
     	 finalMap1.put("name","text/html");
@@ -237,15 +273,20 @@ public class MainPage {
     	 finalMap3.put("name","video");
     	 finalMap3.put("data",list3);
     	 
+    	 HashMap<String, Object> finalMap4 = new HashMap<String, Object>();
+    	 finalMap4.put("name","pollcount");
+    	 finalMap4.put("data",list4);
+    	 
     	 mainList.add(finalMap1);
     	 mainList.add(finalMap2);
     	 mainList.add(finalMap3);
+    	 mainList.add(finalMap4);
     	 
-    	 HashMap<String, Object> finalMap4 = new HashMap<String, Object>();
-    	 finalMap4.put("dates",dateList);
-    	 finalMap4.put("count",mainList);
+    	 HashMap<String, Object> finalMap5 = new HashMap<String, Object>();
+    	 finalMap5.put("dates",dateList);
+    	 finalMap5.put("count",mainList);
     	 
-    	return finalMap4;
+    	return finalMap5;
 	}
 	
 	
