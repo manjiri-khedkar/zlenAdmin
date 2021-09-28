@@ -109,8 +109,8 @@
 														point : {
 															events : {
 																click : function() {
-																	// alert('Count: ' + this.y);
-																	location.replace("${pageContext.request.contextPath}/usersList?createdOn="+this.textContent)
+																	//alert('Count: ' + this.category);
+																	location.replace("${pageContext.request.contextPath}/usersList?createdOn="+this.category)
 																}
 															}
 														}
@@ -148,7 +148,7 @@
 		//2nd graph
 		
 		 $(function() {
-				var dates, gdata;
+				var dates, gdata,types;
 				$.ajax( {
 				      type : "Get", 
 				      url : "${pageContext.request.contextPath}/dashboard/stories-bar-chart", 
@@ -158,6 +158,7 @@
 				    	 
 				      dates = data.dates;
 				      gdata = data.count;
+				      types = data.types;
 
 				      console.log("dates", dates);
 			    	  console.log("graphdata", gdata);
@@ -212,8 +213,9 @@
 							events : {
 								click : function() {
 									// alert('Count: ' + this.y);
-									location.replace("${pageContext.request.contextPath}/userStoriesList?uploadedDateTime="+ this.textContent)
-									console.log("textContent==",this.textContent)
+									var type =this.colorIndex;
+									var typeValue = types[type];
+									location.replace("${pageContext.request.contextPath}/userStoriesList?uploadedDateTime="+ this.category +"&mimeType="+ typeValue);
 								}
 							}
 						}

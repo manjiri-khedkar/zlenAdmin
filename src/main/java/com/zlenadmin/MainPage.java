@@ -276,6 +276,12 @@ public class MainPage {
     	 HashMap<String, Object> finalMap4 = new HashMap<String, Object>();
     	 finalMap4.put("name","pollcount");
     	 finalMap4.put("data",list4);
+
+    	 List<String> types= new ArrayList<String>();
+    	 types.add("text/html");
+    	 types.add("image/jpg");
+    	 types.add("video");
+    	 types.add("pollcount");
     	 
     	 mainList.add(finalMap1);
     	 mainList.add(finalMap2);
@@ -285,6 +291,7 @@ public class MainPage {
     	 HashMap<String, Object> finalMap5 = new HashMap<String, Object>();
     	 finalMap5.put("dates",dateList);
     	 finalMap5.put("count",mainList);
+    	 finalMap5.put("types",types);
     	 
     	return finalMap5;
 	}
