@@ -30,10 +30,16 @@ public class AccountsImpl implements Accounts {
 	private String SQL = " select to_timestamp((data -> 'devices'-> 0 -> 'lastSeen')::text::numeric/1000)::date as cdate, count(*) as count  from public.accounts\r\n"
 			+ "group by to_timestamp((data -> 'devices'-> 0 -> 'lastSeen')::text::numeric/1000)::date\r\n"
 			+ "order by cdate desc ";
-
-	private String SELECT_LASTSEEN_SUMMARY = " select  cdate, count from last_seen_summary \r\n"
-			+ "where cdate::date >= :varDate::date "
-			+ "order by cdate";
+	
+	private String SELECT_LASTSEEN_SUMMARY= " select last_seen::date as cdate ,\r\n" + 
+			"count(*) as count  from public.tab_notification \r\n" + 
+			"where  last_seen::date >= :varDate::date \r\n" + 
+			"group by last_seen::date\r\n" + 
+			"order by cdate desc ";
+	
+//	private String SELECT_LASTSEEN_SUMMARY = " select  cdate, count from last_seen_summary \r\n"
+//			+ "where cdate::date >= :varDate::date "
+//			+ "order by cdate";
 	
 	private String pending_Registration ="select(data ->'devices'-> 0 ->'name') as name , \r\n" + 
 			"to_timestamp((data -> 'devices'-> 0 -> 'lastSeen')::text::numeric/1000)::date as cdate ,\r\n" + 
@@ -55,11 +61,13 @@ public class AccountsImpl implements Accounts {
 			+"where to_timestamp((data -> 'devices'-> 0 -> 'lastSeen')::text::numeric/1000)::date <= :varDate::date "
 			+ "order by to_timestamp((data -> 'devices'-> 0 -> 'lastSeen')::text::numeric/1000)::date desc ";
 
-	private String lastSql = "select count(data -> 'devices'-> 0 ->'id') as count "
-			//+ "to_timestamp((data -> 'devices'-> 0 -> 'lastSeen')::text::numeric/1000)::date as cdate "
-			+ "from public.accounts "
-			+ "where to_timestamp((data -> 'devices'-> 0 -> 'lastSeen')::text::numeric/1000)::date = :varDate::date";
-
+	private String lastSql = " select count(*) as count  from  public.tab_notification where  cast(last_seen::date as date) = :varDate::date; ";
+	
+//	private String lastSql = "select count(data -> 'devices'-> 0 ->'id') as count "
+//			//+ "to_timestamp((data -> 'devices'-> 0 -> 'lastSeen')::text::numeric/1000)::date as cdate "
+//			+ "from public.accounts "
+//			+ "where to_timestamp((data -> 'devices'-> 0 -> 'lastSeen')::text::numeric/1000)::date = :varDate::date";
+	
 	private String lastSeenSummary = "select count(data -> 'devices'-> 0 ->'id') as count , "
 			+ "to_timestamp((data -> 'devices'-> 0 -> 'lastSeen')::text::numeric/1000)::date as cdate "
 			+ "from public.accounts "
@@ -128,7 +136,7 @@ public class AccountsImpl implements Accounts {
 
 		
 		
-		return jdbcTemplate.queryForObject(lastSql, namedParameters, new RowMapper<LastSeenSummary>() {
+		return zlenjdbcTemplate.queryForObject(lastSql, namedParameters, new RowMapper<LastSeenSummary>() {
 			public LastSeenSummary mapRow(ResultSet rs, int rownumber) throws SQLException {
 				LastSeenSummary acc = new LastSeenSummary();
 				// acc.setCdate(daysAgo);
@@ -138,7 +146,8 @@ public class AccountsImpl implements Accounts {
 		});
 
 	}
-
+	
+	
 	@Override
 	public List<LastSeenSummary> getSummary() {
 		SqlParameterSource namedParameters = new MapSqlParameterSource();

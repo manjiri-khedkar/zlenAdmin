@@ -141,12 +141,11 @@
 					<form:form action="smsSender" method="POST">
 						<b>Group Number : </b>&nbsp;&nbsp;&nbsp;&nbsp; <select
 							id="inputType">
-							<option value="All" selected>All</option>
-							<option value="1">1</option>
-							<option value="2">2</option>
-							<option value="3">3</option>
-							<option value="4">4</option>
-							<option value="5">5</option>
+							<option value="1"  selected >ALL_USERS</option>
+							<option value="2">INACTIVE_USERS</option>
+							<option value="3">NEWLY_REGISTERED_USERS</option>
+							<option value="4">ALL_ANDROID_USERS</option>
+							<option value="5">ALL_IOS_USERS</option>
 						</select>
 						<br><br>
 						<div class="form-group form-inline">

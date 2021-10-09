@@ -40,6 +40,7 @@ import com.zlenadmin.dto.AccountsDto;
 import com.zlenadmin.dto.InactiveDto;
 import com.zlenadmin.dto.PendingRegistrationDto;
 import com.zlenadmin.dto.RegisterPendingDto;
+import com.zlenadmin.dto.StoriesDto;
 import com.zlenadmin.model.AppUser;
 import com.zlenadmin.model.SessionUser;
 import com.zlenadmin.repository.AppuserRepository;
@@ -278,8 +279,8 @@ public class MainPage {
     	 finalMap4.put("data",list4);
 
     	 List<String> types= new ArrayList<String>();
-    	 types.add("text/html");
-    	 types.add("image/jpg");
+    	 types.add("text");
+    	 types.add("image");
     	 types.add("video");
     	 types.add("pollcount");
     	 
@@ -298,14 +299,16 @@ public class MainPage {
 	
 	
 	
+	
 	@GetMapping("/dashboard/lastseen")	  
 	  @ResponseBody 
 	  public Map<String, Object> registrationGraphData1(Model model)
 	  {
 		Calendar cal = new GregorianCalendar();
 		cal.add(Calendar.DAY_OF_MONTH, -7);
-		Date daysAgo = cal.getTime();
+		Date daysAgo = cal.getTime();	
 			List<AccountsDto> list = accountDao.getGraphQuery31(daysAgo);
+			System.out.println("list :" +list);
 
 			List<Date> list1 = new ArrayList<Date>();
 			List<Integer> list2 = new ArrayList<Integer>();
@@ -315,6 +318,9 @@ public class MainPage {
 				Integer count = list.get(j).getCount();
 				list1.add(cdate);
 				list2.add(count);
+				System.out.println("date=="+ cdate);
+				System.out.println("count==="+ count);
+				
 			}
 	
 			Map<String, Object> finalMap = new HashMap();
@@ -455,19 +461,50 @@ public class MainPage {
 	}
 	
 	@GetMapping("/userStoriesList")
-	public ModelAndView userStoriesList() {
+	public Object userStoriesList(@RequestParam(required=false) String mimeType,@RequestParam(required=false) String zlenCode,
+			@RequestParam(required=false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date  uploadedDateTime) {
+		
+		if ("".equals(zlenCode)) {
+			zlenCode=null;
+		}
+	
+		if ("All".equals(mimeType)) {
+			mimeType=null;
+		}
+		 
+		if ("".equals(uploadedDateTime)) {
+			uploadedDateTime=null;
+		}
+		
 		
 		ModelAndView mv = new ModelAndView();
 		
 		Calendar cal = new GregorianCalendar();
 		cal.add(Calendar.DAY_OF_MONTH, -3);
 		Date daysAgo = cal.getTime();
-		
+
+		 if(uploadedDateTime != null && mimeType == null) {
+			
+		List<StoriesDto> userStoriesList = userStories.getUserStories(zlenCode,mimeType,uploadedDateTime);
+		mv.addObject("userStoriesList", userStoriesList);
+		mv.setViewName("userStoriesList");
+		return mv;		
+		}else if(uploadedDateTime != null && mimeType != null) {
+			
+			List<StoriesDto> userStoriesList = userStories.getUserStories(zlenCode,mimeType,uploadedDateTime);
+			mv.addObject("userStoriesList", userStoriesList);
+			mv.setViewName("userStoriesList");
+			return mv;		
+			
+		}
+		 
+		 else {
 		List userStoriesList = userStories.getLatestUserStories(null, null, daysAgo);
 		//List<UserStoriesDetails> userStoriesList = userStoriesDetailsRepository.findAll();
 		mv.addObject("userStoriesList", userStoriesList);
 		mv.setViewName("userStoriesList");
 		return mv;
+		}
 	}
 	
 	@GetMapping("/userFeedBackList")
