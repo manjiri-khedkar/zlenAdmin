@@ -61,7 +61,7 @@ public class ExcelService {
 	    ByteArrayInputStream in = ExcelHelper1.PendingToExcel(registerPending);
 	    return in;
 	  }
- public ByteArrayInputStream loadUserDetails(@Param("deviceType") String deviceType, @Param("userMobile") String userMobile,@Param("zlenCode") String zlenCode, @Param("userName") String userName, @Param("createdOn") @DateTimeFormat(pattern = "yyyy-MM-dd")Date createdOn) {
+ public ByteArrayInputStream loadUserDetails( String deviceType, String userMobile,String userName, String zlenCode, Date createdOn) {
 	  
 	 if ("All".equals(deviceType)) {
 			deviceType=null;
