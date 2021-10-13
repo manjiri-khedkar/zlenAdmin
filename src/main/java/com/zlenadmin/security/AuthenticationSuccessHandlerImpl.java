@@ -1,11 +1,15 @@
 package com.zlenadmin.security;
 
 import java.io.IOException;
+import java.util.Collection;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.User;
@@ -54,8 +58,25 @@ public class AuthenticationSuccessHandlerImpl implements AuthenticationSuccessHa
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+	    addSameSiteCookieAttribute(response);
+
 		response.sendRedirect("./dashboard");
+	}
+	
+	private void addSameSiteCookieAttribute(HttpServletResponse response) {
+	    Collection<String> headers = response.getHeaders(HttpHeaders.SET_COOKIE);
+	    boolean firstHeader = true;
+	    // there can be multiple Set-Cookie attributes
+	    for (String header : headers) {
+	        if (firstHeader) {
+	            response.setHeader(HttpHeaders.SET_COOKIE,
+	                    String.format("%s; %s", header, "SameSite=Strict"));
+	            firstHeader = false;
+	            continue;
+	        }
+	        response.addHeader(HttpHeaders.SET_COOKIE,
+	                String.format("%s; %s", header, "SameSite=Strict"));
+	    }
 	}
 	
 }

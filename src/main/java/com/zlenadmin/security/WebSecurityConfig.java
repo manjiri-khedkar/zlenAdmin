@@ -28,7 +28,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
       .authorizeRequests()
         .antMatchers("/","/resources/**","/loginProcess","/login","/loginError","/resetPassword","/user/barChart","/user/bar-chart","/userDetailsListContents","/userStoriesListContents").permitAll()
         .antMatchers("/","/resources/**","/files/**","/loginProcess","/storyImage/**",
-        		"/login","/loginError","/resetPassword","/user/barChart","/user/bar-chart",
+        		"/login","/loginError","/resetPassword","/user/barChart","/user/bar-chart","/favicon.ico",
         		"/userDetailsListContents","/userStoriesListContents").permitAll()
         .anyRequest().authenticated()
         .and()

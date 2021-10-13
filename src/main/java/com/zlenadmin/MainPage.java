@@ -3,6 +3,7 @@ package com.zlenadmin;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
@@ -11,6 +12,8 @@ import java.util.Map;
 import java.util.SortedMap;
 import java.util.TimeZone;
 import java.util.TreeMap;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.openqa.selenium.WebDriver;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -101,9 +104,24 @@ public class MainPage {
 			return model;
 		}
 	}
+	private void addSameSiteCookieAttribute(HttpServletResponse response) {
+	    Collection<String> headers = response.getHeaders(HttpHeaders.SET_COOKIE);
+	    boolean firstHeader = true;
+	    // there can be multiple Set-Cookie attributes
+	    for (String header : headers) {
+	        if (firstHeader) {
+	            response.setHeader(HttpHeaders.SET_COOKIE,
+	                    String.format("%s; %s", header, "SameSite=Strict"));
+	            firstHeader = false;
+	            continue;
+	        }
+	        response.addHeader(HttpHeaders.SET_COOKIE,
+	                String.format("%s; %s", header, "SameSite=Strict"));
+	    }
+	}
 
 	@RequestMapping("/dashboard")
-	public ModelAndView dashboard() {
+	public ModelAndView dashboard(HttpServletResponse response) {
 		//appuserRepository.addActivity(sessionUser.getUserId(), "dashboard", System.currentTimeMillis());
 		ModelAndView model = new ModelAndView("dashboard");
 		Integer totalRegistrationCount=userDetailsRepository.getUserDetails1();
@@ -117,7 +135,7 @@ public class MainPage {
 		cal = new GregorianCalendar(TimeZone.getTimeZone("UTC"));
 		//cal.add(Calendar.DAY_OF_MONTH, -1);
 		daysAgo = cal.getTime();
-		
+		addSameSiteCookieAttribute(response);
 		LastSeenSummary summary = accountDao.getCreate(daysAgo);
 		model.addObject("todaysActiveUser", summary.getCount());
 		return model;
