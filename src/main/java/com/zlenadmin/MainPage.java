@@ -427,8 +427,8 @@ public class MainPage {
 		//List<UserDetails> uu = userDetailsRepository.getUserDetails(userName, userMobile, zlenCode, deviceType, createdOn);
 		//System.out.println("uu=="+ uu);
 	    String filename = "UserDetails.xls";
-	    //InputStreamResource file = new InputStreamResource(fileService.loadUserDetails(deviceType,userMobile,userName,zlenCode,createdOn));
-	    InputStreamResource file = new InputStreamResource(fileService.loadinActive(-30));
+	    InputStreamResource file = new InputStreamResource(fileService.loadUserDetails(deviceType,userMobile,userName,zlenCode,createdOn));
+	  //  InputStreamResource file = new InputStreamResource(fileService.loadinActive(-30));
     
 	    return ResponseEntity.ok()
 	            .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + filename)

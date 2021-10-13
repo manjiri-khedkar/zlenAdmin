@@ -143,7 +143,7 @@
                             class="btn btn-success btn-md"  onclick="event.preventDefault(); search()">Search
                  </button>
                  &nbsp;&nbsp;
-                 <button type="button" class="btn btn-danger btn-md"
+                 		<button type="button" class="btn btn-danger btn-md"
 						onclick="clearFilter()">Clear</button>
 						&nbsp;&nbsp;
 <%-- 						<a href="${pageContext.request.contextPath}/download?days"> --%>
@@ -318,7 +318,12 @@ $("#btn-search").prop("disabled",false);
 					//console.log("longitude", longitude);
 					
                                       
-                    result  += "<tr><td>"+ index+1 +"</td><td>"+ele.createdOn+"</td><td>"+ele.userName+"</td><td>"+ele.userMobile+"</td><td><a href='${pageContext.request.contextPath}/userViewForm/"+ele.id +" ' class='btn btn-info btn-sm showData'>"+ ele.zlenCode+"</a></td><td>"+ele.deviceType+"</td><td><td><a href='${pageContext.request.contextPath}/friendList/"+ele.id+"' class='btn btn-primary  btn-sm showData'>Friends</a>&nbsp;<a href='${pageContext.request.contextPath}/contactlist/"+ele.id+"' class='btn btn-danger btn-sm showData'>Contacts</a>&nbsp;</td></tr>";                   
+                    result  += "<tr><td>"+ index+1 +"</td><td>"+ele.createdOn+"</td><td>"+
+                    ele.userName+"</td><td>"+ele.userMobile+"</td><td><a href='${pageContext.request.contextPath}/userViewForm/"+ele.id +
+                    " ' class='btn btn-info btn-sm showData'>"+ ele.zlenCode+"</a></td><td>"
+                    +ele.deviceType+"</td><td><a href='${pageContext.request.contextPath}/friendList/"+ele.id+
+                    "' class='btn btn-primary  btn-sm showData'><i class='fas fa-user-friends' style='font-size: 20px; color: #ffff;'></i></a>&nbsp;<a href='${pageContext.request.contextPath}/contactlist/"
+                    +ele.id+"' class='btn btn-danger btn-sm showData'><i class='fas fa-address-book' style='font-size: 20px; color: #ffff;'></i></a>&nbsp;</td></tr>";                   
                                       
              	  });
             	  
@@ -335,9 +340,12 @@ $("#btn-search").prop("disabled",false);
 
 <script type="text/javascript">
 	function clearFilter(){
-		window.location = '/userDetailsList';
+		
+	debugger
+		window.location = '${pageContext.request.contextPath}/userList';
 		}
 </script>
+
 
 <script type="text/javascript">
 $(document).ready(function() {
