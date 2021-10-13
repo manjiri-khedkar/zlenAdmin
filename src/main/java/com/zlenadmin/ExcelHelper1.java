@@ -155,7 +155,10 @@ public class ExcelHelper1 {
 				HSSFRow row = sheet.createRow((short) i + 3);
 				// inserting data in the first row
 				row.createCell(0).setCellValue(i + 1);
-				row.createCell(1).setCellValue(userDetails.get(i).getCreatedOn());
+				SimpleDateFormat date = new SimpleDateFormat("dd/MM/yyyy");
+				String Date = date.format(userDetails.get(i).getCreatedOn());
+				row.createCell(1).setCellValue(Date);
+				//row.createCell(1).setCellValue(userDetails.get(i).getCreatedOn());
 				row.createCell(2).setCellValue(userDetails.get(i).getUserName());
 				row.createCell(3).setCellValue(userDetails.get(i).getUserMobile());
 				row.createCell(4).setCellValue(userDetails.get(i).getZlenCode());
