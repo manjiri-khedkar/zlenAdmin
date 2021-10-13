@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.SortedMap;
+import java.util.TimeZone;
 import java.util.TreeMap;
 
 import org.openqa.selenium.WebDriver;
@@ -107,13 +108,17 @@ public class MainPage {
 		ModelAndView model = new ModelAndView("dashboard");
 		Integer totalRegistrationCount=userDetailsRepository.getUserDetails1();
 		model.addObject("totalRegistrationCount", totalRegistrationCount);
-		Calendar cal = new GregorianCalendar();
+		Calendar cal = new GregorianCalendar(TimeZone.getTimeZone("UTC"));
 		cal.add(Calendar.DAY_OF_MONTH, -1);
 		Date daysAgo = cal.getTime();
 		Integer last24HoursCount=userDetailsRepository.getUserDetails2(daysAgo);
 		model.addObject("last24HoursCount", last24HoursCount);
 		
-		LastSeenSummary summary = accountDao.getCreate(new Date());
+		cal = new GregorianCalendar(TimeZone.getTimeZone("UTC"));
+		//cal.add(Calendar.DAY_OF_MONTH, -1);
+		daysAgo = cal.getTime();
+		
+		LastSeenSummary summary = accountDao.getCreate(daysAgo);
 		model.addObject("todaysActiveUser", summary.getCount());
 		return model;
 	}
@@ -124,7 +129,7 @@ public class MainPage {
 	 @ResponseBody
 	 public Map<String, Object> registrationGraphData(Model model) {
 		
-		Calendar cal = new GregorianCalendar();
+		Calendar cal = new GregorianCalendar(TimeZone.getTimeZone("UTC"));
 		cal.add(Calendar.DAY_OF_MONTH, -7);
 		Date daysAgo = cal.getTime();		
 		
@@ -156,7 +161,7 @@ public class MainPage {
 	 @ResponseBody
 	 public Object getStoriesGraphData(Model model,@Param("date") Date date ) {
 		
-		Calendar cal = new GregorianCalendar();
+		Calendar cal = new GregorianCalendar(TimeZone.getTimeZone("UTC"));
 		cal.add(Calendar.DAY_OF_MONTH, -7);
 		Date daysAgo = cal.getTime();		
 		List<Object[]> userList= userStoriesDetailsRepository.getStoriesGraphQuery(daysAgo);
@@ -304,7 +309,7 @@ public class MainPage {
 	  @ResponseBody 
 	  public Map<String, Object> registrationGraphData1(Model model)
 	  {
-		Calendar cal = new GregorianCalendar();
+		Calendar cal = new GregorianCalendar(TimeZone.getTimeZone("UTC"));
 		cal.add(Calendar.DAY_OF_MONTH, -7);
 		Date daysAgo = cal.getTime();	
 			List<AccountsDto> list = accountDao.getGraphQuery31(daysAgo);
@@ -479,7 +484,7 @@ public class MainPage {
 		
 		ModelAndView mv = new ModelAndView();
 		
-		Calendar cal = new GregorianCalendar();
+		Calendar cal = new GregorianCalendar(TimeZone.getTimeZone("UTC"));
 		cal.add(Calendar.DAY_OF_MONTH, -3);
 		Date daysAgo = cal.getTime();
 
@@ -550,7 +555,7 @@ public class MainPage {
 		 
 		ModelAndView mv = new ModelAndView();
 			
-		Calendar cal = new GregorianCalendar();
+		Calendar cal = new GregorianCalendar(TimeZone.getTimeZone("UTC"));
 		cal.add(Calendar.DAY_OF_YEAR, days);
 		Date daysAgo = cal.getTime(); 
 		
@@ -569,7 +574,7 @@ public class MainPage {
 		if ("All".equals(days)) {
 			days=null;
 		}
-		Calendar cal = new GregorianCalendar();
+		Calendar cal = new GregorianCalendar(TimeZone.getTimeZone("UTC"));
 		cal.add(Calendar.DAY_OF_YEAR, days);
 		Date daysAgo = cal.getTime();
 		List<InactiveDto> inActivelist = accountDao.getInactiveDto(daysAgo);
@@ -584,7 +589,7 @@ public class MainPage {
 		if ("All".equals(days)) {
 			days=null;
 		}
-		Calendar cal = new GregorianCalendar();
+		Calendar cal = new GregorianCalendar(TimeZone.getTimeZone("UTC"));
 		cal.add(Calendar.DAY_OF_YEAR, days);
 		Date daysAgo = cal.getTime();
 	    String filename = "Inactive.xls";
