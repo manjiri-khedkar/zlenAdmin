@@ -55,13 +55,20 @@ public class ExcelService {
 //			Calendar cal = new GregorianCalendar();
 //			cal.add(Calendar.DAY_OF_MONTH, days);
 //			Date daysAgo = cal.getTime(); 
-			List<RegisterPendingDto> registerPending = accountDao.getPendingRegistrations(null);
+	 if ("All".equals(days)) {
+			days=null;
+		}
+		Calendar cal = new GregorianCalendar();
+		cal.add(Calendar.DAY_OF_YEAR, days);
+		Date daysAgo = cal.getTime();
+	 
+			List<RegisterPendingDto> registerPending = accountDao.getPendingRegistrations(daysAgo);
 		  
 
 	    ByteArrayInputStream in = ExcelHelper1.PendingToExcel(registerPending);
 	    return in;
 	  }
- public ByteArrayInputStream loadUserDetails( String deviceType, String userMobile,String userName, String zlenCode, Date createdOn) {
+ public ByteArrayInputStream loadUserDetails(String deviceType, String userMobile, String zlenCode, String userName, String gender,Integer age, @DateTimeFormat(pattern = "yyyy-MM-dd")Date createdOn) {
 	  
 	 if ("All".equals(deviceType)) {
 			deviceType=null;
@@ -76,13 +83,20 @@ public class ExcelService {
 		if ("".equals(userName)) {
 			userName=null;
 		}
+		if ("All".equals(gender)) {
+			gender=null;
+		}
+		
+		if("".equals(age)) {
+			age = null;
+		}
 		
 		if ("".equals(createdOn)) {
 			createdOn=null;
 		}
 		
 		
-		ArrayList<UserDetails> userDetails = userDetailsRepository.getUserDetails(deviceType, userMobile, zlenCode, userName, createdOn);
+		ArrayList<UserDetails> userDetails = userDetailsRepository.getUserDetails(userName, userMobile, zlenCode, deviceType, createdOn, gender, age);
 	  
 
    ByteArrayInputStream in = ExcelHelper1.userDetailsToExcel(userDetails);

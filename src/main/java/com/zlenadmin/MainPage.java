@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.openqa.selenium.WebDriver;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Required;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.data.repository.query.Param;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -35,6 +36,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.annotation.SessionScope;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.errorprone.annotations.RequiredModifiers;
 import com.zlenadmin.api.entity.LastSeenSummary;
 import com.zlenadmin.api.entity.UserDetails;
 import com.zlenadmin.api.entity.UserFeedBack;
@@ -363,12 +365,12 @@ public class MainPage {
 
 
 	
-	@GetMapping("/usersList")
+	@GetMapping("/userDetailsList")
 	//public ModelAndView userDetailsList() {
 	
 	public Object userDetailsList(Model model,@RequestParam(required=false) String userName, 
-			@RequestParam(required=false) String userMobile,@RequestParam(required=false) String zlenCode,@RequestParam(required=false) String deviceType, 
-			@RequestParam(required=false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date  createdOn)
+			@RequestParam(required=false) String userMobile, @RequestParam(required=false) String zlenCode,@RequestParam(required=false) String deviceType, 
+			@RequestParam(required=false) String gender, @RequestParam(required=false) Integer age, @RequestParam(required=false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date  createdOn)
 	{	
 		if ("All".equals(deviceType)) {
 			deviceType=null;
@@ -384,12 +386,20 @@ public class MainPage {
 			userName=null;
 		}
 		
+		if ("All".equals(gender)) {
+			gender=null;
+		}
+		
+		if("".equals(age)) {
+			age = null;
+		}
+		
 		if ("".equals(createdOn)) {
 			createdOn=null;
 		}
 		
 		ModelAndView mv = new ModelAndView();
-		List<UserDetails> userDetailsList = userDetailsRepository.getUserDetails(userName, userMobile, zlenCode, deviceType, createdOn);
+		List<UserDetails> userDetailsList = userDetailsRepository.getUserDetails(userName, userMobile, zlenCode, deviceType, createdOn, gender, age);
 		mv.addObject("userListDetails", userDetailsList);
 		mv.setViewName("userDetailsList");
 		return mv;
@@ -397,7 +407,7 @@ public class MainPage {
 	
 	@GetMapping("/userDetailsListContents") 
 	@ResponseBody
-	public ArrayList<UserDetails> getUserDetails(Model model ,@Param("userName") String userName, @Param("userMobile") String userMobile,@Param("zlenCode") String zlenCode,@Param("deviceType") String deviceType, @Param("createdOn") @DateTimeFormat(pattern = "yyyy-MM-dd")Date createdOn)
+	public ArrayList<UserDetails> getUserDetails(Model model ,@Param("userName") String userName, @Param("userMobile") String userMobile, @Param("gender") String gender, @Param("age") Integer age, @Param("zlenCode") String zlenCode, @Param("deviceType") String deviceType, @Param("createdOn") @DateTimeFormat(pattern = "yyyy-MM-dd")Date createdOn)
 	{
 //		List<Object[]> userDetailsContentList= userDetailsRepository.getDetailsData();
 		
@@ -415,11 +425,21 @@ public class MainPage {
 		if ("".equals(userName)) {
 			userName=null;
 		}
+		
+		if ("All".equals(gender)) {
+			gender=null;
+		}
+		
+		if("".equals(age)) {
+			age = null;
+		} 
 		if ("".equals(createdOn)) {
 			createdOn=null;
 		}
-
-		ArrayList<UserDetails> userDetailsList = userDetailsRepository.getUserDetails(userName, userMobile, zlenCode, deviceType, createdOn);
+		
+		//ArrayList<UserDetails> userDetailslist = userDetailsRepository.getUserDetails(userName,userMobile,zlenCode,age, deviceType,gender, createdOn);
+		
+		ArrayList<UserDetails> userDetailsList = userDetailsRepository.getUserDetails(userName,userMobile,zlenCode, deviceType, createdOn, gender, age);
 	
 		return userDetailsList;
 		
@@ -428,7 +448,7 @@ public class MainPage {
 	@GetMapping("/userDetailsDownload")
 	@ResponseBody
 	  public ResponseEntity<InputStreamResource> getuserDetailsDownload(@RequestParam(required=false) String userName, 
-				@RequestParam(required=false) String userMobile,@RequestParam(required=false) String zlenCode,@RequestParam(required=false) String deviceType, 
+				@RequestParam(required=false) String userMobile, @RequestParam(required=false) String gender, @RequestParam(required=false) Integer age, @RequestParam(required=false) String zlenCode, @RequestParam(required=false) String deviceType, 
 				@RequestParam(required=false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date  createdOn) {
 		
 		if ("All".equals(deviceType)) {
@@ -444,13 +464,21 @@ public class MainPage {
 		if ("".equals(userName)) {
 			userName=null;
 		}
+		
+		if ("All".equals(gender)) {
+			gender=null;
+		}
+		
+		if("".equals(age)) {
+			age = null;
+		}
 		if ("".equals(createdOn)) {
 			createdOn=null;
 		}
 		//List<UserDetails> uu = userDetailsRepository.getUserDetails(userName, userMobile, zlenCode, deviceType, createdOn);
 		//System.out.println("uu=="+ uu);
 	    String filename = "UserDetails.xls";
-	    InputStreamResource file = new InputStreamResource(fileService.loadUserDetails(deviceType,userMobile,userName,zlenCode,createdOn));
+	    InputStreamResource file = new InputStreamResource(fileService.loadUserDetails(deviceType,userMobile,userName,zlenCode,gender, age, createdOn));
 	  //  InputStreamResource file = new InputStreamResource(fileService.loadinActive(-30));
     
 	    return ResponseEntity.ok()
@@ -549,12 +577,35 @@ public class MainPage {
 		mv.setViewName("pendingRegistration");
 		return mv;
 	}
+	
+	@GetMapping("/pendingRegistrationlist") 
+	@ResponseBody
+	public List<RegisterPendingDto> getPendingRegistrations(Model model ,@Param("days") Integer days)
+	{
+	
+		if ("All".equals(days)) {
+			days=null;
+		}
+		Calendar cal = new GregorianCalendar();
+		cal.add(Calendar.DAY_OF_YEAR, days);
+		Date daysAgo = cal.getTime();
+		List<RegisterPendingDto> registerPending = accountDao.getPendingRegistrations(daysAgo);
+		 
+		return registerPending; 
+	}
+	
 	@GetMapping("/pendingRegistrationDownload")
-	public ResponseEntity<InputStreamResource> pendingRegitrationDownload() {
+	public ResponseEntity<InputStreamResource> pendingRegitrationDownload(@RequestParam(required=false, defaultValue = "-15") Integer days) {
 		
+		if ("All".equals(days)) {
+			days=null;
+		}
+		Calendar cal = new GregorianCalendar();
+		cal.add(Calendar.DAY_OF_YEAR, days);
+		Date daysAgo = cal.getTime();
 		
 	    String filename = "PendingRegistration.xls";
-	    InputStreamResource file = new InputStreamResource(fileService.loadPending(null));
+	    InputStreamResource file = new InputStreamResource(fileService.loadPending(days));
 
 	    return ResponseEntity.ok()
 	            .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + filename)
@@ -580,7 +631,6 @@ public class MainPage {
 		List<InactiveDto> inActive = accountDao.getInactiveDto(daysAgo);
 		mv.addObject("inActive", inActive);
 		mv.setViewName("inActive");
-		
 		return mv;
 	}
 	

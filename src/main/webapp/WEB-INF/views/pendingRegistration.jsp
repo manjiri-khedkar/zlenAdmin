@@ -253,7 +253,7 @@
 		});
 		function search() {
 				debugger
-			var pendingRegistration;
+			var pendingRegistrationlist;
 				pendingRegistrationlist = {}
 				pendingRegistrationlist["days"] = $("#inputdays").val();
 

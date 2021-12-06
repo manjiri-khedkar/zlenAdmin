@@ -110,7 +110,7 @@
 															events : {
 																click : function() {
 																	//alert('Count: ' + this.category);
-																	location.replace("${pageContext.request.contextPath}/usersList?createdOn="+this.category)
+																	location.replace("${pageContext.request.contextPath}/userDetailsList?createdOn="+this.category)
 																}
 															}
 														}
@@ -135,7 +135,7 @@
 									    label.onclick = function(){
 									   	//alert('You clicked on '+this.textContent);
 									    {
-									   	  location.replace("${pageContext.request.contextPath}/usersList?createdOn="+this.textContent)
+									   	  location.replace("${pageContext.request.contextPath}/userDetailsList?createdOn="+this.textContent)
 									    }
 									   }
 									 }); //chart end here

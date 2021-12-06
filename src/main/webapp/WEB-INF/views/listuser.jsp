@@ -122,7 +122,7 @@
 			<div class="row">
 				<div class="col-md-12">
 					<div >
-						<table id="table1" class="table table-responsive info-tbl text-left" style='border: 1px solid #d3d3d3;width: 98% !important; '>
+						<table id="table1" class="table info-tbl text-left " style='border: 1px solid #d3d3d3;width: 98% !important; '>
 							<thead>
 								<tr>
 								    <th class="text-left" style="background: #d3d3d3">Sr. No.</th>
@@ -136,7 +136,7 @@
 							<tbody>
                         	<c:forEach items="${appuserList}"  var="list" varStatus="status">
 	                        	<tr class="odd gradeX">
-	                        		<td><c:out value="${iStat.index + 1}" /></td>
+	                        		<td><c:out value="${status.index + 1}" /></td>
 	                        		<td><c:out value="${list.firstName}" />&nbsp;<c:out value="${list.lastName}" /></td>
 	                        		<td><c:out value="${list.mobileNo}" /></td>
 	                        		<td><c:out value="${list.email}" /></td>

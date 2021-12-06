@@ -121,14 +121,15 @@
 				<input type="text" id="inputName" placeholder="Enter User Name......">&nbsp;&nbsp;		    
 		        
   				<label for="userMobile"><b>Mobile No : </b></label>&nbsp;  
-  				<input type="text"  id="inputMobile" placeholder="Enter Mobile No......">&nbsp;&nbsp;	  
+  				<input type="text"  id="inputMobile" placeholder="Enter Mobile No......">&nbsp;&nbsp;
+  				
+  				<label for="zlenCode"><b>Zlen Code : </b></label>&nbsp;&nbsp;	
+  				<input type="text" id="inputCode" placeholder="Enter Code......">	  
 <!--   				<button type="button" class="btn btn-danger btn-md" onclick="clearFilter()">Clear</button> --> 
 			</div>	    
 			<br/>
 			
- 			<div class="row" > 
-  				<label for="zlenCode"><b>Zlen Code : </b></label>&nbsp;&nbsp;	
-  				<input type="text" id="inputCode" placeholder="Enter Code......">&nbsp;&nbsp;	      
+ 			<div class="row" > 	      
 			
   				<b>Select Device Type : </b>&nbsp;&nbsp;&nbsp;&nbsp;				
   				<select id="inputType">  
@@ -139,6 +140,15 @@
  					<option value="Desktop">Desktop</option>  
   				</select>&nbsp;&nbsp;&nbsp;&nbsp;	
   				
+  				 <label for="age"><b>Age : </b></label>&nbsp;&nbsp;	
+  				<input type="text" id="inputAge" placeholder="Enter Age......">&nbsp;&nbsp;&nbsp;&nbsp;
+  				
+  				<b>Select Gender : </b>&nbsp;&nbsp;&nbsp;&nbsp;				
+  				<select id="inputGender">  
+ 					<option value="All" selected>All</option>  
+  					<option value="male">Male</option> 
+  					<option value="female">Female</option> 
+  				</select>&nbsp;&nbsp;&nbsp;&nbsp;	
   				 <button type="button" id="bth-search"
                             class="btn btn-success btn-md"  onclick="event.preventDefault(); search()">Search
                  </button>
@@ -155,7 +165,7 @@
 			<!--   <button class="btn btn-success" type="submit" id="ajaxBtn" value="Search" onclick="searchFun()">Search</button>
  -->			
 	         <!-- onclick ="searchFun()"  -->
-	         
+	         <br> <br>
 			<div class="row">
 				<div class="col-md-12">
 					<div class="table-responsive">
@@ -165,11 +175,11 @@
 								    <th class="text-left" style="background: #d3d3d3">Sr. No.</th>
 								    <th class="text-left" style="background: #d3d3d3">Create Date</th>
 									<th class="text-left" style="background: #d3d3d3">User Name</th>
+									<th class="text-left" style="background: #d3d3d3">Year Of Birth</th>
+									<th class="text-left" style="background: #d3d3d3">Gender</th>
 									<th class="text-left" style="background: #d3d3d3">Mobile No.</th>
 									<th class="text-left" style="background: #d3d3d3">Zlen Code</th>
 									<th class="text-left" style="background: #d3d3d3">Device Type</th>
-									<!--  <th class="text-left" style="background: #d3d3d3">Latitude</th>
-									<th class="text-left" style="background: #d3d3d3">Longitude</th>-->
 									<th class="text-left" style="background: #d3d3d3">Action</th>
 								</tr>
 							</thead>
@@ -178,13 +188,19 @@
                         		<c:forEach items="${userListDetails}" var="list" varStatus="status"> 
  	                        		<tr class="odd gradeX"> 
 	                        		
- 	                        			<td><c:out value="${status.index+1}" /></td>
+ 	                        			<td><c:out value="${status.index + 1}" /></td>
  	                        			<td>
  	                        			<fmt:formatDate value="${list.createdOn}" pattern="dd/MM/yyyy HH:mm" />
  	                        			
  	                        			</td>
- 	                        			<td><c:out value="${list.userName}" /></td> 
-	 	                        		<td><c:out value="${list.userMobile}" /></td> 
+ 	                        			<td><c:out value="${list.userName}" /></td>
+ 	                        			
+ 	                        			<td><c:out value="${list.age}" /></td>
+ 	                        			
+	 	                        		<td><c:out value="${list.gender}" /></td>
+	 	                        		 
+	 	                        		<td><c:out value="${list.userMobile}" /></td>
+	 	                        		 
 	 	                        		<td>
 	 	                        		<a href="${pageContext.request.contextPath}/userViewForm/<c:out value='${list.id}'/>"
 	 	                    					class="btn btn-info btn-sm showData">
@@ -269,16 +285,18 @@ $(document).ready(function () {
     
 });
 function search() {
-
+debugger
 	var udetailList;
 		udetailList = {}
 		udetailList["userName"] = $("#inputName").val();    
 		udetailList["userMobile"] = $("#inputMobile").val();
 		udetailList["zlenCode"] = $("#inputCode").val();
 		udetailList["deviceType"] = $("#inputType").val();
-
+		udetailList["age"] = $("#inputAge").val();
+		udetailList["gender"] = $("#inputGender").val();
+		
 $("#btn-search").prop("disabled",false);
-     
+     debugger
     $.ajax({
         type: "GET",
         //contentType: "application/json",
@@ -296,8 +314,10 @@ $("#btn-search").prop("disabled",false);
 				  var userMobile;
 				  var zlenCode;
 				  var deviceType;
+				  var age;
+				  var gender;
 				  var createdOn;
-				  
+				  debugger
              	  $(data).each(function (index,ele){
 //                  	alert('ele===>'+ele);
                  	id = ele.id;
@@ -305,7 +325,12 @@ $("#btn-search").prop("disabled",false);
                     userMobile = ele.userMobile;
                     zlenCode = ele.zlenCode;
  				    deviceType = ele.deviceType;
- 				   createDate = ele.createdOn;
+ 				    age = ele.age;
+ 				    gender = ele.gender;
+ 				   //createdOn = ele.createdOn
+ 				   var date = new Date(ele.createdOn);
+ 				  createdOn = date.toDateString("yyyy-MM-dd");
+ 				    
  				     
  				    console.log("data", data);
                     console.log("ele", ele);   
@@ -314,12 +339,16 @@ $("#btn-search").prop("disabled",false);
                     console.log("userMobile", userMobile);
                     console.log("zlenCode", zlenCode);
                     console.log("deviceType", deviceType);
+                    console.log("age", age);
+                    console.log("gender", gender);
 					console.log("createdOn", createdOn);
+					
 					//console.log("longitude", longitude);
 					
                                       
-                    result  += "<tr><td>"+ index+1 +"</td><td>"+ele.createdOn+"</td><td>"+
-                    ele.userName+"</td><td>"+ele.userMobile+"</td><td><a href='${pageContext.request.contextPath}/userViewForm/"+ele.id +
+                    result  += "<tr><td>"+ index+1 +"</td><td>"+createdOn+"</td><td>"+
+                    ele.userName+"</td><td>"+ele.age+"</td><td>"+ele.gender+"</td><td>"
+                    +ele.userMobile+"</td><td><a href='${pageContext.request.contextPath}/userViewForm/"+ele.id +
                     " ' class='btn btn-info btn-sm showData'>"+ ele.zlenCode+"</a></td><td>"
                     +ele.deviceType+"</td><td><a href='${pageContext.request.contextPath}/friendList/"+ele.id+
                     "' class='btn btn-primary  btn-sm showData'><i class='fas fa-user-friends' style='font-size: 20px; color: #ffff;'></i></a>&nbsp;<a href='${pageContext.request.contextPath}/contactlist/"
@@ -342,11 +371,11 @@ $("#btn-search").prop("disabled",false);
 	function clearFilter(){
 		
 	debugger
-		window.location = '${pageContext.request.contextPath}/userList';
+		window.location.href = '${pageContext.request.contextPath}/userDetailsList';
 		}
 </script>
 
-
+           
 <script type="text/javascript">
 $(document).ready(function() {
 	
@@ -394,7 +423,7 @@ function download() {
 			var a = document.createElement('a');
 			 var url1 = window.URL.createObjectURL(data);
 	            a.href = url1;
-			 a.download = 'Inactive.xls';
+			 a.download = 'UserDetails.xls';
           document.body.append(a);
           a.click();
           a.remove();

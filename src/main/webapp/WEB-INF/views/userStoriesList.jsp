@@ -266,9 +266,10 @@
                     zlenCode = ele.zlenCode;
  				     
                      result  += "<tr><td>"+index+"</td><td>"+ele.uploadedDateTime+"</td><td>"+ele.mimeType+"</td><td><a href='${pageContext.request.contextPath}/userViewZlen/"+ele.zlenCode+"' class='showData'>"+ele.zlenCode+"</a></td>"+
+                     "<td>"+ele.userName+" </td>"+
                      "<td>"+ele.commentCount+" </td>"+
                      "<td>"+ele.likesCount+" </td>"+
-                     //"<td><a href='#' src='"+ele.uploadedPath+"' class='btn btn-info btn-sm img-view'>View</a></td>"
+                     "<td><a href='#' src='"+ele.uploadedPath+"' class='btn btn-info btn-sm img-view'>View</a></td>"
                      +"</tr>";
                      
                                      

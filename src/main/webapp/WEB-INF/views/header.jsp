@@ -54,7 +54,7 @@
       </li>
        --%>
      <li class="nav-item active">
-       <a class="nav-link" href="${pageContext.request.contextPath}/usersList"> 
+       <a class="nav-link" href="${pageContext.request.contextPath}/userDetailsList"> 
          <i class="fas fa-fw fa-tachometer-alt"></i>
          <span>User List</span></a>
      </li>
@@ -96,6 +96,12 @@
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>Banners</span></a>
       </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="${pageContext.request.contextPath}/activeUserDashboard">
+          <i class="fas fa-fw fa-tachometer-alt"></i>
+          <span>Active User Dashboard</span></a>
+      </li>
+      
       <!-- Divider -->
       <hr class="sidebar-divider d-none d-md-block">
 
