@@ -38,7 +38,7 @@ public interface UserDetailsRepository extends JpaRepository<UserDetails, Intege
 	@Query("SELECT u FROM UserDetails u "
 			+ "WHERE (u.userName LIKE  %:userName% or :userName is null ) and ( u.userMobile LIKE %:userMobile% or :userMobile is null ) "
 			+ "and ( u.zlenCode  LIKE  %:zlenCode% or :zlenCode is null ) and (u.deviceType LIKE %:deviceType% or :deviceType is null ) "
-			+ "and (u.age = :age or :age is null ) and (u.gender LIKE  %:gender% or :gender is null ) "
+			+ "and (u.age = :age or :age is null ) and (u.gender =  :gender or :gender is null ) "
 			+ "and (Date(u.createdOn) = :createdOn  or cast(:createdOn as date) is null) order by u.createdOn desc")
 	ArrayList<UserDetails> getUserDetails(@Param("userName") String userName, @Param("userMobile") String userMobile, @Param("zlenCode") String zlenCode, @Param("deviceType") String deviceType, @Param("createdOn") @Temporal  Date createdOn, @Param("gender") String gender, @Param("age") Integer age);
 	
