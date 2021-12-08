@@ -15,7 +15,7 @@ import com.zlenadmin.dto.UserUpdateDto;
 @Repository
 public interface ActiveUserUpdateRepository extends JpaRepository<UserUpdate, Long> {
 	
-	@Query(value = "select count(distinct uup.user_id) as count from user_update uup  where uup.created_at = :todaydate ", nativeQuery = true)
+	@Query(value = "select count(distinct uup.user_id) as count from user_update uup  where uup.created_at >= :todaydate ", nativeQuery = true)
 	Integer getTodayActiveUser(@Param("todaydate") Date todate);
 	
 	@Query(value = "select count(distinct uup.user_id) as count from user_update uup where uup.created_at >= :todate ", nativeQuery = true)

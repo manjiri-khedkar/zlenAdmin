@@ -42,6 +42,33 @@
 <link
 	href="${pageContext.request.contextPath}/resources/css/sb-admin-2.min.css"
 	rel="stylesheet">
+	
+	<link href="https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">  
+      <script src="https://code.jquery.com/jquery-1.10.2.js"></script>  
+      <script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>  
+      <!-- Javascript -->  
+      <script>  
+         $(function() {  
+            $( "#inputFromDate" ).datepicker({  
+              // appendText:"(yy-mm-dd)",  
+               dateFormat:"yy-mm-dd"  
+              // altField: "#datepicker-4",  
+              // altFormat: "DD, d MM, yy"  
+            });  
+         });  
+      </script>  
+      
+      <script>  
+         $(function() {  
+            $( "#inputToDate" ).datepicker({  
+              // appendText:"(yy-mm-dd)",  
+               dateFormat:"yy-mm-dd"  
+              // altField: "#datepicker-4",  
+              // altFormat: "DD, d MM, yy"  
+            });  
+         });  
+      </script>  
+
 
 </head>
 
@@ -66,10 +93,10 @@
 				<div class="row">
 
 					&nbsp;&nbsp;<label for="formdate"><b>From Date : </b></label>&nbsp; <input
-						type="text" id="inputFromDate" placeholder="Enter Date......">&nbsp;&nbsp;
+						type="text" id="inputFromDate"  placeholder="yyyy-MM-dd">&nbsp;&nbsp;
 						
 						&nbsp;&nbsp;<label for="todaydate"><b>To Date : </b></label>&nbsp;
-					<input type="text" id="inputToDate" placeholder="Enter Date......">&nbsp;&nbsp;
+					<input type="text" id="inputToDate"  placeholder="yyyy-MM-dd">&nbsp;&nbsp;
 
    					<button type="button" id="bth-search" class="btn btn-success btn-md"  onclick="search()">Search</button>&nbsp;&nbsp;
 					<button type="button" class="btn btn-danger btn-md"

@@ -47,7 +47,7 @@ public class ActiveUserDashboardController {
 		model.addObject("monthlyActiveUser", monthlyActiveUser);
 		
 		Calendar cal1 = new GregorianCalendar();
-		cal1.add(Calendar.DATE, 0);
+		cal1.add(Calendar.DATE, -1);
 		Date daysAgo1 = cal1.getTime();
 		Integer todayActiveUser = activeUserUpdateRepository.getTodayActiveUser(daysAgo1);
 		model.addObject("todayActiveUser", todayActiveUser);
