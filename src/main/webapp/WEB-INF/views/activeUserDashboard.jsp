@@ -112,14 +112,12 @@
 						style="padding: 8px; text-align: center;">
 
 
-
-
 						<div class="col-md-3 bg-primary  align-center"
 							style="border-radius: 15px; color: #ffff;">
 
-							<span style="font-size: 20pt"> <b>Today Active User
+							<span style="font-size: 15pt"> <b>Today Active User
 									Update</b>
-							</span> <br> <br> <span style="font-size: 24pt"> <c:out
+							</span> <br> <br> <span style="font-size: 20pt"> <c:out
 									value="${todayActiveUser}" />
 							</span>
 
@@ -128,9 +126,9 @@
 						<div class="col-md-1"></div>
 						<div class="col-md-3 bg-primary  align-center"
 							style="border-radius: 15px; color: #ffff;">
-							<span style="font-size: 20pt"> <b> Monthly Active User
+							<span style="font-size: 15pt"> <b> Monthly Active User
 									Update</b>
-							</span> <br> <br> <span style="font-size: 24pt"> <c:out
+							</span> <br> <br> <span style="font-size: 20pt"> <c:out
 									value="${monthlyActiveUser}" />
 							</span>
 
@@ -138,9 +136,9 @@
 						<div class="col-md-1"></div>
 						<div class="col-md-3 bg-primary  align-center"
 							style="border-radius: 15px; color: #ffff;">
-							<span style="font-size: 20pt"> <b>Average Time Spend
+							<span style="font-size: 15pt"> <b>Average Time Spend
 									One User Per Day</b>
-							</span> <br> <br> <span style="font-size: 24pt"> <c:out
+							</span> <br> <br> <span style="font-size: 20pt"> <c:out
 									value="${averageTimeSpendOneUserPerDay}" />
 							</span>
 

@@ -36,12 +36,12 @@ public class ActiveUserDashboardController {
 	@RequestMapping( value = "/activeUserDashboard", method = RequestMethod.GET)
 	public Object dashboard(HttpServletResponse response, @RequestParam(required=false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date todaydate,
 			@RequestParam(required=false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date  fromdate ) {
-		//appuserRepository.addActivity(sessionUser.getUserId(), "dashboard", System.currentTimeMillis());
+
 		ModelAndView model = new ModelAndView();
 		model.setViewName("activeUserDashboard");
 
 		Calendar cal = new GregorianCalendar();
-		cal.add(Calendar.DAY_OF_MONTH, -30);
+		cal.add(Calendar.DATE, -30);
 		Date daysAgo = cal.getTime();
 		Integer monthlyActiveUser = activeUserUpdateRepository.getMonthlyActiveUser(daysAgo);
 		model.addObject("monthlyActiveUser", monthlyActiveUser);
@@ -52,8 +52,8 @@ public class ActiveUserDashboardController {
 		Integer todayActiveUser = activeUserUpdateRepository.getTodayActiveUser(daysAgo1);
 		model.addObject("todayActiveUser", todayActiveUser);
 		
-		Integer totalCount = activeUserUpdateRepository.getAverageTimeSpendOneUserPerDay();
-		Integer averageTimeSpendOneUserPerDay = totalCount / monthlyActiveUser;
+		Integer totalCount = activeUserUpdateRepository.getAverageTimeSpendOneUserPerDay(daysAgo);
+		Integer averageTimeSpendOneUserPerDay = totalCount / monthlyActiveUser/30;
 		model.addObject("averageTimeSpendOneUserPerDay", averageTimeSpendOneUserPerDay);
 		
 		if ("".equals(todaydate)) {
@@ -65,7 +65,7 @@ public class ActiveUserDashboardController {
 		}
 		
 		Calendar cal2 = new GregorianCalendar();
-		cal2.add(Calendar.DATE, -30);
+		//cal2.add(Calendar.DATE, -30);
 		todaydate= cal2.getTime();
 		
 		Calendar cal3 = new GregorianCalendar();

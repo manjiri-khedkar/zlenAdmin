@@ -21,9 +21,11 @@ import com.zlenadmin.dto.UserUpdateDto;
 @Repository
 public class UserUpdateImpl  implements UserUpdate{
 	
-	String sql = "select cast(count(uup.event_type) as int) as count , et.status as event  from user_update uup "  
-			+ "inner join event_type et on uup.event_type = et.id where uup.created_at >= :todaydate and uup.created_at >= :fromdate "
-			+ "group by et.status";
+	String sql = "select cast(count(uup.event_type) as int) as count , et.status as event  "
+			+ "from user_update uup "  
+			+ "inner join event_type et on uup.event_type = et.id "
+			+ "where uup.created_at between :fromdate and :todaydate "
+			+ "group by et.status ";
 	
 	@Autowired
 	@Qualifier("zlen-jdbc")

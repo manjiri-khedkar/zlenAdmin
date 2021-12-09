@@ -22,8 +22,8 @@ public interface ActiveUserUpdateRepository extends JpaRepository<UserUpdate, Lo
 	Integer getMonthlyActiveUser(@Param("todate") Date todate);
 	
 	
-	@Query(value = "select count(distinct uup.id)  as count from user_update uup where uup.created_at = uup.created_at ", nativeQuery = true)
-	Integer getAverageTimeSpendOneUserPerDay();
+	@Query(value = "select count(distinct uup.id)  as count from user_update uup where uup.created_at >= :todate ", nativeQuery = true)
+	Integer getAverageTimeSpendOneUserPerDay(@Param("todate") Date todate);
 	
 //	@Query(value = "select cast(count(uup.event_type) as int) as count , et.status as event  from user_update uup " 
 //	+ "inner join event_type et on uup.event_type = et.id where uup.created_at >= :todaydate and uup.created_at >= :fromdate "
