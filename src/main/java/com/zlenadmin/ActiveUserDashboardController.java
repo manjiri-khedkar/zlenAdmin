@@ -8,6 +8,7 @@ import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.TimeZone;
+import java.util.concurrent.TimeUnit;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -56,45 +57,28 @@ public class ActiveUserDashboardController {
 		fromdate = cal1.getTime();
 		
 		Calendar cal2 = new GregorianCalendar();
-		cal2.add(Calendar.DATE, 0);
 		todaydate = cal2.getTime();
 		
 		Integer todayActiveUser = activeUserUpdateRepository.getTodayActiveUser(fromdate,todaydate);
 		model.addObject("todayActiveUser", todayActiveUser);
 		
-		Integer totalCount = activeUserUpdateRepository.getAverageTimeSpendOneUserPerDay(daysAgo);
+		Integer totalCount = activeUserUpdateRepository.getAverageTimeSpendOneUserPerDay(fromdate,todaydate);
 		model.addObject("totalCount", totalCount);
-		Integer averageTimeSpendOneUserPerDay = totalCount / todayActiveUser/30;
+		Integer averageTimeSpendOneUserPerDay = totalCount / todayActiveUser;
 		model.addObject("averageTimeSpendOneUserPerDay", averageTimeSpendOneUserPerDay);
 		
-		if ("".equals(todaydate)) {
-			todaydate=null;
-		}
-		
-		if ("".equals(fromdate)) {
-			fromdate=null;
-		}
-		
-		Calendar cal5 = new GregorianCalendar();
-		//cal2.add(Calendar.DATE, -30);
-		todaydate= cal5.getTime();
-		
-		Calendar cal3 = new GregorianCalendar();
-		cal3.add(Calendar.DATE, -30);
-		fromdate = cal3.getTime();
-		
-		
+				
 		List<UserUpdateDto> eventList = userUpdate.getEventType(todaydate, fromdate);
 		
 		model.addObject("eventList", eventList);
-		
 
 		return model;
 	}
 	
 	@GetMapping("/activeUserDashboardListContent") 
 	@ResponseBody
-	public Object getUserUpdates(Model model, @Param("todaydate")@DateTimeFormat(pattern = "yyyy-MM-dd") Date  todaydate, @Param("fromdate")@DateTimeFormat(pattern = "yyyy-MM-dd") Date  fromdate) {
+	public Object getUserUpdates(Model model, @Param("todaydate")@DateTimeFormat(pattern = "yyyy-MM-dd") Date  todaydate, 
+			@Param("fromdate")@DateTimeFormat(pattern = "yyyy-MM-dd") Date  fromdate) {
 		
 		if ("".equals(todaydate)) {
 			todaydate=null;
@@ -103,53 +87,25 @@ public class ActiveUserDashboardController {
 		if ("".equals(fromdate)) {
 			fromdate=null;
 		}
-		 List<HashMap<String,Object>> monthlyCount = new ArrayList<HashMap<String,Object>>();
-		 List<HashMap<String,Object>> today = new ArrayList<HashMap<String,Object>>();
-		 List<HashMap<String,Object>> averageCount = new ArrayList<HashMap<String,Object>>();
-			Integer monthly = activeUserUpdateRepository.getMonthlyActiveUserSearch(todaydate, fromdate);
-			
 			Integer todayCount = activeUserUpdateRepository.getTodayActiveUser(fromdate, todaydate);
-			
-			
-			Calendar cal = new GregorianCalendar();
-			cal.add(Calendar.DATE, -30);
-			Date daysAgo = cal.getTime();
-				Integer totalAvg =  activeUserUpdateRepository.getAverageTimeSpendOneUserPerDay(daysAgo);
+			Integer totalAvg =  activeUserUpdateRepository.getAverageTimeSpendOneUserPerDay(fromdate, todaydate);
 				
-				@SuppressWarnings("deprecation")
-				Integer theCalcDays = ((int) (fromdate.getDate() - todaydate.getDate()))  ;
-				System.out.println("total1==:"+theCalcDays );
+				
+				long diff = todaydate.getTime() - fromdate.getTime();
+				Integer theCalcDays = (int) TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
 				
 				Integer Average = (int) (totalAvg/todayCount/theCalcDays);
 				System.out.println("total==:"+Average );
 				
-				
-				
-		 HashMap<String, Object> finalMap1 = new HashMap<String, Object>();
-    	 finalMap1.put("monthly", monthly);
     	 
-    	 HashMap<String, Object> finalMap2 = new HashMap<String, Object>();
-    	 finalMap2.put("todayCount", todayCount);
-    	 
-    	 HashMap<String, Object> finalMap3 = new HashMap<String, Object>();
-    	 finalMap3.put("Average", Average);
-    	 
-//		Calendar cal2 = new GregorianCalendar();
-//		cal2.add(Calendar.DATE, -30);
-//		todaydate= cal2.getTime();
-		
 		List<UserUpdateDto> eventList = userUpdate.getEventType(todaydate, fromdate);
 		
 		
-
-		monthlyCount.add(finalMap1);
-		today.add(finalMap2);
-		averageCount.add(finalMap3);
 		HashMap<String, Object> finalMap4 = new HashMap<String, Object>();
     	finalMap4.put("eventList",eventList);
-    	finalMap4.put("monthlyCount", monthlyCount);
-    	finalMap4.put("today", today);
-    	finalMap4.put("averageCount", averageCount);
+    	finalMap4.put("monthlyCount", totalAvg);
+    	finalMap4.put("today", todayCount);
+    	finalMap4.put("averageCount", Average);
 		
 		return finalMap4;
 	

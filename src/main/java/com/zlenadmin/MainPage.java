@@ -420,14 +420,20 @@ public class MainPage {
 		}
 		if ("".equals(zlenCode)) {
 			zlenCode=null;
+		}else {
+			zlenCode =zlenCode.toLowerCase();
 		}
 		
 		if ("".equals(userName)) {
 			userName=null;
+		}else {
+			userName=userName.toLowerCase();
 		}
 		
 		if ("All".equals(gender)) {
 			gender=null;
+		}else {
+			gender=gender.toLowerCase();
 		}
 		
 		if("".equals(age)) {

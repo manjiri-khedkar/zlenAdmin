@@ -88,16 +88,14 @@
 						<b>Active User Dashboard</b>
 					</h2>
 					
-					<br>
 					<div class="row  center-align"
 						style="padding: 8px; text-align: center;">
 					<div class="col-md-3"></div>
 					<div class="col-md-1"></div>
 					<div class="col-md-3 bg-primary  align-center"
 							style="border-radius: 15px; color: #ffff;" >
-							<span style="font-size: 15pt" > <b> Monthly Active User
-									Update</b>
-							</span> <br> <br> 
+							<span style="font-size: 15pt" > <b> Last 30 days users</b>
+							</span> <br> 
 							<span style="font-size: 20pt" id="monthlyCount"> 
 							<c:out value="${monthlyActiveUser}" />
 							</span>
@@ -122,7 +120,7 @@
 						onclick="clearFilter()">Clear</button>
 				</div>
 
-				<br> <br>
+				<br> 
 
 
 
@@ -134,8 +132,8 @@
 						<div class="col-md-3 bg-primary  align-center"
 							style="border-radius: 15px; color: #ffff;">
 
-							<span style="font-size: 15pt"> <b>Today Active User
-									Update</b>
+							<span style="font-size: 15pt"> 
+								<b>Users per day</b>
 							</span> <br>  <span style="font-size: 20pt" id ="todayCount"> <c:out
 									value="${todayActiveUser}" />
 							</span>
@@ -145,10 +143,9 @@
 						<div class="col-md-1"></div>
 						<div class="col-md-3 bg-primary  align-center"
 							style="border-radius: 15px; color: #ffff;" >
-							<span style="font-size: 15pt" > <b> Total Active User
-									Update</b>
+							<span style="font-size: 15pt" > <b> Total Event Count</b>
 							</span> <br> <br> 
-							<span style="font-size: 20pt"> 
+							<span style="font-size: 20pt" id = "totalEventCount"> 
 							<c:out value="${totalCount}" />
 							</span>
 
@@ -166,7 +163,6 @@
 					</div>
 				</div>
 
-				<br>
 				<br>
 
 				<div class="panel-body">
@@ -285,12 +281,9 @@ debugger
 							var result = "";
 							var count;
 							var event;
-							var monthly = data.monthlyCount;
-							var monthlycount;
-							var today = data.today;
-							var todayCount;
-							var average = data.averageCount;
-							var averageCount;
+							var monthlycount = data.monthlyCount;
+							var todayCount = data.today;
+							var averageCount = data.averageCount;
 							
 
 						var eventlist = data.eventList;
@@ -302,43 +295,18 @@ debugger
 
 												count = ele.count;
 												event = ele.event;
-												result += "<tr><td>"+ index + "</td><td>"
+												result += "<tr><td>"+ (index+1) + "</td><td>"
 														+ ele.count
 														+ "</td><td>"
 														+ ele.event
 														+ "</td></tr>";
 											});
-							$(monthly)
-							.each(
-									function(index, ele) {
-										
-										monthlycount = ele.monthly;	
-										console.log(ele.monthly);
-										console.log(monthlycount);
-	
-									});
 							
-							$(today)
-							.each(
-									function(index, ele) {
-										
-										todayCount = ele.todayCount;	
-										console.log(ele.todayCount);
-										console.log(todayCount);
-	
-									});
+						
 							
-							$(average)
-							.each(
-									function(index, ele) {
-										
-										averageCount = ele.Average;	
-										console.log(ele.Average);
-										console.log(averageCount);
-	
-									});
 							
-							$('#monthlyCount').html(monthlycount);
+							
+							$('#totalEventCount').html(monthlycount);
 							$('#todayCount').html(todayCount);
 							$('#averageCount').html(averageCount);
 							$('#table1 tbody').html(result);

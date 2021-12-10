@@ -217,10 +217,10 @@
 	 	                    				<i class="fas fa-user-friends" style="font-size: 20px; color: #ffff;"></i>
 	 	                    					</a>&nbsp;
  	                    					
-	 	                    				<a href="${pageContext.request.contextPath}/contactlist/<c:out value='${list.id}'/>" 
+	 	                    				<%-- <a href="${pageContext.request.contextPath}/contactlist/<c:out value='${list.id}'/>" 
 	 	                    					 class="btn btn-danger btn-sm showData">
 	 	                    					 <i class="fas fa-address-book" style="font-size: 20px; color: #ffff;"></i>
-	 	                    					 </a>&nbsp;
+	 	                    					 </a>&nbsp; --%>
 	 	                    				
 	 	                        		</td>
  	                       			</tr> 
@@ -351,8 +351,7 @@ $("#btn-search").prop("disabled",false);
                     +ele.userMobile+"</td><td><a href='${pageContext.request.contextPath}/userViewForm/"+ele.id +
                     " ' class='btn btn-info btn-sm showData'>"+ ele.zlenCode+"</a></td><td>"
                     +ele.deviceType+"</td><td><a href='${pageContext.request.contextPath}/friendList/"+ele.id+
-                    "' class='btn btn-primary  btn-sm showData'><i class='fas fa-user-friends' style='font-size: 20px; color: #ffff;'></i></a>&nbsp;<a href='${pageContext.request.contextPath}/contactlist/"
-                    +ele.id+"' class='btn btn-danger btn-sm showData'><i class='fas fa-address-book' style='font-size: 20px; color: #ffff;'></i></a>&nbsp;</td></tr>";                   
+                    "' class='btn btn-primary  btn-sm showData'><i class='fas fa-user-friends' style='font-size: 20px; color: #ffff;'></i></a>&nbsp;</td></tr>";                   
                                       
              	  });
             	  

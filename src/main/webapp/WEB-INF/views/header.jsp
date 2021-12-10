@@ -12,6 +12,9 @@
 .sticky-footer{
 	padding: .5rem !important;
 }
+.sidebar .nav-item .nav-link {
+    padding: .5rem 1rem; 
+}
 
  </style>
  <!-- Sidebar -->
