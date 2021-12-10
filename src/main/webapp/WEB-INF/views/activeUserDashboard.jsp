@@ -87,8 +87,27 @@
 					<h2 class="text-center" style="color: black;">
 						<b>Active User Dashboard</b>
 					</h2>
+					
+					<br>
+					<div class="row  center-align"
+						style="padding: 8px; text-align: center;">
+					<div class="col-md-3"></div>
+					<div class="col-md-1"></div>
+					<div class="col-md-3 bg-primary  align-center"
+							style="border-radius: 15px; color: #ffff;" >
+							<span style="font-size: 15pt" > <b> Monthly Active User
+									Update</b>
+							</span> <br> <br> 
+							<span style="font-size: 20pt" id="monthlyCount"> 
+							<c:out value="${monthlyActiveUser}" />
+							</span>
+
+					</div>
+						<div class="col-md-1"></div>
+					<div class="col-md-3"></div>
 				</div>
-				<br />
+				
+				<br>
 
 				<div class="row">
 
@@ -117,7 +136,7 @@
 
 							<span style="font-size: 15pt"> <b>Today Active User
 									Update</b>
-							</span> <br> <br> <span style="font-size: 20pt"> <c:out
+							</span> <br>  <span style="font-size: 20pt" id ="todayCount"> <c:out
 									value="${todayActiveUser}" />
 							</span>
 
@@ -125,11 +144,12 @@
 
 						<div class="col-md-1"></div>
 						<div class="col-md-3 bg-primary  align-center"
-							style="border-radius: 15px; color: #ffff;">
-							<span style="font-size: 15pt"> <b> Monthly Active User
+							style="border-radius: 15px; color: #ffff;" >
+							<span style="font-size: 15pt" > <b> Total Active User
 									Update</b>
-							</span> <br> <br> <span style="font-size: 20pt"> <c:out
-									value="${monthlyActiveUser}" />
+							</span> <br> <br> 
+							<span style="font-size: 20pt"> 
+							<c:out value="${totalCount}" />
 							</span>
 
 						</div>
@@ -138,7 +158,7 @@
 							style="border-radius: 15px; color: #ffff;">
 							<span style="font-size: 15pt"> <b>Average Time Spend
 									One User Per Day</b>
-							</span> <br> <br> <span style="font-size: 20pt"> <c:out
+							</span> <br>  <span style="font-size: 20pt" id = "averageCount"> <c:out
 									value="${averageTimeSpendOneUserPerDay}" />
 							</span>
 
@@ -260,26 +280,70 @@ debugger
 
 						/// data:{userName:inputName, userMobile:inputMobile, zlenCode:inputCode, deviceType:inputType},
 						success : function(data) {
+							console.log(data);
 
 							var result = "";
 							var count;
 							var event;
+							var monthly = data.monthlyCount;
+							var monthlycount;
+							var today = data.today;
+							var todayCount;
+							var average = data.averageCount;
+							var averageCount;
+							
 
-							$(data)
+						var eventlist = data.eventList;
+
+						
+							$(eventlist)
 									.each(
 											function(index, ele) {
 
 												count = ele.count;
 												event = ele.event;
-
 												result += "<tr><td>"+ index + "</td><td>"
 														+ ele.count
 														+ "</td><td>"
 														+ ele.event
 														+ "</td></tr>";
 											});
-
+							$(monthly)
+							.each(
+									function(index, ele) {
+										
+										monthlycount = ele.monthly;	
+										console.log(ele.monthly);
+										console.log(monthlycount);
+	
+									});
+							
+							$(today)
+							.each(
+									function(index, ele) {
+										
+										todayCount = ele.todayCount;	
+										console.log(ele.todayCount);
+										console.log(todayCount);
+	
+									});
+							
+							$(average)
+							.each(
+									function(index, ele) {
+										
+										averageCount = ele.Average;	
+										console.log(ele.Average);
+										console.log(averageCount);
+	
+									});
+							
+							$('#monthlyCount').html(monthlycount);
+							$('#todayCount').html(todayCount);
+							$('#averageCount').html(averageCount);
 							$('#table1 tbody').html(result);
+							
+							
 							bindFunction();
 							return;
 							alert(ele.success);

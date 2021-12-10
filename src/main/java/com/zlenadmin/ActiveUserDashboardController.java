@@ -1,8 +1,11 @@
 package com.zlenadmin;
 
+import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.HashMap;
 import java.util.List;
 import java.util.TimeZone;
 
@@ -20,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.JsonObject;
 import com.zlenadmin.api.entity.LastSeenSummary;
 import com.zlenadmin.dao.UserUpdate;
 import com.zlenadmin.dto.UserUpdateDto;
@@ -43,17 +47,24 @@ public class ActiveUserDashboardController {
 		Calendar cal = new GregorianCalendar();
 		cal.add(Calendar.DATE, -30);
 		Date daysAgo = cal.getTime();
+		
 		Integer monthlyActiveUser = activeUserUpdateRepository.getMonthlyActiveUser(daysAgo);
 		model.addObject("monthlyActiveUser", monthlyActiveUser);
 		
 		Calendar cal1 = new GregorianCalendar();
 		cal1.add(Calendar.DATE, -1);
-		Date daysAgo1 = cal1.getTime();
-		Integer todayActiveUser = activeUserUpdateRepository.getTodayActiveUser(daysAgo1);
+		fromdate = cal1.getTime();
+		
+		Calendar cal2 = new GregorianCalendar();
+		cal2.add(Calendar.DATE, 0);
+		todaydate = cal2.getTime();
+		
+		Integer todayActiveUser = activeUserUpdateRepository.getTodayActiveUser(fromdate,todaydate);
 		model.addObject("todayActiveUser", todayActiveUser);
 		
 		Integer totalCount = activeUserUpdateRepository.getAverageTimeSpendOneUserPerDay(daysAgo);
-		Integer averageTimeSpendOneUserPerDay = totalCount / monthlyActiveUser/30;
+		model.addObject("totalCount", totalCount);
+		Integer averageTimeSpendOneUserPerDay = totalCount / todayActiveUser/30;
 		model.addObject("averageTimeSpendOneUserPerDay", averageTimeSpendOneUserPerDay);
 		
 		if ("".equals(todaydate)) {
@@ -64,9 +75,9 @@ public class ActiveUserDashboardController {
 			fromdate=null;
 		}
 		
-		Calendar cal2 = new GregorianCalendar();
+		Calendar cal5 = new GregorianCalendar();
 		//cal2.add(Calendar.DATE, -30);
-		todaydate= cal2.getTime();
+		todaydate= cal5.getTime();
 		
 		Calendar cal3 = new GregorianCalendar();
 		cal3.add(Calendar.DATE, -30);
@@ -83,7 +94,7 @@ public class ActiveUserDashboardController {
 	
 	@GetMapping("/activeUserDashboardListContent") 
 	@ResponseBody
-	public List<UserUpdateDto> getUserUpdates(Model model, @Param("todaydate")@DateTimeFormat(pattern = "yyyy-MM-dd") Date  todaydate, @Param("fromdate")@DateTimeFormat(pattern = "yyyy-MM-dd") Date  fromdate) {
+	public Object getUserUpdates(Model model, @Param("todaydate")@DateTimeFormat(pattern = "yyyy-MM-dd") Date  todaydate, @Param("fromdate")@DateTimeFormat(pattern = "yyyy-MM-dd") Date  fromdate) {
 		
 		if ("".equals(todaydate)) {
 			todaydate=null;
@@ -92,15 +103,58 @@ public class ActiveUserDashboardController {
 		if ("".equals(fromdate)) {
 			fromdate=null;
 		}
-		
+		 List<HashMap<String,Object>> monthlyCount = new ArrayList<HashMap<String,Object>>();
+		 List<HashMap<String,Object>> today = new ArrayList<HashMap<String,Object>>();
+		 List<HashMap<String,Object>> averageCount = new ArrayList<HashMap<String,Object>>();
+			Integer monthly = activeUserUpdateRepository.getMonthlyActiveUserSearch(todaydate, fromdate);
+			
+			Integer todayCount = activeUserUpdateRepository.getTodayActiveUser(fromdate, todaydate);
+			
+			
+			Calendar cal = new GregorianCalendar();
+			cal.add(Calendar.DATE, -30);
+			Date daysAgo = cal.getTime();
+				Integer totalAvg =  activeUserUpdateRepository.getAverageTimeSpendOneUserPerDay(daysAgo);
+				
+				@SuppressWarnings("deprecation")
+				Integer theCalcDays = ((int) (fromdate.getDate() - todaydate.getDate()))  ;
+				System.out.println("total1==:"+theCalcDays );
+				
+				Integer Average = (int) (totalAvg/todayCount/theCalcDays);
+				System.out.println("total==:"+Average );
+				
+				
+				
+		 HashMap<String, Object> finalMap1 = new HashMap<String, Object>();
+    	 finalMap1.put("monthly", monthly);
+    	 
+    	 HashMap<String, Object> finalMap2 = new HashMap<String, Object>();
+    	 finalMap2.put("todayCount", todayCount);
+    	 
+    	 HashMap<String, Object> finalMap3 = new HashMap<String, Object>();
+    	 finalMap3.put("Average", Average);
+    	 
 //		Calendar cal2 = new GregorianCalendar();
 //		cal2.add(Calendar.DATE, -30);
 //		todaydate= cal2.getTime();
 		
 		List<UserUpdateDto> eventList = userUpdate.getEventType(todaydate, fromdate);
 		
-		return eventList;
+		
+
+		monthlyCount.add(finalMap1);
+		today.add(finalMap2);
+		averageCount.add(finalMap3);
+		HashMap<String, Object> finalMap4 = new HashMap<String, Object>();
+    	finalMap4.put("eventList",eventList);
+    	finalMap4.put("monthlyCount", monthlyCount);
+    	finalMap4.put("today", today);
+    	finalMap4.put("averageCount", averageCount);
+		
+		return finalMap4;
 	
 	}
+	
+	
 
 }
