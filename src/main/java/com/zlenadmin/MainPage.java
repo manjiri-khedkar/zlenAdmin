@@ -47,6 +47,7 @@ import com.zlenadmin.dto.InactiveDto;
 import com.zlenadmin.dto.PendingRegistrationDto;
 import com.zlenadmin.dto.RegisterPendingDto;
 import com.zlenadmin.dto.StoriesDto;
+import com.zlenadmin.dto.UsersDetailDto;
 import com.zlenadmin.model.AppUser;
 import com.zlenadmin.model.SessionUser;
 import com.zlenadmin.repository.AppuserRepository;
@@ -86,6 +87,9 @@ public class MainPage {
 	
 	@Autowired
 	 private ExcelService fileService;
+	
+	@Autowired
+	private com.zlenadmin.dao.UserDetails userDetails;
 	
 	@GetMapping(value = "/")
 	public String indexView(@ModelAttribute AppUser users) 
@@ -370,7 +374,7 @@ public class MainPage {
 	
 	public Object userDetailsList(Model model,@RequestParam(required=false) String userName, 
 			@RequestParam(required=false) String userMobile, @RequestParam(required=false) String zlenCode,@RequestParam(required=false) String deviceType, 
-			@RequestParam(required=false) String gender, @RequestParam(required=false) Integer age, @RequestParam(required=false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date  createdOn)
+			@RequestParam(required=false) String gender, @RequestParam(required=false) Integer age, @RequestParam(required=false) Integer age1, @RequestParam(required=false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date  createdOn)
 	{	
 		if ("All".equals(deviceType)) {
 			deviceType=null;
@@ -390,24 +394,31 @@ public class MainPage {
 			gender=null;
 		}
 		
-		if("".equals(age)) {
+		if("All".equals(age)) {
 			age = null;
+		}
+		
+		if("All".equals(age1)) {
+			age1 = null;
 		}
 		
 		if ("".equals(createdOn)) {
 			createdOn=null;
 		}
 		
+		
 		ModelAndView mv = new ModelAndView();
-		List<UserDetails> userDetailsList = userDetailsRepository.getUserDetails(userName, userMobile, zlenCode, deviceType, createdOn, gender, age);
+		
+		List<UsersDetailDto> userDetailsList = userDetails.getUserDetails(userName, userMobile, zlenCode, deviceType, createdOn, gender, age,age1);
 		mv.addObject("userListDetails", userDetailsList);
 		mv.setViewName("userDetailsList");
 		return mv;
+
 	}
 	
 	@GetMapping("/userDetailsListContents") 
 	@ResponseBody
-	public ArrayList<UserDetails> getUserDetails(Model model ,@Param("userName") String userName, @Param("userMobile") String userMobile, @Param("gender") String gender, @Param("age") Integer age, @Param("zlenCode") String zlenCode, @Param("deviceType") String deviceType, @Param("createdOn") @DateTimeFormat(pattern = "yyyy-MM-dd")Date createdOn)
+	public List<UsersDetailDto> getUserDetails(Model model ,@Param("userName") String userName, @Param("userMobile") String userMobile, @Param("gender") String gender, @Param("age") Integer age, @Param("age1") Integer age1, @Param("zlenCode") String zlenCode, @Param("deviceType") String deviceType, @Param("createdOn") @DateTimeFormat(pattern = "yyyy-MM-dd")Date createdOn)
 	{
 //		List<Object[]> userDetailsContentList= userDetailsRepository.getDetailsData();
 		
@@ -436,17 +447,35 @@ public class MainPage {
 			gender=gender.toLowerCase();
 		}
 		
-		if("".equals(age)) {
+		if("All".equals(age) || "All".equals(age1)) {
 			age = null;
-		} 
+			age1 = null;
+		}
+		
 		if ("".equals(createdOn)) {
 			createdOn=null;
 		}
+		 
+		
+		Integer valueAge = 0;
+		Integer valueAge1 = 0;
+	
+		
 		
 		//ArrayList<UserDetails> userDetailslist = userDetailsRepository.getUserDetails(userName,userMobile,zlenCode,age, deviceType,gender, createdOn);
+//		if(age > 0 && age1 <= 19){
+//		 
+			valueAge = age;
+			valueAge1 = age1;
+//			
 		
-		ArrayList<UserDetails> userDetailsList = userDetailsRepository.getUserDetails(userName,userMobile,zlenCode, deviceType, createdOn, gender, age);
-	
+		//|| (age >= 20 && age <=25) || (age >= 26 && age <= 45) || (age >= 46 && age <= 1000)) {
+			 
+			System.out.println("age == :"+ age);
+			System.out.println("age1 == :"+ age1);
+		
+		List<UsersDetailDto> userDetailsList = userDetails.getUserDetails(userName,userMobile,zlenCode, deviceType, createdOn, gender, valueAge, valueAge1);
+		
 		return userDetailsList;
 		
 	}
@@ -454,7 +483,7 @@ public class MainPage {
 	@GetMapping("/userDetailsDownload")
 	@ResponseBody
 	  public ResponseEntity<InputStreamResource> getuserDetailsDownload(@RequestParam(required=false) String userName, 
-				@RequestParam(required=false) String userMobile, @RequestParam(required=false) String gender, @RequestParam(required=false) Integer age, @RequestParam(required=false) String zlenCode, @RequestParam(required=false) String deviceType, 
+				@RequestParam(required=false) String userMobile, @RequestParam(required=false) String gender, @RequestParam(required=false) Integer age, @RequestParam(required=false) Integer age1, @RequestParam(required=false) String zlenCode, @RequestParam(required=false) String deviceType, 
 				@RequestParam(required=false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date  createdOn) {
 		
 		if ("All".equals(deviceType)) {
@@ -475,8 +504,12 @@ public class MainPage {
 			gender=null;
 		}
 		
-		if("".equals(age)) {
+		if("All".equals(age)) {
 			age = null;
+		}
+		
+		if("All".equals(age1)) {
+			age1 = null;
 		}
 		if ("".equals(createdOn)) {
 			createdOn=null;
@@ -484,7 +517,7 @@ public class MainPage {
 		//List<UserDetails> uu = userDetailsRepository.getUserDetails(userName, userMobile, zlenCode, deviceType, createdOn);
 		//System.out.println("uu=="+ uu);
 	    String filename = "UserDetails.xls";
-	    InputStreamResource file = new InputStreamResource(fileService.loadUserDetails(deviceType,userMobile,userName,zlenCode,gender, age, createdOn));
+	    InputStreamResource file = new InputStreamResource(fileService.loadUserDetails(deviceType,userMobile,userName,zlenCode,gender, age,age1, createdOn));
 	  //  InputStreamResource file = new InputStreamResource(fileService.loadinActive(-30));
     
 	    return ResponseEntity.ok()

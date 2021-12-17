@@ -141,7 +141,15 @@
   				</select>&nbsp;&nbsp;&nbsp;&nbsp;	
   				
   				 <label for="age"><b>Age : </b></label>&nbsp;&nbsp;	
-  				<input type="text" id="inputAge" placeholder="Enter Age......">&nbsp;&nbsp;&nbsp;&nbsp;
+<!--   				<input type="text" id="inputAge" placeholder="Enter Age......">&nbsp;&nbsp;&nbsp;&nbsp; -->
+  				
+  				<select id="inputAge" >  
+ 					<option  value="1000,3000" selected>All</option>
+  					<option value = "0,19">0-19</option>
+  					<option value="20,25">20-25</option>
+  					<option  value = "26,45" >26-4</option>
+  					<option  value = "46,1000" >46 Above</option>
+  				</select>&nbsp;&nbsp;&nbsp;&nbsp;	
   				
   				<b>Select Gender : </b>&nbsp;&nbsp;&nbsp;&nbsp;				
   				<select id="inputGender">  
@@ -273,7 +281,7 @@
 <script type="text/javascript">
 
 $(document).ready(function () {
-
+	
     $("#search-form").submit(function (event) {
       
         //stop submit the form, we will post it manually.
@@ -284,17 +292,20 @@ $(document).ready(function () {
     
     
 });
+
 function search() {
 debugger
+
+
 	var udetailList;
 		udetailList = {}
 		udetailList["userName"] = $("#inputName").val();    
 		udetailList["userMobile"] = $("#inputMobile").val();
 		udetailList["zlenCode"] = $("#inputCode").val();
-		udetailList["deviceType"] = $("#inputType").val();
-		udetailList["age"] = $("#inputAge").val();
+		udetailList["deviceType"] = $("#inputType").val();	
 		udetailList["gender"] = $("#inputGender").val();
-		
+	    udetailList["age"] = $("#inputAge").val().split(',')[0];
+		udetailList["age1"] = $("#inputAge").val().split(',')[1];
 $("#btn-search").prop("disabled",false);
      debugger
     $.ajax({

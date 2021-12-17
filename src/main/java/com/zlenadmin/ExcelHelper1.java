@@ -30,6 +30,7 @@ import com.zlenadmin.api.entity.UserDetails;
 import com.zlenadmin.dao.Accounts;
 import com.zlenadmin.dto.InactiveDto;
 import com.zlenadmin.dto.RegisterPendingDto;
+import com.zlenadmin.dto.UsersDetailDto;
 
 public class ExcelHelper1 {
 
@@ -130,7 +131,7 @@ public class ExcelHelper1 {
 		}
 	}
 	
-	public static ByteArrayInputStream userDetailsToExcel(List<UserDetails> userDetails) {
+	public static ByteArrayInputStream userDetailsToExcel(List<UsersDetailDto> userDetails) {
 
 		try {
 			HSSFWorkbook workbook = new HSSFWorkbook();

@@ -36,6 +36,22 @@
 	</style>
   <!-- Custom styles for this template-->
   <link href="${pageContext.request.contextPath}/resources/css/sb-admin-2.min.css" rel="stylesheet">
+  
+  <link href="https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">  
+      <script src="https://code.jquery.com/jquery-1.10.2.js"></script>  
+      <script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>  
+      <!-- Javascript -->  
+      <script>  
+         $(function() {  
+            $( "#inputDate" ).datepicker({  
+              // appendText:"(yy-mm-dd)",  
+               dateFormat:"yy-mm-dd"  
+              // altField: "#datepicker-4",  
+              // altFormat: "DD, d MM, yy"  
+            });  
+         });  
+      </script>  
+       
 	
 </head>
 

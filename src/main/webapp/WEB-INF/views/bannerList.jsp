@@ -33,6 +33,7 @@
   <link href="${pageContext.request.contextPath}/resources/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
   <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
+
 <style>
 	
 	#page-top { display:block; }
@@ -145,7 +146,7 @@
 	                        		<td><c:out value="${list.content}" /></td>
 	                        		<td><c:out value="${list.is_active}" /></td>
 	                        		<td><a href="/activeBanner?id=${list.banner_id}"><button class="btn btn-primary"> Active </button></a>&nbsp;
-									<td><a href="/editBanner?id=${list.banner_id}"><button class="btn btn-primary"><i class="fa fa-edit"></i></button></a>&nbsp;
+									<a href="/editBanner?id=${list.banner_id}"><button class="btn btn-primary"><i class="fa fa-edit"></i></button></a>&nbsp;
 									<a href="/deleteBanner?id=${list.banner_id}"><button class="btn btn-primary" ><i class="fa fa-trash"></i></button></a>
 									</td>
 	                       		

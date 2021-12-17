@@ -134,7 +134,7 @@
 
 							<span style="font-size: 15pt"> 
 								<b>Users per day</b>
-							</span> <br>  <span style="font-size: 20pt" id ="todayCount"> <c:out
+							</span> <br> <br> <span style="font-size: 20pt" id ="todayCount"> <c:out
 									value="${todayActiveUser}" />
 							</span>
 
