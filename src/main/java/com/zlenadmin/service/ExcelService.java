@@ -19,6 +19,7 @@ import com.zlenadmin.api.entity.UserDetails;
 import com.zlenadmin.dao.Accounts;
 import com.zlenadmin.dto.InactiveDto;
 import com.zlenadmin.dto.RegisterPendingDto;
+import com.zlenadmin.dto.UsersDetailDto;
 import com.zlenadmin.repository.UserDetailsRepository;
 
 @Service
@@ -29,6 +30,9 @@ public class ExcelService {
 	 
 	 @Autowired
 		UserDetailsRepository userDetailsRepository;
+	 
+	 @Autowired
+	 com.zlenadmin.dao.UserDetails userDetails;
 	 
 	  public ByteArrayInputStream loadinActive(@Param("days") Integer days) {
 		  
@@ -68,7 +72,7 @@ public class ExcelService {
 	    ByteArrayInputStream in = ExcelHelper1.PendingToExcel(registerPending);
 	    return in;
 	  }
- public ByteArrayInputStream loadUserDetails(String deviceType, String userMobile, String zlenCode, String userName, String gender,Integer age, @DateTimeFormat(pattern = "yyyy-MM-dd")Date createdOn) {
+ public ByteArrayInputStream loadUserDetails(String deviceType, String userMobile, String zlenCode, String userName, String gender,Integer age, Integer age1, @DateTimeFormat(pattern = "yyyy-MM-dd")Date createdOn) {
 	  
 	 if ("All".equals(deviceType)) {
 			deviceType=null;
@@ -87,8 +91,12 @@ public class ExcelService {
 			gender=null;
 		}
 		
-		if("".equals(age)) {
+		if("All".equals(age)) {
 			age = null;
+		}
+		
+		if("All".equals(age1)) {
+			age1 = null;
 		}
 		
 		if ("".equals(createdOn)) {
@@ -96,10 +104,10 @@ public class ExcelService {
 		}
 		
 		
-		ArrayList<UserDetails> userDetails = userDetailsRepository.getUserDetails(userName, userMobile, zlenCode, deviceType, createdOn, gender, age);
+		List<UsersDetailDto> userDetails1 = userDetails.getUserDetails(userName, userMobile, zlenCode, deviceType, createdOn, gender, age,age1);
 	  
 
-   ByteArrayInputStream in = ExcelHelper1.userDetailsToExcel(userDetails);
+   ByteArrayInputStream in = ExcelHelper1.userDetailsToExcel(userDetails1);
    return in;
  }
 

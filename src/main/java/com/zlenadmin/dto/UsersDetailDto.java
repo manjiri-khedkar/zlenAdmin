@@ -21,8 +21,47 @@ public class UsersDetailDto {
 	
 	private Integer age;
 	
-
+	private Integer age1;
 	
+	private Long id;
+	
+	private String longitude;
+	
+	private String latitude;
+	
+	
+	public String getLongitude() {
+		return longitude;
+	}
+
+	public void setLongitude(String longitude) {
+		this.longitude = longitude;
+	}
+
+	public String getLatitude() {
+		return latitude;
+	}
+
+	public void setLatitude(String latitude) {
+		this.latitude = latitude;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public Integer getAge1() {
+		return age1;
+	}
+
+	public void setAge1(Integer age1) {
+		this.age1 = age1;
+	}
+
 	public Integer getAge() {
 		return age;
 	}
