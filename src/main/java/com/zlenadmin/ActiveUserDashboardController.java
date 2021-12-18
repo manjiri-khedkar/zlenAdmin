@@ -47,6 +47,10 @@ public class ActiveUserDashboardController {
 
 		Calendar cal = new GregorianCalendar();
 		cal.add(Calendar.DATE, -30);
+		cal.set(Calendar.HOUR, 0);
+		cal.set(Calendar.MINUTE, 0);
+		cal.set(Calendar.SECOND, 0);
+		cal.set(Calendar.MILLISECOND, 0);
 		Date daysAgo = cal.getTime();
 		
 		Integer monthlyActiveUser = activeUserUpdateRepository.getMonthlyActiveUser(daysAgo);
@@ -54,9 +58,17 @@ public class ActiveUserDashboardController {
 		
 		Calendar cal1 = new GregorianCalendar();
 		cal1.add(Calendar.DATE, -1);
+		cal1.set(Calendar.HOUR, 0);
+		cal1.set(Calendar.MINUTE, 0);
+		cal1.set(Calendar.SECOND, 0);
+		cal1.set(Calendar.MILLISECOND, 0);
 		fromdate = cal1.getTime();
 		
 		Calendar cal2 = new GregorianCalendar();
+		cal2.set(Calendar.HOUR, 0);
+		cal2.set(Calendar.MINUTE, 0);
+		cal2.set(Calendar.SECOND, 0);
+		cal2.set(Calendar.MILLISECOND, 0);
 		todaydate = cal2.getTime();
 		
 		Integer todayActiveUser = activeUserUpdateRepository.getTodayActiveUser(fromdate,todaydate);
@@ -77,8 +89,8 @@ public class ActiveUserDashboardController {
 	
 	@GetMapping("/activeUserDashboardListContent") 
 	@ResponseBody
-	public Object getUserUpdates(Model model, @Param("todaydate")@DateTimeFormat(pattern = "yyyy-MM-dd") Date  todaydate, 
-			@Param("fromdate")@DateTimeFormat(pattern = "yyyy-MM-dd") Date  fromdate) {
+	public Object getUserUpdates(Model model, @Param("todaydate")@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm") Date  todaydate, 
+			@Param("fromdate")@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm") Date  fromdate) {
 		
 		if ("".equals(todaydate)) {
 			todaydate=null;

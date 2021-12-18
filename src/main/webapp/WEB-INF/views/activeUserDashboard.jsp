@@ -42,16 +42,18 @@
 <link
 	href="${pageContext.request.contextPath}/resources/css/sb-admin-2.min.css"
 	rel="stylesheet">
-	
 	<link href="https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">  
       <script src="https://code.jquery.com/jquery-1.10.2.js"></script>  
       <script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>  
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.css" integrity="sha512-bYPO5jmStZ9WI2602V2zaivdAnbAhtfzmxnEGh9RwtlI00I9s8ulGe4oBa5XxiC6tCITJH/QG70jswBhbLkxPw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js"></script>
+      
+      
       <!-- Javascript -->  
       <script>  
          $(function() {  
-            $( "#inputFromDate" ).datepicker({  
-              // appendText:"(yy-mm-dd)",  
-               dateFormat:"yy-mm-dd"  
+            $( "#inputFromDate" ).datetimepicker({  
+            	format:'Y-m-d H:i',
               // altField: "#datepicker-4",  
               // altFormat: "DD, d MM, yy"  
             });  
@@ -60,9 +62,8 @@
       
       <script>  
          $(function() {  
-            $( "#inputToDate" ).datepicker({  
-              // appendText:"(yy-mm-dd)",  
-               dateFormat:"yy-mm-dd"  
+            $( "#inputToDate" ).datetimepicker({
+            	format:'Y-m-d H:i',
               // altField: "#datepicker-4",  
               // altFormat: "DD, d MM, yy"  
             });  
