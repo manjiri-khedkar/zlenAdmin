@@ -187,6 +187,7 @@
 									<th class="text-left" style="background: #d3d3d3">Gender</th>
 									<th class="text-left" style="background: #d3d3d3">Mobile No.</th>
 									<th class="text-left" style="background: #d3d3d3">Zlen Code</th>
+									<th class="text-left" style="background: #d3d3d3">Friend Count</th>
 									<th class="text-left" style="background: #d3d3d3">Device Type</th>
 									<th class="text-left" style="background: #d3d3d3">Action</th>
 								</tr>
@@ -215,6 +216,9 @@
 	 	                        			<c:out value="${list.zlenCode}" />
 	 	                        		</a>
 	 	                        		</td>
+	 	                        		
+	 	                        		<td><c:out value="${list.frnds_count}" /></td>
+	 	                        		
 	 	                        		<td><c:out value="${list.deviceType}" /></td>
 	 	                        		<!--  <td><c:out value="${list.latitude}" /></td>
 	 	                        		<td><c:out value="${list.longitude}" /></td>-->

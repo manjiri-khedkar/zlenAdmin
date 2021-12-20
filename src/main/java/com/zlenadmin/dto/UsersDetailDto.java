@@ -29,7 +29,18 @@ public class UsersDetailDto {
 	
 	private String latitude;
 	
+	private String frnds_count;
 	
+	
+	
+	public String getFrnds_count() {
+		return frnds_count;
+	}
+
+	public void setFrnds_count(String frnds_count) {
+		this.frnds_count = frnds_count;
+	}
+
 	public String getLongitude() {
 		return longitude;
 	}
