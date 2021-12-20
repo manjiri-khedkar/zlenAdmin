@@ -144,7 +144,7 @@
 <!--   				<input type="text" id="inputAge" placeholder="Enter Age......">&nbsp;&nbsp;&nbsp;&nbsp; -->
   				
   				<select id="inputAge" >  
- 					<option  value="1000,3000" selected>All</option>
+ 					<option  value="0,0" selected>All</option>
   					<option value = "0,19">0-19</option>
   					<option value="20,25">20-25</option>
   					<option  value = "26,45" >26-4</option>

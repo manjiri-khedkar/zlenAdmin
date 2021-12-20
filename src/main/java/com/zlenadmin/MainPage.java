@@ -464,10 +464,17 @@ public class MainPage {
 		
 		//ArrayList<UserDetails> userDetailslist = userDetailsRepository.getUserDetails(userName,userMobile,zlenCode,age, deviceType,gender, createdOn);
 //		if(age > 0 && age1 <= 19){
-//		 
+		
+		if(age == 0 || age1 == 0) {
+			age= null;
+			age1 = null;
+			 
+			
+		}
+		 
 			valueAge = age;
 			valueAge1 = age1;
-//			
+			
 		
 		//|| (age >= 20 && age <=25) || (age >= 26 && age <= 45) || (age >= 46 && age <= 1000)) {
 			 
