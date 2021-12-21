@@ -332,6 +332,7 @@ $("#btn-search").prop("disabled",false);
 				  var age;
 				  var gender;
 				  var createdOn;
+				  var frnds_count;
 				  debugger
              	  $(data).each(function (index,ele){
 //                  	alert('ele===>'+ele);
@@ -342,6 +343,7 @@ $("#btn-search").prop("disabled",false);
  				    deviceType = ele.deviceType;
  				    age = ele.age;
  				    gender = ele.gender;
+ 				   frnds_count = ele.frnds_count; 
  				   //createdOn = ele.createdOn
  				   var date = new Date(ele.createdOn);
  				  createdOn = date.toDateString("yyyy-MM-dd");
@@ -357,14 +359,14 @@ $("#btn-search").prop("disabled",false);
                     console.log("age", age);
                     console.log("gender", gender);
 					console.log("createdOn", createdOn);
-					
+					console.log("frnds_count", frnds_count);
 					//console.log("longitude", longitude);
 					
                                       
                     result  += "<tr><td>"+ index+1 +"</td><td>"+createdOn+"</td><td>"+
                     ele.userName+"</td><td>"+ele.age+"</td><td>"+ele.gender+"</td><td>"
                     +ele.userMobile+"</td><td><a href='${pageContext.request.contextPath}/userViewForm/"+ele.id +
-                    " ' class='btn btn-info btn-sm showData'>"+ ele.zlenCode+"</a></td><td>"
+                    " ' class='btn btn-info btn-sm showData'>"+ ele.zlenCode+"</a></td><td>"+ele.frnds_count+"</td><td>"
                     +ele.deviceType+"</td><td><a href='${pageContext.request.contextPath}/friendList/"+ele.id+
                     "' class='btn btn-primary  btn-sm showData'><i class='fas fa-user-friends' style='font-size: 20px; color: #ffff;'></i></a>&nbsp;</td></tr>";                   
                                       

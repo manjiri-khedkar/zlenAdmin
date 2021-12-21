@@ -25,12 +25,17 @@ public class UserDetaisImpl implements UserDetails {
 
 	String userDetailsSql = "SELECT u.id as id, u.user_name as userName, u.user_mobile as userMobile, u.zlen_code as zlenCode,"
 			+ "u.device_type as deviceType, u.age as age, u.gender as gender, u.created_on as createdOn , "
-			+ "(Select count(ufd.friend_user_id) as frnds_count from user_friends_details ufd where ufd.friend_user_id = u.user_id)"
+			+ "(Select count(cnt) from (Select ufd.friend_user_id as cnt from user_friends_details ufd "
+			+ " where ufd.user_id = u.user_id " 
+			+ "union all "
+			+ "Select ufd.friend_user_id as cnt from user_friends_details ufd "
+			+ " where ufd.friend_user_id = u.user_id " 
+			+ ")as cnt) as frnds_count "
 			+ " FROM user_details u WHERE (LOWER(u.user_name) LIKE  :userName or :userName1 is null ) "
 			+ "and ( u.user_mobile LIKE :userMobile or :userMobile1 is null ) and ( LOWER(u.zlen_code)  LIKE  :zlenCode or :zlenCode1 is null ) "
 			+ "and (u.device_type LIKE :deviceType or :deviceType1 is null ) and (u.age between :age and :age1 or :age is null) "
 			+ "and (LOWER(u.gender) =  :gender or :gender1 is null ) and (Date(u.created_on) = :createdOn  or cast(:createdOn1 as date) is null) "
-			+ "order by u.created_on desc";
+			+ "order by u.created_on desc ";
 
 	@Autowired
 	@Qualifier("zlen-jdbc")
@@ -47,12 +52,9 @@ public class UserDetaisImpl implements UserDetails {
 				.addValue("zlenCode", "%" + zlenCode + "%", Types.VARCHAR)
 				.addValue("zlenCode1", zlenCode, Types.VARCHAR)
 				.addValue("deviceType", "%" + deviceType + "%", Types.VARCHAR)
-				.addValue("deviceType1", deviceType, Types.VARCHAR)
-				.addValue("createdOn", createdOn, Types.DATE)
-				.addValue("createdOn1", createdOn, Types.DATE)
-				.addValue("age", age, Types.INTEGER)
-				.addValue("age1", age1, Types.INTEGER)
-				.addValue("gender", gender, Types.VARCHAR)
+				.addValue("deviceType1", deviceType, Types.VARCHAR).addValue("createdOn", createdOn, Types.DATE)
+				.addValue("createdOn1", createdOn, Types.DATE).addValue("age", age, Types.INTEGER)
+				.addValue("age1", age1, Types.INTEGER).addValue("gender", gender, Types.VARCHAR)
 				.addValue("gender1", gender, Types.VARCHAR);
 
 		return jdbcTemplate.query(userDetailsSql, namedParameters, new RowMapper<UsersDetailDto>() {

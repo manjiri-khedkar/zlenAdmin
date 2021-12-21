@@ -7,6 +7,7 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.SortedMap;
@@ -420,9 +421,7 @@ public class MainPage {
 	@ResponseBody
 	public List<UsersDetailDto> getUserDetails(Model model ,@Param("userName") String userName, @Param("userMobile") String userMobile, @Param("gender") String gender, @Param("age") Integer age, @Param("age1") Integer age1, @Param("zlenCode") String zlenCode, @Param("deviceType") String deviceType, @Param("createdOn") @DateTimeFormat(pattern = "yyyy-MM-dd")Date createdOn)
 	{
-//		List<Object[]> userDetailsContentList= userDetailsRepository.getDetailsData();
-		
-		//ArrayList<UserDetails> userDetailsList1=userDetailsRepository.getUserDetails();
+
 		if ("All".equals(deviceType)) {
 			deviceType=null;
 		}
@@ -456,30 +455,15 @@ public class MainPage {
 			createdOn=null;
 		}
 		 
-		
 		Integer valueAge = 0;
 		Integer valueAge1 = 0;
-	
-		
-		
-		//ArrayList<UserDetails> userDetailslist = userDetailsRepository.getUserDetails(userName,userMobile,zlenCode,age, deviceType,gender, createdOn);
-//		if(age > 0 && age1 <= 19){
 		
 		if(age == 0 || age1 == 0) {
 			age= null;
 			age1 = null;
-			 
-			
 		}
-		 
 			valueAge = age;
 			valueAge1 = age1;
-			
-		
-		//|| (age >= 20 && age <=25) || (age >= 26 && age <= 45) || (age >= 46 && age <= 1000)) {
-			 
-			System.out.println("age == :"+ age);
-			System.out.println("age1 == :"+ age1);
 		
 		List<UsersDetailDto> userDetailsList = userDetails.getUserDetails(userName,userMobile,zlenCode, deviceType, createdOn, gender, valueAge, valueAge1);
 		
