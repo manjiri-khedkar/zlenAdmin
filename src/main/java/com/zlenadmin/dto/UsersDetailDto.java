@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class UsersDetailDto {
 	
-	@JsonFormat(pattern = "dd/MMM/yyyy")
+	@JsonFormat(pattern = "dd/MMM/yyyy HH:mm")
 	private Date createdOn;
 	
 	private String zlenCode;
