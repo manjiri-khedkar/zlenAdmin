@@ -203,14 +203,13 @@
  -->
 				<!-- onclick ="searchFun()"  -->
 				<br> <br>
-				<div class="row">
 				
-				<jsp:useBean id="pagedListHolder" scope="request"
-								type="org.springframework.beans.support.PagedListHolder" />
-							<c:url value="/userDetailsList" var="pagedLink">
-								<c:param name="p" value="~" />
-							</c:url>
-				
+<%-- 				<jsp:useBean id="pagedListHolder" scope="request" --%>
+<%-- 								type="org.springframework.beans.support.PagedListHolder" /> --%>
+<%-- 							<c:url value="/userDetailsList" var="pagedLink"> --%>
+<%-- 								<c:param name="p" value="~" /> --%>
+<%-- 							</c:url> --%>
+				<div class="row">				
 					<div class="col-md-12">
 					
 						<div class="table-responsive">
@@ -240,7 +239,7 @@
 								</thead>
 
 								<tbody class=>
-									<c:forEach items="${pagedListHolder.pageList}" var="list"
+									<c:forEach items="${userListDetails}" var="list"
 										varStatus="status">
 										
 										<tr class="odd gradeX">
@@ -284,10 +283,10 @@
 						</div>
 					</div>
 				</div>
-				<tg:paging pagedListHolder="${pagedListHolder}"
-			pagedLink="${pagedLink}" />
 			</div>
 		</div>
+<%-- 		<tg:paging pagedListHolder="${pagedListHolder}" --%>
+<%-- 			pagedLink="${pagedLink}" /> --%>
 	</section>
 
 	<!-- Footer -->

@@ -1,6 +1,7 @@
 package com.zlenadmin.dto;
 
 public class UserFeedBackDto {
+	private long id; 
 	
 	private String user_id;
 	
@@ -11,6 +12,16 @@ public class UserFeedBackDto {
 	private String media_url;
 	
 	private String media_type;
+	
+	
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
 
 	public String getUser_id() {
 		return user_id;

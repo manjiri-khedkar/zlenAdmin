@@ -10,10 +10,12 @@ import com.zlenadmin.api.entity.UserFeedBack;
 import com.zlenadmin.dto.UserFeedBackDto;
 
 @Repository
-public  interface UserFeedBackRepository extends JpaRepository<UserFeedBack, Long> {
+public interface UserFeedBackRepository extends JpaRepository<UserFeedBack, Long> {
 
-	@Query(value="SELECT ufb.user_id, ufb.title, ufb.data, ufb.media_url, ufb.media_type FROM public.user_feedback ufb",nativeQuery = true)
-	
-	List<UserFeedBack> getUserFeedBack();
+//	@Query(value = "SELECT ufb.id as id, ufb.user_id as user_id, ufb.title as title, ufb.data as data, "
+//			+ "count(ufb.media_url) as media_count, ufb.media_type as media_type FROM public.user_feedback ufb "
+//			+ "group by ufb.id ", nativeQuery = true)
+
+//	List<UserFeedBackDto> getUserFeedBack();
 
 }

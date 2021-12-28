@@ -51,6 +51,7 @@ import com.zlenadmin.dto.InactiveDto;
 import com.zlenadmin.dto.PendingRegistrationDto;
 import com.zlenadmin.dto.RegisterPendingDto;
 import com.zlenadmin.dto.StoriesDto;
+import com.zlenadmin.dto.UserFeedBackDto;
 import com.zlenadmin.dto.UsersDetailDto;
 import com.zlenadmin.model.AppUser;
 import com.zlenadmin.model.SessionUser;
@@ -86,7 +87,7 @@ public class MainPage {
 	private Accounts accountDao;
 
 	@Autowired
-	private UserFeedBackRepository userFeedBackRepository;
+	private com.zlenadmin.dao.UserFeedBack userFeedBacks;
 
 	@Autowired
 	private ExcelService fileService;
@@ -362,7 +363,7 @@ public class MainPage {
 	@GetMapping("/userDetailsList")
 	//public ModelAndView userDetailsList() {
 	
-	public Object userDetailsList(HttpServletRequest request, Model model,@RequestParam(required=false) String userName, 
+	public Object userDetailsList(Model model,@RequestParam(required=false) String userName, 
 			@RequestParam(required=false) String userMobile, @RequestParam(required=false) String zlenCode,@RequestParam(required=false) String deviceType, 
 			@RequestParam(required=false) String gender, @RequestParam(required=false) Integer age, @RequestParam(required=false) Integer age1, 
 			@RequestParam(required=false) Integer friendNumber, @RequestParam(required=false) Integer friendNumber1, @RequestParam(required=false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date  createdOn)
@@ -408,14 +409,15 @@ public class MainPage {
 		
 		ModelAndView mv = new ModelAndView();
 		List<UsersDetailDto> userDetailsList = userDetails.getUserDetails(userName, userMobile, zlenCode, deviceType, createdOn, gender, age,age1,friendNumber,friendNumber1);
-		PagedListHolder pagedListHolder = new PagedListHolder(userDetailsList);
-		int page = ServletRequestUtils.getIntParameter(request, "p", 0);
-		pagedListHolder.setPage(page);
-		pagedListHolder.setPageSize(1000);
-		List<Object> userDetailsList1 = new ArrayList<Object>();
-		userDetailsList1.add(pagedListHolder);
-		mv.addObject("pagedListHolder", pagedListHolder);
-		//mv.addObject("userListDetails1", userDetailsList1);
+//		PagedListHolder<UsersDetailDto> pagedListHolder = new PagedListHolder(userDetailsList);
+//		int page = ServletRequestUtils.getIntParameter(request, "p", 0);
+//		pagedListHolder.setPage(page);
+//		pagedListHolder.setPageSize(1000);
+//		pagedListHolder.getSource();
+////		List<Object> userDetailsList1 = new ArrayList<Object>();
+////		userDetailsList1.add(pagedListHolder);
+//		mv.addObject("pagedListHolder", pagedListHolder);
+		mv.addObject("userListDetails", userDetailsList);
 		mv.setViewName("userDetailsList");
 		return mv;
 
@@ -621,7 +623,9 @@ public class MainPage {
 	@GetMapping("/userFeedBackList")
 	public ModelAndView userFeedBackList() {
 		ModelAndView mv = new ModelAndView();
-		List<UserFeedBack> userFeedBackList = userFeedBackRepository.getUserFeedBack();
+		
+		List<UserFeedBackDto> userFeedBackList = userFeedBacks.getUserFeedBack();
+				
 		mv.addObject("userFeedBackList", userFeedBackList);
 		mv.setViewName("userFeedBackList");
 		return mv;

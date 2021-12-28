@@ -101,6 +101,21 @@
 		    });
 		}
 	</script>
+	
+	
+<!-- 	<script> -->
+// 	$(document).ready(function() {
+		
+// 	debugger
+// 		var pass = $("#url").val();
+// 		const myArr = JSON.parse(pass);
+// 		var media_url = myArr;
+	
+// 		$("#table1 tbody").html(media_url)
+// 		return;
+// 	});
+
+<!-- </script> -->
 </head>
 
 <body id="page-top">
@@ -141,7 +156,10 @@
 	                        		<td><c:out value="${list.user_id}" /></td>
 	                        		<td><c:out value="${list.title}" /></td>
 	                        		<td><c:out value="${list.data}" /></td>
-	                        		<td><c:out value="${list.media_url}" /></td>
+	               
+	                        		<td><a id = "url" href="#" src='${list.media_url}'
+												class="btn btn-info btn-sm img-view"> View </a></td>
+<%-- 	                        		<td><c:out value="${list.media_url}" /></td> --%>
 	                        		<td><c:out value="${list.media_type}" /></td>
 <%-- 									<td><a href="${pageContext.request.contextPath}/role/editRole/<c:out value='${list.id}'/>"><button class="btn btn-primary"><i class="fa fa-edit"></i></button></a>&nbsp; --%>
 <%-- 										<a href="${pageContext.request.contextPath}/role/deleteRole/${list.id}" onclick="'return confirm(\'Are you sure to Delete Record?\');'" ><button class="btn btn-primary" ><i class="fa fa-trash"></i></button></a> --%>
