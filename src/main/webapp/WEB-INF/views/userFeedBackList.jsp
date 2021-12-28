@@ -103,19 +103,6 @@
 	</script>
 	
 	
-<!-- 	<script> -->
-// 	$(document).ready(function() {
-		
-// 	debugger
-// 		var pass = $("#url").val();
-// 		const myArr = JSON.parse(pass);
-// 		var media_url = myArr;
-	
-// 		$("#table1 tbody").html(media_url)
-// 		return;
-// 	});
-
-<!-- </script> -->
 </head>
 
 <body id="page-top">
