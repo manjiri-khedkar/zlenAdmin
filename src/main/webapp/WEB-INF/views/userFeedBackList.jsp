@@ -131,8 +131,11 @@
 									<th class="text-left" style="background: #d3d3d3">User Id</th>
 									<th class="text-left" style="background: #d3d3d3">Title</th>
 									<th class="text-left" style="background: #d3d3d3">Data</th>
+									<th class="text-left" style="background: #d3d3d3">User Name</th>
+									<th class="text-left" style="background: #d3d3d3">Mobile No.</th>
 									<th class="text-left" style="background: #d3d3d3">Media Url</th>
 									<th class="text-left" style="background: #d3d3d3">Media Type</th>
+									
 								</tr>
 							</thead>
 							
@@ -143,11 +146,14 @@
 	                        		<td><c:out value="${list.user_id}" /></td>
 	                        		<td><c:out value="${list.title}" /></td>
 	                        		<td><c:out value="${list.data}" /></td>
-	               
-	                        		<td><a id = "url" href="#" src='${list.media_url}'
+	               					<td><c:out value="${list.user_name}" /></td>
+	               					<td><c:out value="${list.user_mobile}" /></td>
+	                        		<td><a href="#" src='${list.media_url}'
 												class="btn btn-info btn-sm img-view"> View </a></td>
 <%-- 	                        		<td><c:out value="${list.media_url}" /></td> --%>
 	                        		<td><c:out value="${list.media_type}" /></td>
+	                        		<td><a href="${pageContext.request.contextPath}/addReview/<c:out value='${list.id}'/>"
+												class="btn btn-primary btn-sm showData"> Review </a></td>
 <%-- 									<td><a href="${pageContext.request.contextPath}/role/editRole/<c:out value='${list.id}'/>"><button class="btn btn-primary"><i class="fa fa-edit"></i></button></a>&nbsp; --%>
 <%-- 										<a href="${pageContext.request.contextPath}/role/deleteRole/${list.id}" onclick="'return confirm(\'Are you sure to Delete Record?\');'" ><button class="btn btn-primary" ><i class="fa fa-trash"></i></button></a> --%>
 <!-- 									</td> -->

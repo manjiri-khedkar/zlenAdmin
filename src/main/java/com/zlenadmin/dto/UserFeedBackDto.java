@@ -13,7 +13,36 @@ public class UserFeedBackDto {
 	
 	private String media_type;
 	
+	private String user_name;
 	
+	private String user_mobile;
+	
+	private long uid;
+	
+
+	public long getUid() {
+		return uid;
+	}
+
+	public void setUid(long uid) {
+		this.uid = uid;
+	}
+
+	public String getUser_name() {
+		return user_name;
+	}
+
+	public void setUser_name(String user_name) {
+		this.user_name = user_name;
+	}
+
+	public String getUser_mobile() {
+		return user_mobile;
+	}
+
+	public void setUser_mobile(String user_mobile) {
+		this.user_mobile = user_mobile;
+	}
 
 	public long getId() {
 		return id;

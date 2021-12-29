@@ -22,6 +22,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.beans.support.PagedListHolder;
 import org.springframework.core.io.InputStreamResource;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.query.Param;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpHeaders;
@@ -51,6 +53,7 @@ import com.zlenadmin.dto.InactiveDto;
 import com.zlenadmin.dto.PendingRegistrationDto;
 import com.zlenadmin.dto.RegisterPendingDto;
 import com.zlenadmin.dto.StoriesDto;
+import com.zlenadmin.dto.UserDetailsDto;
 import com.zlenadmin.dto.UserFeedBackDto;
 import com.zlenadmin.dto.UsersDetailDto;
 import com.zlenadmin.model.AppUser;
@@ -408,6 +411,7 @@ public class MainPage {
 		
 		
 		ModelAndView mv = new ModelAndView();
+
 		List<UsersDetailDto> userDetailsList = userDetails.getUserDetails(userName, userMobile, zlenCode, deviceType, createdOn, gender, age,age1,friendNumber,friendNumber1);
 //		PagedListHolder<UsersDetailDto> pagedListHolder = new PagedListHolder(userDetailsList);
 //		int page = ServletRequestUtils.getIntParameter(request, "p", 0);
