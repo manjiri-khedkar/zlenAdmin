@@ -135,6 +135,7 @@
 									<th class="text-left" style="background: #d3d3d3">Mobile No.</th>
 									<th class="text-left" style="background: #d3d3d3">Media Url</th>
 									<th class="text-left" style="background: #d3d3d3">Media Type</th>
+									<th class="text-left" style="background: #d3d3d3">Review</th>
 									
 								</tr>
 							</thead>
@@ -152,7 +153,7 @@
 												class="btn btn-info btn-sm img-view"> View </a></td>
 <%-- 	                        		<td><c:out value="${list.media_url}" /></td> --%>
 	                        		<td><c:out value="${list.media_type}" /></td>
-	                        		<td><a href="${pageContext.request.contextPath}/addReview/<c:out value='${list.id}'/>"
+	                        		<td><a href="${pageContext.request.contextPath}/review/addReview/<c:out value='${list.id}'/>"
 												class="btn btn-primary btn-sm showData"> Review </a></td>
 <%-- 									<td><a href="${pageContext.request.contextPath}/role/editRole/<c:out value='${list.id}'/>"><button class="btn btn-primary"><i class="fa fa-edit"></i></button></a>&nbsp; --%>
 <%-- 										<a href="${pageContext.request.contextPath}/role/deleteRole/${list.id}" onclick="'return confirm(\'Are you sure to Delete Record?\');'" ><button class="btn btn-primary" ><i class="fa fa-trash"></i></button></a> --%>

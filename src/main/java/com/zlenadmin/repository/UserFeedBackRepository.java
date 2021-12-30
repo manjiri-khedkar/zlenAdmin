@@ -6,7 +6,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import com.zlenadmin.api.entity.ReviewComments;
 import com.zlenadmin.api.entity.UserFeedBack;
+import com.zlenadmin.dto.ReviewCommentDto;
 import com.zlenadmin.dto.UserFeedBackDto;
 
 @Repository
@@ -18,4 +20,5 @@ public interface UserFeedBackRepository extends JpaRepository<UserFeedBack, Long
 
 //	List<UserFeedBackDto> getUserFeedBack();
 
+	
 }
