@@ -8,8 +8,7 @@
 
 		<div class="container">
 			<div class="clearfix">&nbsp;</div>
-			<form:form action="${pageContext.request.contextPath}/addReview/{id}"
-				id="table1" method="post" modelAttribute="friendDetails">
+			<form:form action="${pageContext.request.contextPath}/addReview1"  method="post" modelAttribute="addreview">
 
 				<div class="panel-heading">
 					<h2 class="text-center" style="color: black;">
@@ -24,18 +23,18 @@
 						<div class="panel-body">
 							<div class="row justify-content-center">
 								<div class="col-md-2 text-right">
-									<form:label path="roleName" class="control-label">Comment </form:label>
+									<form:label path="comments" class="control-label">Comments </form:label>
 								</div>
 								<div class="col-md-3">
 									<div class="form-group form-group-sm">
-										<form:input path="comment" class="form-control"
+										<form:input path="comments" class="form-control"
 											placeholder="Enter comment" autofocus="autofocus" />
 									</div>
 								</div>
 							</div>
 						</div>
 						<div class="col-md-12 text-center">
-                        <button type="submit" class="btn-primary btn">Submit</button>&nbsp;
+                        <button type="submit" class="btn-primary btn">Save</button>&nbsp;
                         <a href="${pageContext.request.contextPath}/addReview/"
 							 class="btn btn-outline-danger" title="Cancel">Cancel</a>
 					</div>
