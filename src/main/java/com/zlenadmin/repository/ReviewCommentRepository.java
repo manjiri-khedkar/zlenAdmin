@@ -7,5 +7,6 @@ import com.zlenadmin.dto.ReviewCommentDto;
 
 public interface ReviewCommentRepository extends JpaRepository<ReviewComments, Long> {
 	
+	ReviewComments findByFeedbackId(Long feedbackId);
 
 }

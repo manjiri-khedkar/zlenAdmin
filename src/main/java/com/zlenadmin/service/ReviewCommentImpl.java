@@ -1,5 +1,6 @@
 package com.zlenadmin.service;
 
+import org.hibernate.criterion.Example;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +17,6 @@ public class ReviewCommentImpl implements ReviewCommentService {
 
 	@Override
 	public ReviewComments save(ReviewCommentDto reviewCommentDto) {
-		// TODO Auto-generated method stub
 		
 		ReviewComments rc = new ReviewComments();
 		rc.setReviewId(reviewCommentDto.getReviewId());
@@ -24,6 +24,11 @@ public class ReviewCommentImpl implements ReviewCommentService {
 		rc.setComments(reviewCommentDto.getComments());
 		
 		return reviewCommentRepository.save(rc);
+	}
+	
+	@Override
+	public ReviewComments getReviewComment(long id) {
+		return reviewCommentRepository.findByFeedbackId(id);
 	}
 
 }

@@ -8,6 +8,8 @@ import com.zlenadmin.model.Role;
 public interface ReviewCommentService {
 	
 	ReviewComments save(ReviewCommentDto reviewCommentDto);
+
+	ReviewComments getReviewComment(long id);
 	
 
 }

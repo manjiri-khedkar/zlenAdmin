@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.zlenadmin.api.entity.ReviewComments;
 import com.zlenadmin.dto.ReviewCommentDto;
 import com.zlenadmin.dto.RoleDto;
 import com.zlenadmin.model.Role;
@@ -30,8 +32,22 @@ public class AddReviewController {
 	@RequestMapping("/addReview/{id}")
 	public ModelAndView addRole(@PathVariable Long id,Model model) {
 
+		ReviewComments comment =  reviewCommentService.getReviewComment(id);
+		
 		ModelAndView mv = new ModelAndView();
-		mv.addObject("addreview", new ReviewCommentDto());
+		if (comment==null) {
+			ReviewCommentDto commentDto = new ReviewCommentDto();
+			commentDto.setFeedbackId(id);
+			mv.addObject("addreview", commentDto);	
+		}else {
+			ReviewCommentDto commentDto = new ReviewCommentDto();
+			commentDto.setComments(comment.getComments());
+			commentDto.setFeedbackId(comment.getFeedbackId());
+			commentDto.setReviewId(comment.getReviewId());
+			mv.addObject("addreview", commentDto);
+		}
+		
+		
 		mv.setViewName("addReview");
 		return mv;
 	}

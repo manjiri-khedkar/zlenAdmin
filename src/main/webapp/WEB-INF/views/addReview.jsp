@@ -8,7 +8,7 @@
 
 		<div class="container">
 			<div class="clearfix">&nbsp;</div>
-			<form:form action="${pageContext.request.contextPath}/addReview1"  method="post" modelAttribute="addreview">
+			<form:form action="${pageContext.request.contextPath}/review/addReview1"  method="post" modelAttribute="addreview">
 
 				<div class="panel-heading">
 					<h2 class="text-center" style="color: black;">
@@ -17,7 +17,8 @@
 				</div>
 				<br />
 
-
+				<form:hidden path="reviewId"/>
+				<form:hidden path="feedbackId"/>
 				<div class="row">
 					<div class="col-md-12">
 						<div class="panel-body">
