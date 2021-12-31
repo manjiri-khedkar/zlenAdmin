@@ -18,6 +18,7 @@ import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Repository;
 
 import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.zlenadmin.dto.UserFeedBackDto;
@@ -53,40 +54,21 @@ public class UserFeedBackImpl implements UserFeedBack {
 				ufb.setUser_name(rs.getString("user_name"));
 				ufb.setUser_mobile(rs.getString("user_mobile"));
 				String url1 =rs.getString("media_url");
-				System.out.println(url1);
-				String aa  = url1.trim().replace("[", "").replace("]", "");
-				String bb = aa.replace("\"", "");
-				List<String> url = new  ArrayList<String>() ;
-				url.add(bb);
-				String cc =null;
-				for(int i=0;i<url.size();i++) {
-			
-					 cc = url.get(i);
-					 
-				}
-				ufb.setMedia_url(cc);
-			//	ufb.setMedia_url(rs.getString("media_url"));
-				ufb.setUid(rs.getLong("uid"));
 				
-//				Array url1 = rs.getArray("media_url");
-//
-//				if (url1 != null) {
-//					System.out.println(url1);
-//
-//					Object[] values = (Object[]) url1.getArray();
-//					for (Object ob : values) {
-//						System.out.println(ob);
-//					}
-//					System.out.println(values);
-//
-//				}
-
-//						String aa  = url1.trim().replace("[", "").replace("]", "");
-//						String bb = aa.replace("\"", "");
-//					HashMap<String, Object> hm = new HashMap<String, Object>();
-//					hm.put("bb", bb);
-//for()
-
+				JsonParser json = new JsonParser();
+				JsonElement ele =  json.parse(url1);
+				JsonArray jsonArray =  ele.getAsJsonArray();
+				if (jsonArray.size()>0) {
+					String[] arr = new String[jsonArray.size()];
+					List<String> urls = new  ArrayList<String>() ;
+					for (int itr=0;itr<jsonArray.size();itr++) {
+						String eleValue = jsonArray.get(itr).getAsString();
+						arr[itr]= eleValue;
+					}
+					
+					ufb.setMedia_url(arr);
+				}
+				ufb.setUid(rs.getLong("uid"));
 				ufb.setMedia_type(rs.getString("media_type"));
 				return ufb;
 			}

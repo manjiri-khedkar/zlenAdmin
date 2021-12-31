@@ -83,24 +83,7 @@
 </style>
   <!-- Custom styles for this template-->
   <link href="${pageContext.request.contextPath}/resources/css/sb-admin-2.min.css" rel="stylesheet">
-	<script>
-		function savePass(){
-		    var pass = $("#pass").val();
-		    var valid = pass == $("#passConfirm").val();
-		    if(!valid) {
-		      $("#error").show();
-		      return;
-		    }
-		    $.post( "changePassword",
-		      {newPwd: pass, pwd: $("#oldpass").val()} ,function(data){
-		    	  $("#error").show().html(data);
-		    	  $('#changePasswordModal').modal('hide');
-		    })
-		    .fail(function(data) {
-		        $("#error").show().html(data);
-		    });
-		}
-	</script>
+	
 	
 	
 </head>
@@ -148,9 +131,17 @@
 	                        		<td><c:out value="${list.data}" /></td>
 	               					<td><c:out value="${list.user_name}" /></td>
 	               					<td><c:out value="${list.user_mobile}" /></td>
-	                        		<td><a href="#" src='${list.media_url}'
-												class="btn btn-info btn-sm img-view"> View </a></td>
-<%-- 	                        		<td><c:out value="${list.media_url}" /></td> --%>
+	                        		<td>
+												
+	                        		<c:forEach var="categoryName" items="${list.media_url}" varStatus="loop">
+	                        		
+	                        			<a href="#" src='${categoryName}'
+												class="btn btn-info btn-sm img-view"> View </a>
+    									
+									</c:forEach>
+	                        	
+	                        		</td>
+
 	                        		<td><c:out value="${list.media_type}" /></td>
 	                        		<td><a href="${pageContext.request.contextPath}/addReview/<c:out value='${list.id}'/>"
 												class="btn btn-primary btn-sm showData"> Review </a></td>
@@ -200,5 +191,10 @@
   <!-- Page level custom scripts -->
   <script src="${pageContext.request.contextPath}/resources/js/demo/chart-area-demo.js"></script>
   <script src="${pageContext.request.contextPath}/resources/js/demo/chart-pie-demo.js"></script>
+  <script>
+	function showImages(images){
+		
+	}
+  </script>
 </body>
 </html>

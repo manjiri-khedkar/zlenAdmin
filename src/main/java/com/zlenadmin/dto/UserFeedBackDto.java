@@ -1,5 +1,7 @@
 package com.zlenadmin.dto;
 
+import java.util.List;
+
 public class UserFeedBackDto {
 	private long id; 
 	
@@ -9,7 +11,7 @@ public class UserFeedBackDto {
 	
 	private String data;
 	
-	private String media_url;
+	private String[] media_url;
 	
 	private String media_type;
 	
@@ -76,11 +78,11 @@ public class UserFeedBackDto {
 		this.data = data;
 	}
 
-	public String getMedia_url() {
+	public String[] getMedia_url() {
 		return media_url;
 	}
 
-	public void setMedia_url(String media_url) {
+	public void setMedia_url(String[] media_url) {
 		this.media_url = media_url;
 	}
 
