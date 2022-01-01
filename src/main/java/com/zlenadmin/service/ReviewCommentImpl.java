@@ -8,6 +8,8 @@ import com.zlenadmin.api.entity.ReviewComments;
 import com.zlenadmin.dto.ReviewCommentDto;
 import com.zlenadmin.repository.ReviewCommentRepository;
 
+import sun.security.action.GetBooleanAction;
+
 @Service
 public class ReviewCommentImpl implements ReviewCommentService {
 	
@@ -22,13 +24,21 @@ public class ReviewCommentImpl implements ReviewCommentService {
 		rc.setReviewId(reviewCommentDto.getReviewId());
 		rc.setFeedbackId(reviewCommentDto.getFeedbackId());
 		rc.setComments(reviewCommentDto.getComments());
+		rc.setStatus(reviewCommentDto.isStatus());
 		
 		return reviewCommentRepository.save(rc);
 	}
 	
 	@Override
 	public ReviewComments getReviewComment(long id) {
+		
 		return reviewCommentRepository.findByFeedbackId(id);
+	}
+
+	@Override
+	public ReviewComments getReviewComment1(String username) {
+		
+		return reviewCommentRepository.findByusername(username);
 	}
 
 }

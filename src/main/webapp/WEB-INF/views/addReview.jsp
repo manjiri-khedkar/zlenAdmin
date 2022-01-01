@@ -28,16 +28,26 @@
 								</div>
 								<div class="col-md-3">
 									<div class="form-group form-group-sm">
-										<form:input path="comments" class="form-control"
+										<form:textarea path="comments" class="form-control"
 											placeholder="Enter comment" autofocus="autofocus" />
 									</div>
 								</div>
+								<br>
+								<div class="col-md-2 text-right">
+									<form:label path="status" class="control-label">Status </form:label>
+								</div>
+								<div class="col-md-3">
+									<div class="form-group form-group-sm">
+										<form:checkbox path="status" class="form-control"
+										 autofocus="autofocus" />
+									</div>
+								</div>
+								
 							</div>
 						</div>
 						<div class="col-md-12 text-center">
                         <button type="submit" class="btn-primary btn">Save</button>&nbsp;
-                        <a href="${pageContext.request.contextPath}/addReview/"
-							 class="btn btn-outline-danger" title="Cancel">Cancel</a>
+
 					</div>
 				</div>
 			</form:form>

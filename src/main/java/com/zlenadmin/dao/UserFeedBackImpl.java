@@ -29,10 +29,12 @@ import net.bytebuddy.agent.builder.AgentBuilder.InitializationStrategy.SelfInjec
 @Repository
 public class UserFeedBackImpl implements UserFeedBack {
 
-	String userFeedBack = "SELECT ufb.id as id, ufb.user_id as user_id, ufb.title as title, ufb.data as data, " + 
-			"ufb.media_url as media_url, ufb.media_type as media_type, ud.user_name as user_name, " + 
-			"ud.user_mobile as user_mobile,ud.id as uid FROM public.user_feedback ufb inner join user_details ud " + 
-			"on ufb.user_id = ud.user_id  where  ud.user_id = ufb.user_id ";
+	String userFeedBack = "SELECT ufb.id as id, ufb.user_id as user_id, ufb.title as title, ufb.data as data, "
+			+ "ufb.media_url as media_url, ufb.media_type as media_type, ud.user_name as user_name, "
+			+ "ud.user_mobile as user_mobile,ud.id as uid,rc.comments as comments "
+			+ "FROM public.user_feedback ufb inner join user_details ud on ufb.user_id = ud.user_id "
+			+ "inner join review_comments rc on  ufb.id = rc.feedback_id  "
+			+ "where  ud.user_id = ufb.user_id  and ufb.id = rc.feedback_id ";
 
 	@Autowired
 	@Qualifier("zlen-jdbc")
@@ -51,21 +53,22 @@ public class UserFeedBackImpl implements UserFeedBack {
 				ufb.setUser_id(rs.getString("user_id"));
 				ufb.setTitle(rs.getString("title"));
 				ufb.setData(rs.getString("data"));
+				 ufb.setReviewComment(rs.getString("comments"));
 				ufb.setUser_name(rs.getString("user_name"));
 				ufb.setUser_mobile(rs.getString("user_mobile"));
-				String url1 =rs.getString("media_url");
-				
+				String url1 = rs.getString("media_url");
+
 				JsonParser json = new JsonParser();
-				JsonElement ele =  json.parse(url1);
-				JsonArray jsonArray =  ele.getAsJsonArray();
-				if (jsonArray.size()>0) {
+				JsonElement ele = json.parse(url1);
+				JsonArray jsonArray = ele.getAsJsonArray();
+				if (jsonArray.size() > 0) {
 					String[] arr = new String[jsonArray.size()];
-					List<String> urls = new  ArrayList<String>() ;
-					for (int itr=0;itr<jsonArray.size();itr++) {
+					List<String> urls = new ArrayList<String>();
+					for (int itr = 0; itr < jsonArray.size(); itr++) {
 						String eleValue = jsonArray.get(itr).getAsString();
-						arr[itr]= eleValue;
+						arr[itr] = eleValue;
 					}
-					
+
 					ufb.setMedia_url(arr);
 				}
 				ufb.setUid(rs.getLong("uid"));

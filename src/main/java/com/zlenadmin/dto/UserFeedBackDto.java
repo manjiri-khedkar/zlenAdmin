@@ -21,6 +21,16 @@ public class UserFeedBackDto {
 	
 	private long uid;
 	
+	private String reviewComment;
+	
+
+	public String getReviewComment() {
+		return reviewComment;
+	}
+
+	public void setReviewComment(String reviewComment) {
+		this.reviewComment = reviewComment;
+	}
 
 	public long getUid() {
 		return uid;

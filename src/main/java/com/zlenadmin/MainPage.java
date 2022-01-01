@@ -106,7 +106,7 @@ public class MainPage {
 	@RequestMapping("/adminHomeDashboard")
 	public ModelAndView showMessage() {
 
-		// appuserRepository.addActivity(sessionUser.getUserId(), "adminHomeDashboard",
+		 //appuserRepository.addActivity(sessionUser.getUserId(), "adminHomeDashboard",
 		// System.currentTimeMillis());
 		if (true) {
 			ModelAndView model = new ModelAndView("home");
@@ -138,7 +138,8 @@ public class MainPage {
 		ModelAndView model = new ModelAndView("dashboard");
 		Integer totalRegistrationCount = userDetailsRepository.getUserDetails1();
 		model.addObject("totalRegistrationCount", totalRegistrationCount);
-		Calendar cal = new GregorianCalendar(TimeZone.getTimeZone("UTC"));
+		Calendar cal = new GregorianCalendar(TimeZone.getTimeZone(
+				"UTC"));
 		cal.add(Calendar.DAY_OF_MONTH, -1);
 		Date daysAgo = cal.getTime();
 		Integer last24HoursCount = userDetailsRepository.getUserDetails2(daysAgo);
