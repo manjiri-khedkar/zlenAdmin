@@ -426,7 +426,6 @@
 
 												result += "<tr><td>"
 														+ index
-														+ 1
 														+ "</td><td>"
 														+ createdOn
 														+ "</td><td>"
@@ -440,12 +439,15 @@
 														+ "</td><td><a href='${pageContext.request.contextPath}/userViewForm/"+ele.id +
                     " ' class='btn btn-info btn-sm showData'>"
 														+ ele.zlenCode
-														+ "</a></td><td>"
+														+ "</a></td><td><a href='${pageContext.request.contextPath}/friendList/"+ele.id+
+									                    "' class='btn btn-primary  btn-sm showData'>"
 														+ ele.frnds_count
-														+ "</td><td>"
+														+ "</a></td><td>"
 														+ ele.deviceType
-														+ "</td><td><a href='${pageContext.request.contextPath}/friendList/"+ele.id+
-                    "' class='btn btn-primary  btn-sm showData'><i class='fas fa-user-friends' style='font-size: 20px; color: #ffff;'></i></a>&nbsp;</td></tr>";
+														+ "</td></tr>";
+// 														<td><a href='${pageContext.request.contextPath}/friendList/"+ele.id+
+//                     "' class='btn btn-primary  btn-sm showData'><i class='fas fa-user-friends' style='font-size: 20px; color: #ffff;'></i></a>&nbsp;</td>
+
 
 											});
 

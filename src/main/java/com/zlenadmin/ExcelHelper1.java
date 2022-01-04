@@ -151,6 +151,9 @@ public class ExcelHelper1 {
 			rowhead.createCell(3).setCellValue("Mobile No.");
 			rowhead.createCell(4).setCellValue("Zlen Code");
 			rowhead.createCell(5).setCellValue("Device Type");
+			rowhead.createCell(6).setCellValue("Year of Birth");
+			rowhead.createCell(7).setCellValue("Gender");
+			rowhead.createCell(8).setCellValue("Friends Count");
 			for (int i = 0; i < userDetails.size(); i++) {
 
 				HSSFRow row = sheet.createRow((short) i + 3);
@@ -164,7 +167,9 @@ public class ExcelHelper1 {
 				row.createCell(3).setCellValue(userDetails.get(i).getUserMobile());
 				row.createCell(4).setCellValue(userDetails.get(i).getZlenCode());
 				row.createCell(5).setCellValue(userDetails.get(i).getDeviceType());
-				
+				row.createCell(6).setCellValue(userDetails.get(i).getAge());
+				row.createCell(7).setCellValue(userDetails.get(i).getGender());
+				row.createCell(8).setCellValue(userDetails.get(i).getFrnds_count());
 			}
 
 			ByteArrayOutputStream out = new ByteArrayOutputStream();

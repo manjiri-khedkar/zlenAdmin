@@ -31,7 +31,7 @@ public class UserDetaisImpl implements UserDetails {
 			+ " where ufd.friend_user_id = u.user_id " + ")as cnt) as frnds_count "
 			+ " FROM user_details u WHERE (LOWER(u.user_name) LIKE  :userName or :userName1 is null ) "
 			+ "and ( u.user_mobile LIKE :userMobile or :userMobile1 is null ) and ( LOWER(u.zlen_code)  LIKE  :zlenCode or :zlenCode1 is null ) "
-			+ "and (u.device_type LIKE :deviceType or :deviceType1 is null ) and (u.age between :age and :age1 or :age is null) "
+			+ "and (u.device_type LIKE :deviceType or :deviceType1 is null ) and ((date_part('year', now()) -u.age between :age and :age1 or :age is null)) "
 			+ "and (LOWER(u.gender) =  :gender or :gender1 is null ) and (Date(u.created_on) = :createdOn  or cast(:createdOn1 as date) is null) "
 			+ "and ((Select count(cnt) from (Select ufd.friend_user_id as cnt from user_friends_details ufd "
 			+ "where ufd.user_id = u.user_id  " 

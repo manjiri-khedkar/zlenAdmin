@@ -21,8 +21,6 @@ public class UsersDetailDto {
 	
 	private Integer age;
 	
-	private Integer age1;
-	
 	private Long id;
 	
 	private String longitude;
@@ -65,13 +63,6 @@ public class UsersDetailDto {
 		this.id = id;
 	}
 
-	public Integer getAge1() {
-		return age1;
-	}
-
-	public void setAge1(Integer age1) {
-		this.age1 = age1;
-	}
 
 	public Integer getAge() {
 		return age;
