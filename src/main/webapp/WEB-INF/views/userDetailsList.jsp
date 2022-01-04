@@ -234,7 +234,7 @@
 											Count</th>
 										<th class="text-left" style="background: #d3d3d3">Device
 											Type</th>
-										<th class="text-left" style="background: #d3d3d3">Action</th>
+<!-- 										<th class="text-left" style="background: #d3d3d3">Action</th> -->
 									</tr>
 								</thead>
 
@@ -262,20 +262,23 @@
 														value="${list.zlenCode}" />
 											</a></td>
 
-											<td><c:out value="${list.frnds_count}" /></td>
+											<td><a href="${pageContext.request.contextPath}/friendList/<c:out value='${list.id}'/>"
+												class="btn btn-primary btn-sm showData"><c:out value="${list.frnds_count}" /></a></td>
 
 											<td><c:out value="${list.deviceType}" /></td>
 											<!--  <td><c:out value="${list.latitude}" /></td>
 	 	                        		<td><c:out value="${list.longitude}" /></td>-->
-											<td><a
-												href="${pageContext.request.contextPath}/friendList/<c:out value='${list.id}'/>"
-												class="btn btn-primary btn-sm showData"> <i
-													class="fas fa-user-friends"
-													style="font-size: 20px; color: #ffff;"></i>
-											</a>&nbsp; <%-- <a href="${pageContext.request.contextPath}/contactlist/<c:out value='${list.id}'/>" 
-	 	                    					 class="btn btn-danger btn-sm showData">
-	 	                    					 <i class="fas fa-address-book" style="font-size: 20px; color: #ffff;"></i>
-	 	                    					 </a>&nbsp; --%></td>
+<!-- 											<td><a -->
+<%-- 												href="${pageContext.request.contextPath}/friendList/<c:out value='${list.id}'/>" --%>
+<!-- 												class="btn btn-primary btn-sm showData"> <i -->
+<!-- 													class="fas fa-user-friends" -->
+<!-- 													style="font-size: 20px; color: #ffff;"></i> -->
+<!-- 											</a>&nbsp; -->
+<%-- 											 <a href="${pageContext.request.contextPath}/contactlist/<c:out value='${list.id}'/>" 
+<%-- 	 	                    					 class="btn btn-danger btn-sm showData"> --%>
+<%-- 	 	                    					 <i class="fas fa-address-book" style="font-size: 20px; color: #ffff;"></i> --%>
+<%-- 	 	                    					 </a>&nbsp; --%> 
+<!-- 	 	                    					 </td> -->
 										</tr>
 									</c:forEach>
 								</tbody>

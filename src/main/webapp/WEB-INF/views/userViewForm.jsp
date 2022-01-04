@@ -99,8 +99,8 @@
 							   <div class="row">
 							    <div class="col">
 								    <form:label path="userProfileImagePath" class="control-label"><b>User Profile Image :</b></form:label>&nbsp;
-								     <%-- <img src="${user.userProfileImagePath}" style="width: 100px;"></img> --%>
-<%-- 								     <c:out value="${user.userProfileImagePath}" /> --%>
+								     <img src="${user.userProfileImagePath}" style="width: 100px;"></img>
+								     <c:out value="${user.userProfileImagePath}" />
 							    </div>
 							    <div class="col">
 								      <form:label path="QRCodePath" class="control-label"><b>QR Code :</b></form:label>&nbsp;
