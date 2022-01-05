@@ -39,7 +39,12 @@ public class UserDetaisImpl implements UserDetails {
 			+ "Select ufd.friend_user_id as cnt from user_friends_details ufd "
 			+ "where ufd.friend_user_id = u.user_id )as cnt) between :friendNumber and :friendNumber1 or :friendNumber is null)"
 			+ "order by u.created_on desc ";
+	
+	
+	String ageGroup = "select count(date_part('year', now()) - ud.age between :age and :age1 or :age is null) as age from user_details ud";
 
+	String genderGroup = "select count(LOWER(u.gender) = :gender or :gender1 is null ) as gender from user_details u";
+	
 	@Autowired
 	@Qualifier("zlen-jdbc")
 	private NamedParameterJdbcTemplate jdbcTemplate;
@@ -81,6 +86,42 @@ public class UserDetaisImpl implements UserDetails {
 			}
 		});
 
+	}
+
+	@Override
+	public List<UsersDetailDto> getAgeGroup(final Integer age, final Integer age1) {
+		// TODO Auto-generated method stub
+		SqlParameterSource namedParameters = new MapSqlParameterSource()
+				.addValue("age",   age  , Types.INTEGER)
+				.addValue("age1", age1, Types.INTEGER);
+		return jdbcTemplate.query(ageGroup, namedParameters, new RowMapper<UsersDetailDto>() {
+			public UsersDetailDto mapRow(ResultSet rs, int rownumber) throws SQLException {
+				UsersDetailDto ud = new UsersDetailDto();
+
+				ud.setAge(rs.getInt("age"));
+
+				return ud;
+			}
+		});
+	}
+
+	@Override
+	public List<UsersDetailDto> getGenderGroup(final String gender) {
+		// TODO Auto-generated method stub
+		SqlParameterSource namedParameters = new MapSqlParameterSource()
+				.addValue("gender", gender , Types.VARCHAR)
+				.addValue("gender1", gender, Types.VARCHAR);
+		
+		return jdbcTemplate.query(genderGroup, namedParameters, new RowMapper<UsersDetailDto>() {
+			public UsersDetailDto mapRow(ResultSet rs, int rownumber) throws SQLException {
+				UsersDetailDto u = new UsersDetailDto();
+
+				u.setGender(rs.getString("gender"));
+
+				return u;
+			}
+		});
+	
 	}
 
 }

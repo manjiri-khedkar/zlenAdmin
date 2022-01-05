@@ -349,9 +349,7 @@
 		<div class="container-fluid text-center ">
 			<div class="row  center-align"
 				style="padding: 8px; text-align: center;">
-
-
-
+				
 
 				<div class="col-md-3 bg-primary  align-center" style="border-radius: 15px; color: #ffff;">
 
@@ -381,9 +379,47 @@
 					<span style="font-size: 24pt"> <c:out value="${todaysActiveUser}" /> </span>
 
 				</div>
-
+				
 			</div>
 
+		<br><br>
+		
+		<div class="row  center-align"
+				style="padding: 8px; text-align: center;">
+				
+
+				<div class="col-md-5 bg-primary  align-center"
+					style="border-radius: 15px; color: #ffff;">
+					<span style="font-size: 20pt">  <b>Age Group Count</b>  </span> 
+					<br> <br>
+					<span style="font-size: 20pt">  <b>0-19</b>  </span>&nbsp;&nbsp;&nbsp;
+					<span style="font-size: 24pt"> <c:out value="${valuesage}" /> </span>
+					<br>
+					<span style="font-size: 20pt">  <b>20-25</b>  </span>&nbsp;&nbsp;&nbsp;
+					<span style="font-size: 24pt"> <c:out value="${valuesage1}" /> </span>
+					<br>
+					<span style="font-size: 20pt">  <b>26-45</b>  </span>&nbsp;&nbsp;&nbsp;
+					<span style="font-size: 24pt"> <c:out value="${valuesage2}" /> </span>
+					<br>
+					<span style="font-size: 20pt">  <b>46-1000</b>  </span>&nbsp;&nbsp;&nbsp;
+					<span style="font-size: 24pt"> <c:out value="${valuesage3}" /> </span>
+				</div>
+				
+								<div class="col-md-2"></div>
+					
+				<div class="col-md-5 bg-primary  align-center"
+					style="border-radius: 15px; color: #ffff;">
+					<span style="font-size: 20pt">  <b>Gender Group Count</b>  </span> 
+					<br> <br>
+					<span style="font-size: 20pt">  <b>Male</b>  </span>&nbsp;&nbsp;&nbsp;
+					<span style="font-size: 24pt"> <c:out value="${gendermale}" /> </span>
+					<br>
+					<span style="font-size: 20pt">  <b>Female</b>  </span>&nbsp;&nbsp;&nbsp;
+					<span style="font-size: 24pt"> <c:out value="${genderFemale}" /> </span>
+				</div>
+				
+		</div>
+		
 		<br><br>
 		
 			<div class="row">
