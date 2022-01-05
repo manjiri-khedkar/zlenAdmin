@@ -4,6 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +32,8 @@ public class UserDetaisImpl implements UserDetails {
 			+ " where ufd.friend_user_id = u.user_id " + ")as cnt) as frnds_count "
 			+ " FROM user_details u WHERE (LOWER(u.user_name) LIKE  :userName or :userName1 is null ) "
 			+ "and ( u.user_mobile LIKE :userMobile or :userMobile1 is null ) and ( LOWER(u.zlen_code)  LIKE  :zlenCode or :zlenCode1 is null ) "
-			+ "and (u.device_type LIKE :deviceType or :deviceType1 is null ) and ((date_part('year', now()) -u.age between :age and :age1 or :age is null)) "
+			+ "and (u.device_type LIKE :deviceType or :deviceType1 is null ) "
+			+ "and ((date_part('year', now()) - coalesce(u.age,0)) between :age and :age1 or :age is null) "
 			+ "and (LOWER(u.gender) =  :gender or :gender1 is null ) and (Date(u.created_on) = :createdOn  or cast(:createdOn1 as date) is null) "
 			+ "and ((Select count(cnt) from (Select ufd.friend_user_id as cnt from user_friends_details ufd "
 			+ "where ufd.user_id = u.user_id  " 
@@ -41,9 +43,12 @@ public class UserDetaisImpl implements UserDetails {
 			+ "order by u.created_on desc ";
 	
 	
-	String ageGroup = "select count(date_part('year', now()) - ud.age between :age and :age1 or :age is null) as age from user_details ud";
+	String ageGroup = "select  count(*) as age "
+			+ "from user_details ud "
+			+ "where (date_part('year', now()) - coalesce (ud.age,0) ) between :age and :age1 ";
 
-	String genderGroup = "select count(LOWER(u.gender) = :gender or :gender1 is null ) as gender from user_details u";
+	String genderGroup = "select upper(coalesce (gender,'NA')) as gender, count(*) as count from user_details u "
+			+ "group by upper(coalesce (gender,'NA'))";
 	
 	@Autowired
 	@Qualifier("zlen-jdbc")
@@ -90,35 +95,28 @@ public class UserDetaisImpl implements UserDetails {
 
 	@Override
 	public List<UsersDetailDto> getAgeGroup(final Integer age, final Integer age1) {
-		// TODO Auto-generated method stub
 		SqlParameterSource namedParameters = new MapSqlParameterSource()
 				.addValue("age",   age  , Types.INTEGER)
 				.addValue("age1", age1, Types.INTEGER);
 		return jdbcTemplate.query(ageGroup, namedParameters, new RowMapper<UsersDetailDto>() {
 			public UsersDetailDto mapRow(ResultSet rs, int rownumber) throws SQLException {
 				UsersDetailDto ud = new UsersDetailDto();
-
 				ud.setAge(rs.getInt("age"));
-
 				return ud;
 			}
 		});
 	}
 
 	@Override
-	public List<UsersDetailDto> getGenderGroup(final String gender) {
-		// TODO Auto-generated method stub
-		SqlParameterSource namedParameters = new MapSqlParameterSource()
-				.addValue("gender", gender , Types.VARCHAR)
-				.addValue("gender1", gender, Types.VARCHAR);
+	public List<HashMap<String,String>> getGenderGroup() {
+		SqlParameterSource namedParameters = new MapSqlParameterSource();
 		
-		return jdbcTemplate.query(genderGroup, namedParameters, new RowMapper<UsersDetailDto>() {
-			public UsersDetailDto mapRow(ResultSet rs, int rownumber) throws SQLException {
-				UsersDetailDto u = new UsersDetailDto();
-
-				u.setGender(rs.getString("gender"));
-
-				return u;
+		return jdbcTemplate.query(genderGroup, namedParameters, new RowMapper<HashMap<String,String>>() {
+			public HashMap<String,String> mapRow(ResultSet rs, int rownumber) throws SQLException {
+				HashMap<String,String> hm = new HashMap<String,String>();
+				hm.put("gender",rs.getString("gender") );
+				hm.put("count",rs.getString("count") );
+				return hm;
 			}
 		});
 	

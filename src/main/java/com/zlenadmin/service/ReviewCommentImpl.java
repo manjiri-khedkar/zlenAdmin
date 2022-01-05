@@ -8,8 +8,6 @@ import com.zlenadmin.api.entity.ReviewComments;
 import com.zlenadmin.dto.ReviewCommentDto;
 import com.zlenadmin.repository.ReviewCommentRepository;
 
-import sun.security.action.GetBooleanAction;
-
 @Service
 public class ReviewCommentImpl implements ReviewCommentService {
 	

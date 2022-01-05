@@ -166,7 +166,7 @@
 						<option value="0,19">0-19</option>
 						<option value="20,25">20-25</option>
 						<option value="26,45">26-45</option>
-						<option value="46,1000">46 Above</option>
+						<option value="46,10000">46 Above</option>
 					</select>&nbsp;&nbsp;&nbsp;&nbsp; 
 					
 					<b>Select Gender : </b>&nbsp;&nbsp;&nbsp;&nbsp;
@@ -404,25 +404,6 @@
 														ele.createdOn);
 												createdOn = date
 														.toDateString("yyyy-MM-dd");
-
-												console.log("data", data);
-												console.log("ele", ele);
-												console.log("id", id);
-												console.log("userName",
-														userName);
-												console.log("userMobile",
-														userMobile);
-												console.log("zlenCode",
-														zlenCode);
-												console.log("deviceType",
-														deviceType);
-												console.log("age", age);
-												console.log("gender", gender);
-												console.log("createdOn",
-														createdOn);
-												console.log("frnds_count",
-														frnds_count);
-												//console.log("longitude", longitude);
 
 												result += "<tr><td>"
 														+ index

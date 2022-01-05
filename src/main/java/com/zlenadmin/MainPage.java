@@ -154,58 +154,35 @@ public class MainPage {
 		
 		Integer age=0;Integer age1=19;
 		Integer value=20;Integer value1=25;Integer value2=26;
-		Integer value3=45;Integer value4=46;Integer value5=1000;
+		Integer value3=45;Integer value4=46;Integer value5=10000;
 		Integer valuesage = 0;Integer valuesage1 = 0;
 		Integer valuesage2 = 0;Integer valuesage3 = 0;
 		
-		if(age==0 ||age1==19) {
-		List<UsersDetailDto> ageGroup = userDetails.getAgeGroup(age, age1);
-		for(int i=0;i<ageGroup.size();i++) {
-		 valuesage=ageGroup.get(i).getAge();
-		}
-		model.addObject("valuesage", valuesage);
-		}
-		if (value==20 || value1==25) {
-			List<UsersDetailDto> ageGroup = userDetails.getAgeGroup(value, value1);
+			List<UsersDetailDto> ageGroup = userDetails.getAgeGroup(age, age1);
+			for (int i = 0; i < ageGroup.size(); i++) {
+				valuesage = ageGroup.get(i).getAge();
+			}
+			model.addObject("valuesage", valuesage);
+			
+			ageGroup = userDetails.getAgeGroup(value, value1);
 			for(int i=0;i<ageGroup.size();i++) {
 				 valuesage1=ageGroup.get(i).getAge();
 				}
 			model.addObject("valuesage1", valuesage1);
-		}
-		if (value2==26 || value3==45) {
-			List<UsersDetailDto> ageGroup = userDetails.getAgeGroup(value2, value3);
+			
+			 ageGroup = userDetails.getAgeGroup(value2, value3);
 			for(int i=0;i<ageGroup.size();i++) {
 				 valuesage2=ageGroup.get(i).getAge();
 				}
 			model.addObject("valuesage2", valuesage2);
-		}
-		if (value4==46 || value5==1000) {
-			List<UsersDetailDto> ageGroup = userDetails.getAgeGroup(value4, value5);
+			
+			ageGroup = userDetails.getAgeGroup(value4, value5);
 			for(int i=0;i<ageGroup.size();i++) {
 				 valuesage3=ageGroup.get(i).getAge();
 				}
 			model.addObject("valuesage3", valuesage3);
-		}
-		Integer gendermale=0;
-		Integer genderFemale = 0;
-		String male="male";
-		String female="female";
-		if(male.equals(male)) {
-			List<UsersDetailDto> gmalefemale = userDetails.getGenderGroup(male);
-			for(int i=0;i<gmalefemale.size();i++) {
-				String male1 = gmalefemale.get(i).getGender();
-				gendermale =Integer.parseInt(male1);
-			}
-			model.addObject("gendermale", gendermale);
-		}
-			if(female.equals(female)) {
-				List<UsersDetailDto> gmalefemale1 = userDetails.getGenderGroup(female);
-				for(int i=0;i<gmalefemale1.size();i++) {
-					String female1 = gmalefemale1.get(i).getGender();
-					genderFemale =Integer.parseInt(female1);
-				}
-				model.addObject("genderFemale", genderFemale);
-			}
+		
+		model.addObject("genderCounts",userDetails.getGenderGroup());
 		return model;
 	}
 
@@ -519,11 +496,7 @@ public class MainPage {
 			age1 = null;
 		}
 		
-		if ("All".equals(friendNumber) || "All".equals(friendNumber1)) {
-			age = null;
-			age1 = null;
-		}
-		
+			
 		if ("".equals(createdOn)) {
 			createdOn = null;
 		}
@@ -531,7 +504,7 @@ public class MainPage {
 		Integer valueAge = 0;
 		Integer valueAge1 = 0;
 		
-		if (age == 0 || age1 == 0) {
+		if (age == 0 && age1 == 0) {
 			age = null;
 			age1 = null;
 		}
