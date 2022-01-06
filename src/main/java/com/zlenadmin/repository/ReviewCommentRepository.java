@@ -11,6 +11,6 @@ public interface ReviewCommentRepository extends JpaRepository<ReviewComments, L
 	
 	ReviewComments findByFeedbackId(Long feedbackId);
 
-	ReviewComments findByusername(String username);
+//	ReviewComments findByusername(String username);
 	
 }

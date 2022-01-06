@@ -34,10 +34,10 @@ public class ReviewCommentImpl implements ReviewCommentService {
 		return reviewCommentRepository.findByFeedbackId(id);
 	}
 
-	@Override
-	public ReviewComments getReviewComment1(String username) {
-		
-		return reviewCommentRepository.findByusername(username);
-	}
+//	@Override
+//	public ReviewComments getReviewComment1(String username) {
+//		
+//		return reviewCommentRepository.findByusername(username);
+//	}
 
 }

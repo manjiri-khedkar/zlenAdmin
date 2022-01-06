@@ -11,7 +11,7 @@ public interface ReviewCommentService {
 
 	ReviewComments getReviewComment(long id);
 	
-	ReviewComments getReviewComment1(String username);
+//	ReviewComments getReviewComment1(String username);
 	
 
 }
