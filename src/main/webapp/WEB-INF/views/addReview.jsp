@@ -19,6 +19,7 @@
 
 				<form:hidden path="reviewId"/>
 				<form:hidden path="feedbackId"/>
+				<form:hidden path="username"/>
 				<div class="row">
 					<div class="col-md-12">
 						<div class="panel-body">

@@ -1,5 +1,6 @@
 package com.zlenadmin;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -50,33 +51,32 @@ public class AddReviewController {
 	
 	@RequestMapping("/addReview/{id}")
 	public ModelAndView addRole(@PathVariable Long id,Model model) {
-		
 		List<UserFeedBackDto> username1 = userFeedBack.getUserFeedBack();
-		ModelAndView mv = new ModelAndView();
+		List<String> name=new ArrayList<String>();
+		for(UserFeedBackDto username:username1) {
+				if(id==username.getId()) {
+			String uname= username.getUser_name();
+				 name.add(uname);
+				}
+		}
+			ModelAndView mv = new ModelAndView();
 		ReviewComments comment =  reviewCommentService.getReviewComment(id);
-		String username = null ;
-		ReviewComments comment1=null;
-		for(int i=0;i<username1.size();i++) {
-			username = username1.get(i).getUser_name();
-		 comment1 = reviewCommentService.getReviewComment1(username);
-		
-		
-		if (comment==null || comment1==null) {
+		if (comment==null) {
 			ReviewCommentDto commentDto = new ReviewCommentDto();
 			commentDto.setFeedbackId(id);
-			System.out.println("username==:"+username);
-			commentDto.setUsername(username);
 			mv.addObject("addreview", commentDto);	
 		}else {
 			ReviewCommentDto commentDto = new ReviewCommentDto();
 			commentDto.setComments(comment.getComments());
 			commentDto.setFeedbackId(comment.getFeedbackId());
 			commentDto.setReviewId(comment.getReviewId());
-			commentDto.setUsername(comment1.getUsername());
+			for(String name1:name) {
+				if(commentDto.getFeedbackId()== id) {
+			commentDto.setUsername(name1);
+				}
+			}
 			mv.addObject("addreview", commentDto);
 		}
-		}
-		
 		mv.setViewName("addReview");
 		return mv;
 	}

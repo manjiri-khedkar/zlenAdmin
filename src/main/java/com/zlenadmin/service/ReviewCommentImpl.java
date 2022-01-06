@@ -23,6 +23,7 @@ public class ReviewCommentImpl implements ReviewCommentService {
 		rc.setFeedbackId(reviewCommentDto.getFeedbackId());
 		rc.setComments(reviewCommentDto.getComments());
 		rc.setStatus(reviewCommentDto.isStatus());
+		rc.setUsername(reviewCommentDto.getUsername());
 		
 		return reviewCommentRepository.save(rc);
 	}
