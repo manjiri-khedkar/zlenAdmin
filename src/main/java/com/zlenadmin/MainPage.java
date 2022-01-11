@@ -35,6 +35,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -396,10 +397,10 @@ public class MainPage {
 		return finalMap;
 	}
 
-	@GetMapping("/userDetailsList")
+	@GetMapping("/userDetailsList/{pageid}")
 	//public ModelAndView userDetailsList() {
 	
-	public Object userDetailsList(Model model,@RequestParam(required=false) String userName, 
+	public Object userDetailsList(@PathVariable(required = false) Integer pageid, Model model,@RequestParam(required=false) String userName, 
 			@RequestParam(required=false) String userMobile, @RequestParam(required=false) String zlenCode,@RequestParam(required=false) String deviceType, 
 			@RequestParam(required=false) String gender, @RequestParam(required=false) Integer age, @RequestParam(required=false) Integer age1, 
 			@RequestParam(required=false) Integer friendNumber, @RequestParam(required=false) Integer friendNumber1, @RequestParam(required=false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date  createdOn)
@@ -442,10 +443,17 @@ public class MainPage {
 			createdOn=null;
 		}
 		
-		
+		 Integer total=1000;    
+	        if(pageid==null){}    
+	        else{  
+	        	pageid=1;
+	        	System.out.println("pageid==:"+pageid);
+	            pageid=(pageid-1)*total+1;    
+	        }    
+	        
 		ModelAndView mv = new ModelAndView();
 
-		List<UsersDetailDto> userDetailsList = userDetails.getUserDetails(userName, userMobile, zlenCode, deviceType, createdOn, gender, age,age1,friendNumber,friendNumber1);
+		List<UsersDetailDto> userDetailsList = userDetails.getUserDetails(userName, userMobile, zlenCode, deviceType, createdOn, gender, age,age1,friendNumber,friendNumber1,pageid,total);
 //		PagedListHolder<UsersDetailDto> pagedListHolder = new PagedListHolder(userDetailsList);
 //		int page = ServletRequestUtils.getIntParameter(request, "p", 0);
 //		pagedListHolder.setPage(page);
@@ -465,7 +473,7 @@ public class MainPage {
 	public List<UsersDetailDto> getUserDetails(Model model, @Param("userName") String userName,
 			@Param("userMobile") String userMobile, @Param("gender") String gender, @Param("age") Integer age,
 			@Param("age1") Integer age1, @Param("friendNumber") Integer friendNumber, @Param("friendNumber1") Integer friendNumber1, @Param("zlenCode") String zlenCode, @Param("deviceType") String deviceType,
-			@Param("createdOn") @DateTimeFormat(pattern = "yyyy-MM-dd") Date createdOn) {
+			@Param("createdOn") @DateTimeFormat(pattern = "yyyy-MM-dd") Date createdOn ) {
 
 		if ("All".equals(deviceType)) {
 			deviceType = null;
@@ -520,8 +528,20 @@ public class MainPage {
 		friendC = friendNumber;
 		friendC1 = friendNumber1;
 		
+		
+		
+		Integer total= null; 
+		Integer pageid = null;
+//		for (int i = 0; i < data.size(); i++) {	
+//		pageid=Integer.valueOf(data.get(i));
+//		}
+//        if(pageid==1){}    
+//        else{    
+//            pageid=(pageid-1)*total+1;    
+//        }    
+        
 		List<UsersDetailDto> userDetailsList = userDetails.getUserDetails(userName, userMobile, zlenCode, deviceType,
-				createdOn, gender, valueAge, valueAge1, friendC, friendC1);
+				createdOn, gender, valueAge, valueAge1, friendC, friendC1, pageid, total);
 
 		return userDetailsList;
 
@@ -567,12 +587,19 @@ public class MainPage {
 		if ("".equals(createdOn)) {
 			createdOn = null;
 		}
+		
+		Integer total=null;  
+		Integer pageid=null;
+//        if(pageid==1){}    
+//        else{    
+//            pageid=(pageid-1)*total+1;    
+//        }    
 		// List<UserDetails> uu = userDetailsRepository.getUserDetails(userName,
 		// userMobile, zlenCode, deviceType, createdOn);
 		// System.out.println("uu=="+ uu);
 		String filename = "UserDetails.xls";
 		InputStreamResource file = new InputStreamResource(
-				fileService.loadUserDetails(deviceType, userMobile, userName, zlenCode, gender, age, age1, friendNumber, friendNumber1, createdOn));
+				fileService.loadUserDetails(deviceType, userMobile, userName, zlenCode, gender, age, age1, friendNumber, friendNumber1,pageid,total, createdOn));
 		// InputStreamResource file = new
 		// InputStreamResource(fileService.loadinActive(-30));
 

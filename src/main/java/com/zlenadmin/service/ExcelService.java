@@ -72,7 +72,7 @@ public class ExcelService {
 	    ByteArrayInputStream in = ExcelHelper1.PendingToExcel(registerPending);
 	    return in;
 	  }
- public ByteArrayInputStream loadUserDetails(String deviceType, String userMobile, String zlenCode, String userName, String gender,Integer age, Integer age1, Integer friendNumber, Integer friendNumber1, @DateTimeFormat(pattern = "yyyy-MM-dd")Date createdOn) {
+ public ByteArrayInputStream loadUserDetails(String deviceType, String userMobile, String zlenCode, String userName, String gender,Integer age, Integer age1, Integer friendNumber, Integer friendNumber1, Integer pageid, Integer total, @DateTimeFormat(pattern = "yyyy-MM-dd")Date createdOn) {
 	  
 	 if ("All".equals(deviceType)) {
 			deviceType=null;
@@ -106,7 +106,7 @@ public class ExcelService {
 		}
 		
 		
-		List<UsersDetailDto> userDetails1 = userDetails.getUserDetails(userName, userMobile, zlenCode, deviceType, createdOn, gender, age,age1,friendNumber,friendNumber);
+		List<UsersDetailDto> userDetails1 = userDetails.getUserDetails(userName, userMobile, zlenCode, deviceType, createdOn, gender, age,age1,friendNumber,friendNumber1,pageid,total);
 	  
 
    ByteArrayInputStream in = ExcelHelper1.userDetailsToExcel(userDetails1);

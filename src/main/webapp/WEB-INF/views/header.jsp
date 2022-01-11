@@ -57,7 +57,7 @@
       </li>
        --%>
      <li class="nav-item active">
-       <a class="nav-link" href="${pageContext.request.contextPath}/userDetailsList"> 
+       <a class="nav-link" href="${pageContext.request.contextPath}/userDetailsList/1"> 
          <i class="fas fa-fw fa-tachometer-alt"></i>
          <span>User List</span></a>
      </li>

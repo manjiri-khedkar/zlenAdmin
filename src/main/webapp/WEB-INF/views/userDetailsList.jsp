@@ -284,6 +284,18 @@
 								</tbody>
 							</table>
 						</div>
+						<a href="${pageContext.request.contextPath}/userDetailsList/1">1</a>&nbsp;&nbsp;
+						<a href="${pageContext.request.contextPath}/userDetailsList/2">2</a>&nbsp;&nbsp;
+						<a href="${pageContext.request.contextPath}/userDetailsList/3">3</a>&nbsp;&nbsp;
+						<a href="${pageContext.request.contextPath}/userDetailsList/4">4</a>&nbsp;&nbsp;
+						<a href="${pageContext.request.contextPath}/userDetailsList/5">5</a>&nbsp;&nbsp;
+						<a href="${pageContext.request.contextPath}/userDetailsList/6">6</a>&nbsp;&nbsp;
+						<a href="${pageContext.request.contextPath}/userDetailsList/7">7</a>&nbsp;&nbsp;
+						<a href="${pageContext.request.contextPath}/userDetailsList/8">8</a>&nbsp;&nbsp;
+						<a href="${pageContext.request.contextPath}/userDetailsList/9">9</a>&nbsp;&nbsp;
+						<a href="${pageContext.request.contextPath}/userDetailsList/10">10</a>
+<%-- 						<a href="${pageContext.request.contextPath}/userDetailsList/3">3</a> --%>
+<%-- 						<a href="${pageContext.request.contextPath}/userDetailsList/4">4</a> --%>
 					</div>
 				</div>
 			</div>
@@ -368,9 +380,11 @@
 					.ajax({
 						type : "GET",
 						//contentType: "application/json",
-						url : "${pageContext.request.contextPath}/userDetailsListContents",
-						// success:function(result)
 						data : udetailList,
+						
+					url : "${pageContext.request.contextPath}/userDetailsListContents",
+						// success:function(result)
+						
 						//dataType: 'json',
 
 						/// data:{userName:inputName, userMobile:inputMobile, zlenCode:inputCode, deviceType:inputType},
@@ -446,7 +460,7 @@
 		function clearFilter() {
 
 			debugger
-			window.location.href = '${pageContext.request.contextPath}/userDetailsList';
+			window.location.href = '${pageContext.request.contextPath}/userDetailsList/1';
 		}
 	</script>
 
@@ -462,6 +476,11 @@
 			userDetails["userMobile"] = $('#inputMobile').val();
 			userDetails["zlenCode"] = $('#inputCode').val();
 			userDetails["deviceType"] = $('#inputType').val();
+			userDetails["gender"] = $("#inputGender").val();
+			userDetails["age"] = $("#inputAge").val().split(',')[0];
+			userDetails["age1"] = $("#inputAge").val().split(',')[1];
+			userDetails["friendNumber"] = $("#inputFrndCount").val().split(',')[0];
+			userDetails["friendNumber1"] = $("#inputFrndCount").val().split(',')[1];
 
 			$('#btn-download').prop("disabled", false);
 			$.ajax({

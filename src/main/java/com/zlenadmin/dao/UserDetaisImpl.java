@@ -40,7 +40,7 @@ public class UserDetaisImpl implements UserDetails {
 			+ "union all "
 			+ "Select ufd.friend_user_id as cnt from user_friends_details ufd "
 			+ "where ufd.friend_user_id = u.user_id )as cnt) between :friendNumber and :friendNumber1 or :friendNumber is null)"
-			+ "order by u.created_on desc ";
+			+ "order by u.created_on desc limit :total offset :pageid";
 	
 	
 	String ageGroup = "select  count(*) as age "
@@ -56,7 +56,7 @@ public class UserDetaisImpl implements UserDetails {
 
 	public List<UsersDetailDto> getUserDetails(final String userName, final String userMobile, final String zlenCode,
 			final String deviceType, final @Temporal Date createdOn, final String gender, final Integer age,
-			final Integer age1, final Integer friendNumber, final Integer friendNumber1) {
+			final Integer age1, final Integer friendNumber, final Integer friendNumber1, final Integer pageid, final Integer total) {
 		SqlParameterSource namedParameters = new MapSqlParameterSource()
 				.addValue("userName", "%" + userName + "%", Types.VARCHAR)
 				.addValue("userName1", userName, Types.VARCHAR)
@@ -73,7 +73,9 @@ public class UserDetaisImpl implements UserDetails {
 				.addValue("friendNumber", friendNumber, Types.INTEGER)
 				.addValue("friendNumber1", friendNumber1, Types.INTEGER)
 				.addValue("gender", gender, Types.VARCHAR)
-				.addValue("gender1", gender, Types.VARCHAR);
+				.addValue("gender1", gender, Types.VARCHAR)
+				.addValue("pageid", pageid, Types.INTEGER)
+				.addValue("total", total, Types.INTEGER);
 
 		return jdbcTemplate.query(userDetailsSql, namedParameters, new RowMapper<UsersDetailDto>() {
 			public UsersDetailDto mapRow(ResultSet rs, int rownumber) throws SQLException {

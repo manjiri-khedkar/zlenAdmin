@@ -13,7 +13,7 @@ import com.zlenadmin.dto.UsersDetailDto;
 
 public interface UserDetails {
 	
-	List<UsersDetailDto> getUserDetails(@Param("userName") String userName, @Param("userMobile") String userMobile, @Param("zlenCode") String zlenCode, @Param("deviceType") String deviceType, @Param("createdOn") @Temporal  Date createdOn, @Param("gender") String gender, @Param("age") Integer age, @Param("age1") Integer age1, @Param("friendNumber") Integer friendNumber, @Param("friendNumber1") Integer friendNumber1);
+	List<UsersDetailDto> getUserDetails(@Param("userName") String userName, @Param("userMobile") String userMobile, @Param("zlenCode") String zlenCode, @Param("deviceType") String deviceType, @Param("createdOn") @Temporal  Date createdOn, @Param("gender") String gender, @Param("age") Integer age, @Param("age1") Integer age1, @Param("friendNumber") Integer friendNumber, @Param("friendNumber1") Integer friendNumber1, @Param("pageid") Integer pageid, @Param("total") Integer total);
 
 	List<UsersDetailDto> getAgeGroup(@Param("age") Integer age, @Param("age1") Integer age1);
 	List<HashMap<String,String>>  getGenderGroup();
