@@ -20,8 +20,27 @@ public class StoriesDto {
 	
 	private Long id;
 	
+	private boolean isBanned;
 	
+	private boolean zlenWorld;
 	
+
+	public boolean isBanned() {
+		return isBanned;
+	}
+
+	public void setBanned(boolean isBanned) {
+		this.isBanned = isBanned;
+	}
+
+	public boolean isZlenWorld() {
+		return zlenWorld;
+	}
+
+	public void setZlenWorld(boolean zlenWorld) {
+		this.zlenWorld = zlenWorld;
+	}
+
 	public Long getLikesCount() {
 		return likesCount;
 	}

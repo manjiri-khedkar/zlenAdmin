@@ -22,8 +22,8 @@ import com.zlenadmin.dto.UserUpdateDto;
 public class UserUpdateImpl  implements UserUpdate{
 	
 	String sql = "select cast(count(uup.event_type) as int) as count , et.status as event  "
-			+ "from user_update uup "  
-			+ "inner join event_type et on uup.event_type = et.id "
+			+ "from public.user_update uup "  
+			+ "inner join public.event_type et on uup.event_type = et.id "
 			+ "where uup.created_at between :fromdate  and  :todaydate  "
 			+ "group by et.status ";
 	

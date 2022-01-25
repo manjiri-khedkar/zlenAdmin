@@ -12,6 +12,7 @@ public class UserStoriesDetailsDto {
 	
 	private String userName;
 
+
 	public String getMimeType() {
 		return mimeType;
 	}

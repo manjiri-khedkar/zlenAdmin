@@ -214,23 +214,14 @@ input:checked + .slider:before {
 
 				<div class="row">
 
-					<label for="mimeType"><b>Mime Type : </b></label>&nbsp;
-					<!-- <input type="text"  id="inputMimeType" placeholder="Enter Mime Type......">&nbsp;&nbsp; -->
-					<select id="inputMimeType">
-						<option value="All" selected>All</option>
-						<option value="image">Image</option>
-						<option value="video">Video</option>
-						<option value="text">Text</option>
-					</select>&nbsp;&nbsp;&nbsp;&nbsp; <label for="zlenCode"><b>Zlen
-							Code : </b></label>&nbsp; <input type="text" id="inputCode"
-						placeholder="Enter Zlen Code......">&nbsp;&nbsp; <label
-						for="uploadedDateTime"><b>Date : </b></label>&nbsp; <input
-						type="text" id="inputdate" placeholder="Enter Date......">&nbsp;&nbsp;
-						<br><br>
-						<label for="is_zlen_world"><b>Zlen World Active: </b></label>&nbsp;
+					<label for="zlenCode"><b>Zlen Code : </b></label>&nbsp; 
+					<input type="text" id="inputCode" placeholder="Enter Zlen Code......">&nbsp;&nbsp; 
+					<label for="createdAt"><b>Date : </b></label>&nbsp; 
+					<input type="text" id="inputdate" placeholder="Enter Date......">&nbsp;&nbsp;
+						<label for="zlenWorld"><b>Zlen World Active: </b></label>&nbsp;
 					<label class="switch"><input type="checkbox" id="zlenWorld">
-					<span class="slider round"></span></label>
-													
+					<span class="slider round"></span></label> &nbsp;&nbsp;
+									
 						<button type="button" id="bth-search"
 						class="btn btn-success btn-md" onclick="search()">Search</button>
 					&nbsp;&nbsp;
@@ -247,39 +238,34 @@ input:checked + .slider:before {
 								<thead>
 									<tr>
 										<th class="text-left" style="background: #d3d3d3">Sr.No.</th>
-										<th class="text-left" style="background: #d3d3d3">Uploaded
-											Date Time</th>
-										<th class="text-left" style="background: #d3d3d3">Mime
-											Type</th>
-										<th class="text-left" style="background: #d3d3d3">Zlen
-											Code</th>
+										<th class="text-left" style="background: #d3d3d3">Content</th>
+										<th class="text-left" style="background: #d3d3d3">Zlen Code</th>
 										<th class="text-left" style="background: #d3d3d3">Name</th>
-										<th class="text-left" style="background: #d3d3d3">Comments</th>
-										<th class="text-left" style="background: #d3d3d3">Likes</th>
+										<th class="text-left" style="background: #d3d3d3">Date</th>
+										<th class="text-left" style="background: #d3d3d3">Completed Status</th>
+<!-- 										<th class="text-left" style="background: #d3d3d3">Likes</th> -->
 <!-- 										<th class="text-left" style="background: #d3d3d3">Active Post</th> -->
-										<th class="text-left" style="background: #d3d3d3">Action</th>
+<!-- 										<th class="text-left" style="background: #d3d3d3">Action</th> -->
 									</tr>
 								</thead>
 
 								<tbody>
-									<c:forEach items="${userStoriesList}" var="list"
+									<c:forEach items="${pdList}" var="list"
 										varStatus="status">
 										<tr class="odd gradeX">
 											<td><c:out value="${status.index+1}" /></td>
-											<td><c:out value="${list.uploadedDateTime}" /></td>
-											<td><c:out value="${list.mimeType}" /></td>
+											<td><c:out value="${list.content}" /></td>
 											<td><a
 												href="${pageContext.request.contextPath}/userViewZlen/<c:out value='${list.zlenCode}'/>"
 												class="showData"> <c:out value="${list.zlenCode}" />
 											</a></td>
-
 											<td><c:out value="${list.userName}" /></td>
-											<td><c:out value="${list.commentCount}" /></td>
-											<td><c:out value="${list.likesCount}" /></td>
+											<td><c:out value="${list.createdAt}" /></td>
+<%-- 											<td><c:out value="${list.isCompleted}" /></td> --%>
 <%-- 											<td><c:out value="${list.isActive}" /></td> --%>
-											<td><a href="#" src='${list.uploadedPath}'class="btn btn-info btn-sm img-view"> View </a>&nbsp;
-												<a href="/activePost?id=${list.id}"><button class="btn btn-primary"> Post </button></a>&nbsp;
-												<a href="/activeUser?id=${list.id}"><button class="btn btn-primary"> User </button></a></td>
+<%-- 											<td><a href="#" src='${list.uploadedPath}'class="btn btn-info btn-sm img-view"> View </a>&nbsp; --%>
+<%-- 												<a href="/activePost?id=${list.id}"><button class="btn btn-primary"> Post </button></a>&nbsp; --%>
+<%-- 												<a href="/activeUser?id=${list.id}"><button class="btn btn-primary"> User </button></a></td> --%>
 										</tr>
 									</c:forEach>
 								</tbody>
@@ -344,12 +330,11 @@ input:checked + .slider:before {
 		});
 		function search() {
 
-			var ustoriesList;
-			ustoriesList = {}
-			ustoriesList["mimeType"] = $("#inputMimeType").val();
-			ustoriesList["zlenCode"] = $("#inputCode").val();
-			ustoriesList["uploadedDateTime"] = $("#inputdate").val();
-			ustoriesList["zlenWorld"] = $("#zlenWorld").val();
+			var pdList;
+			pdList = {}
+			pdList["zlenCode"] = $("#inputCode").val();
+			pdList["createdAt"] = $("#inputdate").val();
+			pdList["zlenWorld"] = $("#zlenWorld").val();
 			
 			$("#btn-search").prop("disabled", false);
 
@@ -357,9 +342,9 @@ input:checked + .slider:before {
 					.ajax({
 						type : "GET",
 						//contentType: "application/json",
-						url : "${pageContext.request.contextPath}/userStoriesListContents",
+						url : "${pageContext.request.contextPath}/pollListContents",
 						// success:function(result)
-						data : ustoriesList,
+						data : pdList,
 						//dataType: 'json',
 
 						/// data:{userName:inputName, userMobile:inputMobile, zlenCode:inputCode, deviceType:inputType},
@@ -367,25 +352,23 @@ input:checked + .slider:before {
 
 							var result = "";
 							var id;
-							var uploadedDateTime;
-							var mimeType;
+							var createdAt;
+							var zlenWorld;
 							var zlenCode;
 
 							$(data)
 									.each(
 											function(index, ele) {
 
-												id = ele.id;
-												uploadedDateTime = ele.uploadedDateTime;
-												mimeType = ele.mimeType;
+											
+												createdAt = ele.createdAt;
+												zlenWorld = ele.zlenWorld;
 												zlenCode = ele.zlenCode;
 
 												result += "<tr><td>"
 														+ index
 														+ "</td><td>"
-														+ ele.uploadedDateTime
-														+ "</td><td>"
-														+ ele.mimeType
+														+ ele.content
 														+ "</td><td><a href='${pageContext.request.contextPath}/userViewZlen/"+ele.zlenCode+"' class='showData'>"
 														+ ele.zlenCode
 														+ "</a></td>"
@@ -393,13 +376,8 @@ input:checked + .slider:before {
 														+ ele.userName
 														+ " </td>"
 														+ "<td>"
-														+ ele.commentCount
-														+ " </td>"
-														+ "<td>"
-														+ ele.likesCount
-														+ " </td>"
-														+ "<td><a href='#' src='"+ele.uploadedPath+"' class='btn btn-info btn-sm img-view'>View</a></td>"
-														+ "</tr>";
+														+ ele.createdAt
+														+ " </td></tr>";
 
 											});
 
@@ -415,7 +393,7 @@ input:checked + .slider:before {
 
 	<script type="text/javascript">
 		function clearFilter() {
-			window.location = '/userStoriesList';
+			window.location = '/pollList';
 		}
 	</script>
 

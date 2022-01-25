@@ -26,8 +26,8 @@ public class UserStoriesImpl implements UserStories {
 //			+ "from public.user_stories_details usd inner join public.user_details ud on usd.user_id = ud.user_id "
 //			+ "where ud.zlen_code like :zlenCode "; 
 
-	private String SQL = "select usd.id id, usd.uploaded_date_time as uploadedDateTime, usd.mime_type mimeType, "
-			+ "usd.uploaded_path as uploadedPath, ud.zlen_code as zlenCode, ud.user_name as userName,count(uscd.id) as commentCount"
+	private String SQL = "select usd.id id, usd.uploaded_date_time as uploadedDateTime, usd.mime_type mimeType,"
+			+ "usd.uploaded_path as uploadedPath, usd.is_banned as isBanned, ud.zlen_code as zlenCode, ud.user_name as userName,count(uscd.id) as commentCount"
 			+ ", count(l.id) as likesCount  "
 			+ "from  public.user_stories_details usd left join public.likes l  on usd.id = l.post_id "
 			+ "left join public.user_stories_comment_details uscd  on usd.id = uscd.snap_id "
@@ -35,6 +35,8 @@ public class UserStoriesImpl implements UserStories {
 			+ "where (ud.zlen_code LIKE :zlenCode or :zlenCode1 is null) "
 			+ "and (usd.mime_type LIKE :mimeType or :mimeType1 is null) "
 			+ "and (cast(usd.uploaded_date_time as date) = :uploadedDateTime or :uploadedDateTime1 is null) "
+			+ "and (usd.is_zlen_world = :zlenWorld or :zlenWorld1 is null) "
+			+ "and (usd.is_banned = :isBanned or :isBanned is null) "
 			+ "group by usd.id , usd.uploaded_date_time , usd.mime_type ,"
 			+ "usd.uploaded_path , ud.zlen_code , ud.user_name " 
 			+ "order by usd.uploaded_date_time desc ";
@@ -67,14 +69,18 @@ public class UserStoriesImpl implements UserStories {
 	private NamedParameterJdbcTemplate jdbcTemplate;
 
 	@Override
-	public List<StoriesDto> getUserStories(final String zlenCode, final String mimeType, final Date uploadedDateTime) {
+	public List<StoriesDto> getUserStories(final String zlenCode, final String mimeType, final Date uploadedDateTime, final boolean zlenWorld, final boolean isBanned) {
 		SqlParameterSource namedParameters = new MapSqlParameterSource()
 				.addValue("zlenCode", "%" + zlenCode + "%", Types.VARCHAR)
 				.addValue("zlenCode1", zlenCode, Types.VARCHAR)
 				.addValue("mimeType1", mimeType, Types.VARCHAR)
 				.addValue("mimeType", "%" + mimeType + "%", Types.VARCHAR)
 				.addValue("uploadedDateTime1", uploadedDateTime, Types.VARCHAR)
-				.addValue("uploadedDateTime", uploadedDateTime, Types.DATE);
+				.addValue("uploadedDateTime", uploadedDateTime, Types.DATE)
+				.addValue("zlenWorld", zlenWorld, Types.BOOLEAN)
+				.addValue("zlenWorld1",zlenWorld, Types.BOOLEAN)
+				.addValue("isBanned",isBanned, Types.BOOLEAN)
+				.addValue("isBanned1",isBanned, Types.BOOLEAN);
 
 		return jdbcTemplate.query(SQL, namedParameters, new RowMapper<StoriesDto>() {
 			public StoriesDto mapRow(ResultSet rs, int rownumber) throws SQLException {
@@ -87,6 +93,8 @@ public class UserStoriesImpl implements UserStories {
 				ud.setMimeType(rs.getString("mimeType"));
 				ud.setUploadedPath(rs.getString("uploadedPath"));
 				ud.setId(rs.getLong("id"));
+				ud.setBanned(rs.getBoolean("isBanned"));
+				//ud.setIsActive(rs.getString("isActive"));
 				return ud;
 			}
 		});

@@ -31,7 +31,25 @@ public class UserStoriesDetails implements Serializable{
 	
 	private String isActive;
 	
+	private boolean isBanned;
+	
 	public UserStoriesDetails() { }
+
+//	public boolean isIs_banned() {
+//		return is_banned;
+//	}
+//
+//	public void setIs_banned(boolean is_banned) {
+//		this.is_banned = is_banned;
+//	}
+
+	public boolean isBanned() {
+		return isBanned;
+	}
+
+	public void setBanned(boolean isBanned) {
+		this.isBanned = isBanned;
+	}
 
 	public Long getId() {
 		return id;

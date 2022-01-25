@@ -17,6 +17,7 @@ import java.util.TreeMap;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.poi.poifs.storage.ListManagedBlock;
 import org.openqa.selenium.WebDriver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Required;
@@ -38,6 +39,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.annotation.SessionScope;
@@ -47,6 +49,7 @@ import com.google.errorprone.annotations.RequiredModifiers;
 import com.zlenadmin.api.entity.LastSeenSummary;
 import com.zlenadmin.api.entity.UserDetails;
 import com.zlenadmin.api.entity.UserFeedBack;
+import com.zlenadmin.api.entity.UserStoriesDetails;
 import com.zlenadmin.dao.Accounts;
 import com.zlenadmin.dao.UserStories;
 import com.zlenadmin.dto.AccountsDto;
@@ -56,6 +59,7 @@ import com.zlenadmin.dto.RegisterPendingDto;
 import com.zlenadmin.dto.StoriesDto;
 import com.zlenadmin.dto.UserDetailsDto;
 import com.zlenadmin.dto.UserFeedBackDto;
+import com.zlenadmin.dto.UserStoriesDetailsDto;
 import com.zlenadmin.dto.UsersDetailDto;
 import com.zlenadmin.model.AppUser;
 import com.zlenadmin.model.SessionUser;
@@ -195,12 +199,13 @@ public class MainPage {
 		cal.add(Calendar.DAY_OF_MONTH, -7);
 		Date daysAgo = cal.getTime();
 
-		List<Object[]> list = userDetailsRepository.getGraphQuery(daysAgo);
+		//List<Object[]> list = userDetailsRepository.getGraphQuery(daysAgo);
+		List<Object[]> lists = userDetailsRepository.getGraphQuery(daysAgo);
 
 		List<BigInteger> list1 = new ArrayList<BigInteger>();
 		List<Date> list2 = new ArrayList<Date>();
 
-		for (Object[] dataList : list) {
+		for (Object[] dataList : lists) {
 			BigInteger count = (BigInteger) dataList[0];
 			Date createdDate = (Date) dataList[1];
 			list1.add(count);
@@ -610,7 +615,8 @@ public class MainPage {
 	@GetMapping("/userStoriesListContents")
 	@ResponseBody
 	public Object getUserStories(Model model, @Param("zlenCode") String zlenCode, @Param("mimeType") String mimeType,
-			@Param("uploadedDateTime") @DateTimeFormat(pattern = "yyyy-MM-dd") Date uploadedDateTime) {
+			@Param("uploadedDateTime") @DateTimeFormat(pattern = "yyyy-MM-dd") Date uploadedDateTime,
+			@Param("zlenWorld") boolean zlenWorld,@Param("isBanned") boolean isBanned) {
 		// List result= service.queryForMovies();
 		// List result = newrepo.getUserStories();
 
@@ -625,8 +631,16 @@ public class MainPage {
 		if ("".equals(uploadedDateTime)) {
 			uploadedDateTime = null;
 		}
+		
+		if ("".equals(zlenWorld)) {
+			zlenWorld = (Boolean) null;
+		}
 
-		List result = userStories.getUserStories(zlenCode, mimeType, uploadedDateTime);
+		if ("".equals(isBanned)) {
+			isBanned = (Boolean) null;
+		}
+		
+		List result = userStories.getUserStories(zlenCode, mimeType, uploadedDateTime,zlenWorld,isBanned);
 
 		return result;
 
@@ -635,7 +649,8 @@ public class MainPage {
 	@GetMapping("/userStoriesList")
 	public Object userStoriesList(@RequestParam(required = false) String mimeType,
 			@RequestParam(required = false) String zlenCode,
-			@RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date uploadedDateTime) {
+			@RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date uploadedDateTime, 
+			@RequestParam(required = false) boolean zlenWorld,@RequestParam(required = false) boolean isBanned) {
 
 		if ("".equals(zlenCode)) {
 			zlenCode = null;
@@ -649,37 +664,75 @@ public class MainPage {
 			uploadedDateTime = null;
 		}
 
+		if ("".equals(zlenWorld)) {
+			zlenWorld = (Boolean) null;
+		}
+		
+		if ("".equals(isBanned)) {
+			isBanned = (Boolean) null;
+		}
+		
 		ModelAndView mv = new ModelAndView();
-
+		
 		Calendar cal = new GregorianCalendar(TimeZone.getTimeZone("UTC"));
 		cal.add(Calendar.DAY_OF_MONTH, -3);
 		Date daysAgo = cal.getTime();
 
 		if (uploadedDateTime != null && mimeType == null) {
 
-			List<StoriesDto> userStoriesList = userStories.getUserStories(zlenCode, mimeType, uploadedDateTime);
+			List<StoriesDto> userStoriesList = userStories.getUserStories(zlenCode, mimeType, uploadedDateTime,zlenWorld,isBanned);
 			mv.addObject("userStoriesList", userStoriesList);
 			mv.setViewName("userStoriesList");
 			return mv;
 		} else if (uploadedDateTime != null && mimeType != null) {
 
-			List<StoriesDto> userStoriesList = userStories.getUserStories(zlenCode, mimeType, uploadedDateTime);
+			List<StoriesDto> userStoriesList = userStories.getUserStories(zlenCode, mimeType, uploadedDateTime,zlenWorld,isBanned);
 			mv.addObject("userStoriesList", userStoriesList);
 			mv.setViewName("userStoriesList");
 			return mv;
 
+		}else if (isBanned==true) {
+			List<StoriesDto> userStoriesList = userStories.getUserStories(zlenCode, mimeType, uploadedDateTime,zlenWorld,isBanned);
+			mv.addObject("userStoriesList", userStoriesList);
+			mv.setViewName("userStoriesList");
+			return mv;
+		}else if (isBanned != true) {
+			List<StoriesDto> userStoriesList = userStories.getUserStories(zlenCode, mimeType, uploadedDateTime,zlenWorld,isBanned);
+			mv.addObject("userStoriesList", userStoriesList);
+			mv.setViewName("userStoriesList");
+			return mv;
 		}
 
 		else {
 			List userStoriesList = userStories.getLatestUserStories(null, null, daysAgo);
 			// List<UserStoriesDetails> userStoriesList =
 			// userStoriesDetailsRepository.findAll();
+		
 			mv.addObject("userStoriesList", userStoriesList);
 			mv.setViewName("userStoriesList");
 			return mv;
 		}
 	}
+	
+	@RequestMapping(value="/activePost/{id}", method=RequestMethod.GET)
+	public String ActivePost(@PathVariable long id,Model model) throws Exception {
+		System.out.println("id=="+id);
+		 UserStoriesDetails storiesDto = userStoriesDetailsRepository.findOne(id);
+		 storiesDto.setBanned(true);
+		 userStoriesDetailsRepository.save(storiesDto);
+		return "redirect:userStoriesList?success";
+	}
 
+	@RequestMapping(value="/activeUser/{id}", method=RequestMethod.GET)
+	public String ActiveUser(@PathVariable long id, Model model) throws Exception {
+		System.out.println("id=="+id);
+		 UserDetails userDetails = userDetailsRepository.findById(id);
+		 userDetails.setIsActive("Y");
+		 userDetailsRepository.save(userDetails);
+		 
+		return "redirect:userStoriesList?success";
+	}
+	
 	@GetMapping("/userFeedBackList")
 	public ModelAndView userFeedBackList() {
 		ModelAndView mv = new ModelAndView();

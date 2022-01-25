@@ -15,16 +15,16 @@ import com.zlenadmin.dto.UserUpdateDto;
 @Repository
 public interface ActiveUserUpdateRepository extends JpaRepository<UserUpdate, Long> {
 	
-	@Query(value = "select count(distinct uup.user_id) as count from user_update uup  where uup.created_at between :fromdate and :todaydate", nativeQuery = true)
+	@Query(value = "select count(distinct uup.user_id) as count from public.user_update uup  where uup.created_at between :fromdate and :todaydate", nativeQuery = true)
 	Integer getTodayActiveUser(@Param("fromdate") Date fromdate, @Param("todaydate") Date todaydate);
 	
-	@Query(value = "select count(distinct uup.user_id) as count from user_update uup where uup.created_at >= :todate ", nativeQuery = true)
+	@Query(value = "select count(distinct uup.user_id) as count from public.user_update uup where uup.created_at >= :todate ", nativeQuery = true)
 	Integer getMonthlyActiveUser(@Param("todate") Date todate);
 	
-	@Query(value= "select count(distinct uup.user_id) as count from user_update uup where uup.created_at between :fromdate and :todaydate ",nativeQuery = true)
+	@Query(value= "select count(distinct uup.user_id) as count from public.user_update uup where uup.created_at between :fromdate and :todaydate ",nativeQuery = true)
 	Integer getMonthlyActiveUserSearch( @Param("fromdate") Date fromdate,@Param("todaydate") Date todaydate);
 		
-	@Query(value = "select count(distinct uup.id)  as count from user_update uup where uup.created_at between :fromdate and :todaydate ", nativeQuery = true)
+	@Query(value = "select count(distinct uup.id)  as count from public.user_update uup where uup.created_at between :fromdate and :todaydate ", nativeQuery = true)
 	Integer getAverageTimeSpendOneUserPerDay( @Param("fromdate") Date fromdate, @Param("todaydate") Date todaydate);
 	
 //	@Query(value = "select cast(count(uup.event_type) as int) as count , et.status as event  from user_update uup " 

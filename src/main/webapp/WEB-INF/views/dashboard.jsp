@@ -52,6 +52,7 @@
 		});
 
 		$(function() {
+			debugger
 			var name, date, listt, datecounter;
 			$.ajax({
 						type : "Get",
