@@ -10,7 +10,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title>Poll List</title>
+<title>Reported Post List</title>
 <meta name="description" content="">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -210,24 +210,24 @@ input:checked + .slider:before {
 			<jsp:include page="header.jsp"></jsp:include>
 
 			<div class="container">
-				<h1>Poll List</h1>
+				<h1>Reported Post List</h1>
 
-				<div class="row">
+<!-- 				<div class="row"> -->
 
-					<label for="zlenCode"><b>Zlen Code : </b></label>&nbsp; 
-					<input type="text" id="inputCode" placeholder="Enter Zlen Code......">&nbsp;&nbsp; 
-					<label for="createdAt"><b>Date : </b></label>&nbsp; 
-					<input type="text" id="inputdate" placeholder="Enter Date......">&nbsp;&nbsp;
-						<label for="zlenWorld"><b>Zlen World Active: </b></label>&nbsp;
-					<label class="switch"><input type="checkbox" id="zlenWorld">
-					<span class="slider round"></span></label> &nbsp;&nbsp;
+<!-- 					<label for="zlenCode"><b>Zlen Code : </b></label>&nbsp;  -->
+<!-- 					<input type="text" id="inputCode" placeholder="Enter Zlen Code......">&nbsp;&nbsp;  -->
+<!-- 					<label for="createdAt"><b>Date : </b></label>&nbsp;  -->
+<!-- 					<input type="text" id="inputdate" placeholder="Enter Date......">&nbsp;&nbsp; -->
+<!-- 						<label for="zlenWorld"><b>Zlen World Active: </b></label>&nbsp; -->
+<!-- 					<label class="switch"><input type="checkbox" id="zlenWorld"> -->
+<!-- 					<span class="slider round"></span></label> &nbsp;&nbsp; -->
 									
-						<button type="button" id="bth-search"
-						class="btn btn-success btn-md" onclick="search()">Search</button>
-					&nbsp;&nbsp;
-					<button type="button" class="btn btn-danger btn-md"
-						onclick="clearFilter()">Clear</button>
-				</div>
+<!-- 						<button type="button" id="bth-search" -->
+<!-- 						class="btn btn-success btn-md" onclick="search()">Search</button> -->
+<!-- 					&nbsp;&nbsp; -->
+<!-- 					<button type="button" class="btn btn-danger btn-md" -->
+<!-- 						onclick="clearFilter()">Clear</button> -->
+<!-- 				</div> -->
 				<br/>
 
 				<div class="row">
@@ -238,32 +238,29 @@ input:checked + .slider:before {
 								<thead>
 									<tr>
 										<th class="text-left" style="background: #d3d3d3">Sr.No.</th>
-										<th class="text-left" style="background: #d3d3d3">Content</th>
-										<th class="text-left" style="background: #d3d3d3">Zlen Code</th>
 										<th class="text-left" style="background: #d3d3d3">Name</th>
 										<th class="text-left" style="background: #d3d3d3">Date</th>
-										<th class="text-left" style="background: #d3d3d3">Completed Status</th>
+										<th class="text-left" style="background: #d3d3d3">Mime Type</th>
 <!-- 										<th class="text-left" style="background: #d3d3d3">Likes</th> -->
 <!-- 										<th class="text-left" style="background: #d3d3d3">Active Post</th> -->
-<!-- 										<th class="text-left" style="background: #d3d3d3">Action</th> -->
+										<th class="text-left" style="background: #d3d3d3">Action</th>
 									</tr>
 								</thead>
 
 								<tbody>
-									<c:forEach items="${pdList}" var="list"
+									<c:forEach items="${rpdList}" var="list"
 										varStatus="status">
 										<tr class="odd gradeX">
 											<td><c:out value="${status.index+1}" /></td>
-											<td><c:out value="${list.content}" /></td>
-											<td><a
-												href="${pageContext.request.contextPath}/userViewZlen/<c:out value='${list.zlenCode}'/>"
-												class="showData"> <c:out value="${list.zlenCode}" />
-											</a></td>
+<!-- 											<td><a -->
+<%-- 												href="${pageContext.request.contextPath}/userViewZlen/<c:out value='${list.zlenCode}'/>" --%>
+<%-- 												class="showData"> <c:out value="${list.zlenCode}" /> --%>
+<!-- 											</a></td> -->
 											<td><c:out value="${list.userName}" /></td>
 											<td><c:out value="${list.createdAt}" /></td>
-<%-- 											<td><c:out value="${list.isCompleted}" /></td> --%>
+											<td><c:out value="${list.mimeType}" /></td>
 <%-- 											<td><c:out value="${list.isActive}" /></td> --%>
-<%-- 											<td><a href="#" src='${list.uploadedPath}'class="btn btn-info btn-sm img-view"> View </a>&nbsp; --%>
+											<td><a href="#" src='${list.uploadedPath}'class="btn btn-info btn-sm img-view"> View </a></td>
 <%-- 												<a href="/activePost?id=${list.id}"><button class="btn btn-primary"> Post </button></a>&nbsp; --%>
 <%-- 												<a href="/activeUser?id=${list.id}"><button class="btn btn-primary"> User </button></a></td> --%>
 										</tr>
@@ -324,78 +321,78 @@ input:checked + .slider:before {
 
 
 
-	<script type="text/javascript">
-		$(document).ready(function() {
+<!-- 	<script type="text/javascript"> -->
+// 		$(document).ready(function() {
 
-		});
-		function search() {
-debugger
-			var pdList;
-			pdList = {}
-			pdList["zlenCode"] = $("#inputCode").val();
-			pdList["createdAt"] = $("#inputdate").val();
-			pdList["zlenWorld"] = $("#zlenWorld").val();
+// 		});
+// 		function search() {
+// debugger
+// 			var pdList;
+// 			pdList = {}
+// 			pdList["zlenCode"] = $("#inputCode").val();
+// 			pdList["createdAt"] = $("#inputdate").val();
+// 			pdList["zlenWorld"] = $("#zlenWorld").val();
 			
-			$("#btn-search").prop("disabled", false);
+// 			$("#btn-search").prop("disabled", false);
 
-			$
-					.ajax({
-						type : "GET",
-						//contentType: "application/json",
-						url : "${pageContext.request.contextPath}/pollListContents",
-						// success:function(result)
-						data : pdList,
-						//dataType: 'json',
+// 			$
+// 					.ajax({
+// 						type : "GET",
+// 						//contentType: "application/json",
+// 						url : "${pageContext.request.contextPath}/pollListContents",
+// 						// success:function(result)
+// 						data : pdList,
+// 						//dataType: 'json',
 
-						/// data:{userName:inputName, userMobile:inputMobile, zlenCode:inputCode, deviceType:inputType},
-						success : function(data) {
+// 						/// data:{userName:inputName, userMobile:inputMobile, zlenCode:inputCode, deviceType:inputType},
+// 						success : function(data) {
 
-							var result = "";
-							var id;
-							var createdAt;
-							var zlenWorld;
-							var zlenCode;
+// 							var result = "";
+// 							var id;
+// 							var createdAt;
+// 							var zlenWorld;
+// 							var zlenCode;
 
-							$(data)
-									.each(
-											function(index, ele) {
+// 							$(data)
+// 									.each(
+// 											function(index, ele) {
 
 											
-												createdAt = ele.createdAt;
-												zlenWorld = ele.zlenWorld;
-												zlenCode = ele.zlenCode;
+// 												createdAt = ele.createdAt;
+// 												zlenWorld = ele.zlenWorld;
+// 												zlenCode = ele.zlenCode;
 
-												result += "<tr><td>"
-														+ index
-														+ "</td><td>"
-														+ ele.content
-														+ "</td><td><a href='${pageContext.request.contextPath}/userViewZlen/"+ele.zlenCode+"' class='showData'>"
-														+ ele.zlenCode
-														+ "</a></td>"
-														+ "<td>"
-														+ ele.userName
-														+ " </td>"
-														+ "<td>"
-														+ ele.createdAt
-														+ " </td></tr>";
+// 												result += "<tr><td>"
+// 														+ index
+// 														+ "</td><td>"
+// 														+ ele.content
+// 														+ "</td><td><a href='${pageContext.request.contextPath}/userViewZlen/"+ele.zlenCode+"' class='showData'>"
+// 														+ ele.zlenCode
+// 														+ "</a></td>"
+// 														+ "<td>"
+// 														+ ele.userName
+// 														+ " </td>"
+// 														+ "<td>"
+// 														+ ele.createdAt
+// 														+ " </td></tr>";
 
-											});
+// 											});
 
-							$('#table1 tbody').html(result);
-							bindFunction();
-							return;
-							alert(ele.success);
-						}
+// 							$('#table1 tbody').html(result);
+// 							bindFunction();
+// 							return;
+// 							alert(ele.success);
+// 						}
 
-					});
-		}
-	</script>
+// 					});
+// 		}
+<!-- 	</script> -->
 
-	<script type="text/javascript">
-		function clearFilter() {
-			window.location = '/pollList';
-		}
-	</script>
+<!-- 	<script type="text/javascript"> -->
+// 		function clearFilter() {
+// 			window.location = '/reportedPostList';
+// 		}
+<!-- 	</script> -->
 
 </body>
 </html>

@@ -104,7 +104,16 @@
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>Active User Dashboard</span></a>
       </li>
-      
+      <li class="nav-item active">
+        <a class="nav-link" href="${pageContext.request.contextPath}/pollList">
+          <i class="fas fa-fw fa-tachometer-alt"></i>
+          <span>Poll</span></a>
+      </li>
+       <li class="nav-item active">
+        <a class="nav-link" href="${pageContext.request.contextPath}/reportedPostList">
+          <i class="fas fa-fw fa-tachometer-alt"></i>
+          <span>Reported Post</span></a>
+      </li>
       <!-- Divider -->
       <hr class="sidebar-divider d-none d-md-block">
 

@@ -20,8 +20,9 @@ import com.zlenadmin.dto.PollDto;
 public class PollController {
 	
 	@Autowired
-	Poll poll;
+	private Poll poll;
 	
+
 	@GetMapping("/pollList")
 	public Object pollList(@RequestParam(required = false) String zlenCode,
 			@RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date createdAt, 
@@ -37,7 +38,8 @@ public class PollController {
 		}
 		
 		if ("".equals(zlenWorld)) {
-			zlenWorld = (Boolean) null;
+			zlenWorld = null != null;
+			
 		}
 		
 		ModelAndView mv = new ModelAndView();
@@ -65,7 +67,7 @@ public class PollController {
 		}
 		
 		if ("".equals(zlenWorld)) {
-			zlenWorld = (Boolean) null;
+			zlenWorld = null != null;
 		}
 
 		List<PollDto> pdList = poll.getPoll(zlenCode, zlenWorld, createdAt);
