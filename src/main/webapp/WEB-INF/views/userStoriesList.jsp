@@ -227,7 +227,7 @@ input:checked + .slider:before {
 						for="uploadedDateTime"><b>Date : </b></label>&nbsp; <input
 						type="text" id="inputdate" placeholder="Enter Date......">&nbsp;&nbsp;
 						<br><br>
-						<label for="is_zlen_world"><b>Zlen World Active: </b></label>&nbsp;
+						<label for="zlenWorld"><b>Zlen World Active: </b></label>&nbsp;
 					<label class="switch"><input type="checkbox" id="zlenWorld">
 					<span class="slider round"></span></label>
 													
@@ -349,7 +349,7 @@ input:checked + .slider:before {
 			ustoriesList["mimeType"] = $("#inputMimeType").val();
 			ustoriesList["zlenCode"] = $("#inputCode").val();
 			ustoriesList["uploadedDateTime"] = $("#inputdate").val();
-			ustoriesList["zlenWorld"] = $("#zlenWorld").val();
+			ustoriesList["zlenWorld"] = $("#zlenWorld").is(':checked');
 			
 			$("#btn-search").prop("disabled", false);
 

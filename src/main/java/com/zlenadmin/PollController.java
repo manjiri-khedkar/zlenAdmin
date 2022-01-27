@@ -43,7 +43,7 @@ public class PollController {
 		}
 		
 		ModelAndView mv = new ModelAndView();
-		List<PollDto> pdList = poll.getPoll(zlenCode, zlenWorld, createdAt);
+		List<PollDto> pdList = poll.getPoll(zlenCode,createdAt,zlenWorld);
 		mv.addObject("pdList", pdList);
 		mv.setViewName("pollList");
 		return mv;
@@ -70,7 +70,7 @@ public class PollController {
 			zlenWorld = null != null;
 		}
 
-		List<PollDto> pdList = poll.getPoll(zlenCode, zlenWorld, createdAt);
+		List<PollDto> pdList = poll.getPoll(zlenCode,createdAt,zlenWorld);
 		return pdList;
 	}
 		

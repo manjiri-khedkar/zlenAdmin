@@ -8,13 +8,14 @@ public class PollDto {
 	
 	private String content;
 	
+	
 	private Date createdAt;
 	
 	private boolean zlenWorld;
 	
 	private boolean isBanned;
 	
-	private  boolean isCompleted;
+	private boolean isCompleted;
 	
 	private String zlenCode;
 	

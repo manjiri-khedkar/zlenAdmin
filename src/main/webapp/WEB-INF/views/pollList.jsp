@@ -250,8 +250,7 @@ input:checked + .slider:before {
 								</thead>
 
 								<tbody>
-									<c:forEach items="${pdList}" var="list"
-										varStatus="status">
+									<c:forEach items="${pdList}" var="list" varStatus="status">
 										<tr class="odd gradeX">
 											<td><c:out value="${status.index+1}" /></td>
 											<td><c:out value="${list.content}" /></td>
@@ -334,7 +333,7 @@ debugger
 			pdList = {}
 			pdList["zlenCode"] = $("#inputCode").val();
 			pdList["createdAt"] = $("#inputdate").val();
-			pdList["zlenWorld"] = $("#zlenWorld").val();
+			pdList["zlenWorld"] = $("#zlenWorld").is(':checked');
 			
 			$("#btn-search").prop("disabled", false);
 
