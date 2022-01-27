@@ -20,7 +20,7 @@ import com.zlenadmin.dto.StoriesDto;
 @Repository
 public class PollImpl implements Poll {
 
-	String Poll = "select po.id as id, po.content as content, po.created_at as createdAt, po.is_completed as isCompleted, po.is_zlen_world as zlenWorld, "
+	String Poll = "select po.id as id, po.content as content, po.created_at as createdAt, po.is_completed as iscompleted, po.is_zlen_world as zlenWorld, "
 			+ "ud.zlen_code as zlenCode, ud.user_name as userName "
 			+ "from public.poll po inner join public.user_details ud on po.user_id = ud.user_id "
 			+ "where (ud.zlen_code LIKE :zlenCode or :zlenCode1 is null) "
@@ -50,8 +50,8 @@ public class PollImpl implements Poll {
 				pd.setContent(rs.getString("content"));
 				pd.setCreatedAt(rs.getDate("createdAt"));
 				pd.setZlenWorld(rs.getBoolean("zlenWorld"));
-//				System.out.println("isCompleted ==:" + rs.getBoolean("isCompleted"));
-//				pd.setIsCompleted(rs.getBoolean("isCompleted"));
+				System.out.println("isCompleted ==:" + rs.getBoolean("iscompleted"));
+				pd.setIscompleted(rs.getBoolean("iscompleted"));
 				//ud.setIsActive(rs.getString("isActive"));
 				return pd;
 			}

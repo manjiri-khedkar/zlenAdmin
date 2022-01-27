@@ -260,7 +260,7 @@ input:checked + .slider:before {
 											</a></td>
 											<td><c:out value="${list.userName}" /></td>
 											<td><c:out value="${list.createdAt}" /></td>
-<%-- 											<td><c:out value="${list.isCompleted}" /></td> --%>
+											<td><c:out value="${list.iscompleted}" /></td>
 <%-- 											<td><c:out value="${list.isActive}" /></td> --%>
 <%-- 											<td><a href="#" src='${list.uploadedPath}'class="btn btn-info btn-sm img-view"> View </a>&nbsp; --%>
 <%-- 												<a href="/activePost?id=${list.id}"><button class="btn btn-primary"> Post </button></a>&nbsp; --%>
