@@ -650,7 +650,7 @@ public class MainPage {
 	public Object userStoriesList(@RequestParam(required = false) String mimeType,
 			@RequestParam(required = false) String zlenCode,
 			@RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date uploadedDateTime, 
-			@RequestParam(required = false) boolean zlenWorld,@RequestParam(required = false) boolean isbanned) {
+			@RequestParam(required = false) boolean zlenWorld,@RequestParam(required = false)boolean isbanned) {
 
 		if ("".equals(zlenCode)) {
 			zlenCode = null;
@@ -690,20 +690,13 @@ public class MainPage {
 			mv.addObject("userStoriesList", userStoriesList);
 			mv.setViewName("userStoriesList");
 			return mv;
+
+		}else if (isbanned==true || isbanned != true) {
+			List<StoriesDto> userStoriesList = userStories.getUserStories(zlenCode, mimeType, uploadedDateTime,zlenWorld,isbanned);
+			mv.addObject("userStoriesList", userStoriesList);
+			mv.setViewName("userStoriesList");
+			return mv;
 		}
-
-//		}else if (isbanned==true) {
-//			List<StoriesDto> userStoriesList = userStories.getUserStories(zlenCode, mimeType, uploadedDateTime,zlenWorld,isbanned);
-//			mv.addObject("userStoriesList", userStoriesList);
-//			mv.setViewName("userStoriesList");
-//			return mv;
-//		}else if (isbanned != true) {
-//			List<StoriesDto> userStoriesList = userStories.getUserStories(zlenCode, mimeType, uploadedDateTime,zlenWorld,isbanned);
-//			mv.addObject("userStoriesList", userStoriesList);
-//			mv.setViewName("userStoriesList");
-//			return mv;
-//		}
-
 		else {
 			List userStoriesList = userStories.getLatestUserStories(null, null, daysAgo);
 			// List<UserStoriesDetails> userStoriesList =
@@ -719,7 +712,9 @@ public class MainPage {
 	public String ActivePost(@RequestParam("id") long id,Model model) throws Exception {
 		System.out.println("id=="+id);
 		 UserStoriesDetails storiesDto = userStoriesDetailsRepository.findOne(id);
+		 if(storiesDto.isBanned() == true) {
 		 storiesDto.setBanned(false);
+		 }
 		 userStoriesDetailsRepository.save(storiesDto);
 		return "redirect:userStoriesList?success";
 	}
@@ -728,7 +723,9 @@ public class MainPage {
 	public String BlockPost(@RequestParam("id") long id,Model model) throws Exception {
 		System.out.println("id=="+id);
 		 UserStoriesDetails storiesDto = userStoriesDetailsRepository.findOne(id);
+		 if(storiesDto.isBanned() == false) {
 		 storiesDto.setBanned(true);
+		 }
 		 userStoriesDetailsRepository.save(storiesDto);
 		return "redirect:userStoriesList?success";
 	}

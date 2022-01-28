@@ -214,20 +214,20 @@ input:checked + .slider:before {
 
 <!-- 				<div class="row"> -->
 
-<!-- 					<label for="zlenCode"><b>Zlen Code : </b></label>&nbsp;  -->
-<!-- 					<input type="text" id="inputCode" placeholder="Enter Zlen Code......">&nbsp;&nbsp;  -->
-<!-- 					<label for="createdAt"><b>Date : </b></label>&nbsp;  -->
-<!-- 					<input type="text" id="inputdate" placeholder="Enter Date......">&nbsp;&nbsp; -->
+					<label for="zlenCode"><b>Zlen Code : </b></label>&nbsp; 
+					<input type="text" id="inputCode" placeholder="Enter Zlen Code......">&nbsp;&nbsp; 
+					<label for="createdAt"><b>Date : </b></label>&nbsp; 
+					<input type="text" id="inputdate" placeholder="Enter Date......">&nbsp;&nbsp;
 <!-- 						<label for="zlenWorld"><b>Zlen World Active: </b></label>&nbsp; -->
 <!-- 					<label class="switch"><input type="checkbox" id="zlenWorld"> -->
 <!-- 					<span class="slider round"></span></label> &nbsp;&nbsp; -->
 									
-<!-- 						<button type="button" id="bth-search" -->
-<!-- 						class="btn btn-success btn-md" onclick="search()">Search</button> -->
-<!-- 					&nbsp;&nbsp; -->
-<!-- 					<button type="button" class="btn btn-danger btn-md" -->
-<!-- 						onclick="clearFilter()">Clear</button> -->
-<!-- 				</div> -->
+						<button type="button" id="bth-search"
+						class="btn btn-success btn-md" onclick="search()">Search</button>
+					&nbsp;&nbsp;
+					<button type="button" class="btn btn-danger btn-md"
+						onclick="clearFilter()">Clear</button>
+				</div>
 				<br/>
 
 				<div class="row">
@@ -321,78 +321,75 @@ input:checked + .slider:before {
 
 
 
-<!-- 	<script type="text/javascript"> -->
-// 		$(document).ready(function() {
+	<script type="text/javascript">
+ 		$(document).ready(function() {
 
-// 		});
-// 		function search() {
-// debugger
-// 			var pdList;
-// 			pdList = {}
-// 			pdList["zlenCode"] = $("#inputCode").val();
-// 			pdList["createdAt"] = $("#inputdate").val();
-// 			pdList["zlenWorld"] = $("#zlenWorld").val();
+ 		});
+ 		function search() {
+ debugger
+ 			var pdList;
+ 			pdList = {}
+ 			pdList["zlenCode"] = $("#inputCode").val();
+ 			pdList["createdAt"] = $("#inputdate").val();
 			
-// 			$("#btn-search").prop("disabled", false);
+ 			$("#btn-search").prop("disabled", false);
 
-// 			$
-// 					.ajax({
-// 						type : "GET",
-// 						//contentType: "application/json",
-// 						url : "${pageContext.request.contextPath}/pollListContents",
-// 						// success:function(result)
-// 						data : pdList,
-// 						//dataType: 'json',
+ 			$
+ 					.ajax({
+ 						type : "GET",
+ 						//contentType: "application/json",
+ 						url : "${pageContext.request.contextPath}/reportedPostListContents",
+ 						// success:function(result)
+ 						data : pdList,
+ 						//dataType: 'json',
 
-// 						/// data:{userName:inputName, userMobile:inputMobile, zlenCode:inputCode, deviceType:inputType},
-// 						success : function(data) {
+ 						/// data:{userName:inputName, userMobile:inputMobile, zlenCode:inputCode, deviceType:inputType},
+ 						success : function(data) {
 
-// 							var result = "";
-// 							var id;
-// 							var createdAt;
-// 							var zlenWorld;
-// 							var zlenCode;
+ 							var result = "";
+ 							var id;
+ 							var createdAt;
+ 							var zlenCode;
 
-// 							$(data)
-// 									.each(
-// 											function(index, ele) {
+ 							$(data)
+ 									.each(
+ 											function(index, ele) {
 
 											
-// 												createdAt = ele.createdAt;
-// 												zlenWorld = ele.zlenWorld;
-// 												zlenCode = ele.zlenCode;
+ 												createdAt = ele.createdAt;
+ 												zlenCode = ele.zlenCode;
 
-// 												result += "<tr><td>"
-// 														+ index
-// 														+ "</td><td>"
-// 														+ ele.content
-// 														+ "</td><td><a href='${pageContext.request.contextPath}/userViewZlen/"+ele.zlenCode+"' class='showData'>"
-// 														+ ele.zlenCode
-// 														+ "</a></td>"
-// 														+ "<td>"
-// 														+ ele.userName
-// 														+ " </td>"
-// 														+ "<td>"
-// 														+ ele.createdAt
-// 														+ " </td></tr>";
+ 												result += "<tr><td>"
+ 														+ index
+ 														+ "</td><td>"
+ 														+ ele.userName
+ 														+ "</td><td><a href='${pageContext.request.contextPath}/userViewZlen/"+ele.zlenCode+"' class='showData'>"
+ 														+ ele.zlenCode
+ 														+ "</a></td>"
+														+ "<td>"
+ 														+ ele.userName
+ 														+ " </td>"
+ 														+ "<td>"
+ 														+ ele.createdAt
+ 														+ " </td></tr>";
 
-// 											});
+ 											});
 
-// 							$('#table1 tbody').html(result);
-// 							bindFunction();
-// 							return;
-// 							alert(ele.success);
-// 						}
+ 							$('#table1 tbody').html(result);
+ 							bindFunction();
+ 							return;
+ 							alert(ele.success);
+ 						}
 
-// 					});
-// 		}
-<!-- 	</script> -->
+ 					});
+ 		}
+	</script>
 
-<!-- 	<script type="text/javascript"> -->
-// 		function clearFilter() {
-// 			window.location = '/reportedPostList';
-// 		}
-<!-- 	</script> -->
+	<script type="text/javascript">
+ 		function clearFilter() {
+ 			window.location = '/reportedPostList';
+ 		}
+	</script>
 
 </body>
 </html>

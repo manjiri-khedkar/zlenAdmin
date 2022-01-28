@@ -36,7 +36,7 @@ public class UserStoriesImpl implements UserStories {
 			+ "and (usd.mime_type LIKE :mimeType or :mimeType1 is null) "
 			+ "and (cast(usd.uploaded_date_time as date) = :uploadedDateTime or :uploadedDateTime1 is null) "
 			+ "and (usd.is_zlen_world = :zlenWorld or :zlenWorld1 is null) "
-			+ "and (usd.is_banned = :isbanned or :isbanned1 is null) "
+			//+ "and (usd.is_banned = :isbanned or :isbanned1 =false) "
 			+ "group by usd.id , usd.uploaded_date_time , usd.mime_type ,"
 			+ "usd.uploaded_path , ud.zlen_code , ud.user_name " 
 			+ "order by usd.uploaded_date_time desc ";
@@ -78,9 +78,9 @@ public class UserStoriesImpl implements UserStories {
 				.addValue("uploadedDateTime1", uploadedDateTime, Types.VARCHAR)
 				.addValue("uploadedDateTime", uploadedDateTime, Types.DATE)
 				.addValue("zlenWorld", zlenWorld, Types.BOOLEAN)
-				.addValue("zlenWorld1",zlenWorld, Types.BOOLEAN)
-				.addValue("isbanned",isbanned, Types.BOOLEAN)
-				.addValue("isbanned1",isbanned, Types.BOOLEAN);
+				.addValue("zlenWorld1",zlenWorld, Types.BOOLEAN);
+				//.addValue("isbanned",isbanned, Types.BOOLEAN)
+				//.addValue("isbanned1",isbanned, Types.BOOLEAN);
 
 		return jdbcTemplate.query(SQL, namedParameters, new RowMapper<StoriesDto>() {
 			public StoriesDto mapRow(ResultSet rs, int rownumber) throws SQLException {
@@ -121,6 +121,7 @@ public class UserStoriesImpl implements UserStories {
 				ud.setMimeType(rs.getString("mimeType"));
 				ud.setUploadedPath(rs.getString("uploadedPath"));
 				ud.setId(rs.getLong("id"));
+				//ud.setIsbanned(rs.getBoolean("isbanned"));
 				return ud;
 			}
 		});

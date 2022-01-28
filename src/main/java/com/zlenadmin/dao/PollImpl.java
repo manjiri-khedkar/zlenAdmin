@@ -50,7 +50,6 @@ public class PollImpl implements Poll {
 				pd.setContent(rs.getString("content"));
 				pd.setCreatedAt(rs.getDate("createdAt"));
 				pd.setZlenWorld(rs.getBoolean("zlenWorld"));
-				System.out.println("isCompleted ==:" + rs.getBoolean("iscompleted"));
 				pd.setIscompleted(rs.getBoolean("iscompleted"));
 				//ud.setIsActive(rs.getString("isActive"));
 				return pd;
