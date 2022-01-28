@@ -373,9 +373,10 @@ debugger
 														+ "</a></td>"
 														+ "<td>"
 														+ ele.userName
-														+ " </td>"
-														+ "<td>"
+														+ " </td><td>"
 														+ ele.createdAt
+														+ " </td><td>"
+														+ ele.iscompleted
 														+ " </td></tr>";
 
 											});

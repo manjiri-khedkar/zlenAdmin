@@ -616,7 +616,7 @@ public class MainPage {
 	@ResponseBody
 	public Object getUserStories(Model model, @Param("zlenCode") String zlenCode, @Param("mimeType") String mimeType,
 			@Param("uploadedDateTime") @DateTimeFormat(pattern = "yyyy-MM-dd") Date uploadedDateTime,
-			@Param("zlenWorld") boolean zlenWorld,@Param("isBanned") boolean isBanned) {
+			@Param("zlenWorld") boolean zlenWorld,@Param("isbanned") boolean isbanned) {
 		// List result= service.queryForMovies();
 		// List result = newrepo.getUserStories();
 
@@ -636,11 +636,11 @@ public class MainPage {
 			zlenWorld = (Boolean) null;
 		}
 
-		if ("".equals(isBanned)) {
-			isBanned = (Boolean) null;
+		if ("".equals(isbanned)) {
+			isbanned = (Boolean) null;
 		}
 		
-		List result = userStories.getUserStories(zlenCode, mimeType, uploadedDateTime,zlenWorld,isBanned);
+		List result = userStories.getUserStories(zlenCode, mimeType, uploadedDateTime,zlenWorld,isbanned);
 
 		return result;
 
@@ -650,7 +650,7 @@ public class MainPage {
 	public Object userStoriesList(@RequestParam(required = false) String mimeType,
 			@RequestParam(required = false) String zlenCode,
 			@RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date uploadedDateTime, 
-			@RequestParam(required = false) boolean zlenWorld,@RequestParam(required = false) boolean isBanned) {
+			@RequestParam(required = false) boolean zlenWorld,@RequestParam(required = false) boolean isbanned) {
 
 		if ("".equals(zlenCode)) {
 			zlenCode = null;
@@ -668,8 +668,8 @@ public class MainPage {
 			zlenWorld = (Boolean) null;
 		}
 		
-		if ("".equals(isBanned)) {
-			isBanned = (Boolean) null;
+		if ("".equals(isbanned)) {
+			isbanned = (Boolean) null;
 		}
 		
 		ModelAndView mv = new ModelAndView();
@@ -680,28 +680,29 @@ public class MainPage {
 
 		if (uploadedDateTime != null && mimeType == null) {
 
-			List<StoriesDto> userStoriesList = userStories.getUserStories(zlenCode, mimeType, uploadedDateTime,zlenWorld,isBanned);
+			List<StoriesDto> userStoriesList = userStories.getUserStories(zlenCode, mimeType, uploadedDateTime,zlenWorld,isbanned);
 			mv.addObject("userStoriesList", userStoriesList);
 			mv.setViewName("userStoriesList");
 			return mv;
 		} else if (uploadedDateTime != null && mimeType != null) {
 
-			List<StoriesDto> userStoriesList = userStories.getUserStories(zlenCode, mimeType, uploadedDateTime,zlenWorld,isBanned);
-			mv.addObject("userStoriesList", userStoriesList);
-			mv.setViewName("userStoriesList");
-			return mv;
-
-		}else if (isBanned==true) {
-			List<StoriesDto> userStoriesList = userStories.getUserStories(zlenCode, mimeType, uploadedDateTime,zlenWorld,isBanned);
-			mv.addObject("userStoriesList", userStoriesList);
-			mv.setViewName("userStoriesList");
-			return mv;
-		}else if (isBanned != true) {
-			List<StoriesDto> userStoriesList = userStories.getUserStories(zlenCode, mimeType, uploadedDateTime,zlenWorld,isBanned);
+			List<StoriesDto> userStoriesList = userStories.getUserStories(zlenCode, mimeType, uploadedDateTime,zlenWorld,isbanned);
 			mv.addObject("userStoriesList", userStoriesList);
 			mv.setViewName("userStoriesList");
 			return mv;
 		}
+
+//		}else if (isbanned==true) {
+//			List<StoriesDto> userStoriesList = userStories.getUserStories(zlenCode, mimeType, uploadedDateTime,zlenWorld,isbanned);
+//			mv.addObject("userStoriesList", userStoriesList);
+//			mv.setViewName("userStoriesList");
+//			return mv;
+//		}else if (isbanned != true) {
+//			List<StoriesDto> userStoriesList = userStories.getUserStories(zlenCode, mimeType, uploadedDateTime,zlenWorld,isbanned);
+//			mv.addObject("userStoriesList", userStoriesList);
+//			mv.setViewName("userStoriesList");
+//			return mv;
+//		}
 
 		else {
 			List userStoriesList = userStories.getLatestUserStories(null, null, daysAgo);
@@ -714,8 +715,17 @@ public class MainPage {
 		}
 	}
 	
-	@RequestMapping(value="/activePost/{id}", method=RequestMethod.GET)
-	public String ActivePost(@PathVariable long id,Model model) throws Exception {
+	@RequestMapping(value="/activePost", method=RequestMethod.GET)
+	public String ActivePost(@RequestParam("id") long id,Model model) throws Exception {
+		System.out.println("id=="+id);
+		 UserStoriesDetails storiesDto = userStoriesDetailsRepository.findOne(id);
+		 storiesDto.setBanned(false);
+		 userStoriesDetailsRepository.save(storiesDto);
+		return "redirect:userStoriesList?success";
+	}
+	
+	@RequestMapping(value="/blockPost", method=RequestMethod.GET)
+	public String BlockPost(@RequestParam("id") long id,Model model) throws Exception {
 		System.out.println("id=="+id);
 		 UserStoriesDetails storiesDto = userStoriesDetailsRepository.findOne(id);
 		 storiesDto.setBanned(true);

@@ -20,17 +20,17 @@ public class StoriesDto {
 	
 	private Long id;
 	
-	private boolean isBanned;
+	private boolean isbanned;
 	
 	private boolean zlenWorld;
 	
 
-	public boolean isBanned() {
-		return isBanned;
+	public boolean isIsbanned() {
+		return isbanned;
 	}
 
-	public void setBanned(boolean isBanned) {
-		this.isBanned = isBanned;
+	public void setIsbanned(boolean isbanned) {
+		this.isbanned = isbanned;
 	}
 
 	public boolean isZlenWorld() {

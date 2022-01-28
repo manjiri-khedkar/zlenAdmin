@@ -278,7 +278,18 @@ input:checked + .slider:before {
 											<td><c:out value="${list.likesCount}" /></td>
 <%-- 											<td><c:out value="${list.isActive}" /></td> --%>
 											<td><a href="#" src='${list.uploadedPath}'class="btn btn-info btn-sm img-view"> View </a>&nbsp;
-												<a href="/activePost?id=${list.id}"><button class="btn btn-primary"> Post </button></a>&nbsp;
+												<c:choose>
+												<c:when test="${list.isbanned == true}">
+												<a href="/activePost?id=${list.id}"><button class="btn btn-primary"> Active Post </button></a>&nbsp;
+												</c:when>
+												<c:otherwise>
+												<c:choose>
+												<c:when test="${list.isbanned == false}">
+												<a href="/blockPost?id=${list.id}"><button class="btn btn-primary"> Block Post </button></a>
+												</c:when>
+												</c:choose>
+												</c:otherwise>
+												</c:choose>
 												<a href="/activeUser?id=${list.id}"><button class="btn btn-primary"> User </button></a></td>
 										</tr>
 									</c:forEach>
