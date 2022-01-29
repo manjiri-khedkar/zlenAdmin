@@ -277,7 +277,6 @@ input:checked + .slider:before {
 											<td><c:out value="${list.likesCount}" /></td>
 <%-- 											<td><c:out value="${list.isActive}" /></td> --%>
 											<td><a href="#" src='${list.uploadedPath}'class="btn btn-info btn-sm img-view"> View </a>&nbsp;
-<%-- 											<c:out value="${list.isbanned}" /> --%>
 												<c:choose>
 												<c:when test="${list.isbanned == true}">
 												<a href="/activePost?id=${list.id}"><button class="btn btn-primary"> Active Post </button></a>&nbsp;
@@ -287,22 +286,15 @@ input:checked + .slider:before {
 												</c:otherwise>
 												</c:choose>
 												
-<%-- 												<c:choose> --%>
-<%-- 												<c:when test="${list.isbanned != true}"> --%>
-<%-- 												<a href="/blockPost?id=${list.id}"><button class="btn btn-primary"> Block Post </button></a>&nbsp; --%>
-<%-- 												</c:when> --%>
-<%-- 												<c:otherwise> --%>
-<%-- 												<a href="/blockPost?id=${list.id}"><button class="btn btn-primary"> Block Post </button></a>&nbsp; --%>
-<%-- 												</c:otherwise> --%>
-<%-- 												</c:choose> --%>
-												
-<%-- 												<c:choose> --%>
-<%-- 												<c:when test="${list.isbanned == true}"> --%>
-<%-- 												<a href="/activePost?id=${list.id}"><button class="btn btn-primary"> Active Post </button></a>&nbsp;
-													<a href="/blockPost?id=${list.id}"><button class="btn btn-primary"> Block Post </button></a> --%>
-<%-- 												</c:when> --%>
-<%-- 												</c:choose> --%>
-												<a href="/activeUser?id=${list.id}"><button class="btn btn-primary"> User </button></a></td>
+												<c:out value="${list.isbanned1}" /> 
+												<c:choose>
+												<c:when test="${list.isbanned1 == true}">
+												<a href="/activeUser?id=${list.uid}"><button class="btn btn-primary"> Active User </button></a>&nbsp;
+												</c:when>
+												<c:otherwise>
+												<a href="/blockUser?id=${list.uid}"><button class="btn btn-primary"> Block User </button></a>&nbsp;
+												</c:otherwise>
+												</c:choose>
 										</tr>
 									</c:forEach>
 								</tbody>

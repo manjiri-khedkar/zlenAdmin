@@ -20,22 +20,28 @@ import com.zlenadmin.dto.ReportPostDto;
 @Repository
 public class ReportedPostImpl implements ReportedPost {
 
-	String reportedPost = "select rp.created_at as createdAt,  usd.mime_type as mimeType, usd.uploaded_path as uploadedPath, " + 
-			"ud.user_name as userName, ud.zlen_code as zlenCode " + 
-			"from public.reported_post rp inner join public.user_details ud on ud.user_id = rp.user_id " + 
-			"inner join public.user_stories_details usd on usd.id = rp.post_id " + 
-			"where (cast(rp.created_at as date) = :createdAt or :createdAt1 is null) and (ud.zlen_code LIKE :zlenCode or :zlenCode1 is null) " + 
-			"order by rp.created_at desc ";
+	String reportedPost = "select rp.created_at as createdAt,  usd.mime_type as mimeType, usd.uploaded_path as uploadedPath, "
+			+ "ud.user_name as userName, ud.zlen_code as userZlenCode, ud1.zlen_code as postZlenCode "
+			+ "from public.reported_post rp "
+			+ "inner join public.user_details ud on ud.user_id = rp.user_id "
+			+ "inner join public.user_stories_details usd on usd.id = rp.post_id "
+			+ "left join public.user_details ud1 on ud1.user_id = usd.user_id "
+			+ "where (cast(rp.created_at as date) = :createdAt or :createdAt1 is null) "
+			+ "and (ud.zlen_code LIKE :userZlenCode or :userZlenCode1 is null) "
+			+ "and (ud1.zlen_code LIKE :postZlenCode or :postZlenCode1 is null)"
+			+ "order by rp.created_at desc";
 
 	@Autowired
 	@Qualifier("zlen-jdbc")
 	private NamedParameterJdbcTemplate jdbcTemplate;
-	
+
 	@Override
-	public List<ReportPostDto> getReportPost(final String zlenCode, final Date createdAt) {
+	public List<ReportPostDto> getReportPost(final String userZlenCode, final String postZlenCode, final Date createdAt) {
 		SqlParameterSource namedParameters = new MapSqlParameterSource()
-				.addValue("zlenCode", "%" + zlenCode + "%", Types.VARCHAR)
-				.addValue("zlenCode1", zlenCode, Types.VARCHAR)
+				.addValue("userZlenCode", "%" + userZlenCode + "%", Types.VARCHAR)
+				.addValue("userZlenCode1", userZlenCode, Types.VARCHAR)
+				.addValue("postZlenCode", "%" + postZlenCode + "%", Types.VARCHAR)
+				.addValue("postZlenCode1", postZlenCode, Types.VARCHAR)
 				.addValue("createdAt", createdAt, Types.DATE)
 				.addValue("createdAt1", createdAt, Types.VARCHAR);
 
@@ -46,8 +52,9 @@ public class ReportedPostImpl implements ReportedPost {
 				rpd.setCreatedAt(rs.getDate("createdAt"));
 				rpd.setMimeType(rs.getString("mimeType"));
 				rpd.setUploadedPath(rs.getString("uploadedPath"));
-				rpd.setZlenCode(rs.getString("zlenCode"));
-			
+				rpd.setUserZlenCode(rs.getString("userZlenCode"));
+				rpd.setPostZlenCode(rs.getString("postZlenCode"));
+
 				return rpd;
 			}
 		});

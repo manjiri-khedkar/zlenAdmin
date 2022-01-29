@@ -72,7 +72,16 @@ public class UserDetails implements Serializable{
 	
 	private String gender;
 	
+	private boolean is_banned;
 	
+	public boolean isIs_banned() {
+		return is_banned;
+	}
+
+	public void setIs_banned(boolean is_banned) {
+		this.is_banned = is_banned;
+	}
+
 	@JsonIgnore
 	private String notificationSettings;
 		
