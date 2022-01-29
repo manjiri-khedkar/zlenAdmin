@@ -250,8 +250,7 @@ input:checked + .slider:before {
 								</thead>
 
 								<tbody>
-									<c:forEach items="${pdList}" var="list"
-										varStatus="status">
+									<c:forEach items="${pdList}" var="list" varStatus="status">
 										<tr class="odd gradeX">
 											<td><c:out value="${status.index+1}" /></td>
 											<td><c:out value="${list.content}" /></td>
@@ -261,7 +260,7 @@ input:checked + .slider:before {
 											</a></td>
 											<td><c:out value="${list.userName}" /></td>
 											<td><c:out value="${list.createdAt}" /></td>
-<%-- 											<td><c:out value="${list.isCompleted}" /></td> --%>
+											<td><c:out value="${list.iscompleted}" /></td>
 <%-- 											<td><c:out value="${list.isActive}" /></td> --%>
 <%-- 											<td><a href="#" src='${list.uploadedPath}'class="btn btn-info btn-sm img-view"> View </a>&nbsp; --%>
 <%-- 												<a href="/activePost?id=${list.id}"><button class="btn btn-primary"> Post </button></a>&nbsp; --%>
@@ -334,7 +333,7 @@ debugger
 			pdList = {}
 			pdList["zlenCode"] = $("#inputCode").val();
 			pdList["createdAt"] = $("#inputdate").val();
-			pdList["zlenWorld"] = $("#zlenWorld").val();
+			pdList["zlenWorld"] = $("#zlenWorld").is(':checked');
 			
 			$("#btn-search").prop("disabled", false);
 
@@ -374,9 +373,10 @@ debugger
 														+ "</a></td>"
 														+ "<td>"
 														+ ele.userName
-														+ " </td>"
-														+ "<td>"
+														+ " </td><td>"
 														+ ele.createdAt
+														+ " </td><td>"
+														+ ele.iscompleted
 														+ " </td></tr>";
 
 											});

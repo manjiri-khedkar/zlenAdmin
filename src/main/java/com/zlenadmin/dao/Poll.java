@@ -9,6 +9,6 @@ import com.zlenadmin.dto.PollDto;
 
 public interface Poll {
 	
-	List<PollDto> getPoll(String zlenCode,boolean zlenWorld,Date date);
+	List<PollDto> getPoll(String zlenCode,Date createdAt,boolean zlenWorld);
 
 }

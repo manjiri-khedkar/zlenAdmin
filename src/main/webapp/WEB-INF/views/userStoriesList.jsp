@@ -227,7 +227,7 @@ input:checked + .slider:before {
 						for="uploadedDateTime"><b>Date : </b></label>&nbsp; <input
 						type="text" id="inputdate" placeholder="Enter Date......">&nbsp;&nbsp;
 						<br><br>
-						<label for="is_zlen_world"><b>Zlen World Active: </b></label>&nbsp;
+						<label for="zlenWorld"><b>Zlen World Active: </b></label>&nbsp;
 					<label class="switch"><input type="checkbox" id="zlenWorld">
 					<span class="slider round"></span></label>
 													
@@ -272,13 +272,36 @@ input:checked + .slider:before {
 												href="${pageContext.request.contextPath}/userViewZlen/<c:out value='${list.zlenCode}'/>"
 												class="showData"> <c:out value="${list.zlenCode}" />
 											</a></td>
-
 											<td><c:out value="${list.userName}" /></td>
 											<td><c:out value="${list.commentCount}" /></td>
 											<td><c:out value="${list.likesCount}" /></td>
 <%-- 											<td><c:out value="${list.isActive}" /></td> --%>
 											<td><a href="#" src='${list.uploadedPath}'class="btn btn-info btn-sm img-view"> View </a>&nbsp;
-												<a href="/activePost?id=${list.id}"><button class="btn btn-primary"> Post </button></a>&nbsp;
+<%-- 											<c:out value="${list.isbanned}" /> --%>
+												<c:choose>
+												<c:when test="${list.isbanned == true}">
+												<a href="/activePost?id=${list.id}"><button class="btn btn-primary"> Active Post </button></a>&nbsp;
+												</c:when>
+												<c:otherwise>
+												<a href="/blockPost?id=${list.id}"><button class="btn btn-primary"> Block Post </button></a>&nbsp;
+												</c:otherwise>
+												</c:choose>
+												
+<%-- 												<c:choose> --%>
+<%-- 												<c:when test="${list.isbanned != true}"> --%>
+<%-- 												<a href="/blockPost?id=${list.id}"><button class="btn btn-primary"> Block Post </button></a>&nbsp; --%>
+<%-- 												</c:when> --%>
+<%-- 												<c:otherwise> --%>
+<%-- 												<a href="/blockPost?id=${list.id}"><button class="btn btn-primary"> Block Post </button></a>&nbsp; --%>
+<%-- 												</c:otherwise> --%>
+<%-- 												</c:choose> --%>
+												
+<%-- 												<c:choose> --%>
+<%-- 												<c:when test="${list.isbanned == true}"> --%>
+<%-- 												<a href="/activePost?id=${list.id}"><button class="btn btn-primary"> Active Post </button></a>&nbsp;
+													<a href="/blockPost?id=${list.id}"><button class="btn btn-primary"> Block Post </button></a> --%>
+<%-- 												</c:when> --%>
+<%-- 												</c:choose> --%>
 												<a href="/activeUser?id=${list.id}"><button class="btn btn-primary"> User </button></a></td>
 										</tr>
 									</c:forEach>
@@ -349,7 +372,7 @@ input:checked + .slider:before {
 			ustoriesList["mimeType"] = $("#inputMimeType").val();
 			ustoriesList["zlenCode"] = $("#inputCode").val();
 			ustoriesList["uploadedDateTime"] = $("#inputdate").val();
-			ustoriesList["zlenWorld"] = $("#zlenWorld").val();
+			ustoriesList["zlenWorld"] = $("#zlenWorld").is(':checked');
 			
 			$("#btn-search").prop("disabled", false);
 

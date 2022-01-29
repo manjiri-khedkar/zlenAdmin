@@ -8,17 +8,27 @@ public class PollDto {
 	
 	private String content;
 	
+	
 	private Date createdAt;
 	
 	private boolean zlenWorld;
 	
 	private boolean isBanned;
 	
-	private  boolean isCompleted;
+	private boolean iscompleted;
 	
 	private String zlenCode;
 	
 	private String userName;
+
+	
+	public boolean isIscompleted() {
+		return iscompleted;
+	}
+
+	public void setIscompleted(boolean iscompleted) {
+		this.iscompleted = iscompleted;
+	}
 
 	public long getId() {
 		return id;
@@ -60,13 +70,6 @@ public class PollDto {
 		this.isBanned = isBanned;
 	}
 
-	public boolean isCompleted() {
-		return isCompleted;
-	}
-
-	public void setIsCompleted(boolean isCompleted) {
-		this.isCompleted = isCompleted;
-	}
 
 	public String getZlenCode() {
 		return zlenCode;

@@ -9,10 +9,9 @@ import com.zlenadmin.dto.UserLikesDto;
 
 public interface UserStories {
 
-	List<StoriesDto> getUserStories(String name,String mimeType,Date uploadedDateTime,boolean zlenWorld,boolean isBanned);
+	List<StoriesDto> getUserStories(String name,String mimeType,Date uploadedDateTime,boolean zlenWorld,boolean isbanned);
 	List<StoryCommentDto> getUserStoriesComments(Long storyId);
 	List<StoriesDto> getLatestUserStories(String zlenCode, String mimeType, Date uploadedDateTime);
 	List<UserLikesDto> getUserLikes(Long storyId);
-
 	
 }
