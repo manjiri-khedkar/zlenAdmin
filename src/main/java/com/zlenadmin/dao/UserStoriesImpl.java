@@ -27,7 +27,7 @@ public class UserStoriesImpl implements UserStories {
 //			+ "where ud.zlen_code like :zlenCode "; 
 
 	private String SQL = "select usd.id id, usd.uploaded_date_time as uploadedDateTime, usd.mime_type mimeType,"
-			+ "usd.uploaded_path as uploadedPath, usd.is_banned as isbanned, ud.zlen_code as zlenCode, ud.user_name as userName,count(uscd.id) as commentCount"
+			+ "usd.uploaded_path as uploadedPath, usd.is_banned as isbanned, ud.id as uid, ud.zlen_code as zlenCode, ud.is_banned as isbanned1, ud.user_name as userName,count(uscd.id) as commentCount"
 			+ ", count(l.id) as likesCount  "
 			+ "from  public.user_stories_details usd left join public.likes l  on usd.id = l.post_id "
 			+ "left join public.user_stories_comment_details uscd  on usd.id = uscd.snap_id "
@@ -38,7 +38,7 @@ public class UserStoriesImpl implements UserStories {
 			+ "and (usd.is_zlen_world = :zlenWorld or :zlenWorld1 is null) "
 			//+ "and (usd.is_banned = :isbanned or :isbanned1 =false) "
 			+ "group by usd.id , usd.uploaded_date_time , usd.mime_type ,"
-			+ "usd.uploaded_path , ud.zlen_code , ud.user_name " 
+			+ "usd.uploaded_path , ud.id, ud.zlen_code , ud.is_banned, ud.user_name " 
 			+ "order by usd.uploaded_date_time desc ";
 
 	private String SQL_LATEST = "select usd.id id, usd.uploaded_date_time as uploadedDateTime, usd.mime_type mimeType, "
@@ -69,7 +69,7 @@ public class UserStoriesImpl implements UserStories {
 	private NamedParameterJdbcTemplate jdbcTemplate;
 
 	@Override
-	public List<StoriesDto> getUserStories(final String zlenCode, final String mimeType, final Date uploadedDateTime, final boolean zlenWorld, final boolean isbanned) {
+	public List<StoriesDto> getUserStories(final String zlenCode, final String mimeType, final Date uploadedDateTime, final boolean zlenWorld) {
 		SqlParameterSource namedParameters = new MapSqlParameterSource()
 				.addValue("zlenCode", "%" + zlenCode + "%", Types.VARCHAR)
 				.addValue("zlenCode1", zlenCode, Types.VARCHAR)
@@ -94,6 +94,8 @@ public class UserStoriesImpl implements UserStories {
 				ud.setUploadedPath(rs.getString("uploadedPath"));
 				ud.setId(rs.getLong("id"));
 				ud.setIsbanned(rs.getBoolean("isbanned"));
+				ud.setIsbanned1(rs.getBoolean("isbanned1"));
+				ud.setUid(rs.getLong("uid"));
 				//ud.setIsActive(rs.getString("isActive"));
 				return ud;
 			}

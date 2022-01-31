@@ -29,7 +29,7 @@ public class UsersDetailDto {
 	
 	private String frnds_count;
 	
-	
+	private boolean isbanned;
 	
 	public String getFrnds_count() {
 		return frnds_count;

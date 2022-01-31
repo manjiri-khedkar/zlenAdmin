@@ -7,5 +7,5 @@ import com.zlenadmin.dto.ReportPostDto;
 
 public interface ReportedPost {
 
-	List<ReportPostDto> getReportPost(String zlenCode, Date createdAt);
+	List<ReportPostDto> getReportPost(String userZlenCode, String PostZlenCode, Date createdAt);
 }

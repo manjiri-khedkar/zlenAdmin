@@ -24,6 +24,26 @@ public class StoriesDto {
 	
 	private boolean zlenWorld;
 	
+	private boolean isbanned1;
+	
+	private Long uid;
+	
+
+	public Long getUid() {
+		return uid;
+	}
+
+	public void setUid(Long uid) {
+		this.uid = uid;
+	}
+
+	public boolean isIsbanned1() {
+		return isbanned1;
+	}
+
+	public void setIsbanned1(boolean isbanned1) {
+		this.isbanned1 = isbanned1;
+	}
 
 	public boolean isIsbanned() {
 		return isbanned;

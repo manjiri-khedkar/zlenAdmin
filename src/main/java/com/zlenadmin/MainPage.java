@@ -640,7 +640,7 @@ public class MainPage {
 			isbanned = (Boolean) null;
 		}
 		
-		List result = userStories.getUserStories(zlenCode, mimeType, uploadedDateTime,zlenWorld,isbanned);
+		List result = userStories.getUserStories(zlenCode, mimeType, uploadedDateTime,zlenWorld);
 
 		return result;
 
@@ -650,7 +650,8 @@ public class MainPage {
 	public Object userStoriesList(@RequestParam(required = false) String mimeType,
 			@RequestParam(required = false) String zlenCode,
 			@RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date uploadedDateTime, 
-			@RequestParam(required = false) boolean zlenWorld,@RequestParam(required = false)boolean isbanned) {
+			@RequestParam(required = false) boolean zlenWorld,@RequestParam(required = false) boolean isbanned,
+			@RequestParam(required = false) boolean isbanned1) {
 
 		if ("".equals(zlenCode)) {
 			zlenCode = null;
@@ -668,9 +669,6 @@ public class MainPage {
 			zlenWorld = (Boolean) null;
 		}
 		
-		if ("".equals(isbanned)) {
-			isbanned = (Boolean) null;
-		}
 		
 		ModelAndView mv = new ModelAndView();
 		
@@ -680,19 +678,24 @@ public class MainPage {
 
 		if (uploadedDateTime != null && mimeType == null) {
 
-			List<StoriesDto> userStoriesList = userStories.getUserStories(zlenCode, mimeType, uploadedDateTime,zlenWorld,isbanned);
+			List<StoriesDto> userStoriesList = userStories.getUserStories(zlenCode, mimeType, uploadedDateTime,zlenWorld);
 			mv.addObject("userStoriesList", userStoriesList);
 			mv.setViewName("userStoriesList");
 			return mv;
 		} else if (uploadedDateTime != null && mimeType != null) {
 
-			List<StoriesDto> userStoriesList = userStories.getUserStories(zlenCode, mimeType, uploadedDateTime,zlenWorld,isbanned);
+			List<StoriesDto> userStoriesList = userStories.getUserStories(zlenCode, mimeType, uploadedDateTime,zlenWorld);
 			mv.addObject("userStoriesList", userStoriesList);
 			mv.setViewName("userStoriesList");
 			return mv;
 
-		}else if (isbanned==true || isbanned != true) {
-			List<StoriesDto> userStoriesList = userStories.getUserStories(zlenCode, mimeType, uploadedDateTime,zlenWorld,isbanned);
+		} else if (isbanned==true || isbanned != true) {
+			List<StoriesDto> userStoriesList = userStories.getUserStories(zlenCode, mimeType, uploadedDateTime,zlenWorld);
+			mv.addObject("userStoriesList", userStoriesList);
+			mv.setViewName("userStoriesList");
+			return mv;
+		}else if (isbanned1==true || isbanned1 != true) {
+			List<StoriesDto> userStoriesList = userStories.getUserStories(zlenCode, mimeType, uploadedDateTime,zlenWorld);
 			mv.addObject("userStoriesList", userStoriesList);
 			mv.setViewName("userStoriesList");
 			return mv;
@@ -730,11 +733,22 @@ public class MainPage {
 		return "redirect:userStoriesList?success";
 	}
 
-	@RequestMapping(value="/activeUser/{id}", method=RequestMethod.GET)
-	public String ActiveUser(@PathVariable long id, Model model) throws Exception {
+	
+	@RequestMapping(value="/activeUser", method=RequestMethod.GET)
+	public String ActiveUser(@RequestParam("id") long id, Model model) throws Exception {
 		System.out.println("id=="+id);
 		 UserDetails userDetails = userDetailsRepository.findById(id);
-		 userDetails.setIsActive("Y");
+		 userDetails.setIs_banned(false);
+		 userDetailsRepository.save(userDetails);
+		 
+		return "redirect:userStoriesList?success";
+	}
+	
+	@RequestMapping(value="/blockUser", method=RequestMethod.GET)
+	public String BlockUser(@RequestParam("id") long id, Model model) throws Exception {
+		System.out.println("id=="+id);
+		 UserDetails userDetails = userDetailsRepository.findById(id);
+		 userDetails.setIs_banned(true);
 		 userDetailsRepository.save(userDetails);
 		 
 		return "redirect:userStoriesList?success";

@@ -57,8 +57,7 @@ public class UserStoriesController {
 	 */
 	public ModelAndView getUserStories(Model model, @RequestParam(required=false) String  zlenCode, 
 			@RequestParam(required=false) String mimeType, @RequestParam(required=false) 
-	@DateTimeFormat(pattern = "yyyy-MM-dd") Date uploadedDateTime,@RequestParam(required=false) boolean  zlenWorld,
-	@RequestParam(required=false) boolean  isBanned)
+	@DateTimeFormat(pattern = "yyyy-MM-dd") Date uploadedDateTime,@RequestParam(required=false) boolean  zlenWorld)
 	{	
 		if ("".equals(zlenCode)) {
 			zlenCode=null;
@@ -76,15 +75,12 @@ public class UserStoriesController {
 			zlenWorld=(Boolean) null;
 		}
 		
-		if ("".equals(isBanned)) {
-			isBanned=(Boolean) null;
-		}
 		
 		//Calendar cal = new GregorianCalendar(); cal.add(Calendar.DAY_OF_MONTH, -3);
 		//Date daysAgo = cal.getTime();
 		
 		//List storieslist = userStories.getLatestUserStories(null, null, daysAgo);
-		List storieslist = userStories.getUserStories(zlenCode,mimeType,uploadedDateTime,zlenWorld,isBanned);
+		List storieslist = userStories.getUserStories(zlenCode,mimeType,uploadedDateTime,zlenWorld);
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("storiesList", storieslist);
 		mav.setViewName("stories");

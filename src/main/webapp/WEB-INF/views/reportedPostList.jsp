@@ -210,17 +210,20 @@ input:checked + .slider:before {
 			<jsp:include page="header.jsp"></jsp:include>
 
 			<div class="container">
+			<br>
 				<h1>Reported Post List</h1>
+				<br>
 
-<!-- 				<div class="row"> -->
+				<div class="row">
 
-					<label for="zlenCode"><b>Zlen Code : </b></label>&nbsp; 
-					<input type="text" id="inputCode" placeholder="Enter Zlen Code......">&nbsp;&nbsp; 
+					<label for="userZlenCode"><b>User Zlen Code : </b></label>&nbsp; 
+					<input type="text" id="userCode" placeholder="Enter Zlen User Code......">&nbsp;&nbsp; 
+					
+					<label for="postZlenCode"><b>Post Zlen Code : </b></label>&nbsp; 
+					<input type="text" id="postCode" placeholder="Enter Zlen Post Code......">&nbsp;&nbsp;
+					
 					<label for="createdAt"><b>Date : </b></label>&nbsp; 
 					<input type="text" id="inputdate" placeholder="Enter Date......">&nbsp;&nbsp;
-<!-- 						<label for="zlenWorld"><b>Zlen World Active: </b></label>&nbsp; -->
-<!-- 					<label class="switch"><input type="checkbox" id="zlenWorld"> -->
-<!-- 					<span class="slider round"></span></label> &nbsp;&nbsp; -->
 									
 						<button type="button" id="bth-search"
 						class="btn btn-success btn-md" onclick="search()">Search</button>
@@ -228,7 +231,7 @@ input:checked + .slider:before {
 					<button type="button" class="btn btn-danger btn-md"
 						onclick="clearFilter()">Clear</button>
 				</div>
-				<br/>
+				<br>
 
 				<div class="row">
 					<div class="col-md-12">
@@ -239,10 +242,10 @@ input:checked + .slider:before {
 									<tr>
 										<th class="text-left" style="background: #d3d3d3">Sr.No.</th>
 										<th class="text-left" style="background: #d3d3d3">Name</th>
+										<th class="text-left" style="background: #d3d3d3">User Zlen Code</th>
 										<th class="text-left" style="background: #d3d3d3">Date</th>
+										<th class="text-left" style="background: #d3d3d3">Post Zlen Code</th>
 										<th class="text-left" style="background: #d3d3d3">Mime Type</th>
-<!-- 										<th class="text-left" style="background: #d3d3d3">Likes</th> -->
-<!-- 										<th class="text-left" style="background: #d3d3d3">Active Post</th> -->
 										<th class="text-left" style="background: #d3d3d3">Action</th>
 									</tr>
 								</thead>
@@ -252,17 +255,16 @@ input:checked + .slider:before {
 										varStatus="status">
 										<tr class="odd gradeX">
 											<td><c:out value="${status.index+1}" /></td>
-<!-- 											<td><a -->
-<%-- 												href="${pageContext.request.contextPath}/userViewZlen/<c:out value='${list.zlenCode}'/>" --%>
-<%-- 												class="showData"> <c:out value="${list.zlenCode}" /> --%>
-<!-- 											</a></td> -->
 											<td><c:out value="${list.userName}" /></td>
+											<td><a href="${pageContext.request.contextPath}/userViewZlen/<c:out value='${list.userZlenCode}'/>"
+												class="showData"> <c:out value="${list.userZlenCode}" />
+											</a></td>
 											<td><c:out value="${list.createdAt}" /></td>
+											<td><a href="${pageContext.request.contextPath}/userViewZlen/<c:out value='${list.postZlenCode}'/>"
+												class="showData"> <c:out value="${list.postZlenCode}" />
+											</a></td>
 											<td><c:out value="${list.mimeType}" /></td>
-<%-- 											<td><c:out value="${list.isActive}" /></td> --%>
 											<td><a href="#" src='${list.uploadedPath}'class="btn btn-info btn-sm img-view"> View </a></td>
-<%-- 												<a href="/activePost?id=${list.id}"><button class="btn btn-primary"> Post </button></a>&nbsp; --%>
-<%-- 												<a href="/activeUser?id=${list.id}"><button class="btn btn-primary"> User </button></a></td> --%>
 										</tr>
 									</c:forEach>
 								</tbody>
@@ -328,9 +330,10 @@ input:checked + .slider:before {
  		function search() {
  debugger
  			var pdList;
- 			pdList = {}
- 			pdList["zlenCode"] = $("#inputCode").val();
- 			pdList["createdAt"] = $("#inputdate").val();
+ 			rpdList = {}
+ 			rpdList["userZlenCode"] = $("#userCode").val();
+ 			rpdList["postZlenCode"] = $("#postCode").val();
+ 			rpdList["createdAt"] = $("#inputdate").val();
 			
  			$("#btn-search").prop("disabled", false);
 
@@ -340,7 +343,7 @@ input:checked + .slider:before {
  						//contentType: "application/json",
  						url : "${pageContext.request.contextPath}/reportedPostListContents",
  						// success:function(result)
- 						data : pdList,
+ 						data : rpdList,
  						//dataType: 'json',
 
  						/// data:{userName:inputName, userMobile:inputMobile, zlenCode:inputCode, deviceType:inputType},
@@ -349,7 +352,8 @@ input:checked + .slider:before {
  							var result = "";
  							var id;
  							var createdAt;
- 							var zlenCode;
+ 							var userZlenCode;
+ 							var postZlenCode;
 
  							$(data)
  									.each(
@@ -357,22 +361,22 @@ input:checked + .slider:before {
 
 											
  												createdAt = ele.createdAt;
- 												zlenCode = ele.zlenCode;
+ 												userZlenCode = ele.userZlenCode;
+ 												postZlenCode = ele.postZlenCode;
 
  												result += "<tr><td>"
  														+ index
  														+ "</td><td>"
  														+ ele.userName
- 														+ "</td><td><a href='${pageContext.request.contextPath}/userViewZlen/"+ele.zlenCode+"' class='showData'>"
- 														+ ele.zlenCode
- 														+ "</a></td>"
-														+ "<td>"
- 														+ ele.userName
- 														+ " </td>"
- 														+ "<td>"
+ 														+ "</td><td><a href='${pageContext.request.contextPath}/userViewZlen/"+ele.userZlenCode+"' class='showData'>"
+ 														+ ele.userZlenCode
+ 														+ "</a></td><td>"
  														+ ele.createdAt
- 														+ " </td></tr>";
-
+ 														+ " </td><td><a href='${pageContext.request.contextPath}/userViewZlen/"+ele.postZlenCode+"' class='showData'>"
+ 														+ ele.postZlenCode
+ 														+ "</a></td><td>"
+ 														+ ele.mimeType
+ 														+ " </td><td><a href='#' src='"+ele.uploadedPath+"' class='btn btn-info btn-sm img-view'>View</a></td></tr>";
  											});
 
  							$('#table1 tbody').html(result);

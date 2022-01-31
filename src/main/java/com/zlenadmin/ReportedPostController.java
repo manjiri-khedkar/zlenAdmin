@@ -24,20 +24,23 @@ public class ReportedPostController {
 	private ReportedPost reportedPost;
 	
 	@GetMapping("/reportedPostList")
-	public Object reportedPostList(@RequestParam(required = false) String zlenCode,
+	public Object reportedPostList(@RequestParam(required = false) String userZlenCode, @RequestParam(required = false) String postZlenCode,
 			@RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date createdAt,Model model) {
 		
-		if ("".equals(zlenCode)) {
-			zlenCode = null;
+		if ("".equals(userZlenCode)) {
+			userZlenCode = null;
 		}
 
+		if ("".equals(postZlenCode)) {
+			postZlenCode = null;
+		}
 
 		if ("".equals(createdAt)) {
 			createdAt = null;
 		}
 		
 		ModelAndView mv = new ModelAndView();
-		List<ReportPostDto> rpdList = reportedPost.getReportPost(zlenCode, createdAt);
+		List<ReportPostDto> rpdList = reportedPost.getReportPost(userZlenCode, postZlenCode, createdAt);
 		mv.addObject("rpdList", rpdList);
 		mv.setViewName("reportedPostList");
 		return mv;
@@ -46,20 +49,24 @@ public class ReportedPostController {
 	
 	@GetMapping("/reportedPostListContents")
 	@ResponseBody
-	public Object getReportedPost(Model model, @Param("zlenCode") String zlenCode,
+	public Object getReportedPost(Model model, @Param("userZlenCode") String userZlenCode, @Param("postZlenCode") String postZlenCode,
 			@Param("createdAt") @DateTimeFormat(pattern = "yyyy-MM-dd") Date createdAt) {
 		// List result= service.queryForMovies();
 		// List result = newrepo.getUserStories();
 
-		if ("".equals(zlenCode)) {
-			zlenCode = null;
+		if ("".equals(userZlenCode)) {
+			userZlenCode = null;
+		}
+
+		if ("".equals(postZlenCode)) {
+			postZlenCode = null;
 		}
 
 		if ("".equals(createdAt)) {
 			createdAt = null;
 		}
 
-		List<ReportPostDto> rpdList = reportedPost.getReportPost(zlenCode, createdAt);
+		List<ReportPostDto> rpdList = reportedPost.getReportPost(userZlenCode,postZlenCode,createdAt);
 		return rpdList;
 	}
 	

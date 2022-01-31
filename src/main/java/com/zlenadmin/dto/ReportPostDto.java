@@ -7,15 +7,22 @@ public class ReportPostDto {
 	private String userName;
 	private String mimeType;
 	private String uploadedPath;
-	private String zlenCode;
+	private String userZlenCode;
+	private String postZlenCode;
 	private Date createdAt;
 	
 	
-	public String getZlenCode() {
-		return zlenCode;
+	public String getUserZlenCode() {
+		return userZlenCode;
 	}
-	public void setZlenCode(String zlenCode) {
-		this.zlenCode = zlenCode;
+	public void setUserZlenCode(String userZlenCode) {
+		this.userZlenCode = userZlenCode;
+	}
+	public String getPostZlenCode() {
+		return postZlenCode;
+	}
+	public void setPostZlenCode(String postZlenCode) {
+		this.postZlenCode = postZlenCode;
 	}
 	public String getUserName() {
 		return userName;
