@@ -19,6 +19,7 @@ import com.zlenadmin.api.entity.UserDetails;
 import com.zlenadmin.api.entity.UserStoriesDetails;
 import com.zlenadmin.dao.Poll;
 import com.zlenadmin.dto.PollDto;
+import com.zlenadmin.repository.PollRepository;
 import com.zlenadmin.repository.UserDetailsRepository;
 import com.zlenadmin.repository.UserStoriesDetailsRepository;
 
@@ -28,11 +29,12 @@ public class PollController {
 	@Autowired
 	private Poll poll;
 	
-	@Autowired
-	private UserStoriesDetailsRepository userStoriesDetailsRepository;
 	
 	@Autowired
 	private UserDetailsRepository userDetailsRepository;
+	
+	@Autowired
+	private PollRepository pollRepository;
 	
 
 	@GetMapping("/pollList")
@@ -86,25 +88,25 @@ public class PollController {
 		return pdList;
 	}
 	
-	@RequestMapping(value="/activePosts", method=RequestMethod.GET)
-	public String ActivePost(@RequestParam("id") long id,Model model) throws Exception {
+	@RequestMapping(value="/activePoll", method=RequestMethod.GET)
+	public String ActivePoll(@RequestParam("id") long id,Model model) throws Exception {
 		System.out.println("id=="+id);
-		 UserStoriesDetails storiesDto = userStoriesDetailsRepository.findOne(id);
-		 if(storiesDto.isBanned() == true) {
-		 storiesDto.setBanned(false);
+		com.zlenadmin.api.entity.Poll poll = pollRepository.findOne(id);
+		 if(poll.isBanned() == true) {
+			 poll.setBanned(false);
 		 }
-		 userStoriesDetailsRepository.save(storiesDto);
+		 pollRepository.save(poll);
 		return "redirect:pollList?success";
 	}
 	
-	@RequestMapping(value="/blockPosts", method=RequestMethod.GET)
-	public String BlockPost(@RequestParam("id") long id,Model model) throws Exception {
+	@RequestMapping(value="/blockPoll", method=RequestMethod.GET)
+	public String BlockPoll(@RequestParam("id") long id,Model model) throws Exception {
 		System.out.println("id=="+id);
-		 UserStoriesDetails storiesDto = userStoriesDetailsRepository.findOne(id);
-		 if(storiesDto.isBanned() == false) {
-		 storiesDto.setBanned(true);
+		com.zlenadmin.api.entity.Poll poll = pollRepository.findOne(id);
+		 if(poll.isBanned() == false) {
+			 poll.setBanned(true);
 		 }
-		 userStoriesDetailsRepository.save(storiesDto);
+		 pollRepository.save(poll);
 		return "redirect:pollList?success";
 	}
 

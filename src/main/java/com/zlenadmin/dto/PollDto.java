@@ -8,12 +8,11 @@ public class PollDto {
 	
 	private String content;
 	
-	
 	private Date createdAt;
 	
 	private boolean zlenWorld;
 	
-	private boolean isBanned;
+	private boolean pollisbanned;
 	
 	private boolean iscompleted;
 	
@@ -21,22 +20,17 @@ public class PollDto {
 	
 	private String userName;
 	
-	private boolean postisbanned;
-	
 	private boolean userisbanned;
-	
-	private long pid;
 	
 	private long uid;
 	
 	
-
-	public long getPid() {
-		return pid;
+	public boolean isPollisbanned() {
+		return pollisbanned;
 	}
 
-	public void setPid(long pid) {
-		this.pid = pid;
+	public void setPollisbanned(boolean pollisbanned) {
+		this.pollisbanned = pollisbanned;
 	}
 
 	public long getUid() {
@@ -45,14 +39,6 @@ public class PollDto {
 
 	public void setUid(long uid) {
 		this.uid = uid;
-	}
-
-	public boolean isPostisbanned() {
-		return postisbanned;
-	}
-
-	public void setPostisbanned(boolean postisbanned) {
-		this.postisbanned = postisbanned;
 	}
 
 	public boolean isUserisbanned() {
@@ -101,14 +87,6 @@ public class PollDto {
 
 	public void setZlenWorld(boolean zlenWorld) {
 		this.zlenWorld = zlenWorld;
-	}
-
-	public boolean isBanned() {
-		return isBanned;
-	}
-
-	public void setBanned(boolean isBanned) {
-		this.isBanned = isBanned;
 	}
 
 
