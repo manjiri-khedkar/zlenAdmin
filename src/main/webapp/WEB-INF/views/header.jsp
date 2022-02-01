@@ -114,6 +114,12 @@
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>Reported Post</span></a>
       </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="${pageContext.request.contextPath}/reportedpollList">
+          <i class="fas fa-fw fa-tachometer-alt"></i>
+          <span>Reported Poll</span></a>
+      </li>
+      
       <!-- Divider -->
       <hr class="sidebar-divider d-none d-md-block">
 
