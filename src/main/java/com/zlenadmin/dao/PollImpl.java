@@ -43,6 +43,7 @@ public class PollImpl implements Poll {
 		return jdbcTemplate.query(Poll, namedParameters, new RowMapper<PollDto>() {
 			public PollDto mapRow(ResultSet rs, int rownumber) throws SQLException {
 				PollDto pd = new PollDto();
+				pd.setId(rs.getInt("id"));
 				pd.setZlenCode(rs.getString("zlenCode"));
 				pd.setUserName(rs.getString("userName"));
 				pd.setContent(rs.getString("content"));

@@ -682,24 +682,7 @@ public class MainPage {
 			mv.addObject("userStoriesList", userStoriesList);
 			mv.setViewName("userStoriesList");
 			return mv;
-		} else if (uploadedDateTime != null && mimeType != null) {
-
-			List<StoriesDto> userStoriesList = userStories.getUserStories(zlenCode, mimeType, uploadedDateTime,zlenWorld);
-			mv.addObject("userStoriesList", userStoriesList);
-			mv.setViewName("userStoriesList");
-			return mv;
-
-		} else if (isbanned==true || isbanned != true) {
-			List<StoriesDto> userStoriesList = userStories.getUserStories(zlenCode, mimeType, uploadedDateTime,zlenWorld);
-			mv.addObject("userStoriesList", userStoriesList);
-			mv.setViewName("userStoriesList");
-			return mv;
-		}else if (isbanned1==true || isbanned1 != true) {
-			List<StoriesDto> userStoriesList = userStories.getUserStories(zlenCode, mimeType, uploadedDateTime,zlenWorld);
-			mv.addObject("userStoriesList", userStoriesList);
-			mv.setViewName("userStoriesList");
-			return mv;
-		}
+		} 
 		else {
 			List userStoriesList = userStories.getLatestUserStories(null, null, daysAgo);
 			// List<UserStoriesDetails> userStoriesList =
