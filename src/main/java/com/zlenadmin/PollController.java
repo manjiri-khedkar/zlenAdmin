@@ -91,7 +91,7 @@ public class PollController {
 	@RequestMapping(value="/activePoll", method=RequestMethod.GET)
 	public String ActivePoll(@RequestParam("id") long id,Model model) throws Exception {
 		System.out.println("id=="+id);
-		com.zlenadmin.api.entity.Poll poll = pollRepository.findOne(id);
+		com.zlenadmin.api.entity.Poll poll = pollRepository.findByid(id);
 		 if(poll.isBanned() == true) {
 			 poll.setBanned(false);
 		 }
@@ -102,7 +102,7 @@ public class PollController {
 	@RequestMapping(value="/blockPoll", method=RequestMethod.GET)
 	public String BlockPoll(@RequestParam("id") long id,Model model) throws Exception {
 		System.out.println("id=="+id);
-		com.zlenadmin.api.entity.Poll poll = pollRepository.findOne(id);
+		com.zlenadmin.api.entity.Poll poll = pollRepository.findByid(id);
 		 if(poll.isBanned() == false) {
 			 poll.setBanned(true);
 		 }

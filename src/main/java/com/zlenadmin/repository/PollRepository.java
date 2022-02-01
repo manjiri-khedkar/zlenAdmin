@@ -8,6 +8,6 @@ import com.zlenadmin.api.entity.Poll;
 @Repository
 public interface PollRepository extends JpaRepository<Poll, Long> {
 
-	Poll findOne(long id);
+	Poll findByid(long id);
 
 }

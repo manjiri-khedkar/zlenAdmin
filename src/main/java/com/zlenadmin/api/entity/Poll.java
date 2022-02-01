@@ -6,7 +6,7 @@ import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
-@Entity(name = "poll")
+@Entity
 public class Poll implements Serializable  {
 	
 	@Id
