@@ -20,8 +20,49 @@ public class PollDto {
 	private String zlenCode;
 	
 	private String userName;
-
 	
+	private boolean postisbanned;
+	
+	private boolean userisbanned;
+	
+	private long pid;
+	
+	private long uid;
+	
+	
+
+	public long getPid() {
+		return pid;
+	}
+
+	public void setPid(long pid) {
+		this.pid = pid;
+	}
+
+	public long getUid() {
+		return uid;
+	}
+
+	public void setUid(long uid) {
+		this.uid = uid;
+	}
+
+	public boolean isPostisbanned() {
+		return postisbanned;
+	}
+
+	public void setPostisbanned(boolean postisbanned) {
+		this.postisbanned = postisbanned;
+	}
+
+	public boolean isUserisbanned() {
+		return userisbanned;
+	}
+
+	public void setUserisbanned(boolean userisbanned) {
+		this.userisbanned = userisbanned;
+	}
+
 	public boolean isIscompleted() {
 		return iscompleted;
 	}

@@ -25,7 +25,7 @@ import com.zlenadmin.dto.UsersDetailDto;
 public class UserDetaisImpl implements UserDetails {
 
 	String userDetailsSql = "SELECT u.id as id, u.user_name as userName, u.user_mobile as userMobile, u.zlen_code as zlenCode,"
-			+ "u.device_type as deviceType, u.age as age, u.gender as gender, u.created_on as createdOn , "
+			+ "u.device_type as deviceType, u.age as age, u.gender as gender, u.created_on as createdOn , u.is_banned as isbanned, "
 			+ "(Select count(cnt) from (Select ufd.friend_user_id as cnt from public.user_friends_details ufd "
 			+ " where ufd.user_id = u.user_id " + "union all "
 			+ "Select ufd.friend_user_id as cnt from public.user_friends_details ufd "
@@ -89,6 +89,7 @@ public class UserDetaisImpl implements UserDetails {
 				ud.setCreatedOn(rs.getTimestamp("createdOn"));
 				ud.setGender(rs.getString("gender"));
 				ud.setFrnds_count(rs.getString("frnds_count"));
+				ud.setIsbanned(rs.getBoolean("isbanned"));
 				return ud;
 			}
 		});

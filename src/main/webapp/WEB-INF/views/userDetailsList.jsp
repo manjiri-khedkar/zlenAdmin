@@ -70,6 +70,10 @@
 	font-size: 25px;
 }
 
+.text-left1{
+  grid-column: 1 / span 2;
+}
+
 @media only screen and (orientation:portrait) {
 	#warning-message {
 		display: block;
@@ -234,6 +238,8 @@
 											Count</th>
 										<th class="text-left" style="background: #d3d3d3">Device
 											Type</th>
+											<th class="text-left1" style="background: #d3d3d3">Is Banned</th>
+											
 <!-- 										<th class="text-left" style="background: #d3d3d3">Action</th> -->
 									</tr>
 								</thead>
@@ -266,6 +272,9 @@
 												class="btn btn-primary btn-sm showData"><c:out value="${list.frnds_count}" /></a></td>
 
 											<td><c:out value="${list.deviceType}" /></td>
+											
+											<td><c:out value="${list.isbanned}" /></td>
+											
 											<!--  <td><c:out value="${list.latitude}" /></td>
 	 	                        		<td><c:out value="${list.longitude}" /></td>-->
 <!-- 											<td><a -->

@@ -21,6 +21,7 @@ import com.zlenadmin.dto.ReportPostDto;
 public class ReportedPostImpl implements ReportedPost {
 
 	String reportedPost = "select rp.created_at as createdAt,  usd.mime_type as mimeType, usd.uploaded_path as uploadedPath, "
+			+ "usd.is_banned as postisbanned, usd.id as pid, ud.id as uid, ud.is_banned as userisbanned, "
 			+ "ud.user_name as userName, ud.zlen_code as userZlenCode, ud1.zlen_code as postZlenCode "
 			+ "from public.reported_post rp "
 			+ "inner join public.user_details ud on ud.user_id = rp.user_id "
@@ -54,6 +55,10 @@ public class ReportedPostImpl implements ReportedPost {
 				rpd.setUploadedPath(rs.getString("uploadedPath"));
 				rpd.setUserZlenCode(rs.getString("userZlenCode"));
 				rpd.setPostZlenCode(rs.getString("postZlenCode"));
+				rpd.setPostisbanned(rs.getBoolean("postisbanned"));
+				rpd.setUserisbanned(rs.getBoolean("userisbanned"));
+				rpd.setPid(rs.getLong("pid"));
+				rpd.setUid(rs.getLong("uid"));
 
 				return rpd;
 			}

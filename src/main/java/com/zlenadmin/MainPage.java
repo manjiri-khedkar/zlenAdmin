@@ -714,6 +714,7 @@ public class MainPage {
 	@RequestMapping(value="/activePost", method=RequestMethod.GET)
 	public String ActivePost(@RequestParam("id") long id,Model model) throws Exception {
 		System.out.println("id=="+id);
+		
 		 UserStoriesDetails storiesDto = userStoriesDetailsRepository.findOne(id);
 		 if(storiesDto.isBanned() == true) {
 		 storiesDto.setBanned(false);

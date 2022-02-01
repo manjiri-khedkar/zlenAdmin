@@ -31,6 +31,15 @@ public class UsersDetailDto {
 	
 	private boolean isbanned;
 	
+	
+	public boolean isIsbanned() {
+		return isbanned;
+	}
+
+	public void setIsbanned(boolean isbanned) {
+		this.isbanned = isbanned;
+	}
+
 	public String getFrnds_count() {
 		return frnds_count;
 	}
