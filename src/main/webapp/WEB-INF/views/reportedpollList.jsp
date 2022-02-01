@@ -242,11 +242,11 @@ input:checked + .slider:before {
 									<tr>
 										<th class="text-left" style="background: #d3d3d3">Sr.No.</th>
 										<th class="text-left" style="background: #d3d3d3">Name</th>
-										<th class="text-left" style="background: #d3d3d3">User Zlen Code</th>
+										<th class="text-left" style="background: #d3d3d3">Reported Zlen Code</th>
 										<th class="text-left" style="background: #d3d3d3">Date</th>
-										<th class="text-left" style="background: #d3d3d3">Poll Zlen Code</th>
+										<th class="text-left" style="background: #d3d3d3">Creator Zlen Code</th>
 <!-- 										<th class="text-left" style="background: #d3d3d3">Mime Type</th> -->
-<!-- 										<th class="text-left" style="background: #d3d3d3">Action</th> -->
+										<th class="text-left" style="background: #d3d3d3">Action</th>
 									</tr>
 								</thead>
 
@@ -263,25 +263,26 @@ input:checked + .slider:before {
 											<td><a href="${pageContext.request.contextPath}/userViewZlen/<c:out value='${list.pollZlenCode}'/>"
 												class="showData"> <c:out value="${list.pollZlenCode}" />
 											</a></td>
-<%-- 											<td><c:out value="${list.mimeType}" /></td> --%>
-<%-- 											<td><a href="#" src='${list.uploadedPath}'class="btn btn-info btn-sm img-view"> View </a>&nbsp;&nbsp; --%>
-<%-- 												<c:choose> --%>
-<%-- 												<c:when test="${list.postisbanned == true}"> --%>
-<%-- 												<a href="/reportactivePosts?id=${list.pid}"><button class="btn btn-primary"> Active Post </button></a>&nbsp; --%>
-<%-- 												</c:when> --%>
-<%-- 												<c:otherwise> --%>
-<%-- 												<a href="/reportblockPosts?id=${list.pid}"><button class="btn btn-primary"> Block Post </button></a>&nbsp; --%>
-<%-- 												</c:otherwise> --%>
-<%-- 												</c:choose>&nbsp;&nbsp; --%>
+											<td>
+
+												<c:choose>
+												<c:when test="${list.pollisbanned == true}">
+												<a href="/reportActivePoll?id=${list.pid}"><button class="btn btn-primary"> Active Poll </button></a>&nbsp;
+												</c:when>
+												<c:otherwise>
+												<a href="/reportBlockPoll?id=${list.pid}"><button class="btn btn-primary"> Block Poll </button></a>&nbsp;
+												</c:otherwise>
+												</c:choose>&nbsp;&nbsp;
 												
-<%-- 												<c:choose> --%>
-<%-- 												<c:when test="${list.userisbanned == true}"> --%>
-<%-- 												<a href="/reportactiveUsers?id=${list.uid}"><button class="btn btn-primary"> Active User </button></a>&nbsp; --%>
-<%-- 												</c:when> --%>
-<%-- 												<c:otherwise> --%>
-<%-- 												<a href="/reportblockUsers?id=${list.uid}"><button class="btn btn-primary"> Block User </button></a>&nbsp; --%>
-<%-- 												</c:otherwise> --%>
-<%-- 												</c:choose></td> --%>
+												<c:choose>
+												<c:when test="${list.userisbanned == true}">
+												<a href="/reportPollActiveUsers?id=${list.uid}"><button class="btn btn-primary"> Active User </button></a>&nbsp;
+												</c:when>
+												<c:otherwise>
+												<a href="/reportPollBlockUsers?id=${list.uid}"><button class="btn btn-primary"> Block User </button></a>&nbsp;
+												</c:otherwise>
+												</c:choose>
+											</td>
 										</tr>
 									</c:forEach>
 								</tbody>
@@ -391,16 +392,13 @@ input:checked + .slider:before {
  														+ ele.createdAt
  														+ " </td><td><a href='${pageContext.request.contextPath}/userViewZlen/"+ele.postZlenCode+"' class='showData'>"
  														+ ele.pollZlenCode
- 														+ "</a></td><tr>"
+ 														+ "</a></td> <td>"
 //  														+ ele.mimeType
-//  														+ " </td><td><a href='#' src='"+ele.uploadedPath+"' class='btn btn-info btn-sm img-view'>View</a>&nbsp;&nbsp;"
-//  														+ "<c:choose><c:when test='"+ele.isbanned == true+"'><a href='/reportactivePosts?id="+ele.pid+"'>"
-// 														+ "<button class='btn btn-primary'> Active Post </button></a>&nbsp;</c:when><c:otherwise>"
-// 														+ "<a href='/reportblockPosts?id="+ele.pid+"'><button class='btn btn-primary'> Block Post </button></a>&nbsp;"
-// 														+ "</c:otherwise></c:choose><c:choose><c:when test='"+ele.isbanned1 == true+"'>"
-// 														+ "<a href='/reportactiveUsers?id="+ele.uid+"'><button class='btn btn-primary'> Active User </button></a>&nbsp;"
-// 														+ "</c:when><c:otherwise><a href='/reportblockUsers?id="+ele.uid+"'><button class='btn btn-primary'> Block User </button></a>&nbsp;"
-// 														+ "</c:otherwise></c:choose></td></tr>";
+														+ (ele.pollisbanned == true? "<a href='/reportActivePoll?id="+ele.pid+"'> <button class='btn btn-primary'> Active Post </button></a>&nbsp;"
+ 														 : " <a href='/reportBlockPoll?id="+ele.pid+"'> <button class='btn btn-primary'> Block Poll </button></a>&nbsp;")
+ 														+ (ele.userisbanned1 == true? "<a href='/reportPollActiveUsers?id="+ele.uid+"'><button class='btn btn-primary'> Active User </button></a>&nbsp;"
+ 														: "<a href='/reportPollBlockUsers?id="+ele.uid+"'><button class='btn btn-primary'> Block User </button></a>&nbsp;")
+ 														+ "</td></tr>";
  											});
 
  							$('#table1 tbody').html(result);

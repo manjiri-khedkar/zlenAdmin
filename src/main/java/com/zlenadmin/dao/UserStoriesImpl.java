@@ -35,7 +35,7 @@ public class UserStoriesImpl implements UserStories {
 			+ "where (ud.zlen_code LIKE :zlenCode or :zlenCode1 is null) "
 			+ "and (usd.mime_type LIKE :mimeType or :mimeType1 is null) "
 			+ "and (cast(usd.uploaded_date_time as date) = :uploadedDateTime or :uploadedDateTime1 is null) "
-			+ "and (usd.is_zlen_world = :zlenWorld or :zlenWorld1 is null) "
+			+ "and (usd.is_zlen_world = :zlenWorld or :zlenWorld1 =false) "
 			//+ "and (usd.is_banned = :isbanned or :isbanned1 =false) "
 			+ "group by usd.id , usd.uploaded_date_time , usd.mime_type ,"
 			+ "usd.uploaded_path , ud.id, ud.zlen_code , ud.is_banned, ud.user_name " 
@@ -50,7 +50,8 @@ public class UserStoriesImpl implements UserStories {
 			+ "inner join public.user_details ud on usd.user_id = ud.user_id "
 			+ "where (ud.zlen_code LIKE :zlenCode or :zlenCode1 is null)  "
 			+ "and (usd.mime_type LIKE :mimeType or :mimeType1 is null)"
-			+ "and (cast(usd.uploaded_date_time as date) >= :uploadedDateTime   )"
+			+ "and (cast(usd.uploaded_date_time as date) >= :uploadedDateTime   ) "
+			+ "and usd.is_zlen_world=false "
 			+ "group by usd.id , usd.uploaded_date_time , usd.mime_type ,"
 			+ "usd.uploaded_path ,usd.is_banned , ud.id, ud.is_banned , ud.zlen_code , ud.user_name " 
 			+ "order by usd.uploaded_date_time desc ";

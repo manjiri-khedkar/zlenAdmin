@@ -242,10 +242,11 @@ input:checked + .slider:before {
 									<tr>
 										<th class="text-left" style="background: #d3d3d3">Sr.No.</th>
 										<th class="text-left" style="background: #d3d3d3">Name</th>
-										<th class="text-left" style="background: #d3d3d3">User Zlen Code</th>
+										<th class="text-left" style="background: #d3d3d3">Reported Zlen Code</th>
 										<th class="text-left" style="background: #d3d3d3">Date</th>
-										<th class="text-left" style="background: #d3d3d3">Post Zlen Code</th>
+										<th class="text-left" style="background: #d3d3d3">Creator Zlen Code</th>
 										<th class="text-left" style="background: #d3d3d3">Mime Type</th>
+										<th class="text-left" style="background: #d3d3d3">Type</th>
 										<th class="text-left" style="background: #d3d3d3">Action</th>
 									</tr>
 								</thead>
@@ -264,6 +265,7 @@ input:checked + .slider:before {
 												class="showData"> <c:out value="${list.postZlenCode}" />
 											</a></td>
 											<td><c:out value="${list.mimeType}" /></td>
+											<td><c:out value="${list.type}" /></td>
 											<td><a href="#" src='${list.uploadedPath}'class="btn btn-info btn-sm img-view"> View </a>&nbsp;&nbsp;
 												<c:choose>
 												<c:when test="${list.postisbanned == true}">
@@ -393,10 +395,10 @@ input:checked + .slider:before {
  														+ ele.postZlenCode
  														+ "</a></td><td>"
  														+ ele.mimeType
- 														+ " </td><td><a href='#' src='"+ele.uploadedPath+"' class='btn btn-info btn-sm img-view'>View</a>&nbsp;&nbsp;"
- 														+ (ele.isbanned == true ? "<a href='/reportactivePosts?id="+ele.pid+"'> <button class='btn btn-primary'> Active Post </button></a>&nbsp;"
+ 														+ " </td> <td>"+ ele.type + " </td> <td><a href='#' src='"+ele.uploadedPath+"' class='btn btn-info btn-sm img-view'>View</a>&nbsp;&nbsp;"
+ 														+ (ele.postisbanned == true ? "<a href='/reportactivePosts?id="+ele.pid+"'> <button class='btn btn-primary'> Active Post </button></a>&nbsp;"
 														 :"<a href='/reportblockPosts?id="+ele.pid+"'><button class='btn btn-primary'> Block Post </button></a>&nbsp;")
-														+ (ele.isbanned1 == true ? "<a href='/reportactiveUsers?id="+ele.uid+"'><button class='btn btn-primary'> Active User </button></a>&nbsp;"
+														+ (ele.userisbanned == true ? "<a href='/reportactiveUsers?id="+ele.uid+"'><button class='btn btn-primary'> Active User </button></a>&nbsp;"
 														 : "<a href='/reportblockUsers?id="+ele.uid+"'><button class='btn btn-primary'> Block User </button></a>&nbsp;")
 														+ "</td></tr>";
  											});

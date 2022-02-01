@@ -24,6 +24,8 @@ public class ReportPostDto {
 	
 	private long uid;
 	
+	private String type;
+	
 	
 	public boolean isPostisbanned() {
 		return postisbanned;
@@ -85,6 +87,12 @@ public class ReportPostDto {
 	
 	public void setCreatedAt(Date createdAt) {
 		this.createdAt = createdAt;
+	}
+	public String getType() {
+		return type;
+	}
+	public void setType(String type) {
+		this.type = type;
 	}
 
 	

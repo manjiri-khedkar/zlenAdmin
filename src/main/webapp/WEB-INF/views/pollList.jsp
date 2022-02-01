@@ -390,9 +390,9 @@ debugger
 														+ " </td><td>"
 														+ ele.iscompleted
 														+ " </td><td>"
-														+ (ele.isbanned == true ? "<a href='/activePosts?id="+ele.pid+"'> <button class='btn btn-primary'> Active Poll </button></a>&nbsp;"
-														: "<a href='/blockPosts?id="+ele.pid+"'><button class='btn btn-primary'> Block Poll </button></a>&nbsp;")
-														+ (ele.isbanned1 == true ? "<a href='/activeUsers?id="+ele.uid+"'><button class='btn btn-primary'> Active User </button></a>&nbsp;"
+														+ (ele.pollisbanned == true ? "<a href='/activePoll?id="+ele.pid+"'> <button class='btn btn-primary'> Active Poll </button></a>&nbsp;"
+														: "<a href='/blockPoll?id="+ele.pid+"'><button class='btn btn-primary'> Block Poll </button></a>&nbsp;")
+														+ (ele.userisbanned == true ? "<a href='/activeUsers?id="+ele.uid+"'><button class='btn btn-primary'> Active User </button></a>&nbsp;"
 														 :"<a href='/blockUsers?id="+ele.uid+"'><button class='btn btn-primary'> Block User </button></a>&nbsp;")
 														+ "</td></tr>";
 

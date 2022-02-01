@@ -33,7 +33,7 @@ public class AppUserDetailsServiceDAO implements UserDetailsService {
 	
 	private User buildUserForAuthentication(AppUser user, List<GrantedAuthority> authorities) {
         // Following code is changed once tables and spring security will be completed this need to be handle again.
-		System.out.println(user.getEmail() + " " + user.getPassword());
+		//System.out.println(user.getEmail() + " " + user.getPassword());
         return new User(user.getEmail(), user.getPassword(), true, true, true, true, authorities);
     }
 	
