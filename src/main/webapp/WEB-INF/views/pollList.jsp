@@ -263,11 +263,11 @@ input:checked + .slider:before {
 											<td><c:out value="${list.iscompleted}" /></td>
 <%-- 											<td><c:out value="${list.isActive}" /></td> --%>
 											<td><c:choose>
-												<c:when test="${list.postisbanned == true}">
-												<a href="/activePosts?id=${list.pid}"><button class="btn btn-primary"> Active Post </button></a>&nbsp;
+												<c:when test="${list.pollisbanned == true}">
+												<a href="/activePoll?id=${list.id}"><button class="btn btn-primary"> Active Poll </button></a>&nbsp;
 												</c:when>
 												<c:otherwise>
-												<a href="/blockPosts?id=${list.pid}"><button class="btn btn-primary"> Block Post </button></a>&nbsp;
+												<a href="/blockPoll?id=${list.id}"><button class="btn btn-primary"> Block Poll </button></a>&nbsp;
 												</c:otherwise>
 												</c:choose>&nbsp;&nbsp;<c:choose>
 												<c:when test="${list.userisbanned == true}">
@@ -390,8 +390,8 @@ debugger
 														+ " </td><td>"
 														+ ele.iscompleted
 														+ " </td><td><c:choose><c:when test='"+ele.isbanned == true+"'><a href='/activePosts?id="+ele.pid+"'>"
-														+ "<button class='btn btn-primary'> Active Post </button></a>&nbsp;</c:when><c:otherwise>"
-														+ "<a href='/blockPosts?id="+ele.pid+"'><button class='btn btn-primary'> Block Post </button></a>&nbsp;"
+														+ "<button class='btn btn-primary'> Active Poll </button></a>&nbsp;</c:when><c:otherwise>"
+														+ "<a href='/blockPosts?id="+ele.pid+"'><button class='btn btn-primary'> Block Poll </button></a>&nbsp;"
 														+ "</c:otherwise></c:choose><c:choose><c:when test='"+ele.isbanned1 == true+"'>"
 														+ "<a href='/activeUsers?id="+ele.uid+"'><button class='btn btn-primary'> Active User </button></a>&nbsp;"
 														+ "</c:when><c:otherwise><a href='/blockUsers?id="+ele.uid+"'><button class='btn btn-primary'> Block User </button></a>&nbsp;"
