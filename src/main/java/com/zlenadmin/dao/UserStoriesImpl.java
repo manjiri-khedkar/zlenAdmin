@@ -42,8 +42,8 @@ public class UserStoriesImpl implements UserStories {
 			+ "order by usd.uploaded_date_time desc ";
 
 	private String SQL_LATEST = "select usd.id id, usd.uploaded_date_time as uploadedDateTime, usd.mime_type mimeType, "
-			+ "usd.uploaded_path as uploadedPath, ud.zlen_code as zlenCode, ud.user_name as userName,count(distinct uscd.id) as commentCount "
-			+ ", count(distinct l.id) as likesCount  "
+			+ "usd.uploaded_path as uploadedPath, usd.is_banned as isbanned, ud.zlen_code as zlenCode, ud.user_name as userName,count(distinct uscd.id) as commentCount "
+			+ ", count(distinct l.id) as likesCount, ud.id as uid, ud.is_banned as isbanned1  "
 			+ "from public.user_stories_details usd "
 			+ "left join public.likes l  on usd.id = l.post_id "
 			+ "left join public.user_stories_comment_details uscd  on usd.id = uscd.snap_id "
@@ -52,7 +52,7 @@ public class UserStoriesImpl implements UserStories {
 			+ "and (usd.mime_type LIKE :mimeType or :mimeType1 is null)"
 			+ "and (cast(usd.uploaded_date_time as date) >= :uploadedDateTime   )"
 			+ "group by usd.id , usd.uploaded_date_time , usd.mime_type ,"
-			+ "usd.uploaded_path , ud.zlen_code , ud.user_name " 
+			+ "usd.uploaded_path ,usd.is_banned , ud.id, ud.is_banned , ud.zlen_code , ud.user_name " 
 			+ "order by usd.uploaded_date_time desc ";
 
 	private String SQL_comments = "SELECT ud.zlen_code as zlenCode, uscd.comment_message as comment, uscd.snap_id, "
@@ -123,6 +123,9 @@ public class UserStoriesImpl implements UserStories {
 				ud.setMimeType(rs.getString("mimeType"));
 				ud.setUploadedPath(rs.getString("uploadedPath"));
 				ud.setId(rs.getLong("id"));
+				ud.setIsbanned(rs.getBoolean("isbanned"));
+				ud.setIsbanned1(rs.getBoolean("isbanned1"));
+				ud.setUid(rs.getLong("uid"));
 				//ud.setIsbanned(rs.getBoolean("isbanned"));
 				return ud;
 			}

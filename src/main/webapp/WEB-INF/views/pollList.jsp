@@ -389,13 +389,12 @@ debugger
 														+ ele.createdAt
 														+ " </td><td>"
 														+ ele.iscompleted
-														+ " </td><td><c:choose><c:when test='"+ele.isbanned == true+"'><a href='/activePosts?id="+ele.pid+"'>"
-														+ "<button class='btn btn-primary'> Active Poll </button></a>&nbsp;</c:when><c:otherwise>"
-														+ "<a href='/blockPosts?id="+ele.pid+"'><button class='btn btn-primary'> Block Poll </button></a>&nbsp;"
-														+ "</c:otherwise></c:choose><c:choose><c:when test='"+ele.isbanned1 == true+"'>"
-														+ "<a href='/activeUsers?id="+ele.uid+"'><button class='btn btn-primary'> Active User </button></a>&nbsp;"
-														+ "</c:when><c:otherwise><a href='/blockUsers?id="+ele.uid+"'><button class='btn btn-primary'> Block User </button></a>&nbsp;"
-														+ "</c:otherwise></c:choose></td></tr>";
+														+ " </td><td>"
+														+ (ele.isbanned == true ? "<a href='/activePosts?id="+ele.pid+"'> <button class='btn btn-primary'> Active Poll </button></a>&nbsp;"
+														: "<a href='/blockPosts?id="+ele.pid+"'><button class='btn btn-primary'> Block Poll </button></a>&nbsp;")
+														+ (ele.isbanned1 == true ? "<a href='/activeUsers?id="+ele.uid+"'><button class='btn btn-primary'> Active User </button></a>&nbsp;"
+														 :"<a href='/blockUsers?id="+ele.uid+"'><button class='btn btn-primary'> Block User </button></a>&nbsp;")
+														+ "</td></tr>";
 
 											});
 

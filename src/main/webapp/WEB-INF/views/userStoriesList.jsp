@@ -415,13 +415,12 @@ input:checked + .slider:before {
 														+ ele.likesCount
 														+ " </td>"
 														+ "<td><a href='#' src='"+ele.uploadedPath+"' class='btn btn-info btn-sm img-view'>View</a>&nbsp;"
-														+ "<c:choose><c:when test='"+ele.isbanned == true+"'><a href='/activePost?id="+ele.id+"'>"
-														+ "<button class='btn btn-primary'> Active Post </button></a>&nbsp;</c:when><c:otherwise>"
-														+ "<a href='/blockPost?id="+ele.id+"'><button class='btn btn-primary'> Block Post </button></a>&nbsp;"
-														+ "</c:otherwise></c:choose><c:choose><c:when test='"+ele.isbanned1 == true+"'>"
-														+ "<a href='/activeUser?id="+ele.uid+"'><button class='btn btn-primary'> Active User </button></a>&nbsp;"
-														+ "</c:when><c:otherwise><a href='/blockUser?id="+ele.uid+"'><button class='btn btn-primary'> Block User </button></a>&nbsp;"
-														+ "</c:otherwise></c:choose></td></tr>";
+														+ (ele.isbanned ==true? "<a href='/activePost?id="+ele.id+"'> <button class='btn btn-primary'> Active Post </button></a>&nbsp;" :
+														 "<a href='/blockPost?id="+ele.id+"'><button class='btn btn-primary'> Block Post </button></a>&nbsp;")
+														+ (ele.isbanned1==true?
+														"<a href='/activeUser?id="+ele.uid+"'><button class='btn btn-primary'> Active User </button></a>&nbsp;"
+														:"<a href='/blockUser?id="+ele.uid+"'><button class='btn btn-primary'> Block User </button></a>&nbsp;")
+														+ "</td></tr>";
 
 											});
 
