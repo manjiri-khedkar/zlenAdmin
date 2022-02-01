@@ -245,7 +245,7 @@ input:checked + .slider:before {
 										<th class="text-left" style="background: #d3d3d3">Completed Status</th>
 <!-- 										<th class="text-left" style="background: #d3d3d3">Likes</th> -->
 <!-- 										<th class="text-left" style="background: #d3d3d3">Active Post</th> -->
-<!-- 										<th class="text-left" style="background: #d3d3d3">Action</th> -->
+										<th class="text-left" style="background: #d3d3d3">Action</th>
 									</tr>
 								</thead>
 
@@ -262,9 +262,21 @@ input:checked + .slider:before {
 											<td><c:out value="${list.createdAt}" /></td>
 											<td><c:out value="${list.iscompleted}" /></td>
 <%-- 											<td><c:out value="${list.isActive}" /></td> --%>
-<%-- 											<td><a href="#" src='${list.uploadedPath}'class="btn btn-info btn-sm img-view"> View </a>&nbsp; --%>
-<%-- 												<a href="/activePost?id=${list.id}"><button class="btn btn-primary"> Post </button></a>&nbsp; --%>
-<%-- 												<a href="/activeUser?id=${list.id}"><button class="btn btn-primary"> User </button></a></td> --%>
+											<td><c:choose>
+												<c:when test="${list.postisbanned == true}">
+												<a href="/activePosts?id=${list.pid}"><button class="btn btn-primary"> Active Post </button></a>&nbsp;
+												</c:when>
+												<c:otherwise>
+												<a href="/blockPosts?id=${list.pid}"><button class="btn btn-primary"> Block Post </button></a>&nbsp;
+												</c:otherwise>
+												</c:choose>&nbsp;&nbsp;<c:choose>
+												<c:when test="${list.userisbanned == true}">
+												<a href="/activeUsers?id=${list.uid}"><button class="btn btn-primary"> Active User </button></a>&nbsp;
+												</c:when>
+												<c:otherwise>
+												<a href="/blockUsers?id=${list.uid}"><button class="btn btn-primary"> Block User </button></a>&nbsp;
+												</c:otherwise>
+												</c:choose></td>
 										</tr>
 									</c:forEach>
 								</tbody>
@@ -377,7 +389,13 @@ debugger
 														+ ele.createdAt
 														+ " </td><td>"
 														+ ele.iscompleted
-														+ " </td></tr>";
+														+ " </td><td><c:choose><c:when test='"+ele.isbanned == true+"'><a href='/activePosts?id="+ele.pid+"'>"
+														+ "<button class='btn btn-primary'> Active Post </button></a>&nbsp;</c:when><c:otherwise>"
+														+ "<a href='/blockPosts?id="+ele.pid+"'><button class='btn btn-primary'> Block Post </button></a>&nbsp;"
+														+ "</c:otherwise></c:choose><c:choose><c:when test='"+ele.isbanned1 == true+"'>"
+														+ "<a href='/activeUsers?id="+ele.uid+"'><button class='btn btn-primary'> Active User </button></a>&nbsp;"
+														+ "</c:when><c:otherwise><a href='/blockUsers?id="+ele.uid+"'><button class='btn btn-primary'> Block User </button></a>&nbsp;"
+														+ "</c:otherwise></c:choose></td></tr>";
 
 											});
 

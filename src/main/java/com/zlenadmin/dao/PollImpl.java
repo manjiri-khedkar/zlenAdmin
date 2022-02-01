@@ -21,12 +21,10 @@ import com.zlenadmin.dto.StoriesDto;
 public class PollImpl implements Poll {
 
 	String Poll = "select po.id as id, po.content as content, po.created_at as createdAt, po.is_completed as iscompleted, po.is_zlen_world as zlenWorld, "
-			+ "ud.zlen_code as zlenCode, ud.user_name as userName "
-			+ "from public.poll po inner join public.user_details ud on po.user_id = ud.user_id "
-			+ "where (ud.zlen_code LIKE :zlenCode or :zlenCode1 is null) "
-			+ "and (po.is_zlen_world = :zlenWorld or :zlenWorld1 is null) "
-			+ "and (cast(po.created_at as date) = :createdAt or :createdAt1 is null) "
-			+ "group by po.id,ud.zlen_code,ud.user_name order by po.created_at desc";
+			+ "ud.id as uid, ud.zlen_code as zlenCode, ud.user_name as userName, ud.is_banned as userisbanned, usd.id as pid, usd.is_banned as postisbanned "
+			+ "from public.poll po inner join public.user_details ud on po.user_id = ud.user_id inner join public.user_stories_details usd on usd.user_id = po.user_id "
+			+ "where (ud.zlen_code LIKE :zlenCode or :zlenCode1 is null) and (po.is_zlen_world = :zlenWorld or :zlenWorld1 is null) "
+			+ "and (cast(po.created_at as date) = :createdAt or :createdAt1 is null) group by po.id, ud.zlen_code, ud.user_name, ud.id, ud.is_banned, usd.id, usd.is_banned order by po.created_at desc";
 	
 	@Autowired
 	@Qualifier("zlen-jdbc")
@@ -51,6 +49,10 @@ public class PollImpl implements Poll {
 				pd.setCreatedAt(rs.getDate("createdAt"));
 				pd.setZlenWorld(rs.getBoolean("zlenWorld"));
 				pd.setIscompleted(rs.getBoolean("iscompleted"));
+				pd.setPostisbanned(rs.getBoolean("postisbanned"));
+				pd.setUserisbanned(rs.getBoolean("userisbanned"));
+				pd.setPid(rs.getLong("pid"));
+				pd.setUid(rs.getLong("uid"));
 				//ud.setIsActive(rs.getString("isActive"));
 				return pd;
 			}

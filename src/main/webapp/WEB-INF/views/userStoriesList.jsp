@@ -127,6 +127,8 @@ input:checked + .slider:before {
 }
 
 
+
+
 @media only screen and (orientation:portrait) {
 	#warning-message {
 		display: block;
