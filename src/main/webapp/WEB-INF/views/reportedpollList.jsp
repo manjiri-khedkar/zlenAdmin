@@ -245,7 +245,7 @@ input:checked + .slider:before {
 										<th class="text-left" style="background: #d3d3d3">Reported Zlen Code</th>
 										<th class="text-left" style="background: #d3d3d3">Date</th>
 										<th class="text-left" style="background: #d3d3d3">Creator Zlen Code</th>
-<!-- 										<th class="text-left" style="background: #d3d3d3">Mime Type</th> -->
+										<th class="text-left" style="background: #d3d3d3"> Type</th>
 										<th class="text-left" style="background: #d3d3d3">Action</th>
 									</tr>
 								</thead>
@@ -263,6 +263,7 @@ input:checked + .slider:before {
 											<td><a href="${pageContext.request.contextPath}/userViewZlen/<c:out value='${list.pollZlenCode}'/>"
 												class="showData"> <c:out value="${list.pollZlenCode}" />
 											</a></td>
+											<td> <c:out value="${list.type}" /> </td>
 											<td>
 
 												<c:choose>
@@ -393,7 +394,8 @@ input:checked + .slider:before {
  														+ " </td><td><a href='${pageContext.request.contextPath}/userViewZlen/"+ele.postZlenCode+"' class='showData'>"
  														+ ele.pollZlenCode
  														+ "</a></td> <td>"
-//  														+ ele.mimeType
+  														+ ele.type
+														+ "</td> <td>"
 														+ (ele.pollisbanned == true? "<a href='/reportActivePoll?id="+ele.pid+"'> <button class='btn btn-primary'> Active Post </button></a>&nbsp;"
  														 : " <a href='/reportBlockPoll?id="+ele.pid+"'> <button class='btn btn-primary'> Block Poll </button></a>&nbsp;")
  														+ (ele.userisbanned1 == true? "<a href='/reportPollActiveUsers?id="+ele.uid+"'><button class='btn btn-primary'> Active User </button></a>&nbsp;"
