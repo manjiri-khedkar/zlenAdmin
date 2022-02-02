@@ -275,8 +275,15 @@ input:checked + .slider:before {
 												class="showData"> <c:out value="${list.zlenCode}" />
 											</a></td>
 											<td><c:out value="${list.userName}" /></td>
-											<td><c:out value="${list.commentCount}" /></td>
-											<td><c:out value="${list.likesCount}" /></td>
+											<td><a href="${pageContext.request.contextPath}/userViewComment/<c:out value='${list.id}'/>" class=" btn btn-sm btn-primary showData">
+			 	    									<i class="fa fa-comments" style="font-size: 20px; color: #ffff;"></i>
+			 	                    				 &nbsp;<c:out value='${list.commentCount}'/> 
+<%-- 			 	                    				 <img class="circular--square" src="${pageContext.request.contextPath}/resources/img/chat.png"> --%>			
+			 	                    				</a></td>
+											<td><a href="${pageContext.request.contextPath}/userviewLikes/<c:out value='${list.id}'/>" class="btn btn-sm btn-primary showData">
+			 	                    					<i class="fa fa-thumbs-up" style="font-size: 20px; color: #ffff;"></i>
+			 	                    				  &nbsp;<c:out value='${list.likesCount}'/>
+			 	                    				</a></td>
 <%-- 											<td><c:out value="${list.isActive}" /></td> --%>
 											<td><a href="#" src='${list.uploadedPath}'class="btn btn-info btn-sm img-view"> View </a>&nbsp;
 												<c:choose>
@@ -359,7 +366,7 @@ input:checked + .slider:before {
 
 		});
 		function search() {
-
+		debugger
 			var ustoriesList;
 			ustoriesList = {}
 			ustoriesList["mimeType"] = $("#inputMimeType").val();
@@ -408,12 +415,10 @@ input:checked + .slider:before {
 														+ "<td>"
 														+ ele.userName
 														+ " </td>"
-														+ "<td>"
-														+ ele.commentCount
-														+ " </td>"
-														+ "<td>"
-														+ ele.likesCount
-														+ " </td>"
+														+ "<td><a href='${pageContext.request.contextPath}/userViewComment/"+ele.id+"' class=' btn btn-sm btn-primary showData'>"
+			 	    									+ "<i class='fa fa-comments' style='font-size: 20px; color: #ffff;'></i>"+ele.commentCount+"</a></td>"
+														+ "<td><a href='${pageContext.request.contextPath}/userviewLikes/"+ele.id+"' class='btn btn-sm btn-primary showData'>"
+			 	                    					+ "<i class='fa fa-thumbs-up' style='font-size: 20px; color: #ffff;'></i>"+ele.likesCount+"</a></td>"
 														+ "<td><a href='#' src='"+ele.uploadedPath+"' class='btn btn-info btn-sm img-view'>View</a>&nbsp;"
 														+ (ele.isbanned ==true? "<a href='/activePost?id="+ele.id+"'> <button class='btn btn-primary'> Active Post </button></a>&nbsp;" :
 														 "<a href='/blockPost?id="+ele.id+"'><button class='btn btn-primary'> Block Post </button></a>&nbsp;")

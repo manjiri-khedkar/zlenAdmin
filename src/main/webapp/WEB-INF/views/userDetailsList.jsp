@@ -448,7 +448,7 @@
 														+ ele.frnds_count
 														+ "</a></td><td>"
 														+ ele.deviceType
-														+ "</td></tr>";
+														+ "</td><td>"+ele.isbanned+"</td></tr>";
 // 														<td><a href='${pageContext.request.contextPath}/friendList/"+ele.id+
 //                     "' class='btn btn-primary  btn-sm showData'><i class='fas fa-user-friends' style='font-size: 20px; color: #ffff;'></i></a>&nbsp;</td>
 
