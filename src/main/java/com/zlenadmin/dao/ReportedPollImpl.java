@@ -26,7 +26,7 @@ public class ReportedPollImpl implements ReportedPoll {
 			+ "from public.reported_poll rp "
 			+ "inner join public.user_details ud on ud.user_id = rp.user_id "
 			+ "inner join public.poll pl on pl.id = rp.poll_id "
-			+ "left join public.user_details ud1 on ud1.user_id = rp.user_id "
+			+ "left join public.user_details ud1 on ud1.user_id = pl.user_id "
 			+ "where (cast(rp.created_at as date) = :createdAt or :createdAt1 is null) and (ud.zlen_code LIKE :userZlenCode or :userZlenCode1 is null) "
 			+ "and (ud1.zlen_code LIKE :pollZlenCode or :pollZlenCode1 is null) order by rp.created_at desc ";
 

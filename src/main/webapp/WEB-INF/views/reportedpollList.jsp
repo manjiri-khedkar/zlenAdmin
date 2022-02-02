@@ -216,10 +216,10 @@ input:checked + .slider:before {
 
 				<div class="row">
 
-					<label for="userZlenCode"><b>User Zlen Code : </b></label>&nbsp; 
+					<label for="userZlenCode"><b>Reported Zlen Code : </b></label>&nbsp; 
 					<input type="text" id="userCode" placeholder="Enter Zlen User Code......">&nbsp;&nbsp; 
 					
-					<label for="pollZlenCode"><b>Post Zlen Code : </b></label>&nbsp; 
+					<label for="pollZlenCode"><b>Creator Zlen Code : </b></label>&nbsp; 
 					<input type="text" id="pollCode" placeholder="Enter Zlen Post Code......">&nbsp;&nbsp;
 					
 					<label for="createdAt"><b>Date : </b></label>&nbsp; 
