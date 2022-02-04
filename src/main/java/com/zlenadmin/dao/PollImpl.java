@@ -15,6 +15,7 @@ import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Repository;
 
 import com.zlenadmin.dto.PollDto;
+import com.zlenadmin.dto.PollOptionDto;
 import com.zlenadmin.dto.StoriesDto;
 
 @Repository
@@ -25,6 +26,8 @@ public class PollImpl implements Poll {
 			+ "from public.poll po inner join public.user_details ud on po.user_id = ud.user_id "
 			+ "where (ud.zlen_code LIKE :zlenCode or :zlenCode1 is null) and (po.is_zlen_world = :zlenWorld or :zlenWorld1 is null) "
 			+ "and (cast(po.created_at as date) = :createdAt or :createdAt1 is null) group by po.id, po.is_banned, ud.zlen_code, ud.user_name, ud.id, ud.is_banned order by po.created_at desc";
+	
+	String pollOption = "select po.serial_no as serialNo,po.content as contents, po.created_at as createdAt from public.poll_option po where po.poll_id = :pollid";
 	
 	@Autowired
 	@Qualifier("zlen-jdbc")
@@ -59,5 +62,21 @@ public class PollImpl implements Poll {
 		});
 	}
 	
+	
+	@Override
+	public List<PollOptionDto> getPollOption(final long id) {
+		SqlParameterSource namedParameters = new MapSqlParameterSource()
+				.addValue("pollid",id);
+
+		return jdbcTemplate.query(pollOption, namedParameters, new RowMapper<PollOptionDto>() {
+			public PollOptionDto mapRow(ResultSet rs, int rownumber) throws SQLException {
+				PollOptionDto pod = new PollOptionDto();
+				pod.setContents(rs.getString("contents"));
+				pod.setCreatedAt(rs.getDate("createdAt"));
+				//ud.setIsActive(rs.getString("isActive"));
+				return pod;
+			}
+		});
+	}
 	
 }

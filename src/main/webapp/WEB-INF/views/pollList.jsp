@@ -262,7 +262,9 @@ input:checked + .slider:before {
 											<td><c:out value="${list.createdAt}" /></td>
 											<td><c:out value="${list.iscompleted}" /></td>
 <%-- 											<td><c:out value="${list.isActive}" /></td> --%>
-											<td><c:choose>
+											<td><a href="${pageContext.request.contextPath}/pollOptionView/<c:out value='${list.id}'/>" class="btn btn-sm btn-primary showData">
+			 	                    				View </a>&nbsp;&nbsp;
+			 	                    			<c:choose>
 												<c:when test="${list.pollisbanned == true}">
 												<a href="/activePoll?id=${list.id}"><button class="btn btn-primary"> Active Poll </button></a>&nbsp;
 												</c:when>
