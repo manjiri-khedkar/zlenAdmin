@@ -186,6 +186,42 @@ public class MainPage {
 				 valuesage3=ageGroup.get(i).getAge();
 				}
 			model.addObject("valuesage3", valuesage3);
+			
+			Integer friendNumber=0;Integer friendNumber1=20;
+			Integer friendNumber2=21;Integer friendNumber3=40;
+			Integer friendNumber4=41;Integer friendNumber5=70;
+			Integer friendNumber6=71;Integer friendNumber7=100;
+			Integer friendNumber8=101;Integer friendNumber9=1000;
+			String valuesfriendNumber = null;String valuesfriendNumber1 = null;
+			String valuesfriendNumber2 = null;String valuesfriendNumber3 = null;
+			String valuesfriendNumber4 = null;
+			
+			List<UsersDetailDto> friendNumbers = userDetails.getFriendNumber(friendNumber, friendNumber1);
+			for(int i=0; i<friendNumbers.size();i++) {
+				valuesfriendNumber=friendNumbers.get(i).getFrnds_count();
+			}
+			model.addObject("valuesfriendNumber", valuesfriendNumber);
+			friendNumbers = userDetails.getFriendNumber(friendNumber2, friendNumber3);
+			for(int i=0; i<friendNumbers.size();i++) {
+				valuesfriendNumber1=friendNumbers.get(i).getFrnds_count();
+			}
+			model.addObject("valuesfriendNumber1", valuesfriendNumber1);
+			friendNumbers = userDetails.getFriendNumber(friendNumber4, friendNumber5);
+			for(int i=0; i<friendNumbers.size();i++) {
+				valuesfriendNumber2=friendNumbers.get(i).getFrnds_count();
+			}
+			model.addObject("valuesfriendNumber2", valuesfriendNumber2);
+			friendNumbers = userDetails.getFriendNumber(friendNumber6, friendNumber7);
+			for(int i=0; i<friendNumbers.size();i++) {
+				valuesfriendNumber3=friendNumbers.get(i).getFrnds_count();
+			}
+			model.addObject("valuesfriendNumber3", valuesfriendNumber3);
+			friendNumbers = userDetails.getFriendNumber(friendNumber8, friendNumber9);
+			for(int i=0; i<friendNumbers.size();i++) {
+				valuesfriendNumber4=friendNumbers.get(i).getFrnds_count();
+			}
+			model.addObject("valuesfriendNumber4", valuesfriendNumber4);
+			
 		
 		model.addObject("genderCounts",userDetails.getGenderGroup());
 		return model;
@@ -448,12 +484,12 @@ public class MainPage {
 			createdOn=null;
 		}
 		
-		 Integer total=1000;    
+		 Integer total=50;    
 	        if(pageid==null){}    
 	        else{  
-	        	pageid=1;
+	        	pageid=pageid-1;
 	        	System.out.println("pageid==:"+pageid);
-	            pageid=(pageid-1)*total+1;    
+	            pageid=pageid*total+1;    
 	        }    
 	        
 		ModelAndView mv = new ModelAndView();

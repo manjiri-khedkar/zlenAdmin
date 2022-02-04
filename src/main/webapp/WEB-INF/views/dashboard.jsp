@@ -389,7 +389,7 @@
 				style="padding: 8px; text-align: center;">
 				
 
-				<div class="col-md-5 bg-primary  align-center"
+				<div class="col-md-3 bg-primary  align-center"
 					style="border-radius: 15px; color: #ffff;">
 					<span style="font-size: 20pt">  <b>Age Summary</b>  </span> 
 					<br> <br>
@@ -406,9 +406,9 @@
 					<span style="font-size: 24pt"> <c:out value="${valuesage3}" /> </span>
 				</div>
 				
-								<div class="col-md-2"></div>
+								<div class="col-md-1"></div>
 					
-				<div class="col-md-5 bg-primary  align-center"
+				<div class="col-md-3 bg-primary  align-center"
 					style="border-radius: 15px; color: #ffff;">
 					<span style="font-size: 20pt">  <b>Gender Summary</b>  </span>
 					<br>
@@ -417,6 +417,28 @@
 					<span style="font-size: 24pt"> <c:out  value="${curGender.count}" /> </span>
 					<br>
 					</c:forEach> 
+				</div>
+				
+				<div class="col-md-1"></div>
+				
+				<div class="col-md-3 bg-primary  align-center"
+					style="border-radius: 15px; color: #ffff;">
+					<span style="font-size: 20pt">  <b>Friends Summary</b>  </span> 
+					<br> <br>
+					<span style="font-size: 20pt">  <b>0-20</b>  </span>&nbsp;&nbsp;&nbsp;
+					<span style="font-size: 24pt"> <c:out value="${valuesfriendNumber}" /> </span>
+					<br>
+					<span style="font-size: 20pt">  <b>21-40</b>  </span>&nbsp;&nbsp;&nbsp;
+					<span style="font-size: 24pt"> <c:out value="${valuesfriendNumber1}" /> </span>
+					<br>
+					<span style="font-size: 20pt">  <b>41-70</b>  </span>&nbsp;&nbsp;&nbsp;
+					<span style="font-size: 24pt"> <c:out value="${valuesfriendNumber2}" /> </span>
+					<br>
+					<span style="font-size: 20pt">  <b>71-100</b>  </span>&nbsp;&nbsp;&nbsp;
+					<span style="font-size: 24pt"> <c:out value="${valuesfriendNumber3}" /> </span>
+					<br>
+					<span style="font-size: 20pt">  <b>Above 101</b>  </span>&nbsp;&nbsp;&nbsp;
+					<span style="font-size: 24pt"> <c:out value="${valuesfriendNumber4}" /> </span>
 				</div>
 		</div>
 		

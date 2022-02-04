@@ -180,14 +180,14 @@
 						<option value="female">Female</option>
 					</select>&nbsp;&nbsp;&nbsp;&nbsp;
 					
-					<b>Select Number Of List : </b>&nbsp;&nbsp;&nbsp;&nbsp;
+					<b>Number Of Friends : </b>&nbsp;&nbsp;&nbsp;&nbsp;
 					<select id="inputFrndCount">
 						<option value="0,0" selected>All</option>
 						<option value="0,20">0-20</option>
 						<option value="21,40">21-40</option>
 						<option value="41,70">41-70</option>
 						<option value="71,100">71-100</option>
-						<option value="100,1000">101 Above</option>
+						<option value="101,1000">101 Above</option>
 					</select>&nbsp;&nbsp;&nbsp;&nbsp;
 					
 					<button type="button" id="bth-search"
