@@ -264,8 +264,8 @@ input:checked + .slider:before {
 												class="showData"> <c:out value="${list.pollZlenCode}" />
 											</a></td>
 											<td> <c:out value="${list.type}" /> </td>
-											<td>
-
+											<td><a href="${pageContext.request.contextPath}/pollOptionView/<c:out value='${list.pid}'/>" class="btn btn-sm btn-primary showData">
+			 	                    				View </a>&nbsp;&nbsp;
 												<c:choose>
 												<c:when test="${list.pollisbanned == true}">
 												<a href="/reportActivePoll?id=${list.pid}"><button class="btn btn-primary"> Active Poll </button></a>&nbsp;

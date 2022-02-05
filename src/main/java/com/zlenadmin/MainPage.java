@@ -187,14 +187,14 @@ public class MainPage {
 				}
 			model.addObject("valuesage3", valuesage3);
 			
-			Integer friendNumber=0;Integer friendNumber1=20;
-			Integer friendNumber2=21;Integer friendNumber3=40;
-			Integer friendNumber4=41;Integer friendNumber5=70;
-			Integer friendNumber6=71;Integer friendNumber7=100;
-			Integer friendNumber8=101;Integer friendNumber9=1000;
+			Integer friendNumber=0;Integer friendNumber1=2;
+			Integer friendNumber2=2;Integer friendNumber3=5;
+			Integer friendNumber4=5;Integer friendNumber5=10;
+			Integer friendNumber6=10;Integer friendNumber7=100;
+		
 			String valuesfriendNumber = null;String valuesfriendNumber1 = null;
 			String valuesfriendNumber2 = null;String valuesfriendNumber3 = null;
-			String valuesfriendNumber4 = null;
+		
 			
 			List<UsersDetailDto> friendNumbers = userDetails.getFriendNumber(friendNumber, friendNumber1);
 			for(int i=0; i<friendNumbers.size();i++) {
@@ -216,11 +216,6 @@ public class MainPage {
 				valuesfriendNumber3=friendNumbers.get(i).getFrnds_count();
 			}
 			model.addObject("valuesfriendNumber3", valuesfriendNumber3);
-			friendNumbers = userDetails.getFriendNumber(friendNumber8, friendNumber9);
-			for(int i=0; i<friendNumbers.size();i++) {
-				valuesfriendNumber4=friendNumbers.get(i).getFrnds_count();
-			}
-			model.addObject("valuesfriendNumber4", valuesfriendNumber4);
 			
 		
 		model.addObject("genderCounts",userDetails.getGenderGroup());

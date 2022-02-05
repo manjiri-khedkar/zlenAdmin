@@ -402,7 +402,7 @@
 					<span style="font-size: 20pt">  <b>26-45</b>  </span>&nbsp;&nbsp;&nbsp;
 					<span style="font-size: 24pt"> <c:out value="${valuesage2}" /> </span>
 					<br>
-					<span style="font-size: 20pt">  <b>Above 46</b>  </span>&nbsp;&nbsp;&nbsp;
+					<span style="font-size: 20pt">  <b>NA</b>  </span>&nbsp;&nbsp;&nbsp;
 					<span style="font-size: 24pt"> <c:out value="${valuesage3}" /> </span>
 				</div>
 				
@@ -425,20 +425,20 @@
 					style="border-radius: 15px; color: #ffff;">
 					<span style="font-size: 20pt">  <b>Friends Summary</b>  </span> 
 					<br> <br>
-					<span style="font-size: 20pt">  <b>0-20</b>  </span>&nbsp;&nbsp;&nbsp;
+					<span style="font-size: 20pt">  <b>0-2</b>  </span>&nbsp;&nbsp;&nbsp;
 					<span style="font-size: 24pt"> <c:out value="${valuesfriendNumber}" /> </span>
 					<br>
-					<span style="font-size: 20pt">  <b>21-40</b>  </span>&nbsp;&nbsp;&nbsp;
+					<span style="font-size: 20pt">  <b>2-5</b>  </span>&nbsp;&nbsp;&nbsp;
 					<span style="font-size: 24pt"> <c:out value="${valuesfriendNumber1}" /> </span>
 					<br>
-					<span style="font-size: 20pt">  <b>41-70</b>  </span>&nbsp;&nbsp;&nbsp;
+					<span style="font-size: 20pt">  <b>5-10</b>  </span>&nbsp;&nbsp;&nbsp;
 					<span style="font-size: 24pt"> <c:out value="${valuesfriendNumber2}" /> </span>
 					<br>
-					<span style="font-size: 20pt">  <b>71-100</b>  </span>&nbsp;&nbsp;&nbsp;
+					<span style="font-size: 20pt">  <b>10 & Above</b>  </span>&nbsp;&nbsp;&nbsp;
 					<span style="font-size: 24pt"> <c:out value="${valuesfriendNumber3}" /> </span>
 					<br>
-					<span style="font-size: 20pt">  <b>Above 101</b>  </span>&nbsp;&nbsp;&nbsp;
-					<span style="font-size: 24pt"> <c:out value="${valuesfriendNumber4}" /> </span>
+<!-- 					<span style="font-size: 20pt">  <b>Above 101</b>  </span>&nbsp;&nbsp;&nbsp; -->
+<%-- 					<span style="font-size: 24pt"> <c:out value="${valuesfriendNumber4}" /> </span> --%>
 				</div>
 		</div>
 		

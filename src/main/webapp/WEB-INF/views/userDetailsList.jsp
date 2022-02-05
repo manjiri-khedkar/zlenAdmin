@@ -183,11 +183,10 @@
 					<b>Number Of Friends : </b>&nbsp;&nbsp;&nbsp;&nbsp;
 					<select id="inputFrndCount">
 						<option value="0,0" selected>All</option>
-						<option value="0,20">0-20</option>
-						<option value="21,40">21-40</option>
-						<option value="41,70">41-70</option>
-						<option value="71,100">71-100</option>
-						<option value="101,1000">101 Above</option>
+						<option value="0,2">0-2</option>
+						<option value="2,5">2-5</option>
+						<option value="5,10">5-10</option>
+						<option value="10,100">10 & Above</option>
 					</select>&nbsp;&nbsp;&nbsp;&nbsp;
 					
 					<button type="button" id="bth-search"
@@ -293,19 +292,19 @@
 								</tbody>
 							</table>
 						</div>
-						<a href="${pageContext.request.contextPath}/userDetailsList/1">1</a>&nbsp;&nbsp;
+					</div>
+					<a href="${pageContext.request.contextPath}/userDetailsList/1">1</a>&nbsp;&nbsp;
 						<a href="${pageContext.request.contextPath}/userDetailsList/2">2</a>&nbsp;&nbsp;
-						<a href="${pageContext.request.contextPath}/userDetailsList/3">3</a>&nbsp;&nbsp;
-						<a href="${pageContext.request.contextPath}/userDetailsList/4">4</a>&nbsp;&nbsp;
-						<a href="${pageContext.request.contextPath}/userDetailsList/5">5</a>&nbsp;&nbsp;
-						<a href="${pageContext.request.contextPath}/userDetailsList/6">6</a>&nbsp;&nbsp;
-						<a href="${pageContext.request.contextPath}/userDetailsList/7">7</a>&nbsp;&nbsp;
-						<a href="${pageContext.request.contextPath}/userDetailsList/8">8</a>&nbsp;&nbsp;
-						<a href="${pageContext.request.contextPath}/userDetailsList/9">9</a>&nbsp;&nbsp;
-						<a href="${pageContext.request.contextPath}/userDetailsList/10">10</a>
+<%-- 						<a href="${pageContext.request.contextPath}/userDetailsList/3">3</a>&nbsp;&nbsp; --%>
+<%-- 						<a href="${pageContext.request.contextPath}/userDetailsList/4">4</a>&nbsp;&nbsp; --%>
+<%-- 						<a href="${pageContext.request.contextPath}/userDetailsList/5">5</a>&nbsp;&nbsp; --%>
+<%-- 						<a href="${pageContext.request.contextPath}/userDetailsList/6">6</a>&nbsp;&nbsp; --%>
+<%-- 						<a href="${pageContext.request.contextPath}/userDetailsList/7">7</a>&nbsp;&nbsp; --%>
+<%-- 						<a href="${pageContext.request.contextPath}/userDetailsList/8">8</a>&nbsp;&nbsp; --%>
+<%-- 						<a href="${pageContext.request.contextPath}/userDetailsList/9">9</a>&nbsp;&nbsp; --%>
+<%-- 						<a href="${pageContext.request.contextPath}/userDetailsList/10">10</a> --%>
 <%-- 						<a href="${pageContext.request.contextPath}/userDetailsList/3">3</a> --%>
 <%-- 						<a href="${pageContext.request.contextPath}/userDetailsList/4">4</a> --%>
-					</div>
 				</div>
 			</div>
 		</div>
