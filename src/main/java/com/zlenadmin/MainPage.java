@@ -190,17 +190,24 @@ public class MainPage {
 			Integer friendNumber=1;Integer friendNumber1=3;
 			Integer friendNumber2=3;Integer friendNumber3=5;
 			Integer friendNumber4=5;Integer friendNumber5=10;
-			Integer friendNumber6=10;Integer friendNumber7=100;
+			Integer friendNumber6=10;Integer friendNumber7=10000;
 		
+			String valuesfriendNumber0 = null;
 			String valuesfriendNumber = null;String valuesfriendNumber1 = null;
 			String valuesfriendNumber2 = null;String valuesfriendNumber3 = null;
 		
+			List<UsersDetailDto> friendNumbers = userDetails.getFriendNumber(0, 0);
+			for(int i=0; i<friendNumbers.size();i++) {
+				valuesfriendNumber0=friendNumbers.get(i).getFrnds_count();
+			}
+			model.addObject("valuesfriendNumber0", valuesfriendNumber0);
 			
-			List<UsersDetailDto> friendNumbers = userDetails.getFriendNumber(friendNumber, friendNumber1);
+			friendNumbers = userDetails.getFriendNumber(friendNumber, friendNumber1);
 			for(int i=0; i<friendNumbers.size();i++) {
 				valuesfriendNumber=friendNumbers.get(i).getFrnds_count();
 			}
 			model.addObject("valuesfriendNumber", valuesfriendNumber);
+			
 			friendNumbers = userDetails.getFriendNumber(friendNumber2, friendNumber3);
 			for(int i=0; i<friendNumbers.size();i++) {
 				valuesfriendNumber1=friendNumbers.get(i).getFrnds_count();

@@ -425,10 +425,13 @@
 					style="border-radius: 15px; color: #ffff;">
 					<span style="font-size: 20pt">  <b>Friends Summary</b>  </span> 
 					<br> <br>
-					<span style="font-size: 20pt">  <b>0-2</b>  </span>&nbsp;&nbsp;&nbsp;
+					<span style="font-size: 20pt">  <b>0</b>  </span>&nbsp;&nbsp;&nbsp;
+					<span style="font-size: 24pt"> <c:out value="${valuesfriendNumber0}" /> </span>
+					<br>
+					<span style="font-size: 20pt">  <b>1-3</b>  </span>&nbsp;&nbsp;&nbsp;
 					<span style="font-size: 24pt"> <c:out value="${valuesfriendNumber}" /> </span>
 					<br>
-					<span style="font-size: 20pt">  <b>2-5</b>  </span>&nbsp;&nbsp;&nbsp;
+					<span style="font-size: 20pt">  <b>3-5</b>  </span>&nbsp;&nbsp;&nbsp;
 					<span style="font-size: 24pt"> <c:out value="${valuesfriendNumber1}" /> </span>
 					<br>
 					<span style="font-size: 20pt">  <b>5-10</b>  </span>&nbsp;&nbsp;&nbsp;
