@@ -187,8 +187,8 @@ public class MainPage {
 				}
 			model.addObject("valuesage3", valuesage3);
 			
-			Integer friendNumber=0;Integer friendNumber1=2;
-			Integer friendNumber2=2;Integer friendNumber3=5;
+			Integer friendNumber=1;Integer friendNumber1=3;
+			Integer friendNumber2=3;Integer friendNumber3=5;
 			Integer friendNumber4=5;Integer friendNumber5=10;
 			Integer friendNumber6=10;Integer friendNumber7=100;
 		
