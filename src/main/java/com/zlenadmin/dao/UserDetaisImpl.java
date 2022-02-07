@@ -53,7 +53,7 @@ public class UserDetaisImpl implements UserDetails {
 			+ "where ufd.user_id = u.user_id and ufd.is_deleted=false and ufd.is_blocked = 'N' " 
 			+ "union all "
 			+ "Select ufd.friend_user_id as cnt from public.user_friends_details ufd "
-			+ "where ufd.friend_user_id = u.user_id and ufd.is_deleted=false and ufd.is_blocked = 'N' )as cnt),0) between :friendNumber and :friendNumber ";
+			+ "where ufd.friend_user_id = u.user_id and ufd.is_deleted=false and ufd.is_blocked = 'N' )as cnt),0) between :friendNumber and :friendNumber1 ";
 
 	@Autowired
 	@Qualifier("zlen-jdbc")
