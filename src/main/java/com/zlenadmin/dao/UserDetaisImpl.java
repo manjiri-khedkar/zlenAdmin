@@ -91,6 +91,9 @@ public class UserDetaisImpl implements UserDetails {
 				ud.setGender(rs.getString("gender"));
 				ud.setFrnds_count(rs.getString("frnds_count"));
 				ud.setIsbanned(rs.getBoolean("isbanned"));
+//				String pageno = String.valueOf(pageid);
+				ud.setPage(pageid);
+				ud.setTotal(total);
 				return ud;
 			}
 		});

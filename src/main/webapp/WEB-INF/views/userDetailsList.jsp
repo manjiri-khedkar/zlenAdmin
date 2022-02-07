@@ -183,8 +183,8 @@
 					<b>Number Of Friends : </b>&nbsp;&nbsp;&nbsp;&nbsp;
 					<select id="inputFrndCount">
 						<option value="0,0" selected>All</option>
-						<option value="0,2">0-2</option>
-						<option value="2,5">2-5</option>
+						<option value="1,3">1-3</option>
+						<option value="3,5">3-5</option>
 						<option value="5,10">5-10</option>
 						<option value="10,100">10 & Above</option>
 					</select>&nbsp;&nbsp;&nbsp;&nbsp;
@@ -293,8 +293,27 @@
 							</table>
 						</div>
 					</div>
-					<a href="${pageContext.request.contextPath}/userDetailsList/1">1</a>&nbsp;&nbsp;
-						<a href="${pageContext.request.contextPath}/userDetailsList/2">2</a>&nbsp;&nbsp;
+				</div>
+				
+					<c:set var="i" value="2"/>
+					<c:set var="page_no" value="0" />
+					<c:choose>
+					<c:when test="${i >= page_no}">
+					
+					 <ul class="pagination pagination-sm">
+					 <c:forEach items = "${page_no}" var ="page" varStatus = "status">
+					 <li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/userDetailsList/<c:out value="${status.index+1}"/>"><c:out value="${page+1}"/></a></li>
+					  <li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/userDetailsList/<c:out value="${page+2}"/>"><c:out value="${page+2}"/></a></li>
+					 </c:forEach> </ul></c:when>
+					 <c:otherwise><c:out value="${page_no}"/></c:otherwise></c:choose>
+<%-- 				<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/userDetailsList/<c:out value='${i}'/>">preview</a></li> --%>
+               
+<%--                 <li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/userDetailsList/2">2</a></li> --%>
+<%--                 <li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/userDetailsList/2">Next</a></li> --%>
+<!--                 </ul> -->
+<%--                 <li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/userDetailsList/1">1</a></li> --%>
+<%-- 					<a href="${pageContext.request.contextPath}/userDetailsList/1">1</a>&nbsp;&nbsp; --%>
+<%-- 						<a href="${pageContext.request.contextPath}/userDetailsList/2">2</a>&nbsp;&nbsp; --%>
 <%-- 						<a href="${pageContext.request.contextPath}/userDetailsList/3">3</a>&nbsp;&nbsp; --%>
 <%-- 						<a href="${pageContext.request.contextPath}/userDetailsList/4">4</a>&nbsp;&nbsp; --%>
 <%-- 						<a href="${pageContext.request.contextPath}/userDetailsList/5">5</a>&nbsp;&nbsp; --%>
@@ -305,7 +324,6 @@
 <%-- 						<a href="${pageContext.request.contextPath}/userDetailsList/10">10</a> --%>
 <%-- 						<a href="${pageContext.request.contextPath}/userDetailsList/3">3</a> --%>
 <%-- 						<a href="${pageContext.request.contextPath}/userDetailsList/4">4</a> --%>
-				</div>
 			</div>
 		</div>
 <%-- 		<tg:paging pagedListHolder="${pagedListHolder}" --%>
