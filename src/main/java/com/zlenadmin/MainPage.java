@@ -186,7 +186,7 @@ public class MainPage {
 				 valuesage3=ageGroup.get(i).getAge();
 				}
 			model.addObject("valuesage3", valuesage3);
-			
+			Integer friendNumber0=0;Integer friendNumbers0=0;
 			Integer friendNumber=1;Integer friendNumber1=3;
 			Integer friendNumber2=3;Integer friendNumber3=5;
 			Integer friendNumber4=5;Integer friendNumber5=10;
@@ -196,32 +196,42 @@ public class MainPage {
 			String valuesfriendNumber = null;String valuesfriendNumber1 = null;
 			String valuesfriendNumber2 = null;String valuesfriendNumber3 = null;
 		
-			List<UsersDetailDto> friendNumbers = userDetails.getFriendNumber(0, 0);
+			List<UsersDetailDto> friendNumbers = userDetails.getFriendNumber(friendNumber0, friendNumbers0);
 			for(int i=0; i<friendNumbers.size();i++) {
 				valuesfriendNumber0=friendNumbers.get(i).getFrnds_count();
 			}
+			model.addObject("friendNumber0", friendNumber0);
+			model.addObject("friendNumbers0", friendNumbers0);
 			model.addObject("valuesfriendNumber0", valuesfriendNumber0);
 			
 			friendNumbers = userDetails.getFriendNumber(friendNumber, friendNumber1);
 			for(int i=0; i<friendNumbers.size();i++) {
 				valuesfriendNumber=friendNumbers.get(i).getFrnds_count();
 			}
+			model.addObject("friendNumber", friendNumber);
+			model.addObject("friendNumber1", friendNumber1);
 			model.addObject("valuesfriendNumber", valuesfriendNumber);
 			
 			friendNumbers = userDetails.getFriendNumber(friendNumber2, friendNumber3);
 			for(int i=0; i<friendNumbers.size();i++) {
 				valuesfriendNumber1=friendNumbers.get(i).getFrnds_count();
 			}
+			model.addObject("friendNumber2", friendNumber2);
+			model.addObject("friendNumber3", friendNumber3);
 			model.addObject("valuesfriendNumber1", valuesfriendNumber1);
 			friendNumbers = userDetails.getFriendNumber(friendNumber4, friendNumber5);
 			for(int i=0; i<friendNumbers.size();i++) {
 				valuesfriendNumber2=friendNumbers.get(i).getFrnds_count();
 			}
+			model.addObject("friendNumber4", friendNumber4);
+			model.addObject("friendNumber5", friendNumber5);
 			model.addObject("valuesfriendNumber2", valuesfriendNumber2);
 			friendNumbers = userDetails.getFriendNumber(friendNumber6, friendNumber7);
 			for(int i=0; i<friendNumbers.size();i++) {
 				valuesfriendNumber3=friendNumbers.get(i).getFrnds_count();
 			}
+			model.addObject("friendNumber6", friendNumber6);
+			model.addObject("friendNumber7", friendNumber7);
 			model.addObject("valuesfriendNumber3", valuesfriendNumber3);
 			
 		
@@ -490,8 +500,8 @@ public class MainPage {
 	        if(pageid==null){}    
 	        else{  
 	        	pageid=pageid-1;
-	        	System.out.println("pageid==:"+pageid);
-	            pageid=pageid*total+1;    
+//	        	System.out.println("pageid==:"+pageid);
+//	            pageid=pageid*total+1;    
 	        }    
 	        
 		ModelAndView mv = new ModelAndView();

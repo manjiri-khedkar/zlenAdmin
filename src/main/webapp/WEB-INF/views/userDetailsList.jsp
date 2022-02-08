@@ -294,33 +294,26 @@
 						</div>
 					</div>
 				</div>
-				
-					<c:set var="i" value="2"/>
-					<c:set var="page_no" value="0" />
-					<c:choose>
-					<c:when test="${i >= page_no}">
 					
 					 <ul class="pagination pagination-sm">
-					 <c:forEach items = "${page_no}" var ="page" varStatus = "status">
-					 <li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/userDetailsList/<c:out value="${status.index+1}"/>"><c:out value="${page+1}"/></a></li>
-					  <li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/userDetailsList/<c:out value="${page+2}"/>"><c:out value="${page+2}"/></a></li>
-					 </c:forEach> </ul></c:when>
-					 <c:otherwise><c:out value="${page_no}"/></c:otherwise></c:choose>
+					 <li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/userDetailsList/<c:out value="${user}"/>"><c:out value="${status.index+1}"/></a></li>
+					  </ul>
+					
 <%-- 				<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/userDetailsList/<c:out value='${i}'/>">preview</a></li> --%>
                
 <%--                 <li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/userDetailsList/2">2</a></li> --%>
 <%--                 <li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/userDetailsList/2">Next</a></li> --%>
 <!--                 </ul> -->
 <%--                 <li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/userDetailsList/1">1</a></li> --%>
-<%-- 					<a href="${pageContext.request.contextPath}/userDetailsList/1">1</a>&nbsp;&nbsp; --%>
-<%-- 						<a href="${pageContext.request.contextPath}/userDetailsList/2">2</a>&nbsp;&nbsp; --%>
-<%-- 						<a href="${pageContext.request.contextPath}/userDetailsList/3">3</a>&nbsp;&nbsp; --%>
-<%-- 						<a href="${pageContext.request.contextPath}/userDetailsList/4">4</a>&nbsp;&nbsp; --%>
-<%-- 						<a href="${pageContext.request.contextPath}/userDetailsList/5">5</a>&nbsp;&nbsp; --%>
-<%-- 						<a href="${pageContext.request.contextPath}/userDetailsList/6">6</a>&nbsp;&nbsp; --%>
-<%-- 						<a href="${pageContext.request.contextPath}/userDetailsList/7">7</a>&nbsp;&nbsp; --%>
-<%-- 						<a href="${pageContext.request.contextPath}/userDetailsList/8">8</a>&nbsp;&nbsp; --%>
-<%-- 						<a href="${pageContext.request.contextPath}/userDetailsList/9">9</a>&nbsp;&nbsp; --%>
+					<a href="${pageContext.request.contextPath}/userDetailsList/1">1</a>&nbsp;&nbsp;
+						<a href="${pageContext.request.contextPath}/userDetailsList/2">2</a>&nbsp;&nbsp;
+						<a href="${pageContext.request.contextPath}/userDetailsList/3">3</a>&nbsp;&nbsp;
+						<a href="${pageContext.request.contextPath}/userDetailsList/4">4</a>&nbsp;&nbsp;
+						<a href="${pageContext.request.contextPath}/userDetailsList/5">5</a>&nbsp;&nbsp;
+						<a href="${pageContext.request.contextPath}/userDetailsList/6">6</a>&nbsp;&nbsp;
+						<a href="${pageContext.request.contextPath}/userDetailsList/7">7</a>&nbsp;&nbsp;
+						<a href="${pageContext.request.contextPath}/userDetailsList/8">8</a>&nbsp;&nbsp;
+						<a href="${pageContext.request.contextPath}/userDetailsList/9">9</a>&nbsp;&nbsp;
 <%-- 						<a href="${pageContext.request.contextPath}/userDetailsList/10">10</a> --%>
 <%-- 						<a href="${pageContext.request.contextPath}/userDetailsList/3">3</a> --%>
 <%-- 						<a href="${pageContext.request.contextPath}/userDetailsList/4">4</a> --%>
@@ -426,6 +419,8 @@
 							var gender;
 							var createdOn;
 							var frnds_count;
+							var page;
+							
 							debugger
 							$(data)
 									.each(
@@ -439,6 +434,8 @@
 												age = ele.age;
 												gender = ele.gender;
 												frnds_count = ele.frnds_count;
+												page = ele.page;
+												consolelog.print(ele.page)
 												//createdOn = ele.createdOn
 												var date = new Date(
 														ele.createdOn);
