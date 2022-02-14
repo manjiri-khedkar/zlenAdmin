@@ -12,6 +12,16 @@ public class UserUpdateDto {
 	
 	private Date fromdate;
 	
+	private Date createdAt;
+	
+
+	public Date getCreatedAt() {
+		return createdAt;
+	}
+
+	public void setCreatedAt(Date createdAt) {
+		this.createdAt = createdAt;
+	}
 
 	public int getCount() {
 		return count;

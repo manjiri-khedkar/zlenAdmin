@@ -215,10 +215,15 @@ input:checked + .slider:before {
 				<div class="row">
 
 					<label for="zlenCode"><b>Zlen Code : </b></label>&nbsp; 
-					<input type="text" id="inputCode" placeholder="Enter Zlen Code......">&nbsp;&nbsp; 
+					<input type="text" id="inputCode" placeholder="Enter Zlen Code......">&nbsp;&nbsp;
+					 
 					<label for="createdAt"><b>Date : </b></label>&nbsp; 
 					<input type="text" id="inputdate" placeholder="Enter Date......">&nbsp;&nbsp;
-						<label for="zlenWorld"><b>Zlen World Active: </b></label>&nbsp;
+					
+					<label for="userMobile"><b>Mobile No : </b></label>&nbsp; 
+					<input type="text" id="inputMobile" placeholder="Enter Mobile No......">&nbsp;&nbsp;
+					
+					<label for="zlenWorld"><b>Zlen World Active: </b></label>&nbsp;
 					<label class="switch"><input type="checkbox" id="zlenWorld">
 					<span class="slider round"></span></label> &nbsp;&nbsp;
 									
@@ -241,6 +246,7 @@ input:checked + .slider:before {
 										<th class="text-left" style="background: #d3d3d3">Content</th>
 										<th class="text-left" style="background: #d3d3d3">Zlen Code</th>
 										<th class="text-left" style="background: #d3d3d3">Name</th>
+										<th class="text-left" style="background: #d3d3d3">Mobile No.</th>
 										<th class="text-left" style="background: #d3d3d3">Date</th>
 										<th class="text-left" style="background: #d3d3d3">Completed Status</th>
 <!-- 										<th class="text-left" style="background: #d3d3d3">Likes</th> -->
@@ -259,6 +265,7 @@ input:checked + .slider:before {
 												class="showData"> <c:out value="${list.zlenCode}" />
 											</a></td>
 											<td><c:out value="${list.userName}" /></td>
+											<td><c:out value="${list.userMobile}" /></td>
 											<td><c:out value="${list.createdAt}" /></td>
 											<td><c:out value="${list.iscompleted}" /></td>
 <%-- 											<td><c:out value="${list.isActive}" /></td> --%>
@@ -346,6 +353,7 @@ debugger
 			var pdList;
 			pdList = {}
 			pdList["zlenCode"] = $("#inputCode").val();
+			pdList["userMobile"] = $("#inputMobile").val();
 			pdList["createdAt"] = $("#inputdate").val();
 			pdList["zlenWorld"] = $("#zlenWorld").is(':checked');
 			
@@ -368,6 +376,7 @@ debugger
 							var createdAt;
 							var zlenWorld;
 							var zlenCode;
+							var userMobile;
 
 							$(data)
 									.each(
@@ -377,6 +386,7 @@ debugger
 												createdAt = ele.createdAt;
 												zlenWorld = ele.zlenWorld;
 												zlenCode = ele.zlenCode;
+												userMobile = ele.userMobile;
 
 												result += "<tr><td>"
 														+ index
@@ -387,7 +397,7 @@ debugger
 														+ "</a></td>"
 														+ "<td>"
 														+ ele.userName
-														+ " </td><td>"
+														+ " </td><td>"+ele.userMobile+"</td><td>"
 														+ ele.createdAt
 														+ " </td><td>"
 														+ ele.iscompleted

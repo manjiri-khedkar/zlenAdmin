@@ -19,16 +19,16 @@ import com.zlenadmin.dto.ReportedPollDto;
 @Repository
 public class ReportedPollImpl implements ReportedPoll {
 
-	String reportedPoll = "select rp.created_at as createdAt, ud.user_name as userName, "
-			+ "ud.zlen_code as userZlenCode, ud1.zlen_code as pollZlenCode ,"
-			+ "pl.is_banned as pollisbanned, ud1.is_banned as userisbanned, "
-			+ "pl.id as pid, ud1.id as uid, rp.type_id as typeId "
-			+ "from public.reported_poll rp "
+	String reportedPoll = "select rp.created_at as createdAt, ud.user_name as userName, ud.user_mobile as userMobile, "
+			+ "ud.zlen_code as userZlenCode, ud1.zlen_code as pollZlenCode, pl.is_banned as pollisbanned, ud1.is_banned as userisbanned, "
+			+ "pl.id as pid, pl.content as contents, ud1.id as uid, rp.type_id as typeId from public.reported_poll rp "
 			+ "inner join public.user_details ud on ud.user_id = rp.user_id "
 			+ "inner join public.poll pl on pl.id = rp.poll_id "
 			+ "left join public.user_details ud1 on ud1.user_id = pl.user_id "
 			+ "where (cast(rp.created_at as date) = :createdAt or :createdAt1 is null) and (ud.zlen_code LIKE :userZlenCode or :userZlenCode1 is null) "
-			+ "and (ud1.zlen_code LIKE :pollZlenCode or :pollZlenCode1 is null) order by rp.created_at desc ";
+			+ "and (ud1.zlen_code LIKE :pollZlenCode or :pollZlenCode1 is null) "
+			+ "and (ud.user_mobile LIKE :userMobile or :userMobile1 is null) "
+			+ "order by rp.created_at desc ";
 
 	@Autowired
 	@Qualifier("zlen-jdbc")
@@ -50,14 +50,16 @@ public class ReportedPollImpl implements ReportedPoll {
 	}
 	
 	@Override
-	public List<ReportedPollDto> getReportPoll(final String userZlenCode, final String pollZlenCode, final Date createdAt) {
+	public List<ReportedPollDto> getReportPoll(final String userZlenCode, final String pollZlenCode, final Date createdAt, final String userMobile) {
 		SqlParameterSource namedParameters = new MapSqlParameterSource()
 				.addValue("userZlenCode", "%" + userZlenCode + "%", Types.VARCHAR)
 				.addValue("userZlenCode1", userZlenCode, Types.VARCHAR)
 				.addValue("pollZlenCode", "%" + pollZlenCode + "%", Types.VARCHAR)
 				.addValue("pollZlenCode1", pollZlenCode, Types.VARCHAR)
 				.addValue("createdAt", createdAt, Types.DATE)
-				.addValue("createdAt1", createdAt, Types.VARCHAR);
+				.addValue("createdAt1", createdAt, Types.VARCHAR)
+				.addValue("userMobile", "%" + userMobile + "%", Types.VARCHAR)
+				.addValue("userMobile1", userMobile, Types.VARCHAR);
 
 		return jdbcTemplate.query(reportedPoll, namedParameters, new RowMapper<ReportedPollDto>() {
 			public ReportedPollDto mapRow(ResultSet rs, int rownumber) throws SQLException {
@@ -70,6 +72,8 @@ public class ReportedPollImpl implements ReportedPoll {
 				rpd.setUserisbanned(rs.getBoolean("userisbanned"));
 				rpd.setPid(rs.getLong("pid"));
 				rpd.setUid(rs.getLong("uid"));
+				rpd.setContents(rs.getString("contents"));
+				rpd.setUserMobile(rs.getString("userMobile"));
 				int typeId =rs.getInt("typeId");
 				if (typeMap.containsKey(typeId)){
 					rpd.setType(typeMap.get(typeId));

@@ -40,13 +40,16 @@ public class PollController {
 	@GetMapping("/pollList")
 	public Object pollList(@RequestParam(required = false) String zlenCode,
 			@RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date createdAt, 
-			@RequestParam(required = false) boolean zlenWorld) {
+			@RequestParam(required = false) boolean zlenWorld, @RequestParam(required = false) String userMobile) {
 		
 		if ("".equals(zlenCode)) {
 			zlenCode = null;
 		}
 
-
+		if ("".equals(userMobile)) {
+			userMobile = null;
+		}
+		
 		if ("".equals(createdAt)) {
 			createdAt = null;
 		}
@@ -57,7 +60,7 @@ public class PollController {
 		}
 		
 		ModelAndView mv = new ModelAndView();
-		List<PollDto> pdList = poll.getPoll(zlenCode,createdAt,zlenWorld);
+		List<PollDto> pdList = poll.getPoll(zlenCode,createdAt,zlenWorld,userMobile);
 		mv.addObject("pdList", pdList);
 		mv.setViewName("pollList");
 		return mv;
@@ -68,7 +71,7 @@ public class PollController {
 	@ResponseBody
 	public Object getPoll(Model model, @Param("zlenCode") String zlenCode,
 			@Param("createdAt") @DateTimeFormat(pattern = "yyyy-MM-dd") Date createdAt,
-			@Param("zlenWorld") boolean zlenWorld) {
+			@Param("zlenWorld") boolean zlenWorld, @Param("userMobile") String userMobile) {
 		// List result= service.queryForMovies();
 		// List result = newrepo.getUserStories();
 
@@ -76,6 +79,10 @@ public class PollController {
 			zlenCode = null;
 		}
 
+		if ("".equals(userMobile)) {
+			userMobile = null;
+		}
+		
 		if ("".equals(createdAt)) {
 			createdAt = null;
 		}
@@ -84,7 +91,7 @@ public class PollController {
 			zlenWorld = null != null;
 		}
 
-		List<PollDto> pdList = poll.getPoll(zlenCode,createdAt,zlenWorld);
+		List<PollDto> pdList = poll.getPoll(zlenCode,createdAt,zlenWorld,userMobile);
 		return pdList;
 	}
 	

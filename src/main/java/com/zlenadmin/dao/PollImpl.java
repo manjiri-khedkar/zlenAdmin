@@ -22,10 +22,12 @@ import com.zlenadmin.dto.StoriesDto;
 public class PollImpl implements Poll {
 
 	String Poll = "select po.id as id, po.content as content, po.created_at as createdAt, po.is_completed as iscompleted, po.is_zlen_world as zlenWorld, "
-			+ "po.is_banned as pollisbanned, ud.id as uid, ud.zlen_code as zlenCode, ud.user_name as userName, ud.is_banned as userisbanned "
+			+ "po.is_banned as pollisbanned, ud.id as uid, ud.user_mobile as userMobile, ud.zlen_code as zlenCode, ud.user_name as userName, ud.is_banned as userisbanned "
 			+ "from public.poll po inner join public.user_details ud on po.user_id = ud.user_id "
 			+ "where (ud.zlen_code LIKE :zlenCode or :zlenCode1 is null) and (po.is_zlen_world = :zlenWorld or :zlenWorld1 is null) "
-			+ "and (cast(po.created_at as date) = :createdAt or :createdAt1 is null) group by po.id, po.is_banned, ud.zlen_code, ud.user_name, ud.id, ud.is_banned order by po.created_at desc";
+			+ "and (cast(po.created_at as date) = :createdAt or :createdAt1 is null)"
+			+ "and (ud.user_mobile LIKE :userMobile or :userMobile1 is null) "
+			+ "group by po.id, po.is_banned, ud.zlen_code, ud.user_name, ud.id, ud.is_banned order by po.created_at desc";
 	
 	String pollOption = "select po.serial_no as serialNo,po.content as contents, po.created_at as createdAt from public.poll_option po where po.poll_id = :pollid";
 	
@@ -34,14 +36,16 @@ public class PollImpl implements Poll {
 	private NamedParameterJdbcTemplate jdbcTemplate;
 	
 	@Override
-	public List<PollDto> getPoll(final String zlenCode, final Date createdAt, final boolean zlenWorld) {
+	public List<PollDto> getPoll(final String zlenCode, final Date createdAt, final boolean zlenWorld, final String userMobile) {
 		SqlParameterSource namedParameters = new MapSqlParameterSource()
 				.addValue("zlenCode", "%" + zlenCode + "%", Types.VARCHAR)
 				.addValue("zlenCode1", zlenCode, Types.VARCHAR)
 				.addValue("createdAt", createdAt, Types.DATE)
 				.addValue("createdAt1", createdAt, Types.VARCHAR)
 				.addValue("zlenWorld", zlenWorld,Types.BOOLEAN)
-				.addValue("zlenWorld1",zlenWorld,Types.BOOLEAN);
+				.addValue("zlenWorld1",zlenWorld,Types.BOOLEAN)
+				.addValue("userMobile", "%" + userMobile + "%", Types.VARCHAR)
+				.addValue("userMobile1", userMobile, Types.VARCHAR);
 
 		return jdbcTemplate.query(Poll, namedParameters, new RowMapper<PollDto>() {
 			public PollDto mapRow(ResultSet rs, int rownumber) throws SQLException {
@@ -56,6 +60,7 @@ public class PollImpl implements Poll {
 				pd.setPollisbanned(rs.getBoolean("pollisbanned"));
 				pd.setUserisbanned(rs.getBoolean("userisbanned"));
 				pd.setUid(rs.getLong("uid"));
+				pd.setUserMobile(rs.getString("userMobile"));
 				//ud.setIsActive(rs.getString("isActive"));
 				return pd;
 			}

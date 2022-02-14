@@ -27,9 +27,9 @@ public class UserDetaisImpl implements UserDetails {
 	String userDetailsSql = "SELECT u.id as id, u.user_name as userName, u.user_mobile as userMobile, u.zlen_code as zlenCode,"
 			+ "u.device_type as deviceType, u.age as age, u.gender as gender, u.created_on as createdOn , u.is_banned as isbanned, "
 			+ "(Select count(cnt) from (Select ufd.friend_user_id as cnt from public.user_friends_details ufd "
-			+ " where ufd.user_id = u.user_id and ufd.is_deleted=false and ufd.is_blocked = 'N' " + "union all "
+			+ " where ufd.user_id = u.user_id and ufd.friend_user_id != ufd.user_id and ufd.is_deleted=false and ufd.is_blocked = 'N' " + "union all "
 			+ "Select ufd.friend_user_id as cnt from public.user_friends_details ufd "
-			+ " where ufd.friend_user_id = u.user_id and ufd.is_deleted=false and ufd.is_blocked = 'N' "
+			+ " where ufd.friend_user_id = u.user_id and ufd.friend_user_id != ufd.user_id and ufd.is_deleted=false and ufd.is_blocked = 'N' "
 			+ ")as cnt) as frnds_count"
 			+ " FROM public.user_details u WHERE (LOWER(u.user_name) LIKE  :userName or :userName1 is null ) "
 			+ "and ( u.user_mobile LIKE :userMobile or :userMobile1 is null ) and ( LOWER(u.zlen_code)  LIKE  :zlenCode or :zlenCode1 is null ) "
@@ -37,9 +37,9 @@ public class UserDetaisImpl implements UserDetails {
 			+ "and ((date_part('year', now()) - coalesce(u.age,0)) between :age and :age1 or :age is null) "
 			+ "and (LOWER(u.gender) =  :gender or :gender1 is null ) and (Date(u.created_on) = :createdOn  or cast(:createdOn1 as date) is null) "
 			+ "and ((Select count(cnt) from (Select ufd.friend_user_id as cnt from public.user_friends_details ufd "
-			+ "where ufd.user_id = u.user_id and ufd.is_deleted=false and ufd.is_blocked = 'N' " + "union all "
+			+ "where ufd.user_id = u.user_id and ufd.friend_user_id != ufd.user_id and ufd.is_deleted=false and ufd.is_blocked = 'N' " + "union all "
 			+ "Select ufd.friend_user_id as cnt from public.user_friends_details ufd "
-			+ "where ufd.friend_user_id = u.user_id and ufd.is_deleted=false and ufd.is_blocked = 'N' )as cnt) between :friendNumber and :friendNumber1 or :friendNumber is null)"
+			+ "where ufd.friend_user_id = u.user_id  and ufd.friend_user_id != ufd.user_id and ufd.is_deleted=false and ufd.is_blocked = 'N' )as cnt) between :friendNumber and :friendNumber1 or :friendNumber is null)"
 			+ "order by u.created_on desc ";
 			//+ "limit :total offset :pageid";
 
@@ -51,10 +51,10 @@ public class UserDetaisImpl implements UserDetails {
 
 	String friendNumbers = "Select count(*) as frnds_count from public.user_details u "
 			+ "where coalesce ((Select count(cnt) from (Select ufd.friend_user_id as cnt from public.user_friends_details ufd "
-			+ "where ufd.user_id = u.user_id and ufd.is_deleted=false and ufd.is_blocked = 'N' " 
+			+ "where ufd.user_id = u.user_id  and ufd.friend_user_id != ufd.user_id and ufd.is_deleted=false and ufd.is_blocked = 'N' " 
 			+ "union all "
 			+ "Select ufd.friend_user_id as cnt from public.user_friends_details ufd "
-			+ "where ufd.friend_user_id = u.user_id and ufd.is_deleted=false and ufd.is_blocked = 'N' )as cnt),0) between :friendNumber and :friendNumber1 ";
+			+ "where ufd.friend_user_id = u.user_id and ufd.friend_user_id != ufd.user_id and ufd.is_deleted=false and ufd.is_blocked = 'N' )as cnt),0) between :friendNumber and :friendNumber1 ";
 
 	@Autowired
 	@Qualifier("zlen-jdbc")

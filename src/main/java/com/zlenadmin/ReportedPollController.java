@@ -36,10 +36,14 @@ public class ReportedPollController {
 	
 	@GetMapping("/reportedpollList")
 	public Object reportedPostList(@RequestParam(required = false) String userZlenCode, @RequestParam(required = false) String pollZlenCode,
-			@RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date createdAt,Model model) {
+			@RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date createdAt, @RequestParam(required = false) String userMobile,Model model) {
 		
 		if ("".equals(userZlenCode)) {
 			userZlenCode = null;
+		}
+		
+		if ("".equals(userMobile)) {
+			userMobile = null;
 		}
 
 		if ("".equals(pollZlenCode)) {
@@ -51,7 +55,7 @@ public class ReportedPollController {
 		}
 		
 		ModelAndView mv = new ModelAndView();
-		List<ReportedPollDto> rpdList = reportedPoll.getReportPoll(userZlenCode, pollZlenCode, createdAt);
+		List<ReportedPollDto> rpdList = reportedPoll.getReportPoll(userZlenCode, pollZlenCode, createdAt,userMobile);
 		mv.addObject("rpdList", rpdList);
 		mv.setViewName("reportedpollList");
 		return mv;
@@ -61,12 +65,16 @@ public class ReportedPollController {
 	@GetMapping("/reportedPollListContents")
 	@ResponseBody
 	public Object getReportedPost(Model model, @Param("userZlenCode") String userZlenCode, @Param("pollZlenCode") String pollZlenCode,
-			@Param("createdAt") @DateTimeFormat(pattern = "yyyy-MM-dd") Date createdAt) {
+			@Param("createdAt") @DateTimeFormat(pattern = "yyyy-MM-dd") Date createdAt, @Param("userMobile") String userMobile) {
 		// List result= service.queryForMovies();
 		// List result = newrepo.getUserStories();
 
 		if ("".equals(userZlenCode)) {
 			userZlenCode = null;
+		}
+		
+		if ("".equals(userMobile)) {
+			userMobile = null;
 		}
 
 		if ("".equals(pollZlenCode)) {
@@ -77,7 +85,7 @@ public class ReportedPollController {
 			createdAt = null;
 		}
 
-		List<ReportedPollDto> rpdList = reportedPoll.getReportPoll(userZlenCode, pollZlenCode, createdAt);
+		List<ReportedPollDto> rpdList = reportedPoll.getReportPoll(userZlenCode, pollZlenCode, createdAt,userMobile);
 		return rpdList;
 	}
 	

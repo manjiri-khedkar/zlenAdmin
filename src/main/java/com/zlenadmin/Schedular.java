@@ -18,6 +18,7 @@ import com.zlenadmin.api.entity.LastSeenSummary;
 import com.zlenadmin.dao.Accounts;
 import com.zlenadmin.dto.PendingRegistrationDto;
 import com.zlenadmin.dto.RegisterPendingDto;
+import com.zlenadmin.dto.UserUpdateDto;
 
 
 @Configuration
@@ -49,9 +50,9 @@ public class Schedular {
 		Calendar cal = new GregorianCalendar();
 		cal.add(Calendar.DAY_OF_MONTH, -1);
 		Date daysAgo = cal.getTime();
-		LastSeenSummary lastSeen = accountDao.getCreate(daysAgo);
-		lastSeen.setCdate(daysAgo);
-		accountDao.insert(lastSeen);
+		UserUpdateDto lastSeen = accountDao.getCreate(daysAgo);
+		lastSeen.setTodaydate(daysAgo);
+	//	accountDao.insert(lastSeen);
 	  }
 	
 	@Scheduled(cron = "${cron.pendingRegistration}")

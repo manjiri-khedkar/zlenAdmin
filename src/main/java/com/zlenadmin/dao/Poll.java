@@ -10,7 +10,7 @@ import com.zlenadmin.dto.PollOptionDto;
 
 public interface Poll {
 	
-	List<PollDto> getPoll(String zlenCode,Date createdAt,boolean zlenWorld);
+	List<PollDto> getPoll(String zlenCode,Date createdAt,boolean zlenWorld,String userMobile);
 	List<PollOptionDto> getPollOption(long id);
  
 }

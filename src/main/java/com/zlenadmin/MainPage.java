@@ -60,6 +60,7 @@ import com.zlenadmin.dto.StoriesDto;
 import com.zlenadmin.dto.UserDetailsDto;
 import com.zlenadmin.dto.UserFeedBackDto;
 import com.zlenadmin.dto.UserStoriesDetailsDto;
+import com.zlenadmin.dto.UserUpdateDto;
 import com.zlenadmin.dto.UsersDetailDto;
 import com.zlenadmin.model.AppUser;
 import com.zlenadmin.model.SessionUser;
@@ -154,8 +155,8 @@ public class MainPage {
 		// cal.add(Calendar.DAY_OF_MONTH, -1);
 		daysAgo = cal.getTime();
 		addSameSiteCookieAttribute(response);
-		LastSeenSummary summary = accountDao.getCreate(daysAgo);
-		model.addObject("todaysActiveUser", summary.getCount());
+		UserUpdateDto userUpdateDto = accountDao.getCreate(daysAgo);
+		model.addObject("todaysActiveUser", userUpdateDto.getCount());
 		
 		Integer age=0;Integer age1=19;
 		Integer value=20;Integer value1=25;Integer value2=26;
@@ -421,14 +422,14 @@ public class MainPage {
 		Calendar cal = new GregorianCalendar(TimeZone.getTimeZone("UTC"));
 		cal.add(Calendar.DAY_OF_MONTH, -7);
 		Date daysAgo = cal.getTime();
-		List<AccountsDto> list = accountDao.getGraphQuery31(daysAgo);
+		List<UserUpdateDto> list = accountDao.getGraphQuery31(daysAgo);
 		System.out.println("list :" + list);
 
 		List<Date> list1 = new ArrayList<Date>();
 		List<Integer> list2 = new ArrayList<Integer>();
 
 		for (int j = 0; j <= list.size() - 1; j++) {
-			Date cdate = list.get(j).getCdate();
+			Date cdate = list.get(j).getCreatedAt();
 			Integer count = list.get(j).getCount();
 			list1.add(cdate);
 			list2.add(count);

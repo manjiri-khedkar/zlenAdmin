@@ -7,7 +7,7 @@ import com.zlenadmin.dto.ReportPostDto;
 import com.zlenadmin.dto.ReportedPollDto;
 
 public interface ReportedPoll {
-	List<ReportedPollDto> getReportPoll(String userZlenCode, String PollZlenCode, Date createdAt);
+	List<ReportedPollDto> getReportPoll(String userZlenCode, String PollZlenCode, Date createdAt, String userMobile);
 	
 	
 

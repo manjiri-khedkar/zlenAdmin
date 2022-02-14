@@ -21,6 +21,26 @@ private boolean pollisbanned;
 	private long uid;
 	
 	private String type;
+	
+	private String contents;
+	
+	private String userMobile;
+
+	public String getContents() {
+		return contents;
+	}
+
+	public void setContents(String contents) {
+		this.contents = contents;
+	}
+
+	public String getUserMobile() {
+		return userMobile;
+	}
+
+	public void setUserMobile(String userMobile) {
+		this.userMobile = userMobile;
+	}
 
 	public String getUserName() {
 		return userName;

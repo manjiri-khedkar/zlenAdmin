@@ -19,10 +19,12 @@ import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Repository;
 
 import com.zlenadmin.api.entity.LastSeenSummary;
+import com.zlenadmin.api.entity.UserUpdate;
 import com.zlenadmin.dto.AccountsDto;
 import com.zlenadmin.dto.InactiveDto;
 import com.zlenadmin.dto.PendingRegistrationDto;
 import com.zlenadmin.dto.RegisterPendingDto;
+import com.zlenadmin.dto.UserUpdateDto;
 
 @Repository
 public class AccountsImpl implements Accounts {
@@ -31,11 +33,9 @@ public class AccountsImpl implements Accounts {
 			+ "group by to_timestamp((data -> 'devices'-> 0 -> 'lastSeen')::text::numeric/1000)::date\r\n"
 			+ "order by cdate desc ";
 	
-	private String SELECT_LASTSEEN_SUMMARY= " select last_seen::date as cdate ,\r\n" + 
-			"count(*) as count  from public.tab_notification \r\n" + 
-			"where  last_seen::date >= :varDate::date \r\n" + 
-			"group by last_seen::date\r\n" + 
-			"order by cdate desc ";
+	private String SELECT_LASTSEEN_SUMMARY= " select cast(created_at as date) as createdAt, count(distinct user_id) from public.user_update \r\n" + 
+			"where cast(created_at as date) = :vardate group by cast(created_at as date) \r\n" + 
+			"order by cast(created_at as date) desc";
 	
 //	private String SELECT_LASTSEEN_SUMMARY = " select  cdate, count from last_seen_summary \r\n"
 //			+ "where cdate::date >= :varDate::date "
@@ -61,7 +61,8 @@ public class AccountsImpl implements Accounts {
 			+"where to_timestamp((data -> 'devices'-> 0 -> 'lastSeen')::text::numeric/1000)::date <= :varDate::date "
 			+ "order by to_timestamp((data -> 'devices'-> 0 -> 'lastSeen')::text::numeric/1000)::date desc ";
 
-	private String lastSql = " select count(*) as count  from  public.tab_notification where  cast(last_seen::date as date) = :varDate::date; ";
+	private String lastSql = " select count(distinct uu.user_id) as count from public.user_update uu " + 
+			"where cast(uu.created_at as date) = :vardate ";
 	
 //	private String lastSql = "select count(data -> 'devices'-> 0 ->'id') as count "
 //			//+ "to_timestamp((data -> 'devices'-> 0 -> 'lastSeen')::text::numeric/1000)::date as cdate "
@@ -91,15 +92,14 @@ public class AccountsImpl implements Accounts {
 	private NamedParameterJdbcTemplate zlenjdbcTemplate;
 
 	@Override
-	public List<AccountsDto> getGraphQuery31(Date daysAgo) {
+	public List<UserUpdateDto> getGraphQuery31(Date daysAgo) {
 		SqlParameterSource namedParameters = new MapSqlParameterSource()
-				.addValue("varDate", daysAgo,Types.DATE);
+				.addValue("vardate", daysAgo,Types.DATE);
 
-		return zlenjdbcTemplate.query(SELECT_LASTSEEN_SUMMARY, namedParameters, new RowMapper<AccountsDto>() {
-			public AccountsDto mapRow(ResultSet rs, int rownumber) throws SQLException {
-
-				AccountsDto acc = new AccountsDto();
-				acc.setCdate(rs.getDate("cdate"));
+		return zlenjdbcTemplate.query(SELECT_LASTSEEN_SUMMARY, namedParameters, new RowMapper<UserUpdateDto>() {
+			public UserUpdateDto mapRow(ResultSet rs, int rownumber) throws SQLException {
+				UserUpdateDto acc = new UserUpdateDto();
+				acc.setCreatedAt(rs.getDate("createdAt"));
 				acc.setCount(rs.getInt("count"));
 				return acc;
 			}
@@ -129,16 +129,16 @@ public class AccountsImpl implements Accounts {
 	
 
 	@Override
-	public LastSeenSummary getCreate(Date daysAgo) {
+	public UserUpdateDto getCreate(Date daysAgo) {
 
 		SqlParameterSource namedParameters = new MapSqlParameterSource()
-				.addValue("varDate", daysAgo,Types.DATE);
+				.addValue("vardate", daysAgo,Types.DATE);
 
 		
 		
-		return zlenjdbcTemplate.queryForObject(lastSql, namedParameters, new RowMapper<LastSeenSummary>() {
-			public LastSeenSummary mapRow(ResultSet rs, int rownumber) throws SQLException {
-				LastSeenSummary acc = new LastSeenSummary();
+		return zlenjdbcTemplate.queryForObject(lastSql, namedParameters, new RowMapper<UserUpdateDto>() {
+			public UserUpdateDto mapRow(ResultSet rs, int rownumber) throws SQLException {
+				UserUpdateDto acc = new UserUpdateDto();
 				// acc.setCdate(daysAgo);
 				acc.setCount(rs.getInt("count"));
 				return acc;
@@ -205,29 +205,35 @@ public class AccountsImpl implements Accounts {
 		this.dataSource = dataSource;
 	}
 
-	@Override
-	public void insert(LastSeenSummary lastSeenSummary) {
-
-		Connection conn = null;
-
-		try {
-			conn = dataSource.getConnection();
-			PreparedStatement ps = conn.prepareStatement(INSERT_SQL);
-			ps.setDate(1, new java.sql.Date(lastSeenSummary.getCdate().getTime()));
-			ps.setLong(2, lastSeenSummary.getCount());
-			ps.executeUpdate();
-			ps.close();
-
-		} catch (SQLException e) {
-			throw new RuntimeException(e);
-		} finally {
-			if (conn != null) {
-				try {
-					conn.close();
-				} catch (SQLException e) {
-				}
-			}
-		}
-	}
+//	@Override
+//	public void insert(LastSeenSummary lastSeenSummary) {
+//
+//		Connection conn = null;
+//
+//		try {
+//			conn = dataSource.getConnection();
+//			PreparedStatement ps = conn.prepareStatement(INSERT_SQL);
+//			ps.setDate(1, new java.sql.Date(lastSeenSummary.getCdate().getTime()));
+//			ps.setLong(2, lastSeenSummary.getCount());
+//			ps.executeUpdate();
+//			ps.close();
+//
+//		} catch (SQLException e) {
+//			throw new RuntimeException(e);
+//		} finally {
+//			if (conn != null) {
+//				try {
+//					conn.close();
+//				} catch (SQLException e) {
+//				}
+//			}
+//		}
+//	}
+//
+//	@Override
+//	public void insert(UserUpdateDto lastSeen) {
+//		// TODO Auto-generated method stub
+//		
+//	}
 
 }
