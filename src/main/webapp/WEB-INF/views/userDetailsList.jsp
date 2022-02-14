@@ -435,7 +435,7 @@
 												gender = ele.gender;
 												frnds_count = ele.frnds_count;
 												page = ele.page;
-												consolelog.print(ele.page)
+												//consolelog.print(ele.page)
 												//createdOn = ele.createdOn
 												var date = new Date(
 														ele.createdOn);

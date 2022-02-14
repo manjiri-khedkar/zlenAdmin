@@ -40,7 +40,8 @@ public class UserDetaisImpl implements UserDetails {
 			+ "where ufd.user_id = u.user_id and ufd.is_deleted=false and ufd.is_blocked = 'N' " + "union all "
 			+ "Select ufd.friend_user_id as cnt from public.user_friends_details ufd "
 			+ "where ufd.friend_user_id = u.user_id and ufd.is_deleted=false and ufd.is_blocked = 'N' )as cnt) between :friendNumber and :friendNumber1 or :friendNumber is null)"
-			+ "order by u.created_on desc limit :total offset :pageid";
+			+ "order by u.created_on desc ";
+			//+ "limit :total offset :pageid";
 
 	String ageGroup = "select  count(*) as age " + "from public.user_details ud "
 			+ "where (date_part('year', now()) - coalesce (ud.age,0) ) between :age and :age1 ";
@@ -75,8 +76,9 @@ public class UserDetaisImpl implements UserDetails {
 				.addValue("createdOn1", createdOn, Types.DATE).addValue("age", age, Types.INTEGER)
 				.addValue("age1", age1, Types.INTEGER).addValue("friendNumber", friendNumber, Types.INTEGER)
 				.addValue("friendNumber1", friendNumber1, Types.INTEGER).addValue("gender", gender, Types.VARCHAR)
-				.addValue("gender1", gender, Types.VARCHAR).addValue("pageid", pageid, Types.INTEGER)
-				.addValue("total", total, Types.INTEGER);
+				.addValue("gender1", gender, Types.VARCHAR);
+				//.addValue("pageid", pageid, Types.INTEGER)
+				//.addValue("total", total, Types.INTEGER);
 
 		return jdbcTemplate.query(userDetailsSql, namedParameters, new RowMapper<UsersDetailDto>() {
 			public UsersDetailDto mapRow(ResultSet rs, int rownumber) throws SQLException {

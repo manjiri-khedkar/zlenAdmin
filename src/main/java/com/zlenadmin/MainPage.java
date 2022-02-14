@@ -458,6 +458,12 @@ public class MainPage {
 			@RequestParam(required=false) String gender, @RequestParam(required=false) Integer age, @RequestParam(required=false) Integer age1, 
 			@RequestParam(required=false) Integer friendNumber, @RequestParam(required=false) Integer friendNumber1, @RequestParam(required=false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date  createdOn)
 	{	
+		Integer total=500000; 
+		boolean filterOff=false;
+		if (deviceType==null &&  userMobile ==null && userName==null && gender==null && age ==null
+				&& age1 ==null &&  friendNumber ==null && friendNumber1 ==null && createdOn ==null ) {
+			filterOff=true;
+		}
 		if ("All".equals(deviceType)) {
 			deviceType=null;
 		}
@@ -496,7 +502,7 @@ public class MainPage {
 			createdOn=null;
 		}
 		
-		 Integer total=50;    
+		     
 	        if(pageid==null){}    
 	        else{  
 	        	pageid=pageid-1;
@@ -505,8 +511,13 @@ public class MainPage {
 	        }    
 	        
 		ModelAndView mv = new ModelAndView();
-
-		List<UsersDetailDto> userDetailsList = userDetails.getUserDetails(userName, userMobile, zlenCode, deviceType, createdOn, gender, age,age1,friendNumber,friendNumber1,pageid,total);
+		List<UsersDetailDto> userDetailsList = null;
+				//userDetails.getUserDetails(userName, userMobile, zlenCode, deviceType, createdOn, gender, age,age1,friendNumber,friendNumber1,pageid,total);
+		if (filterOff) {
+			userDetailsList = new ArrayList<UsersDetailDto>();
+		}else {
+			 userDetailsList = userDetails.getUserDetails(userName, userMobile, zlenCode, deviceType, createdOn, gender, age,age1,friendNumber,friendNumber1,pageid,total);
+		}
 //		PagedListHolder<UsersDetailDto> pagedListHolder = new PagedListHolder(userDetailsList);
 //		int page = ServletRequestUtils.getIntParameter(request, "p", 0);
 //		pagedListHolder.setPage(page);
