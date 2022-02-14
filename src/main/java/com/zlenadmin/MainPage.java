@@ -188,9 +188,9 @@ public class MainPage {
 			model.addObject("valuesage3", valuesage3);
 			Integer friendNumber0=0;Integer friendNumbers0=0;
 			Integer friendNumber=1;Integer friendNumber1=3;
-			Integer friendNumber2=3;Integer friendNumber3=5;
-			Integer friendNumber4=5;Integer friendNumber5=10;
-			Integer friendNumber6=10;Integer friendNumber7=10000;
+			Integer friendNumber2=4;Integer friendNumber3=5;
+			Integer friendNumber4=6;Integer friendNumber5=10;
+			Integer friendNumber6=11;Integer friendNumber7=10000;
 		
 			String valuesfriendNumber0 = null;
 			String valuesfriendNumber = null;String valuesfriendNumber1 = null;
@@ -675,12 +675,16 @@ public class MainPage {
 	@ResponseBody
 	public Object getUserStories(Model model, @Param("zlenCode") String zlenCode, @Param("mimeType") String mimeType,
 			@Param("uploadedDateTime") @DateTimeFormat(pattern = "yyyy-MM-dd") Date uploadedDateTime,
-			@Param("zlenWorld") boolean zlenWorld,@Param("isbanned") boolean isbanned) {
+			@Param("zlenWorld") boolean zlenWorld,@Param("isbanned") boolean isbanned, @Param("userMobile") String userMobile) {
 		// List result= service.queryForMovies();
 		// List result = newrepo.getUserStories();
 
 		if ("".equals(zlenCode)) {
 			zlenCode = null;
+		}
+
+		if ("".equals(userMobile)) {
+			userMobile = null;
 		}
 
 		if ("All".equals(mimeType)) {
@@ -699,7 +703,7 @@ public class MainPage {
 			isbanned = (Boolean) null;
 		}
 		
-		List result = userStories.getUserStories(zlenCode, mimeType, uploadedDateTime,zlenWorld);
+		List result = userStories.getUserStories(zlenCode, mimeType, uploadedDateTime,zlenWorld,userMobile);
 
 		return result;
 
@@ -710,10 +714,14 @@ public class MainPage {
 			@RequestParam(required = false) String zlenCode,
 			@RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date uploadedDateTime, 
 			@RequestParam(required = false) boolean zlenWorld,@RequestParam(required = false) boolean isbanned,
-			@RequestParam(required = false) boolean isbanned1) {
+			@RequestParam(required = false) boolean isbanned1, @RequestParam(required = false) String userMobile) {
 
 		if ("".equals(zlenCode)) {
 			zlenCode = null;
+		}
+		
+		if ("".equals(userMobile)) {
+			userMobile = null;
 		}
 
 		if ("All".equals(mimeType)) {
@@ -737,7 +745,7 @@ public class MainPage {
 
 		if (uploadedDateTime != null && mimeType == null) {
 
-			List<StoriesDto> userStoriesList = userStories.getUserStories(zlenCode, mimeType, uploadedDateTime,zlenWorld);
+			List<StoriesDto> userStoriesList = userStories.getUserStories(zlenCode, mimeType, uploadedDateTime,zlenWorld,userMobile);
 			mv.addObject("userStoriesList", userStoriesList);
 			mv.setViewName("userStoriesList");
 			return mv;

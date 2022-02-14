@@ -57,10 +57,14 @@ public class UserStoriesController {
 	 */
 	public ModelAndView getUserStories(Model model, @RequestParam(required=false) String  zlenCode, 
 			@RequestParam(required=false) String mimeType, @RequestParam(required=false) 
-	@DateTimeFormat(pattern = "yyyy-MM-dd") Date uploadedDateTime,@RequestParam(required=false) boolean  zlenWorld)
+	@DateTimeFormat(pattern = "yyyy-MM-dd") Date uploadedDateTime,@RequestParam(required=false) boolean  zlenWorld, @RequestParam(required=false) String userMobile)
 	{	
 		if ("".equals(zlenCode)) {
 			zlenCode=null;
+		}
+		
+		if ("".equals(userMobile)) {
+			userMobile=null;
 		}
 	
 		if ("All".equals(mimeType)) {
@@ -80,7 +84,7 @@ public class UserStoriesController {
 		//Date daysAgo = cal.getTime();
 		
 		//List storieslist = userStories.getLatestUserStories(null, null, daysAgo);
-		List storieslist = userStories.getUserStories(zlenCode,mimeType,uploadedDateTime,zlenWorld);
+		List storieslist = userStories.getUserStories(zlenCode,mimeType,uploadedDateTime,zlenWorld,userMobile);
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("storiesList", storieslist);
 		mav.setViewName("stories");

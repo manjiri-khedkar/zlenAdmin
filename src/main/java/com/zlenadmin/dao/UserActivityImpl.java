@@ -31,12 +31,14 @@ public class UserActivityImpl implements UserActivity {
 //	+ "and (ud.zlen_code LIKE :zlenCode or :zlenCode1 is null) ";
 	
 	
-	private String SQL="select uad.id id, et.status as activity, uad.created_date as createdDate, uad.notify_user_device_id as notifyUserDeviceId, uad.notify_user_id as notifyUserId, ud.zlen_code as zlenCode , ud1.zlen_code as notify_zlenCode "
+	private String SQL="select uad.id id, et.status as activity, uad.created_date as createdDate, uad.notify_user_device_id as notifyUserDeviceId, "
+			+ "uad.notify_user_id as notifyUserId, ud.user_mobile as userMobile, ud.zlen_code as zlenCode , ud1.zlen_code as notify_zlenCode "
 			+ "from public.user_activity_details uad inner join public.user_details ud on uad.user_id = ud.user_id "
 			+ "inner join public.user_details ud1 on uad.notify_user_id = ud1.user_id  "
 			+ "inner join public.event_type et on uad.activity = et.id "
 			+ "where (cast(uad.created_date as date) = :createdDate or :createdDate1 is null)  "
 			+ "and (ud.zlen_code LIKE :zlenCode or :zlenCode1 is null) "
+			+ "and (ud.user_mobile LIKE :userMobile or :userMobile1 is null) "
 			+ "order by uad.created_date desc ";
 	
 	@Autowired
@@ -45,12 +47,14 @@ public class UserActivityImpl implements UserActivity {
 	
 	
 	@Override
-	public List<ActivityDto> getUserActivity(final String zlenCode, final Date createdDate) {
+	public List<ActivityDto> getUserActivity(final String zlenCode, final Date createdDate, final String userMobile) {
 		SqlParameterSource namedParameters = new MapSqlParameterSource()
 				.addValue("zlenCode", "%"+zlenCode+"%",Types.VARCHAR)
 				.addValue("zlenCode1", zlenCode,Types.VARCHAR)
 				.addValue("createdDate1", createdDate,Types.VARCHAR)
-				.addValue("createdDate", createdDate,Types.DATE);
+				.addValue("createdDate", createdDate,Types.DATE)
+				.addValue("userMobile", "%" + userMobile + "%", Types.VARCHAR)
+				.addValue("userMobile1", userMobile, Types.VARCHAR);
 
 		return jdbcTemplate.query(SQL,namedParameters,new RowMapper<ActivityDto>() {
 			public ActivityDto mapRow(ResultSet rs, int rownumber) throws SQLException {
@@ -64,6 +68,7 @@ public class UserActivityImpl implements UserActivity {
 				ad.setNotifyUserDeviceId(rs.getString("notifyUserDeviceId"));
 				ad.setZlenCode(rs.getString("zlenCode"));
 				ad.setNotifyUserId(rs.getString("notify_zlenCode"));
+				ad.setUserMobile(rs.getString("userMobile"));
 				
 				return ad;
 			}

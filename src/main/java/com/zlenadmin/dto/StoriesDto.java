@@ -28,6 +28,16 @@ public class StoriesDto {
 	
 	private Long uid;
 	
+	private String userMobile;
+	
+
+	public String getUserMobile() {
+		return userMobile;
+	}
+
+	public void setUserMobile(String userMobile) {
+		this.userMobile = userMobile;
+	}
 
 	public Long getUid() {
 		return uid;

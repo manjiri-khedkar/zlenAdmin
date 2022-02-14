@@ -223,11 +223,15 @@ input:checked + .slider:before {
 						<option value="image">Image</option>
 						<option value="video">Video</option>
 						<option value="text">Text</option>
-					</select>&nbsp;&nbsp;&nbsp;&nbsp; <label for="zlenCode"><b>Zlen
-							Code : </b></label>&nbsp; <input type="text" id="inputCode"
-						placeholder="Enter Zlen Code......">&nbsp;&nbsp; <label
-						for="uploadedDateTime"><b>Date : </b></label>&nbsp; <input
-						type="text" id="inputdate" placeholder="Enter Date......">&nbsp;&nbsp;
+					</select>&nbsp;&nbsp;&nbsp;&nbsp; 
+					<label for="zlenCode"><b>Zlen Code : </b></label>
+					&nbsp; <input type="text" id="inputCode" placeholder="Enter Zlen Code......">&nbsp;&nbsp; 
+					
+					&nbsp;&nbsp;<label for="userMobile"><b>Mobile no. : </b></label>&nbsp;   
+		    		<input type="text"  id="inputMobile" placeholder="Enter Mobile no. ......">&nbsp;&nbsp;
+		    		
+					<label for="uploadedDateTime"><b>Date : </b></label>&nbsp; 
+					<input type="text" id="inputdate" placeholder="Enter Date......">&nbsp;&nbsp;
 						<br><br>
 						<label for="zlenWorld"><b>Zlen World Active: </b></label>&nbsp;
 					<label class="switch"><input type="checkbox" id="zlenWorld">
@@ -249,12 +253,10 @@ input:checked + .slider:before {
 								<thead>
 									<tr>
 										<th class="text-left" style="background: #d3d3d3">Sr.No.</th>
-										<th class="text-left" style="background: #d3d3d3">Uploaded
-											Date Time</th>
-										<th class="text-left" style="background: #d3d3d3">Mime
-											Type</th>
-										<th class="text-left" style="background: #d3d3d3">Zlen
-											Code</th>
+										<th class="text-left" style="background: #d3d3d3">Uploaded Date Time</th>
+										<th class="text-left" style="background: #d3d3d3">Mime Type</th>
+										<th class="text-left" style="background: #d3d3d3">Zlen Code</th>
+											<th class="text-left" style="background: #d3d3d3">Mobile No.</th>
 										<th class="text-left" style="background: #d3d3d3">Name</th>
 										<th class="text-left" style="background: #d3d3d3">Comments</th>
 										<th class="text-left" style="background: #d3d3d3">Likes</th>
@@ -274,6 +276,7 @@ input:checked + .slider:before {
 												href="${pageContext.request.contextPath}/userViewZlen/<c:out value='${list.zlenCode}'/>"
 												class="showData"> <c:out value="${list.zlenCode}" />
 											</a></td>
+											<td><c:out value="${list.userMobile}" /></td>
 											<td><c:out value="${list.userName}" /></td>
 											<td><a href="${pageContext.request.contextPath}/userViewComment/<c:out value='${list.id}'/>" class=" btn btn-sm btn-primary showData">
 			 	    									<i class="fa fa-comments" style="font-size: 20px; color: #ffff;"></i>
@@ -371,6 +374,7 @@ input:checked + .slider:before {
 			ustoriesList = {}
 			ustoriesList["mimeType"] = $("#inputMimeType").val();
 			ustoriesList["zlenCode"] = $("#inputCode").val();
+			ustoriesList["userMobile"] = $("#inputMobile").val();
 			ustoriesList["uploadedDateTime"] = $("#inputdate").val();
 			ustoriesList["zlenWorld"] = $("#zlenWorld").is(':checked');
 			
@@ -393,6 +397,7 @@ input:checked + .slider:before {
 							var uploadedDateTime;
 							var mimeType;
 							var zlenCode;
+							var userMobile;
 
 							$(data)
 									.each(
@@ -402,6 +407,7 @@ input:checked + .slider:before {
 												uploadedDateTime = ele.uploadedDateTime;
 												mimeType = ele.mimeType;
 												zlenCode = ele.zlenCode;
+												userMobile = ele.userMobile;
 
 												result += "<tr><td>"
 														+ index
@@ -411,11 +417,10 @@ input:checked + .slider:before {
 														+ ele.mimeType
 														+ "</td><td><a href='${pageContext.request.contextPath}/userViewZlen/"+ele.zlenCode+"' class='showData'>"
 														+ ele.zlenCode
-														+ "</a></td>"
-														+ "<td>"
+														+ "</a></td><td>"+ele.userMobile 
+														+ "</td><td>"
 														+ ele.userName
-														+ " </td>"
-														+ "<td><a href='${pageContext.request.contextPath}/userViewComment/"+ele.id+"' class=' btn btn-sm btn-primary showData'>"
+														+ " </td><td><a href='${pageContext.request.contextPath}/userViewComment/"+ele.id+"' class=' btn btn-sm btn-primary showData'>"
 			 	    									+ "<i class='fa fa-comments' style='font-size: 20px; color: #ffff;'></i>"+ele.commentCount+"</a></td>"
 														+ "<td><a href='${pageContext.request.contextPath}/userviewLikes/"+ele.id+"' class='btn btn-sm btn-primary showData'>"
 			 	                    					+ "<i class='fa fa-thumbs-up' style='font-size: 20px; color: #ffff;'></i>"+ele.likesCount+"</a></td>"

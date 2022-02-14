@@ -74,6 +74,9 @@
 		    				&nbsp;&nbsp;<label for="zlenCode"><b>Zlen Code : </b></label>&nbsp;   
 		    				<input type="text"  id="inputCode" placeholder="Enter Zlen Code......">&nbsp;&nbsp;	
 		    				
+		    				&nbsp;&nbsp;<label for="userMobile"><b>Mobile no. : </b></label>&nbsp;   
+		    				<input type="text"  id="inputMobile" placeholder="Enter Mobile no. ......">&nbsp;&nbsp;	
+		    				
  		    				&nbsp;&nbsp;<label for="createdDate"><b>Date : </b></label>&nbsp;   
  		    				<input type="text"  id="inputDate" placeholder="Enter Date......">&nbsp;&nbsp;	    				 
 		   				
@@ -99,6 +102,7 @@
 											<th class="text-left" style="background: #d3d3d3">Created Date</th> 
 											<th class="text-left" style="background: #d3d3d3">Zlen Code</th>
 											<th class="text-left" style="background: #d3d3d3">Notify ZlenCode</th>
+											<th class="text-left" style="background: #d3d3d3">Mobile No.</th>
 										</tr>
 									</thead>
 					
@@ -122,6 +126,7 @@
 														<c:out value="${list.notifyUserId}" />
 													</a>
 												</td>
+												<td><c:out value="${list.userMobile}" /></td>
 											</tr> 
 		 	                    		</c:forEach> 
 		                           </tbody>
@@ -190,8 +195,9 @@
  	var activityLogList;
  		activityLogList = {} 		
  		activityLogList["zlenCode"] = $("#inputCode").val();    
-  		activityLogList["createdDate"] = $("#inputDate").val();    
-		
+  		activityLogList["createdDate"] = $("#inputDate").val(); 
+  		activityLogList["userMobile"] = $("#inputMobile").val();
+  	
  		
  $("#btn-search").prop("disabled",false);
      
@@ -208,20 +214,23 @@
              	  var id;
   		      	  var zlenCode;
   				  var createdDate;
+  				  var userMobile;
 				  
               	  $(data).each(function (index,ele){
 
                   	id = ele.id;
                     zlenCode = ele.zlenCode;
                      createdDate = ele.createdDate;
+                     userMobile = ele.userMobile
 				     
   				     console.log("data", data);
                      console.log("ele", ele);   
                      console.log("id", id);                 
                      console.log("zlenCode", zlenCode);
  					 console.log("createdDate",createdDate);
+ 					console.log("userMobile", userMobile);
  					
-                     result  += "<tr><td>"+index+"</td><td>"+ele.id+"</td><td>"+ele.status+"</td><td>"+ele.createdDate+"</td><td><a href='${pageContext.request.contextPath}/userViewZlen/"+ele.zlenCode+" ' class='showData'>"+ele.zlenCode+"</a></td><td><a href='${pageContext.request.contextPath}/userViewZlen/"+ele.notifyUserId+"' class='showData'>"+ele.notifyUserId+"</a></td></tr>";                   
+                     result  += "<tr><td>"+index+"</td><td>"+ele.id+"</td><td>"+ele.status+"</td><td>"+ele.createdDate+"</td><td><a href='${pageContext.request.contextPath}/userViewZlen/"+ele.zlenCode+" ' class='showData'>"+ele.zlenCode+"</a></td><td><a href='${pageContext.request.contextPath}/userViewZlen/"+ele.notifyUserId+"' class='showData'>"+ele.notifyUserId+"</a></td><td>"+ele.userMobile+"</td></tr>";                   
                                      
               	  });
             	  

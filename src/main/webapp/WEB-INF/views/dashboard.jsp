@@ -434,13 +434,13 @@
 					<a href="/userDetailsList/1?friendNumber=${friendNumber}&friendNumber1=${friendNumber1}" class="text" Style = "color:white;"> <span style="font-size: 20pt">  <b>1-3</b>  </span>&nbsp;&nbsp;&nbsp;
 					<span style="font-size: 24pt"> <c:out value="${valuesfriendNumber}" />  </span> </a>&nbsp;
 					<br>
-					<a href="/userDetailsList/1?friendNumber=${friendNumber2}&friendNumber1=${friendNumber3}" class="text" Style = "color:white;"> <span style="font-size: 20pt">  <b>3-5</b>  </span>&nbsp;&nbsp;&nbsp;
+					<a href="/userDetailsList/1?friendNumber=${friendNumber2}&friendNumber1=${friendNumber3}" class="text" Style = "color:white;"> <span style="font-size: 20pt">  <b>4-5</b>  </span>&nbsp;&nbsp;&nbsp;
 					<span style="font-size: 24pt"> <c:out value="${valuesfriendNumber1}" /> </span> </a>&nbsp;
 					<br>
-					<a href="/userDetailsList/1?friendNumber=${friendNumber4}&friendNumber1=${friendNumber5}" class="text" Style = "color:white;"> <span style="font-size: 20pt">  <b>5-10</b>  </span>&nbsp;&nbsp;&nbsp;
+					<a href="/userDetailsList/1?friendNumber=${friendNumber4}&friendNumber1=${friendNumber5}" class="text" Style = "color:white;"> <span style="font-size: 20pt">  <b>6-10</b>  </span>&nbsp;&nbsp;&nbsp;
 					<span style="font-size: 24pt"> <c:out value="${valuesfriendNumber2}" />  </span> </a>&nbsp;
 					<br>
-					<a href="/userDetailsList/1?friendNumber=${friendNumber6}&friendNumber1=${friendNumber7}" class="text" Style = "color:white;"> <span style="font-size: 20pt">  <b>10 & Above</b>  </span>&nbsp;&nbsp;&nbsp;
+					<a href="/userDetailsList/1?friendNumber=${friendNumber6}&friendNumber1=${friendNumber7}" class="text" Style = "color:white;"> <span style="font-size: 20pt">  <b>11 & Above</b>  </span>&nbsp;&nbsp;&nbsp;
 					<span style="font-size: 24pt"> <c:out value="${valuesfriendNumber3}" /> </span> </a>&nbsp; 
 					<br>
 <!-- 					<span style="font-size: 20pt">  <b>Above 101</b>  </span>&nbsp;&nbsp;&nbsp; -->

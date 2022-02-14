@@ -17,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.zlenadmin.api.entity.UserActivityDetails;
 import com.zlenadmin.api.entity.UserDetails;
 import com.zlenadmin.dao.UserActivity;
+import com.zlenadmin.dto.ActivityDto;
 import com.zlenadmin.repository.UserActivityRepository;
 
 @Controller
@@ -40,7 +41,7 @@ public class ActivityLogController {
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-		List userActivityList = userActivity.getUserActivity(null, null);
+		List<ActivityDto> userActivityList = userActivity.getUserActivity(null, null, null);
 		mv.addObject("userActivityList", userActivityList);
 		mv.setViewName("activityLog");
 		return mv;
@@ -48,17 +49,21 @@ public class ActivityLogController {
 	
 	@GetMapping("/userActivityListContents") 
 	@ResponseBody
-	public Object getUserActivity(Model model,@Param("zlenCode") String  zlenCode,@Param("createdDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date  createdDate) {
+	public Object getUserActivity(Model model,@Param("zlenCode") String  zlenCode,@Param("createdDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date  createdDate, @Param("userMobile") String userMobile) {
 		
 		if ("".equals(zlenCode)) {
 			zlenCode=null;
+		}
+		
+		if ("".equals(userMobile)) {
+			userMobile=null;
 		}
 		
 		if ("".equals(createdDate)) {
 			createdDate=null;
 		}
 		
-		List result = userActivity.getUserActivity(zlenCode,createdDate);
+		List result = userActivity.getUserActivity(zlenCode,createdDate,userMobile);
 
 		return  result;
 		

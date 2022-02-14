@@ -27,7 +27,7 @@ public class UserStoriesImpl implements UserStories {
 //			+ "where ud.zlen_code like :zlenCode "; 
 
 	private String SQL = "select usd.id id, usd.uploaded_date_time as uploadedDateTime, usd.mime_type mimeType,"
-			+ "usd.uploaded_path as uploadedPath, usd.is_banned as isbanned, ud.id as uid, ud.zlen_code as zlenCode, ud.is_banned as isbanned1, ud.user_name as userName,count(uscd.id) as commentCount"
+			+ "usd.uploaded_path as uploadedPath, usd.is_banned as isbanned, ud.id as uid, ud.user_mobile as userMobile, ud.zlen_code as zlenCode, ud.is_banned as isbanned1, ud.user_name as userName,count(uscd.id) as commentCount"
 			+ ", count(l.id) as likesCount  "
 			+ "from  public.user_stories_details usd left join public.likes l  on usd.id = l.post_id "
 			+ "left join public.user_stories_comment_details uscd  on usd.id = uscd.snap_id "
@@ -36,13 +36,13 @@ public class UserStoriesImpl implements UserStories {
 			+ "and (usd.mime_type LIKE :mimeType or :mimeType1 is null) "
 			+ "and (cast(usd.uploaded_date_time as date) = :uploadedDateTime or :uploadedDateTime1 is null) "
 			+ "and (usd.is_zlen_world = :zlenWorld or :zlenWorld1 =false) "
-			//+ "and (usd.is_banned = :isbanned or :isbanned1 =false) "
+			+ "and (ud.user_mobile LIKE :userMobile or :userMobile1 is null) "
 			+ "group by usd.id , usd.uploaded_date_time , usd.mime_type ,"
 			+ "usd.uploaded_path , ud.id, ud.zlen_code , ud.is_banned, ud.user_name " 
 			+ "order by usd.uploaded_date_time desc ";
 
 	private String SQL_LATEST = "select usd.id id, usd.uploaded_date_time as uploadedDateTime, usd.mime_type mimeType, "
-			+ "usd.uploaded_path as uploadedPath, usd.is_banned as isbanned, ud.zlen_code as zlenCode, ud.user_name as userName,count(distinct uscd.id) as commentCount "
+			+ "usd.uploaded_path as uploadedPath, usd.is_banned as isbanned, ud.zlen_code as zlenCode, ud.user_mobile as userMobile, ud.user_name as userName,count(distinct uscd.id) as commentCount "
 			+ ", count(distinct l.id) as likesCount, ud.id as uid, ud.is_banned as isbanned1  "
 			+ "from public.user_stories_details usd "
 			+ "left join public.likes l  on usd.id = l.post_id "
@@ -70,10 +70,12 @@ public class UserStoriesImpl implements UserStories {
 	private NamedParameterJdbcTemplate jdbcTemplate;
 
 	@Override
-	public List<StoriesDto> getUserStories(final String zlenCode, final String mimeType, final Date uploadedDateTime, final boolean zlenWorld) {
+	public List<StoriesDto> getUserStories(final String zlenCode, final String mimeType, final Date uploadedDateTime, final boolean zlenWorld, final String userMobile ) {
 		SqlParameterSource namedParameters = new MapSqlParameterSource()
 				.addValue("zlenCode", "%" + zlenCode + "%", Types.VARCHAR)
 				.addValue("zlenCode1", zlenCode, Types.VARCHAR)
+				.addValue("userMobile", "%" + userMobile + "%", Types.VARCHAR)
+				.addValue("userMobile1", userMobile, Types.VARCHAR)
 				.addValue("mimeType1", mimeType, Types.VARCHAR)
 				.addValue("mimeType", "%" + mimeType + "%", Types.VARCHAR)
 				.addValue("uploadedDateTime1", uploadedDateTime, Types.VARCHAR)
@@ -97,6 +99,7 @@ public class UserStoriesImpl implements UserStories {
 				ud.setIsbanned(rs.getBoolean("isbanned"));
 				ud.setIsbanned1(rs.getBoolean("isbanned1"));
 				ud.setUid(rs.getLong("uid"));
+				ud.setUserMobile(rs.getString("userMobile"));
 				//ud.setIsActive(rs.getString("isActive"));
 				return ud;
 			}
@@ -127,6 +130,7 @@ public class UserStoriesImpl implements UserStories {
 				ud.setIsbanned(rs.getBoolean("isbanned"));
 				ud.setIsbanned1(rs.getBoolean("isbanned1"));
 				ud.setUid(rs.getLong("uid"));
+				ud.setUserMobile(rs.getString("userMobile"));
 				//ud.setIsbanned(rs.getBoolean("isbanned"));
 				return ud;
 			}

@@ -184,9 +184,9 @@
 					<select id="inputFrndCount">
 						<option value="0,0" selected>All</option>
 						<option value="1,3">1-3</option>
-						<option value="3,5">3-5</option>
-						<option value="5,10">5-10</option>
-						<option value="10,100">10 & Above</option>
+						<option value="4,5">4-5</option>
+						<option value="6,10">6-10</option>
+						<option value="11,100">11 & Above</option>
 					</select>&nbsp;&nbsp;&nbsp;&nbsp;
 					
 					<button type="button" id="bth-search"
@@ -295,9 +295,9 @@
 					</div>
 				</div>
 					
-					 <ul class="pagination pagination-sm">
-					 <li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/userDetailsList/<c:out value="${user}"/>"><c:out value="${status.index+1}"/></a></li>
-					  </ul>
+<!-- 					 <ul class="pagination pagination-sm"> -->
+<%-- 					 <li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/userDetailsList/<c:out value="${user}"/>"><c:out value="${status.index+1}"/></a></li> --%>
+<!-- 					  </ul> -->
 					
 <%-- 				<li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/userDetailsList/<c:out value='${i}'/>">preview</a></li> --%>
                
@@ -305,15 +305,15 @@
 <%--                 <li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/userDetailsList/2">Next</a></li> --%>
 <!--                 </ul> -->
 <%--                 <li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/userDetailsList/1">1</a></li> --%>
-					<a href="${pageContext.request.contextPath}/userDetailsList/1">1</a>&nbsp;&nbsp;
-						<a href="${pageContext.request.contextPath}/userDetailsList/2">2</a>&nbsp;&nbsp;
-						<a href="${pageContext.request.contextPath}/userDetailsList/3">3</a>&nbsp;&nbsp;
-						<a href="${pageContext.request.contextPath}/userDetailsList/4">4</a>&nbsp;&nbsp;
-						<a href="${pageContext.request.contextPath}/userDetailsList/5">5</a>&nbsp;&nbsp;
-						<a href="${pageContext.request.contextPath}/userDetailsList/6">6</a>&nbsp;&nbsp;
-						<a href="${pageContext.request.contextPath}/userDetailsList/7">7</a>&nbsp;&nbsp;
-						<a href="${pageContext.request.contextPath}/userDetailsList/8">8</a>&nbsp;&nbsp;
-						<a href="${pageContext.request.contextPath}/userDetailsList/9">9</a>&nbsp;&nbsp;
+<%-- 					<a href="${pageContext.request.contextPath}/userDetailsList/1">1</a>&nbsp;&nbsp; --%>
+<%-- 						<a href="${pageContext.request.contextPath}/userDetailsList/2">2</a>&nbsp;&nbsp; --%>
+<%-- 						<a href="${pageContext.request.contextPath}/userDetailsList/3">3</a>&nbsp;&nbsp; --%>
+<%-- 						<a href="${pageContext.request.contextPath}/userDetailsList/4">4</a>&nbsp;&nbsp; --%>
+<%-- 						<a href="${pageContext.request.contextPath}/userDetailsList/5">5</a>&nbsp;&nbsp; --%>
+<%-- 						<a href="${pageContext.request.contextPath}/userDetailsList/6">6</a>&nbsp;&nbsp; --%>
+<%-- 						<a href="${pageContext.request.contextPath}/userDetailsList/7">7</a>&nbsp;&nbsp; --%>
+<%-- 						<a href="${pageContext.request.contextPath}/userDetailsList/8">8</a>&nbsp;&nbsp; --%>
+<%-- 						<a href="${pageContext.request.contextPath}/userDetailsList/9">9</a>&nbsp;&nbsp; --%>
 <%-- 						<a href="${pageContext.request.contextPath}/userDetailsList/10">10</a> --%>
 <%-- 						<a href="${pageContext.request.contextPath}/userDetailsList/3">3</a> --%>
 <%-- 						<a href="${pageContext.request.contextPath}/userDetailsList/4">4</a> --%>

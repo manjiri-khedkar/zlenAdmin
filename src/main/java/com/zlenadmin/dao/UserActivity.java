@@ -10,6 +10,6 @@ public interface UserActivity {
 
 //	List<ActivityDto> getUserActivity(String zlenCode);
 
-	List<ActivityDto> getUserActivity(String zlenCode, Date createdDate);
+	List<ActivityDto> getUserActivity(String zlenCode, Date createdDate, String userMobile);
 
 }

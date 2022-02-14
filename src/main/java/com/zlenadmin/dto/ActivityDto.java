@@ -20,7 +20,17 @@ public class ActivityDto {
 	
 	private String status;
 	
+	private String userMobile;
 	
+	
+	public String getUserMobile() {
+		return userMobile;
+	}
+
+	public void setUserMobile(String userMobile) {
+		this.userMobile = userMobile;
+	}
+
 	public String getStatus() {
 		return status;
 	}
