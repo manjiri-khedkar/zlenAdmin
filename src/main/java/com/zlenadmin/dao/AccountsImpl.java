@@ -29,12 +29,15 @@ import com.zlenadmin.dto.UserUpdateDto;
 @Repository
 public class AccountsImpl implements Accounts {
 
-	private String SQL = " select to_timestamp((data -> 'devices'-> 0 -> 'lastSeen')::text::numeric/1000)::date as cdate, count(*) as count  from public.accounts\r\n"
+	private String SQL = " select to_timestamp((data -> 'devices'-> 0 -> 'lastSeen')::text::numeric/1000)::date as cdate, count(*) as count  "
+			+ "from public.accounts\r\n"
 			+ "group by to_timestamp((data -> 'devices'-> 0 -> 'lastSeen')::text::numeric/1000)::date\r\n"
 			+ "order by cdate desc ";
 	
-	private String SELECT_LASTSEEN_SUMMARY= " select cast(created_at as date) as createdAt, count(distinct user_id) from public.user_update \r\n" + 
-			"where cast(created_at as date) = :vardate group by cast(created_at as date) \r\n" + 
+	private String SELECT_LASTSEEN_SUMMARY= " select cast(created_at as date) as createdAt, count(distinct user_id) "
+			+ "from public.user_update \r\n" + 
+			"where cast(created_at as date) >= :vardate "
+			+"group by cast(created_at as date) \r\n" + 
 			"order by cast(created_at as date) desc";
 	
 //	private String SELECT_LASTSEEN_SUMMARY = " select  cdate, count from last_seen_summary \r\n"
@@ -61,7 +64,8 @@ public class AccountsImpl implements Accounts {
 			+"where to_timestamp((data -> 'devices'-> 0 -> 'lastSeen')::text::numeric/1000)::date <= :varDate::date "
 			+ "order by to_timestamp((data -> 'devices'-> 0 -> 'lastSeen')::text::numeric/1000)::date desc ";
 
-	private String lastSql = " select count(distinct uu.user_id) as count from public.user_update uu " + 
+	private String lastSql = " select count(distinct uu.user_id) as count "
+			+ "from public.user_update uu " + 
 			"where cast(uu.created_at as date) = :vardate ";
 	
 //	private String lastSql = "select count(data -> 'devices'-> 0 ->'id') as count "

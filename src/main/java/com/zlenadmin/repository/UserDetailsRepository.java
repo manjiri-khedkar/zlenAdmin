@@ -50,11 +50,11 @@ public interface UserDetailsRepository extends JpaRepository<UserDetails, Intege
 	
 	@Query(value = "SELECT u.* FROM public.user_details u "
 			+ "inner join public.user_friends_details ufd on ufd.friend_user_id=u.user_id "
-			+ "WHERE ufd.user_id = :userId and ufd.is_deleted=false and ufd.is_blocked = 'N' "
+			+ "WHERE ufd.user_id = :userId and ufd.friend_user_id != ufd.user_id and ufd.is_deleted=false and ufd.is_blocked = 'N' "
 			+ "union "
 			+"SELECT u.* FROM public.user_details u "
 			+ "inner join public.user_friends_details ufd on ufd.user_id=u.user_id "
-			+ "WHERE ufd.friend_user_id = :userId and ufd.is_deleted=false and ufd.is_blocked = 'N' ", nativeQuery = true)
+			+ "WHERE ufd.friend_user_id = :userId and ufd.friend_user_id != ufd.user_id and ufd.is_deleted=false and ufd.is_blocked = 'N' ", nativeQuery = true)
 	ArrayList<UserDetails> getUserFriends(@Param("userId") String userId);
 	
 	@Query(value="select count(ud.id) as count from public.user_details ud where ud.created_on=ud.created_on", nativeQuery= true)
