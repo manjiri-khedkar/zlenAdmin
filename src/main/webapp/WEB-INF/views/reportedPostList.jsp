@@ -222,6 +222,9 @@ input:checked + .slider:before {
 					<label for="postZlenCode"><b>Creator Zlen Code : </b></label>&nbsp; 
 					<input type="text" id="postCode" placeholder="Enter Zlen Post Code......">&nbsp;&nbsp;
 					
+					<label for="userMobile"><b>Mobile No : </b></label>&nbsp; <input
+						type="text" id="inputMobile" placeholder="Enter Mobile No......">&nbsp;&nbsp;
+					
 					<label for="createdAt"><b>Date : </b></label>&nbsp; 
 					<input type="text" id="inputdate" placeholder="Enter Date......">&nbsp;&nbsp;
 									
@@ -244,6 +247,7 @@ input:checked + .slider:before {
 										<th class="text-left" style="background: #d3d3d3">Name</th>
 										<th class="text-left" style="background: #d3d3d3">Reported Zlen Code</th>
 										<th class="text-left" style="background: #d3d3d3">Date</th>
+										<th class="text-left" style="background: #d3d3d3">Mobile No.</th>
 										<th class="text-left" style="background: #d3d3d3">Creator Zlen Code</th>
 										<th class="text-left" style="background: #d3d3d3">Mime Type</th>
 										<th class="text-left" style="background: #d3d3d3">Type</th>
@@ -261,6 +265,7 @@ input:checked + .slider:before {
 												class="showData"> <c:out value="${list.userZlenCode}" />
 											</a></td>
 											<td><c:out value="${list.createdAt}" /></td>
+											<td><c:out value="${list.userMobile}" /></td>
 											<td><a href="${pageContext.request.contextPath}/userViewZlen/<c:out value='${list.postZlenCode}'/>"
 												class="showData"> <c:out value="${list.postZlenCode}" />
 											</a></td>
@@ -352,6 +357,7 @@ input:checked + .slider:before {
  			rpdList = {}
  			rpdList["userZlenCode"] = $("#userCode").val();
  			rpdList["postZlenCode"] = $("#postCode").val();
+ 			rpdList["userMobile"] = $("#inputMobile").val();
  			rpdList["createdAt"] = $("#inputdate").val();
 			
  			$("#btn-search").prop("disabled", false);
@@ -373,6 +379,7 @@ input:checked + .slider:before {
  							var createdAt;
  							var userZlenCode;
  							var postZlenCode;
+ 							var userMobile;
 
  							$(data)
  									.each(
@@ -382,6 +389,7 @@ input:checked + .slider:before {
  												createdAt = ele.createdAt;
  												userZlenCode = ele.userZlenCode;
  												postZlenCode = ele.postZlenCode;
+ 												userMobile = ele.userMobile;
 
  												result += "<tr><td>"
  														+ index
@@ -390,7 +398,7 @@ input:checked + .slider:before {
  														+ "</td><td><a href='${pageContext.request.contextPath}/userViewZlen/"+ele.userZlenCode+"' class='showData'>"
  														+ ele.userZlenCode
  														+ "</a></td><td>"
- 														+ ele.createdAt
+ 														+ ele.createdAt+"</td><td>"+ele.userMobile 
  														+ " </td><td><a href='${pageContext.request.contextPath}/userViewZlen/"+ele.postZlenCode+"' class='showData'>"
  														+ ele.postZlenCode
  														+ "</a></td><td>"

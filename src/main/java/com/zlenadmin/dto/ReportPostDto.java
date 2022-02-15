@@ -26,7 +26,15 @@ public class ReportPostDto {
 	
 	private String type;
 	
+	private String userMobile;
 	
+	
+	public String getUserMobile() {
+		return userMobile;
+	}
+	public void setUserMobile(String userMobile) {
+		this.userMobile = userMobile;
+	}
 	public boolean isPostisbanned() {
 		return postisbanned;
 	}

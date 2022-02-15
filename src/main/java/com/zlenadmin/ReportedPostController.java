@@ -37,12 +37,17 @@ public class ReportedPostController {
 	
 	@GetMapping("/reportedPostList")
 	public Object reportedPostList(@RequestParam(required = false) String userZlenCode, @RequestParam(required = false) String postZlenCode,
-			@RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date createdAt,Model model) {
+			@RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date createdAt, @RequestParam(required = false) String userMobile,Model model) {
 		
 		if ("".equals(userZlenCode)) {
 			userZlenCode = null;
 		}
 
+		if ("".equals(userMobile)) {
+			userMobile = null;
+		}
+
+		
 		if ("".equals(postZlenCode)) {
 			postZlenCode = null;
 		}
@@ -52,7 +57,7 @@ public class ReportedPostController {
 		}
 		
 		ModelAndView mv = new ModelAndView();
-		List<ReportPostDto> rpdList = reportedPost.getReportPost(userZlenCode, postZlenCode, createdAt);
+		List<ReportPostDto> rpdList = reportedPost.getReportPost(userZlenCode, postZlenCode, createdAt,userMobile);
 		mv.addObject("rpdList", rpdList);
 		mv.setViewName("reportedPostList");
 		return mv;
@@ -62,7 +67,7 @@ public class ReportedPostController {
 	@GetMapping("/reportedPostListContents")
 	@ResponseBody
 	public Object getReportedPost(Model model, @Param("userZlenCode") String userZlenCode, @Param("postZlenCode") String postZlenCode,
-			@Param("createdAt") @DateTimeFormat(pattern = "yyyy-MM-dd") Date createdAt) {
+			@Param("createdAt") @DateTimeFormat(pattern = "yyyy-MM-dd") Date createdAt, @Param("userMobile") String userMobile) {
 		// List result= service.queryForMovies();
 		// List result = newrepo.getUserStories();
 
@@ -70,6 +75,10 @@ public class ReportedPostController {
 			userZlenCode = null;
 		}
 
+		if ("".equals(userMobile)) {
+			userMobile = null;
+		}
+		
 		if ("".equals(postZlenCode)) {
 			postZlenCode = null;
 		}
@@ -78,7 +87,7 @@ public class ReportedPostController {
 			createdAt = null;
 		}
 
-		List<ReportPostDto> rpdList = reportedPost.getReportPost(userZlenCode,postZlenCode,createdAt);
+		List<ReportPostDto> rpdList = reportedPost.getReportPost(userZlenCode,postZlenCode,createdAt,userMobile);
 		return rpdList;
 	}
 	

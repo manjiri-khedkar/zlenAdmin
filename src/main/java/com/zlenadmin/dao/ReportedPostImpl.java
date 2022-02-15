@@ -23,7 +23,7 @@ public class ReportedPostImpl implements ReportedPost {
 
 	String reportedPost = "select rp.created_at as createdAt,  usd.mime_type as mimeType, usd.uploaded_path as uploadedPath, "
 			+ "usd.is_banned as postisbanned, usd.id as pid, ud1.id as uid, ud1.is_banned as userisbanned, "
-			+ "ud.user_name as userName, ud.zlen_code as userZlenCode, ud1.zlen_code as postZlenCode,"
+			+ "ud.user_name as userName, ud.user_mobile as userMobile, ud.zlen_code as userZlenCode, ud1.zlen_code as postZlenCode,"
 			+ "rp.type_id as typeId "
 			+ "from public.reported_post rp "
 			+ "inner join public.user_details ud on ud.user_id = rp.user_id "
@@ -32,6 +32,7 @@ public class ReportedPostImpl implements ReportedPost {
 			+ "where (cast(rp.created_at as date) = :createdAt or :createdAt1 is null) "
 			+ "and (ud.zlen_code LIKE :userZlenCode or :userZlenCode1 is null) "
 			+ "and (ud1.zlen_code LIKE :postZlenCode or :postZlenCode1 is null)"
+			+ "and (ud.user_mobile LIKE :userMobile or :userMobile1 is null) "
 			+ "order by rp.created_at desc";
 
 	public static HashMap<Integer,String> typeMap;
@@ -53,14 +54,16 @@ public class ReportedPostImpl implements ReportedPost {
 	private NamedParameterJdbcTemplate jdbcTemplate;
 
 	@Override
-	public List<ReportPostDto> getReportPost(final String userZlenCode, final String postZlenCode, final Date createdAt) {
+	public List<ReportPostDto> getReportPost(final String userZlenCode, final String postZlenCode, final Date createdAt, final String userMobile) {
 		SqlParameterSource namedParameters = new MapSqlParameterSource()
 				.addValue("userZlenCode", "%" + userZlenCode + "%", Types.VARCHAR)
 				.addValue("userZlenCode1", userZlenCode, Types.VARCHAR)
 				.addValue("postZlenCode", "%" + postZlenCode + "%", Types.VARCHAR)
 				.addValue("postZlenCode1", postZlenCode, Types.VARCHAR)
 				.addValue("createdAt", createdAt, Types.DATE)
-				.addValue("createdAt1", createdAt, Types.VARCHAR);
+				.addValue("createdAt1", createdAt, Types.VARCHAR)
+				.addValue("userMobile", "%" + userMobile + "%", Types.VARCHAR)
+				.addValue("userMobile1", userMobile, Types.VARCHAR);
 
 		return jdbcTemplate.query(reportedPost, namedParameters, new RowMapper<ReportPostDto>() {
 			public ReportPostDto mapRow(ResultSet rs, int rownumber) throws SQLException {
@@ -75,6 +78,7 @@ public class ReportedPostImpl implements ReportedPost {
 				rpd.setUserisbanned(rs.getBoolean("userisbanned"));
 				rpd.setPid(rs.getLong("pid"));
 				rpd.setUid(rs.getLong("uid"));
+				rpd.setUserMobile(rs.getString("userMobile"));
 				int typeId =rs.getInt("typeId");
 				if (typeMap.containsKey(typeId)){
 					rpd.setType(typeMap.get(typeId));
