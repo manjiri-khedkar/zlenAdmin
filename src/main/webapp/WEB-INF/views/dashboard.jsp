@@ -426,8 +426,6 @@
 					<span style="font-size: 20pt">  <b>Friends Summary</b>  </span> 
 					<br> <br>
 					
-					
-					
 					<a href="/userDetailsList/1?friendNumber=${friendNumber0}&friendNumber1=${friendNumbers0}" class="text" Style = "color:white;"><span style="font-size: 20pt">  <b>0</b>  </span>&nbsp;&nbsp;&nbsp;
 					<span style="font-size: 24pt"> <c:out value="${valuesfriendNumber0}" />  </span> </a>&nbsp;
 					<br>

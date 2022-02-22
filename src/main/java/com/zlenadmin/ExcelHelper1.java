@@ -159,7 +159,7 @@ public class ExcelHelper1 {
 				HSSFRow row = sheet.createRow((short) i + 3);
 				// inserting data in the first row
 				row.createCell(0).setCellValue(i + 1);
-				SimpleDateFormat date = new SimpleDateFormat("dd/MM/yyyy");
+				SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd");
 				String Date = date.format(userDetails.get(i).getCreatedOn());
 				row.createCell(1).setCellValue(Date);
 				//row.createCell(1).setCellValue(userDetails.get(i).getCreatedOn());

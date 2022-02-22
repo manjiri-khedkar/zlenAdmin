@@ -7,6 +7,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
@@ -34,6 +36,7 @@ public class UserDetails implements Serializable{
 	
 	private String latitude;
 	
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date createdOn;
 	
 	private Date modifiedOn;

@@ -189,6 +189,7 @@
 						<option value="11,100">11 & Above</option>
 					</select>&nbsp;&nbsp;&nbsp;&nbsp;
 					
+					
 					<button type="button" id="bth-search"
 						class="btn btn-success btn-md"
 						onclick="event.preventDefault(); search()">Search</button>
@@ -200,6 +201,10 @@
 					<button type="button" id="bth-download" onclick="download()"
 						class="btn btn-success btn-md">Download</button>
 				</div>
+				
+				<div><input type = "hidden" id = "friend" value = "<c:out value='${friendNumber}' />"/></div>
+				<div><input type = "hidden" id = "friends" value = "<c:out value='${friendNumber1}' />"/></div>
+				<div><input type = "hidden" id = "graphDate" value = "<fmt:formatDate  value='${createdOn}'  pattern = 'yyyy-MM-dd HH:mm' />"/></div>
 				<!--                    </form> -->
 				<!--  			 <button type="submit" class="btn-primary btn" id="ajaxBtn">Search</button>  -->
 				<!--   <button class="btn btn-success" type="submit" id="ajaxBtn" value="Search" onclick="searchFun()">Search</button>
@@ -493,18 +498,30 @@
 
 		});
 		function download() {
+			debugger
 			var userDetails;
+// 			var friendNumber; 
+// 			var friendNumber1;
 			userDetails = {}
 			userDetails["userName"] = $('#inputName').val();
 			userDetails["userMobile"] = $('#inputMobile').val();
 			userDetails["zlenCode"] = $('#inputCode').val();
 			userDetails["deviceType"] = $('#inputType').val();
-			userDetails["gender"] = $("#inputGender").val();
+			userDetails["gender"] = $("#inputGender").val();		
 			userDetails["age"] = $("#inputAge").val().split(',')[0];
 			userDetails["age1"] = $("#inputAge").val().split(',')[1];
-			userDetails["friendNumber"] = $("#inputFrndCount").val().split(',')[0];
-			userDetails["friendNumber1"] = $("#inputFrndCount").val().split(',')[1];
-
+ 			userDetails["createdOn"] = $("#graphDate").val();
+			
+			 if ($('#friend').val() != 0 || $('#friends').val() != 0 ) {
+				var No1 = $('#friend').val();
+	 			var No2 = $('#friends').val();
+	 			userDetails["friendNumber"] = No1;
+	 			userDetails["friendNumber1"] = No2;
+			}else if ($("#inputFrndCount").val() >= 0 || $('#friend').val() != null || $('#friends').val() != null ) {
+				userDetails["friendNumber"] = $("#inputFrndCount").val().split(',')[0];
+				userDetails["friendNumber1"] = $("#inputFrndCount").val().split(',')[1];
+			} 
+			
 			$('#btn-download').prop("disabled", false);
 			$.ajax({
 				type : "GET",

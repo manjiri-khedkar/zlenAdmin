@@ -96,17 +96,37 @@ public class ExcelService {
 			age1 = null;
 		}
 		
+		Integer valueAge = 0;
+		Integer valueAge1 = 0;
+		
+		if (age == 0 && age1 == 0) {
+			age = null;
+			age1 = null;
+		}
+		valueAge = age;
+		valueAge1 = age1;
+		
 		if("All".equals(friendNumber) || "All".equals(friendNumber1)) {
 			friendNumber = null;
 			friendNumber1 = null;
 		}
+		
+		Integer valuefriendNumber = 0;
+		Integer valuefriendNumber1 = 0;
+		
+		if (friendNumber == 0 && friendNumber1 == 0) {
+			friendNumber = null;
+			friendNumber1 = null;
+		}
+		valuefriendNumber = friendNumber;
+		valuefriendNumber1 = friendNumber1;
 		
 		if ("".equals(createdOn)) {
 			createdOn=null;
 		}
 		
 		
-		List<UsersDetailDto> userDetails1 = userDetails.getUserDetails(userName, userMobile, zlenCode, deviceType, createdOn, gender, age,age1,friendNumber,friendNumber1,pageid,total);
+		List<UsersDetailDto> userDetails1 = userDetails.getUserDetails(userName,userMobile,zlenCode,deviceType,createdOn,gender,valueAge,valueAge1,valuefriendNumber,valuefriendNumber1,pageid,total);
 	  
 
    ByteArrayInputStream in = ExcelHelper1.userDetailsToExcel(userDetails1);

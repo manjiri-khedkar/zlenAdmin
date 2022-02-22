@@ -512,6 +512,9 @@ public class MainPage {
 	        }    
 	        
 		ModelAndView mv = new ModelAndView();
+		mv.addObject("friendNumber", friendNumber);
+		mv.addObject("friendNumber1", friendNumber1);
+		mv.addObject("createdOn", createdOn);
 		List<UsersDetailDto> userDetailsList = null;
 				//userDetails.getUserDetails(userName, userMobile, zlenCode, deviceType, createdOn, gender, age,age1,friendNumber,friendNumber1,pageid,total);
 		if (filterOff) {
@@ -617,9 +620,9 @@ public class MainPage {
 	public ResponseEntity<InputStreamResource> getuserDetailsDownload(@RequestParam(required = false) String userName,
 			@RequestParam(required = false) String userMobile, @RequestParam(required = false) String gender,
 			@RequestParam(required = false) Integer age, @RequestParam(required = false) Integer age1,
-			@RequestParam(required = false) Integer friendNumber, @RequestParam(required = false) Integer friendNumber1,
+			@Param("friendNumber") Integer friendNumber, @Param("friendNumber1") Integer friendNumber1,
 			@RequestParam(required = false) String zlenCode, @RequestParam(required = false) String deviceType,
-			@RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date createdOn) {
+			@Param("createdOn") @DateTimeFormat(pattern = "yyyy-MM-dd") Date createdOn) {
 		
 		if ("All".equals(deviceType)) {
 			deviceType = null;
@@ -643,6 +646,16 @@ public class MainPage {
 			age = null;
 			age1 = null;
 		}
+		
+//		Integer valueAge = 0;
+//		Integer valueAge1 = 0;
+//		
+//		if (age == 0 && age1 == 0) {
+//			age = null;
+//			age1 = null;
+//		}
+//		valueAge = age;
+//		valueAge1 = age1;
 
 		if ("All".equals(friendNumber) || "All".equals(friendNumber1)) {
 			friendNumber = null;
