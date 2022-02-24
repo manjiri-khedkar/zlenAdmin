@@ -402,8 +402,9 @@ debugger
 														+ " </td><td>"
 														+ ele.iscompleted
 														+ " </td><td>"
-														+ (ele.pollisbanned == true ? "<a href='/activePoll?id="+ele.pid+"'> <button class='btn btn-primary'> Active Poll </button></a>&nbsp;"
-														: "<a href='/blockPoll?id="+ele.pid+"'><button class='btn btn-primary'> Block Poll </button></a>&nbsp;")
+														+ "<a href='${pageContext.request.contextPath}/pollOptionView/<c:out value='${ele.id}'/>' class='btn btn-sm btn-primary showData'> View </a>&nbsp;&nbsp;"
+														+ (ele.pollisbanned == true ? "<a href='/activePoll?id="+ele.id+"'> <button class='btn btn-primary'> Active Poll </button></a>&nbsp;"
+														: "<a href='/blockPoll?id="+ele.id+"'><button class='btn btn-primary'> Block Poll </button></a>&nbsp;")
 														+ (ele.userisbanned == true ? "<a href='/activeUsers?id="+ele.uid+"'><button class='btn btn-primary'> Active User </button></a>&nbsp;"
 														 :"<a href='/blockUsers?id="+ele.uid+"'><button class='btn btn-primary'> Block User </button></a>&nbsp;")
 														+ "</td></tr>";
