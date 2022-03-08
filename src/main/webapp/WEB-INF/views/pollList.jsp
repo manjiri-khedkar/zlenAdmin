@@ -269,7 +269,9 @@ input:checked + .slider:before {
 											<td><c:out value="${list.createdAt}" /></td>
 											<td><c:out value="${list.iscompleted}" /></td>
 <%-- 											<td><c:out value="${list.isActive}" /></td> --%>
-											<td><a href="${pageContext.request.contextPath}/pollOptionView/<c:out value='${list.id}'/>" class="btn btn-sm btn-primary showData">
+											<td><a href="${pageContext.request.contextPath}/pollVoteView/<c:out value='${list.id}'/>" class="btn btn-sm btn-primary showData">
+			 	                    				Response View </a>&nbsp;&nbsp;
+			 	                    				<a href="${pageContext.request.contextPath}/pollOptionView/<c:out value='${list.id}'/>" class="btn btn-sm btn-primary showData">
 			 	                    				View </a>&nbsp;&nbsp;
 			 	                    			<c:choose>
 												<c:when test="${list.pollisbanned == true}">
@@ -402,6 +404,7 @@ debugger
 														+ " </td><td>"
 														+ ele.iscompleted
 														+ " </td><td>"
+														+ "<a href='${pageContext.request.contextPath}/pollVoteView/<c:out value='${list.id}'/>' class='btn btn-sm btn-primary showData'> Response View </a>&nbsp;&nbsp;"
 														+ "<a href='${pageContext.request.contextPath}/pollOptionView/<c:out value='${ele.id}'/>' class='btn btn-sm btn-primary showData'> View </a>&nbsp;&nbsp;"
 														+ (ele.pollisbanned == true ? "<a href='/activePoll?id="+ele.id+"'> <button class='btn btn-primary'> Active Poll </button></a>&nbsp;"
 														: "<a href='/blockPoll?id="+ele.id+"'><button class='btn btn-primary'> Block Poll </button></a>&nbsp;")
