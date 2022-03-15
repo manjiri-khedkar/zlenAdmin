@@ -1,6 +1,7 @@
 package com.zlenadmin;
 
 import java.math.BigInteger;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -72,6 +73,12 @@ public class ActiveUserDashboardController {
 		todaydate = cal2.getTime();
 		
 		Integer todayActiveUser = activeUserUpdateRepository.getTodayActiveUser(fromdate,todaydate);
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		String date = simpleDateFormat.format(fromdate);
+		SimpleDateFormat simpleDateFormat1 = new SimpleDateFormat("yyyy-MM-dd");
+		String date1 = simpleDateFormat.format(todaydate);
+		model.addObject("fromdate", date);
+		model.addObject("todaydate", date1);
 		model.addObject("todayActiveUser", todayActiveUser);
 		
 		Integer totalCount = activeUserUpdateRepository.getAverageTimeSpendOneUserPerDay(fromdate,todaydate);
@@ -100,6 +107,12 @@ public class ActiveUserDashboardController {
 			fromdate=null;
 		}
 			Integer todayCount = activeUserUpdateRepository.getTodayActiveUser(fromdate, todaydate);
+			SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+			String date = simpleDateFormat.format(fromdate);
+			SimpleDateFormat simpleDateFormat1 = new SimpleDateFormat("yyyy-MM-dd");
+			String date1 = simpleDateFormat.format(todaydate);
+//			model.addAttribute("fromdate", date);
+//			model.addAttribute("todaydate", date1);
 			Integer totalAvg =  activeUserUpdateRepository.getAverageTimeSpendOneUserPerDay(fromdate, todaydate);
 				
 				
@@ -118,6 +131,8 @@ public class ActiveUserDashboardController {
     	finalMap4.put("monthlyCount", totalAvg);
     	finalMap4.put("today", todayCount);
     	finalMap4.put("averageCount", Average);
+    	finalMap4.put("fromdate", date);
+    	finalMap4.put("todaydate", date1);
 		
 		return finalMap4;
 	

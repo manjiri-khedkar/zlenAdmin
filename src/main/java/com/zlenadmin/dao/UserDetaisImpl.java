@@ -18,6 +18,7 @@ import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Repository;
 
 import com.zlenadmin.dto.UserDetailsDto;
+import com.zlenadmin.dto.UserPerDayCountDataDto;
 import com.zlenadmin.dto.UserUpdateDto;
 import com.zlenadmin.dto.UsersDetailDto;
 
@@ -27,8 +28,8 @@ public class UserDetaisImpl implements UserDetails {
 	String userDetailsSql = "SELECT u.id as id, u.user_name as userName, u.user_mobile as userMobile, u.zlen_code as zlenCode,"
 			+ "u.device_type as deviceType, u.age as age, u.gender as gender, u.created_on as createdOn , u.is_banned as isbanned, "
 			+ "(Select count(cnt) from (Select ufd.friend_user_id as cnt from public.user_friends_details ufd "
-			+ " where ufd.user_id = u.user_id and ufd.friend_user_id != ufd.user_id and ufd.is_deleted=false and ufd.is_blocked = 'N' " + "union all "
-			+ "Select ufd.friend_user_id as cnt from public.user_friends_details ufd "
+			+ " where ufd.user_id = u.user_id and ufd.friend_user_id != ufd.user_id and ufd.is_deleted=false and ufd.is_blocked = 'N' "
+			+ "union all " + "Select ufd.friend_user_id as cnt from public.user_friends_details ufd "
 			+ " where ufd.friend_user_id = u.user_id and ufd.friend_user_id != ufd.user_id and ufd.is_deleted=false and ufd.is_blocked = 'N' "
 			+ ")as cnt) as frnds_count"
 			+ " FROM public.user_details u WHERE (LOWER(u.user_name) LIKE  :userName or :userName1 is null ) "
@@ -37,11 +38,11 @@ public class UserDetaisImpl implements UserDetails {
 			+ "and ((date_part('year', now()) - coalesce(u.age,0)) between :age and :age1 or :age is null) "
 			+ "and (LOWER(u.gender) =  :gender or :gender1 is null ) and (Date(u.created_on) = :createdOn  or cast(:createdOn1 as date) is null) "
 			+ "and ((Select count(cnt) from (Select ufd.friend_user_id as cnt from public.user_friends_details ufd "
-			+ "where ufd.user_id = u.user_id and ufd.friend_user_id != ufd.user_id and ufd.is_deleted=false and ufd.is_blocked = 'N' " + "union all "
-			+ "Select ufd.friend_user_id as cnt from public.user_friends_details ufd "
+			+ "where ufd.user_id = u.user_id and ufd.friend_user_id != ufd.user_id and ufd.is_deleted=false and ufd.is_blocked = 'N' "
+			+ "union all " + "Select ufd.friend_user_id as cnt from public.user_friends_details ufd "
 			+ "where ufd.friend_user_id = u.user_id  and ufd.friend_user_id != ufd.user_id and ufd.is_deleted=false and ufd.is_blocked = 'N' )as cnt) between :friendNumber and :friendNumber1 or :friendNumber is null)"
 			+ "order by u.created_on desc ";
-			//+ "limit :total offset :pageid";
+	// + "limit :total offset :pageid";
 
 	String ageGroup = "select  count(*) as age " + "from public.user_details ud "
 			+ "where (date_part('year', now()) - coalesce (ud.age,0) ) between :age and :age1 ";
@@ -51,10 +52,15 @@ public class UserDetaisImpl implements UserDetails {
 
 	String friendNumbers = "Select count(*) as frnds_count from public.user_details u "
 			+ "where coalesce ((Select count(cnt) from (Select ufd.friend_user_id as cnt from public.user_friends_details ufd "
-			+ "where ufd.user_id = u.user_id  and ufd.friend_user_id != ufd.user_id and ufd.is_deleted=false and ufd.is_blocked = 'N' " 
-			+ "union all "
-			+ "Select ufd.friend_user_id as cnt from public.user_friends_details ufd "
+			+ "where ufd.user_id = u.user_id  and ufd.friend_user_id != ufd.user_id and ufd.is_deleted=false and ufd.is_blocked = 'N' "
+			+ "union all " + "Select ufd.friend_user_id as cnt from public.user_friends_details ufd "
 			+ "where ufd.friend_user_id = u.user_id and ufd.friend_user_id != ufd.user_id and ufd.is_deleted=false and ufd.is_blocked = 'N' )as cnt),0) between :friendNumber and :friendNumber1 ";
+
+	String userPerdayCountData = "select count(distinct uup.user_id) as count, ud.user_name as userName, ud.zlen_code as zlenCode, "
+			+ "ud.user_mobile as userMobile from public.user_update uup "
+			+ "inner join public.user_details ud on ud.user_id = uup.user_id "
+			+ "where uup.created_at between :fromdate and :todaydate "
+			+ "group by ud.user_name, ud.zlen_code, ud.user_mobile ";
 
 	@Autowired
 	@Qualifier("zlen-jdbc")
@@ -72,16 +78,13 @@ public class UserDetaisImpl implements UserDetails {
 				.addValue("zlenCode", "%" + zlenCode + "%", Types.VARCHAR)
 				.addValue("zlenCode1", zlenCode, Types.VARCHAR)
 				.addValue("deviceType", "%" + deviceType + "%", Types.VARCHAR)
-				.addValue("deviceType1", deviceType, Types.VARCHAR)
-				.addValue("createdOn", createdOn, Types.DATE)
-				.addValue("createdOn1", createdOn, Types.DATE)
-				.addValue("age", age, Types.INTEGER)
-				.addValue("age1", age1, Types.INTEGER)
-				.addValue("friendNumber", friendNumber, Types.INTEGER)
+				.addValue("deviceType1", deviceType, Types.VARCHAR).addValue("createdOn", createdOn, Types.DATE)
+				.addValue("createdOn1", createdOn, Types.DATE).addValue("age", age, Types.INTEGER)
+				.addValue("age1", age1, Types.INTEGER).addValue("friendNumber", friendNumber, Types.INTEGER)
 				.addValue("friendNumber1", friendNumber1, Types.INTEGER).addValue("gender", gender, Types.VARCHAR)
 				.addValue("gender1", gender, Types.VARCHAR);
-				//.addValue("pageid", pageid, Types.INTEGER)
-				//.addValue("total", total, Types.INTEGER);
+		// .addValue("pageid", pageid, Types.INTEGER)
+		// .addValue("total", total, Types.INTEGER);
 
 		return jdbcTemplate.query(userDetailsSql, namedParameters, new RowMapper<UsersDetailDto>() {
 			public UsersDetailDto mapRow(ResultSet rs, int rownumber) throws SQLException {
@@ -132,15 +135,32 @@ public class UserDetaisImpl implements UserDetails {
 		});
 
 	}
-	
+
 	@Override
 	public List<UsersDetailDto> getFriendNumber(final Integer friendNumber, final Integer friendNumber1) {
-		SqlParameterSource namedParameters = new MapSqlParameterSource().addValue("friendNumber", friendNumber, Types.INTEGER)
+		SqlParameterSource namedParameters = new MapSqlParameterSource()
+				.addValue("friendNumber", friendNumber, Types.INTEGER)
 				.addValue("friendNumber1", friendNumber1, Types.INTEGER);
 		return jdbcTemplate.query(friendNumbers, namedParameters, new RowMapper<UsersDetailDto>() {
 			public UsersDetailDto mapRow(ResultSet rs, int rownumber) throws SQLException {
 				UsersDetailDto ud = new UsersDetailDto();
 				ud.setFrnds_count(rs.getString("frnds_count"));
+				return ud;
+			}
+		});
+	}
+
+	@Override
+	public List<UserPerDayCountDataDto> getUserPerDayCountDataDto(final Date todaydate, final Date fromdate) {
+		SqlParameterSource namedParameters = new MapSqlParameterSource()
+				.addValue("fromdate", fromdate, Types.DATE)
+				.addValue("todaydate", todaydate, Types.DATE);
+		return jdbcTemplate.query(userPerdayCountData, namedParameters, new RowMapper<UserPerDayCountDataDto>() {
+			public UserPerDayCountDataDto mapRow(ResultSet rs, int rownumber) throws SQLException {
+				UserPerDayCountDataDto ud = new UserPerDayCountDataDto();
+				ud.setUserName(rs.getString("userName"));
+				ud.setZlenCode(rs.getString("zlenCode"));
+				ud.setUserMobile(rs.getString("userMobile"));
 				return ud;
 			}
 		});

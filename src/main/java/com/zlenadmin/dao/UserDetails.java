@@ -7,8 +7,11 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.Temporal;
 import org.springframework.data.repository.query.Param;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.zlenadmin.dto.UserDetailsDto;
+import com.zlenadmin.dto.UserPerDayCountDataDto;
 import com.zlenadmin.dto.UsersDetailDto;
 
 public interface UserDetails {
@@ -18,4 +21,7 @@ public interface UserDetails {
 	List<UsersDetailDto> getAgeGroup(@Param("age") Integer age, @Param("age1") Integer age1);
 	List<HashMap<String,String>>  getGenderGroup();
 	List<UsersDetailDto> getFriendNumber(@Param("friendNumber") Integer friendNumber, @Param("friendNumber1") Integer friendNumber1);
+	
+	List<UserPerDayCountDataDto> getUserPerDayCountDataDto(@Param("todaydate") Date todaydate, 
+			@Param("fromdate") Date  fromdate );
 }

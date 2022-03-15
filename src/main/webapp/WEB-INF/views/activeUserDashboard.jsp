@@ -42,15 +42,21 @@
 <link
 	href="${pageContext.request.contextPath}/resources/css/sb-admin-2.min.css"
 	rel="stylesheet">
-	<link href="https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">  
-      <script src="https://code.jquery.com/jquery-1.10.2.js"></script>  
-      <script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>  
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.css" integrity="sha512-bYPO5jmStZ9WI2602V2zaivdAnbAhtfzmxnEGh9RwtlI00I9s8ulGe4oBa5XxiC6tCITJH/QG70jswBhbLkxPw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js"></script>
-      
-      
-      <!-- Javascript -->  
-      <script>  
+<link
+	href="https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css"
+	rel="stylesheet">
+<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+<script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.css"
+	integrity="sha512-bYPO5jmStZ9WI2602V2zaivdAnbAhtfzmxnEGh9RwtlI00I9s8ulGe4oBa5XxiC6tCITJH/QG70jswBhbLkxPw=="
+	crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js"></script>
+
+
+<!-- Javascript -->
+<script>  
          $(function() {  
             $( "#inputFromDate" ).datetimepicker({  
             	format:'Y-m-d H:i',
@@ -58,9 +64,9 @@
               // altFormat: "DD, d MM, yy"  
             });  
          });  
-      </script>  
-      
-      <script>  
+      </script>
+
+<script>  
          $(function() {  
             $( "#inputToDate" ).datetimepicker({
             	format:'Y-m-d H:i',
@@ -68,7 +74,7 @@
               // altFormat: "DD, d MM, yy"  
             });  
          });  
-      </script>  
+      </script>
 
 
 </head>
@@ -88,128 +94,127 @@
 					<h2 class="text-center" style="color: black;">
 						<b>Active User Dashboard</b>
 					</h2>
-					
+
 					<div class="row  center-align"
 						style="padding: 8px; text-align: center;">
-					<div class="col-md-3"></div>
-					<div class="col-md-1"></div>
-					<div class="col-md-3 bg-primary  align-center"
-							style="border-radius: 15px; color: #ffff;" >
-							<span style="font-size: 15pt" > <b> Last 30 days users</b>
-							</span> <br> 
-							<span style="font-size: 20pt" id="monthlyCount"> 
-							<c:out value="${monthlyActiveUser}" />
-							</span>
-
-					</div>
-						<div class="col-md-1"></div>
-					<div class="col-md-3"></div>
-				</div>
-				
-				<br>
-
-				<div class="row">
-
-					&nbsp;&nbsp;<label for="formdate"><b>From Date : </b></label>&nbsp; <input
-						type="text" id="inputFromDate"  placeholder="yyyy-MM-dd">&nbsp;&nbsp;
-						
-						&nbsp;&nbsp;<label for="todaydate"><b>To Date : </b></label>&nbsp;
-					<input type="text" id="inputToDate"  placeholder="yyyy-MM-dd">&nbsp;&nbsp;
-
-   					<button type="button" id="bth-search" class="btn btn-success btn-md"  onclick="search()">Search</button>&nbsp;&nbsp;
-					<button type="button" class="btn btn-danger btn-md"
-						onclick="clearFilter()">Clear</button>
-				</div>
-
-				<br> 
-
-
-
-				<div class="container-fluid text-center ">
-					<div class="row  center-align"
-						style="padding: 8px; text-align: center;">
-
-
-						<div class="col-md-3 bg-primary  align-center"
-							style="border-radius: 15px; color: #ffff;">
-
-							<span style="font-size: 15pt"> 
-								<b>Users per day</b>
-							</span> <br> <br> <span style="font-size: 20pt" id ="todayCount"> <c:out
-									value="${todayActiveUser}" />
-							</span>
-
-						</div>
-
-						<div class="col-md-1"></div>
-						<div class="col-md-3 bg-primary  align-center"
-							style="border-radius: 15px; color: #ffff;" >
-							<span style="font-size: 15pt" > <b> Total Event Count</b>
-							</span> <br> <br> 
-							<span style="font-size: 20pt" id = "totalEventCount"> 
-							<c:out value="${totalCount}" />
-							</span>
-
-						</div>
+						<div class="col-md-3"></div>
 						<div class="col-md-1"></div>
 						<div class="col-md-3 bg-primary  align-center"
 							style="border-radius: 15px; color: #ffff;">
-							<span style="font-size: 15pt"> <b>Average Time Spend
-									One User Per Day</b>
-							</span> <br>  <span style="font-size: 20pt" id = "averageCount"> <c:out
-									value="${averageTimeSpendOneUserPerDay}" />
+							<span style="font-size: 15pt"> <b> Last 30 days users</b>
+							</span> <br> <span style="font-size: 20pt" id="monthlyCount">
+								<c:out value="${monthlyActiveUser}" />
 							</span>
 
 						</div>
+						<div class="col-md-1"></div>
+						<div class="col-md-3"></div>
 					</div>
-				</div>
 
-				<br>
-
-				<div class="panel-body">
-
-					<div class="panel-heading">
-						<h2 class="text-center" style="color: black;">
-							<b>Summary of Event</b>
-						</h2>
-					</div>
+					<br>
 
 					<div class="row">
-						<div class="col-md-12">
-							<div class="table-responsive">
-								<table id="table1" class="table info-tbl text-left"
-									style='border: 1px solid #d3d3d3; width: 98% !important;'>
-									<thead>
-										<tr>
-											<th class="text-left" style="background: #d3d3d3">Sr.No.</th>
-											<th class="text-left" style="background: #d3d3d3">Event
-												Count</th>
-											<th class="text-left" style="background: #d3d3d3">Event
-												Type</th>
-										</tr>
-									</thead>
 
-									<tbody>
-										<c:forEach items="${eventList}" var="list"
-											varStatus="status">
-											<tr class="odd gradeX">
+						&nbsp;&nbsp;<label for="formdate"><b>From Date : </b></label>&nbsp;
+						<input type="text" id="inputFromDate" placeholder="yyyy-MM-dd">&nbsp;&nbsp;
 
-												<td><c:out value="${status.index+1}" /></td>
-												<td><c:out value="${list.count}" /></td>
-												<td><c:out value="${list.event}" /></td>
+						&nbsp;&nbsp;<label for="todaydate"><b>To Date : </b></label>&nbsp;
+						<input type="text" id="inputToDate" placeholder="yyyy-MM-dd">&nbsp;&nbsp;
 
-											</tr>
-										</c:forEach>
-									</tbody>
-								</table>
+						<button type="button" id="bth-search"
+							class="btn btn-success btn-md" onclick="search()">Search</button>
+						&nbsp;&nbsp;
+						<button type="button" class="btn btn-danger btn-md"
+							onclick="clearFilter()">Clear</button>
+					</div>
+
+					<br>
+
+					<div class="container-fluid text-center ">
+						<div class="row  center-align"
+							style="padding: 8px; text-align: center;">
+
+
+							<div class="col-md-3 bg-primary  align-center"
+								style="border-radius: 15px; color: #ffff;">
+
+								<span style="font-size: 15pt"> <b>Users per day</b>
+								</span> <br> <br>
+								<a id="bth-datetofrom" type="button" onclick="return datetofrom()"
+									class='btn btn-sm btn-primary showData'>
+									<span style="font-size: 20pt" id="todayCount"> <c:out
+											value="${todayActiveUser}" />
+									</span>
+								</a>
+
+							</div>
+
+							<div class="col-md-1"></div>
+							<div class="col-md-3 bg-primary  align-center"
+								style="border-radius: 15px; color: #ffff;">
+								<span style="font-size: 15pt"> <b> Total Event Count</b>
+								</span> <br> <br> <span style="font-size: 20pt"
+									id="totalEventCount"> <c:out value="${totalCount}" />
+								</span>
+
+							</div>
+							<div class="col-md-1"></div>
+							<div class="col-md-3 bg-primary  align-center"
+								style="border-radius: 15px; color: #ffff;">
+								<span style="font-size: 15pt"> <b>Average Time Spend
+										One User Per Day</b>
+								</span> <br> <span style="font-size: 20pt" id="averageCount">
+									<c:out value="${averageTimeSpendOneUserPerDay}" />
+								</span>
+
 							</div>
 						</div>
 					</div>
+
+					<br>
+
+					<div class="panel-body">
+
+						<div class="panel-heading">
+							<h2 class="text-center" style="color: black;">
+								<b>Summary of Event</b>
+							</h2>
+						</div>
+
+						<div class="row">
+							<div class="col-md-12">
+								<div class="table-responsive">
+									<table id="table1" class="table info-tbl text-left"
+										style='border: 1px solid #d3d3d3; width: 98% !important;'>
+										<thead>
+											<tr>
+												<th class="text-left" style="background: #d3d3d3">Sr.No.</th>
+												<th class="text-left" style="background: #d3d3d3">Event
+													Count</th>
+												<th class="text-left" style="background: #d3d3d3">Event
+													Type</th>
+											</tr>
+										</thead>
+
+										<tbody>
+											<c:forEach items="${eventList}" var="list" varStatus="status">
+												<tr class="odd gradeX">
+
+													<td><c:out value="${status.index+1}" /></td>
+													<td><c:out value="${list.count}" /></td>
+													<td><c:out value="${list.event}" /></td>
+
+												</tr>
+											</c:forEach>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
+
 				</div>
-
 			</div>
-		</div>
-
 	</section>
 	<!--====== Section Ends ======-->
 	<!-- End of Main Content -->
@@ -319,6 +324,39 @@ debugger
 						}
 
 					});
+		}
+	</script>
+
+	<script type="text/javascript">
+	$(document).ready(function() {
+
+	});	
+		function datetofrom() {
+	debugger
+
+		var todaydate = $("#inputToDate").val();
+		var fromdate = $("#inputFromDate").val();
+		
+		$("#bth-datetofrom").prop("disabled", false);
+		
+// 		window.location = '/userPerDayCountDataView?todaydate='+todaydate+'&fromdate='+todaydate;
+
+			$.ajax({
+						type : "GET",
+						//contentType: "application/json",
+						url : "${pageContext.request.contextPath}/userPerDayCountDataView?fromdate="+fromdate+"&todaydate"+todaydate,
+ 						data : {fromdate: fromdate,todaydate: todaydate},
+ 						
+ 						success : function(data) {
+							console.log(data);
+							var fromDate;
+							var todaydate;
+							
+						}
+
+					});
+			return false;
+			
 		}
 	</script>
 
