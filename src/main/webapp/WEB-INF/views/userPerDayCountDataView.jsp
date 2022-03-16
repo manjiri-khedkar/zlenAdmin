@@ -4,7 +4,7 @@
 	<div id="wrapper">
 			<div class="container">
 				<div class="clearfix">&nbsp;</div>                        
-       				<form:form action="${pageContext.request.contextPath}/userPerDayCountDataView" id="table1" method="post"  modelAttribute="pollOption">
+       				<form:form action="${pageContext.request.contextPath}/userPerDayCountDataView" id="table1" method="post"  modelAttribute="userPerDayCount">
        
 			   			<div class="panel-heading">
 							<h2 class="text-center" style="color: black;"><b>User Per Day Data View</b></h2>

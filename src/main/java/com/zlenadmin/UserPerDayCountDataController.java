@@ -30,6 +30,8 @@ public class UserPerDayCountDataController {
 	public String viewLikes(@RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date todaydate, 
 			@RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date fromdate, Model model) {
 		
+		List<UserPerDayCountDataDto> userPerDayCountDatalist = null;
+		if(fromdate == null || todaydate == null ) {
 		Calendar cal1 = new GregorianCalendar();
 		cal1.add(Calendar.DATE, -1);
 		cal1.set(Calendar.HOUR, 0);
@@ -45,7 +47,10 @@ public class UserPerDayCountDataController {
 		cal2.set(Calendar.MILLISECOND, 0);
 		todaydate = cal2.getTime();
 		
-		List<UserPerDayCountDataDto> userPerDayCountDatalist = userDetails.getUserPerDayCountDataDto(todaydate, fromdate);
+		 userPerDayCountDatalist = userDetails.getUserPerDayCountDataDto(todaydate, fromdate);
+		}else {
+		 userPerDayCountDatalist = userDetails.getUserPerDayCountDataDto(todaydate, fromdate);
+		}
 		
 		model.addAttribute("userPerDayCountDatalist",   userPerDayCountDatalist);	
 		return "userPerDayCountDataView";

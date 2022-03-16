@@ -189,7 +189,7 @@
     	  $(".showData").off('click').click(function (event){
   	      	
     			
-  	      	var modal = $("#dataModal");
+  	      	var modal = $("#dataModel");
   	      	
   	      	event.preventDefault();
   	      	var get = $(this).attr('href');
@@ -198,7 +198,7 @@
   	      	        url: get,
   	                  success:function(data){
   	      	            	modal.find(".modal-body").html(data);
-  	      	            	$("#dataModal").modal('show');
+  	      	            	$("#dataModel").modal('show');
   	      	        }
   	      	 });
   	      });
