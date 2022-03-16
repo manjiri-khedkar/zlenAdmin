@@ -143,8 +143,8 @@
 
 								<span style="font-size: 15pt"> <b>Users per day</b>
 								</span> <br> <br>
-								<a id="bth-datetofrom"  onclick="return datetofrom()"
-									class='btn btn-sm btn-primary showData'>
+								<a id="bth-datetofrom" href="#" onclick="return datetofrom()"
+									class='btn btn-sm btn-primary'>
 									<span style="font-size: 20pt" id="todayCount"> <c:out
 											value="${todayActiveUser}" />
 									</span>
@@ -336,35 +336,31 @@ debugger
 	$(document).ready(function() {
 
 	});
-		function datetofrom() {
-	debugger
+		function datetofrom(e) {
+		
+	
 
 		var todaydate = $("#inputToDate").val();
 		var fromdate = $("#inputFromDate").val();
 		
 		$("#bth-datetofrom").prop("disabled", false);
 		
-// 		window.location = '/userPerDayCountDataView?todaydate='+todaydate+'&fromdate='+todaydate;
 			var a ="fromdate"+fromdate+"todaydate"+todaydate;
 			$.ajax({
 						type : "GET",
 						//contentType: "application/json",
 						
-						url:"${pageContext.request.contextPath}/userPerDayCountDataView?fromdate="+fromdate+"&todaydate"+todaydate,
- 						data : a,
+						url:"${pageContext.request.contextPath}/userPerDayCountDataView?fromdate="+fromdate+"&todaydate="+todaydate,
+ 						//data : a,
  						
  						success : function(data) {
-							console.log(data);
+							
 							var fromDate = data.fromDate;
 							var todaydate = data.todaydate;
-							console.log(fromdate);
-							console.log(todaydate);
 							
-							modal.find(".modal-body").html(data);
+							$("#dataModal").find(".modal-body").html(data);
   	      	            	$("#dataModal").modal('show');
-							
-							
-							bindFunction();
+							//bindFunction();
 						}
 
 					});

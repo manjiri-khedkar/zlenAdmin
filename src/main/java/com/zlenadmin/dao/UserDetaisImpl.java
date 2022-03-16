@@ -153,8 +153,8 @@ public class UserDetaisImpl implements UserDetails {
 	@Override
 	public List<UserPerDayCountDataDto> getUserPerDayCountDataDto(final Date todaydate, final Date fromdate) {
 		SqlParameterSource namedParameters = new MapSqlParameterSource()
-				.addValue("fromdate", fromdate, Types.DATE)
-				.addValue("todaydate", todaydate, Types.DATE);
+				.addValue("fromdate", fromdate, Types.TIMESTAMP)
+				.addValue("todaydate", todaydate, Types.TIMESTAMP);
 		return jdbcTemplate.query(userPerdayCountData, namedParameters, new RowMapper<UserPerDayCountDataDto>() {
 			public UserPerDayCountDataDto mapRow(ResultSet rs, int rownumber) throws SQLException {
 				UserPerDayCountDataDto ud = new UserPerDayCountDataDto();

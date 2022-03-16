@@ -59,14 +59,14 @@ public class ActiveUserDashboardController {
 		
 		Calendar cal1 = new GregorianCalendar();
 		cal1.add(Calendar.DATE, -1);
-		cal1.set(Calendar.HOUR, 0);
+		cal1.set(Calendar.HOUR_OF_DAY, 0);
 		cal1.set(Calendar.MINUTE, 0);
 		cal1.set(Calendar.SECOND, 0);
 		cal1.set(Calendar.MILLISECOND, 0);
 		fromdate = cal1.getTime();
 		
 		Calendar cal2 = new GregorianCalendar();
-		cal2.set(Calendar.HOUR, 0);
+		cal2.set(Calendar.HOUR_OF_DAY, 0);
 		cal2.set(Calendar.MINUTE, 0);
 		cal2.set(Calendar.SECOND, 0);
 		cal2.set(Calendar.MILLISECOND, 0);
