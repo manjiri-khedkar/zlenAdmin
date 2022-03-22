@@ -19,6 +19,7 @@ import com.zlenadmin.api.entity.UserDetails;
 import com.zlenadmin.dao.Accounts;
 import com.zlenadmin.dto.InactiveDto;
 import com.zlenadmin.dto.RegisterPendingDto;
+import com.zlenadmin.dto.UserPerDayCountDataDto;
 import com.zlenadmin.dto.UsersDetailDto;
 import com.zlenadmin.repository.UserDetailsRepository;
 
@@ -72,8 +73,18 @@ public class ExcelService {
 	    ByteArrayInputStream in = ExcelHelper1.PendingToExcel(registerPending);
 	    return in;
 	  }
- public ByteArrayInputStream loadUserDetails(String deviceType, String userMobile, String zlenCode, String userName, String gender,Integer age, Integer age1, Integer friendNumber, Integer friendNumber1, Integer pageid, Integer total, @DateTimeFormat(pattern = "yyyy-MM-dd")Date createdOn) {
+ public ByteArrayInputStream loadUserDetails(String deviceType, String userMobile, String zlenCode, String userName, String gender,Integer age, Integer age1, Integer friendNumber, Integer friendNumber1, Integer pageid, Integer total,  @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")Date fromdate, @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")Date todaydate, @DateTimeFormat(pattern = "yyyy-MM-dd")Date createdOn) {
 	  
+	 
+		
+		if ("".equals(total)) {
+			total=null;
+		}
+		
+		if ("".equals(pageid)) {
+			pageid=null;
+		}
+		
 	 if ("All".equals(deviceType)) {
 			deviceType=null;
 		}
@@ -126,13 +137,31 @@ public class ExcelService {
 		}
 		
 		
-		List<UsersDetailDto> userDetails1 = userDetails.getUserDetails(userName,userMobile,zlenCode,deviceType,createdOn,gender,valueAge,valueAge1,valuefriendNumber,valuefriendNumber1,pageid,total);
+		List<UsersDetailDto> userDetails1 = userDetails.getUserDetails(userName,userMobile,zlenCode,deviceType,createdOn,gender,valueAge,valueAge1,valuefriendNumber,valuefriendNumber1,total,pageid,fromdate,todaydate);
 	  
 
    ByteArrayInputStream in = ExcelHelper1.userDetailsToExcel(userDetails1);
    return in;
  }
 
+ 
+ public ByteArrayInputStream loadUserPerDayData(@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm") Date todaydate, @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm") Date fromdate) {
+	  
+	 if ("".equals(todaydate)) {
+			todaydate = null;
+		}
+		if ("".equals(fromdate)) {
+			fromdate = null;
+		}
+		
+		
+		List<UserPerDayCountDataDto> UserPerDayCountDataList = userDetails.getUserPerDayCountDataDto(todaydate, fromdate);
+		
+	  
+
+   ByteArrayInputStream in = ExcelHelper1.userPerDayDataToExcel(UserPerDayCountDataList);
+   return in;
+ }
 
  
 }

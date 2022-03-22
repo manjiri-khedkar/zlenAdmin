@@ -5,8 +5,9 @@
 			<div class="container">
 				<div class="clearfix">&nbsp;</div>                        
        				<form:form action="${pageContext.request.contextPath}/userPerDayCountDataView" id="table1" method="post"  modelAttribute="userPerDayCount">
-       
+       					
 			   			<div class="panel-heading">
+						<br>
 							<h2 class="text-center" style="color: black;"><b>User Per Day Data View</b></h2>
 						</div><br/>
 						
@@ -44,10 +45,13 @@
 		                           </tbody> 
 								</table>
 							</div>
-						</div>		
+						</div>	
+							
 					</div>
 				</div>
 			</form:form>
 		</div>
 	</div>
 </section> 
+
+	

@@ -106,6 +106,46 @@
 <link
 	href="${pageContext.request.contextPath}/resources/css/sb-admin-2.min.css"
 	rel="stylesheet">
+	
+	<link
+	href="https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css"
+	rel="stylesheet">
+	
+	<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+
+<script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.css"
+	integrity="sha512-bYPO5jmStZ9WI2602V2zaivdAnbAhtfzmxnEGh9RwtlI00I9s8ulGe4oBa5XxiC6tCITJH/QG70jswBhbLkxPw=="
+	crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js"></script>
+	
+	<script>  
+         $(function() {  
+        	 debugger
+            $( "#inputFromDate" ).datetimepicker({  
+            	format:'Y-m-d H:i',
+              // altField: "#datepicker-4",  
+              // altFormat: "DD, d MM, yy"  
+            });  
+         });  
+      </script>
+
+<script>  
+         $(function() {  
+        	 debugger
+            $( "#inputToDate" ).datetimepicker({
+            	format:'Y-m-d H:i',
+              // altField: "#datepicker-4",  
+              // altFormat: "DD, d MM, yy"  
+            });  
+         });  
+      </script>
+	
 <script>
 	function savePass() {
 		var pass = $("#pass").val();
@@ -125,6 +165,7 @@
 		});
 	}
 </script>
+      
 </head>
 
 <body id="page-top">
@@ -180,6 +221,9 @@
 						<option value="female">Female</option>
 					</select>&nbsp;&nbsp;&nbsp;&nbsp;
 					
+					</div>
+					<br><br>
+					<div class="row">
 					<b>Number Of Friends : </b>&nbsp;&nbsp;&nbsp;&nbsp;
 					<select id="inputFrndCount">
 						<option value="0,0" selected>All</option>
@@ -189,6 +233,11 @@
 						<option value="11,100">11 & Above</option>
 					</select>&nbsp;&nbsp;&nbsp;&nbsp;
 					
+					&nbsp;&nbsp;<label for="formdate"><b>From Date : </b></label>&nbsp;
+						<input type="text" id="inputFromDate" placeholder="yyyy-MM-dd">&nbsp;&nbsp;
+
+						&nbsp;&nbsp;<label for="todaydate"><b>To Date : </b></label>&nbsp;
+						<input type="text" id="inputToDate" placeholder="yyyy-MM-dd">&nbsp;&nbsp;
 					
 					<button type="button" id="bth-search"
 						class="btn btn-success btn-md"
@@ -398,6 +447,8 @@
 			udetailList["age1"] = $("#inputAge").val().split(',')[1];
 			udetailList["friendNumber"] = $("#inputFrndCount").val().split(',')[0];
 			udetailList["friendNumber1"] = $("#inputFrndCount").val().split(',')[1];
+			udetailList["todaydate"] = $("#inputToDate").val();
+			udetailList["fromdate"] = $("#inputFromDate").val();
 			$("#btn-search").prop("disabled", false);
 			debugger
 			$
@@ -474,9 +525,10 @@
 
 											});
 
+  	      	            	
 							$('#table1 tbody').html(result);
 							bindFunction();
-							return;
+							return false;
 							alert(ele.success);
 						}
 
@@ -507,6 +559,8 @@
 			userDetails["userMobile"] = $('#inputMobile').val();
 			userDetails["zlenCode"] = $('#inputCode').val();
 			userDetails["deviceType"] = $('#inputType').val();
+			userDetails["todaydate"] = $("#inputToDate").val();
+			userDetails["fromdate"] = $("#inputFromDate").val();
 			userDetails["gender"] = $("#inputGender").val();		
 			userDetails["age"] = $("#inputAge").val().split(',')[0];
 			userDetails["age1"] = $("#inputAge").val().split(',')[1];

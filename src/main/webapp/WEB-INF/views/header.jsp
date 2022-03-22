@@ -186,9 +186,9 @@
       
       <script>
       function bindFunction (){
+    	 
     	  $(".showData").off('click').click(function (event){
-  	      	
-    			
+    		  debugger
   	      	var modal = $("#dataModel");
   	      	
   	      	event.preventDefault();

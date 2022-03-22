@@ -35,6 +35,7 @@ public class UserDetaisImpl implements UserDetails {
 			+ " FROM public.user_details u WHERE (LOWER(u.user_name) LIKE  :userName or :userName1 is null ) "
 			+ "and ( u.user_mobile LIKE :userMobile or :userMobile1 is null ) and ( LOWER(u.zlen_code)  LIKE  :zlenCode or :zlenCode1 is null ) "
 			+ "and (u.device_type LIKE :deviceType or :deviceType1 is null ) "
+			+ "and (u.created_on between  :fromdate and :todaydate or null is null ) "
 			+ "and ((date_part('year', now()) - coalesce(u.age,0)) between :age and :age1 or :age is null) "
 			+ "and (LOWER(u.gender) =  :gender or :gender1 is null ) and (Date(u.created_on) = :createdOn  or cast(:createdOn1 as date) is null) "
 			+ "and ((Select count(cnt) from (Select ufd.friend_user_id as cnt from public.user_friends_details ufd "
@@ -69,7 +70,7 @@ public class UserDetaisImpl implements UserDetails {
 	public List<UsersDetailDto> getUserDetails(final String userName, final String userMobile, final String zlenCode,
 			final String deviceType, final @Temporal Date createdOn, final String gender, final Integer age,
 			final Integer age1, final Integer friendNumber, final Integer friendNumber1, final Integer pageid,
-			final Integer total) {
+			final Integer total, final Date fromdate, final Date todaydate) {
 		SqlParameterSource namedParameters = new MapSqlParameterSource()
 				.addValue("userName", "%" + userName + "%", Types.VARCHAR)
 				.addValue("userName1", userName, Types.VARCHAR)
@@ -82,7 +83,9 @@ public class UserDetaisImpl implements UserDetails {
 				.addValue("createdOn1", createdOn, Types.DATE).addValue("age", age, Types.INTEGER)
 				.addValue("age1", age1, Types.INTEGER).addValue("friendNumber", friendNumber, Types.INTEGER)
 				.addValue("friendNumber1", friendNumber1, Types.INTEGER).addValue("gender", gender, Types.VARCHAR)
-				.addValue("gender1", gender, Types.VARCHAR);
+				.addValue("gender1", gender, Types.VARCHAR)
+				.addValue("fromdate", fromdate, Types.TIMESTAMP)
+				.addValue("todaydate", todaydate, Types.TIMESTAMP);
 		// .addValue("pageid", pageid, Types.INTEGER)
 		// .addValue("total", total, Types.INTEGER);
 
@@ -165,5 +168,12 @@ public class UserDetaisImpl implements UserDetails {
 			}
 		});
 	}
+
+	
+
+	
+	
+
+	
 
 }

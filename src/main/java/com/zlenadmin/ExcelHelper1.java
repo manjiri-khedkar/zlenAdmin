@@ -30,6 +30,7 @@ import com.zlenadmin.api.entity.UserDetails;
 import com.zlenadmin.dao.Accounts;
 import com.zlenadmin.dto.InactiveDto;
 import com.zlenadmin.dto.RegisterPendingDto;
+import com.zlenadmin.dto.UserPerDayCountDataDto;
 import com.zlenadmin.dto.UsersDetailDto;
 
 public class ExcelHelper1 {
@@ -188,5 +189,54 @@ public class ExcelHelper1 {
 			throw new RuntimeException("fail to import data to Excel file: " + e.getMessage());
 		}
 	}
+	
+	
+	public static ByteArrayInputStream userPerDayDataToExcel(List<UserPerDayCountDataDto> userPerDayDataList) {
+
+		try {
+			HSSFWorkbook workbook = new HSSFWorkbook();
+			// invoking creatSheet() method and passing the name of the sheet to be created
+			HSSFSheet sheet = workbook.createSheet("UserPerDayCountDataDto");
+			// creating the 0th row using the createRow() method
+			sheet.setDefaultColumnWidth(30);
+			sheet.setColumnWidth(0, 3000);
+
+			CreationHelper creationHelper = workbook.getCreationHelper();
+			HSSFRow rowhead = sheet.createRow((short) 1);
+			// creating cell by using the createCell() method and setting the values to the
+			// cell by using the setCellValue() method
+			rowhead.createCell(0).setCellValue("S.No.");
+			rowhead.createCell(1).setCellValue("User Name");
+			rowhead.createCell(2).setCellValue("Mobile No.");
+			rowhead.createCell(3).setCellValue("Zlen Code");
+			
+			for (int i = 0; i < userPerDayDataList.size(); i++) {
+
+				HSSFRow row = sheet.createRow((short) i + 3);
+				// inserting data in the first row
+				row.createCell(0).setCellValue(i + 1);
+				row.createCell(1).setCellValue(userPerDayDataList.get(i).getUserName());
+				row.createCell(2).setCellValue(userPerDayDataList.get(i).getUserMobile());
+				row.createCell(3).setCellValue(userPerDayDataList.get(i).getZlenCode());
+			}
+
+			ByteArrayOutputStream out = new ByteArrayOutputStream();
+			// FileOutputStream fileOut = new FileOutputStream();
+			// workbook.write(fileOut);
+			// closing the Stream
+			// fileOut.close();
+			// closing the workbook
+			workbook.write(out);
+			workbook.close();
+			// prints the message on the console
+			System.out.println("Excel file has been generated successfully.");
+
+			return new ByteArrayInputStream(out.toByteArray());
+		} catch (IOException e) {
+			throw new RuntimeException("fail to import data to Excel file: " + e.getMessage());
+		}
+	}
+	
+	
 
 }

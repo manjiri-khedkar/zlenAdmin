@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib prefix="tg" tagdir="/WEB-INF/tags"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 
 <head>
 <meta charset="utf-8">
@@ -13,6 +14,26 @@
 <meta name="author" content="">
 
 <title>Active User Dashboard</title>
+<meta name="description" content="">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!--====== Favicon Icon ======-->
+<link rel="shortcut icon" href="resources/img/favicon.png"
+	type="image/png">
+
+<!-- CSS
+    ============================================ -->
+
+<!--===== Vendor CSS (Bootstrap & Icon Font) =====-->
+
+<link rel="stylesheet" href="assets/css/plugins/bootstrap.min.css">
+<link rel="stylesheet" href="assets/css/plugins/fontawesome.min.css">
+<link rel="stylesheet" href="assets/css/plugins/default.css">
+
+<!--====== Main Style CSS ======-->
+<link rel="stylesheet" href="assets/css/style.css">
+
+
 <script
 	src="${pageContext.request.contextPath}/resources/vendor/jquery/jquery.min.js"></script>
 <!-- Custom fonts for this template-->
@@ -28,7 +49,50 @@
 	display: block;
 }
 
+#warning-message {
+	position: fixed; /* Sit on top of the page content */
+	display: none; /* Hidden by default */
+	width: 100%; /* Full width (cover the whole page) */
+	height: 100%; /* Full height (cover the whole page) */
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: rgba(0, 0, 0, 0.5);
+	/* Black background with opacity */
+	z-index: 2;
+	/* Specify a stack order in case you're using a different order for other elements */
+	cursor: pointer; /* Add a pointer on hover */
+	font-weight: bold;
+	text-align: center;
+	color: white;
+	padding: 40px;
+	font-size: 25px;
+}
+
+.text-left1{
+  grid-column: 1 / span 2;
+}
+
+@media only screen and (orientation:portrait) {
+	#warning-message {
+		display: block;
+	}
+	/*  #page-top {
+    height: 100vw;
+    width: 100vh;
+    -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    transform: rotate(90deg);
+  }  */
+}
+
 @media only screen and (orientation:landscape) {
+	#warning-message {
+		display: none;
+	}
 	#page-top {
 		-webkit-transform: rotate(0deg);
 		-moz-transform: rotate(0deg);
@@ -42,10 +106,32 @@
 <link
 	href="${pageContext.request.contextPath}/resources/css/sb-admin-2.min.css"
 	rel="stylesheet">
+<script>
+	function savePass() {
+		var pass = $("#pass").val();
+		var valid = pass == $("#passConfirm").val();
+		if (!valid) {
+			$("#error").show();
+			return;
+		}
+		$.post("changePassword", {
+			newPwd : pass,
+			pwd : $("#oldpass").val()
+		}, function(data) {
+			$("#error").show().html(data);
+			$('#changePasswordModal').modal('hide');
+		}).fail(function(data) {
+			$("#error").show().html(data);
+		});
+	}
+</script>
+
 <link
 	href="https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css"
 	rel="stylesheet">
 <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+
+<script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
 
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
@@ -83,21 +169,17 @@
 </head>
 
 <body id="page-top">
-	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-	<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
+	
 	<!--====== Section Start ======-->
 	<section class="login min-height">
 		<div id="wrapper">
 			<jsp:include page="header.jsp"></jsp:include>
+				
 			<div class="container">
-				<div class="clearfix">&nbsp;</div>
-
-				<div class="panel-heading">
-					<h2 class="text-center" style="color: black;">
-						<b>Active User Dashboard</b>
-					</h2>
-
+					
+					<h2 class="text-center"> <b>Active User Dashboard</b> </h2>
+					<br>
 					<div class="row  center-align"
 						style="padding: 8px; text-align: center;">
 						<div class="col-md-3"></div>
@@ -113,78 +195,73 @@
 						<div class="col-md-1"></div>
 						<div class="col-md-3"></div>
 					</div>
+					
+			</div>
+			<br>
+			
+			<div class="container">
 
-					<br>
-
-					<div class="row">
-
-						&nbsp;&nbsp;<label for="formdate"><b>From Date : </b></label>&nbsp;
+				<div class="row">
+					&nbsp;&nbsp;<label for="formdate"><b>From Date : </b></label>&nbsp;
 						<input type="text" id="inputFromDate" placeholder="yyyy-MM-dd">&nbsp;&nbsp;
 
 						&nbsp;&nbsp;<label for="todaydate"><b>To Date : </b></label>&nbsp;
 						<input type="text" id="inputToDate" placeholder="yyyy-MM-dd">&nbsp;&nbsp;
-
-						<button type="button" id="bth-search"
-							class="btn btn-success btn-md" onclick="search()">Search</button>
-						&nbsp;&nbsp;
-						<button type="button" class="btn btn-danger btn-md"
-							onclick="clearFilter()">Clear</button>
-					</div>
-
-					<br>
-
-					<div class="container-fluid text-center ">
-						<div class="row  center-align"
-							style="padding: 8px; text-align: center;">
-
-
-							<div class="col-md-3 bg-primary  align-center"
+					
+					<button type="button" id="bth-search"
+						class="btn btn-success btn-md"
+						onclick="search()">Search</button>
+					&nbsp;&nbsp;
+					<button type="button" class="btn btn-danger btn-md"
+						onclick="clearFilter()">Clear</button>&nbsp;&nbsp;
+						
+						<button type="button" id="bth-download" onclick="download()"
+						class="btn btn-success btn-md">Download</button>
+					
+			</div>
+			</div>
+			<br><br>
+			<div class="container">
+			
+				<div class="row  center-align" style=" padding: 8px; text-align: center; ">
+					
+					<div class="col-md-3 bg-primary  align-center"
 								style="border-radius: 15px; color: #ffff;">
 
 								<span style="font-size: 15pt"> <b>Users per day</b>
 								</span> <br> <br>
-								<a id="bth-datetofrom" href="#" onclick="return datetofrom()"
-									class='btn btn-sm btn-primary'>
-									<span style="font-size: 20pt" id="todayCount"> <c:out
-											value="${todayActiveUser}" />
-									</span>
+								<a id="bth-datetofrom" href="#" onclick="return datetofrom()" class='btn btn-sm btn-primary'>
+									<span style="font-size: 20pt" id="todayCount"> <c:out value="${todayActiveUser}" /> </span>
 								</a>
 
-							</div>
+					</div> 
+					
+					<div class="col-md-1"></div>
+					<div class="col-md-3 bg-primary  align-center" style="border-radius: 15px; color: #ffff;">
+						<span style="font-size: 15pt"> <b> Total Event Count</b> </span> 
+						<br> <br> 
+						<span style="font-size: 20pt" id="totalEventCount"> <c:out value="${totalCount}" /> </span>
 
-							<div class="col-md-1"></div>
-							<div class="col-md-3 bg-primary  align-center"
-								style="border-radius: 15px; color: #ffff;">
-								<span style="font-size: 15pt"> <b> Total Event Count</b>
-								</span> <br> <br> <span style="font-size: 20pt"
-									id="totalEventCount"> <c:out value="${totalCount}" />
-								</span>
-
-							</div>
-							<div class="col-md-1"></div>
-							<div class="col-md-3 bg-primary  align-center"
-								style="border-radius: 15px; color: #ffff;">
-								<span style="font-size: 15pt"> <b>Average Time Spend
-										One User Per Day</b>
-								</span> <br> <span style="font-size: 20pt" id="averageCount">
-									<c:out value="${averageTimeSpendOneUserPerDay}" />
-								</span>
-
-							</div>
-						</div>
 					</div>
+					
+					<div class="col-md-1"></div>
+					<div class="col-md-3 bg-primary  align-center" style="border-radius: 15px; color: #ffff;">
+						<span style="font-size: 15pt"> <b>Average Time Spend One User Per Day</b> </span> 
+						<br> 
+						<span style="font-size: 20pt" id="averageCount"> <c:out value="${averageTimeSpendOneUserPerDay}" /> </span>
 
-					<br>
-
-					<div class="panel-body">
-
-						<div class="panel-heading">
-							<h2 class="text-center" style="color: black;">
-								<b>Summary of Event</b>
-							</h2>
-						</div>
-
-						<div class="row">
+					</div>
+					
+				</div>
+				
+			</div>
+			
+			<br><br>
+			<div class="container">
+			
+				<h2 class="text-center"> <b>Summary of Event</b> </h2>
+			
+				<div class="row">
 							<div class="col-md-12">
 								<div class="table-responsive">
 									<table id="table1" class="table info-tbl text-left"
@@ -213,14 +290,13 @@
 									</table>
 								</div>
 							</div>
-						</div>
 					</div>
-
-				</div>
 			</div>
-	</section>
-	
-	<!--====== Section Ends ======-->
+			
+			</div>
+			</section>
+						
+			<!--====== Section Ends ======-->
 	<!-- End of Main Content -->
 
 	<!-- Footer -->
@@ -262,8 +338,8 @@
 		src="${pageContext.request.contextPath}/resources/js/demo/chart-area-demo.js"></script>
 	<script
 		src="${pageContext.request.contextPath}/resources/js/demo/chart-pie-demo.js"></script>
-
-	<script type="text/javascript">
+		
+		<script type="text/javascript">
 		$(document).ready(function() {
 
 		});
@@ -330,7 +406,13 @@ debugger
 					});
 		}
 	</script>
-
+	
+	<script type="text/javascript">
+		function clearFilter() {
+			window.location = '/activeUserDashboard';
+		}
+	</script>
+	
 	<script type="text/javascript">
 	
 	$(document).ready(function() {
@@ -338,14 +420,11 @@ debugger
 	});
 		function datetofrom(e) {
 		
-	
-
 		var todaydate = $("#inputToDate").val();
 		var fromdate = $("#inputFromDate").val();
 		
 		$("#bth-datetofrom").prop("disabled", false);
 		
-			var a ="fromdate"+fromdate+"todaydate"+todaydate;
 			$.ajax({
 						type : "GET",
 						//contentType: "application/json",
@@ -354,7 +433,7 @@ debugger
  						//data : a,
  						
  						success : function(data) {
-							
+						
 							var fromDate = data.fromDate;
 							var todaydate = data.todaydate;
 							
@@ -367,12 +446,62 @@ debugger
 			return false;
 		}
 	</script>
-
+	
 	<script type="text/javascript">
-		function clearFilter() {
-			window.location = '/activeUserDashboard';
+		$(document).ready(function() {
+
+		});
+		function download() {
+				debugger
+			var todaydate = $("#inputToDate").val();
+			var fromdate = $("#inputFromDate").val();
+
+			$('#bth-download').prop("disabled", false);
+			$.ajax({
+				type : "GET",
+				//contentType: "application/json",
+				url : "${pageContext.request.contextPath}/userPerDayCountDataViewdownload?fromdate="+fromdate+"&todaydate="+todaydate,
+				//timeout: 4000,
+				// success:function(result)
+ 				//data : datefromto,
+				cache : false,
+				xhr : function() {
+					var xhr = new XMLHttpRequest();
+					xhr.onreadystatechange = function() {
+						if (xhr.readyState == 2) {
+
+							if (xhr.status == 200) {
+								xhr.responseType = "blob";
+							} else {
+								xhr.responseType = "text";
+							}
+						}
+					};
+					return xhr;
+				},
+				success : function(data) {
+										debugger
+					console.log(data);
+					var a = document.createElement('a');
+					var url1 = window.URL.createObjectURL(data);
+					a.href = url1;
+					a.download = 'userPerDayData.xls';
+					document.body.append(a);
+					a.click();
+					a.remove();
+					window.URL.revokeObjectURL(url);
+					return;
+				},
+				error : function(result) {
+					alert(data);
+					alert(result.status + ' ' + result.statusText);
+				}
+
+			});
+			
 		}
 	</script>
-
+	
 </body>
+	<jsp:include page="otherModal.jsp"></jsp:include>		
 </html>

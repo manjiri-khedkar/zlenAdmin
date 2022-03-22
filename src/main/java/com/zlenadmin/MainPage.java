@@ -457,14 +457,25 @@ public class MainPage {
 	public Object userDetailsList(@PathVariable(required = false) Integer pageid, Model model,@RequestParam(required=false) String userName, 
 			@RequestParam(required=false) String userMobile, @RequestParam(required=false) String zlenCode,@RequestParam(required=false) String deviceType, 
 			@RequestParam(required=false) String gender, @RequestParam(required=false) Integer age, @RequestParam(required=false) Integer age1, 
-			@RequestParam(required=false) Integer friendNumber, @RequestParam(required=false) Integer friendNumber1, @RequestParam(required=false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date  createdOn)
+			@RequestParam(required=false) Integer friendNumber, @RequestParam(required=false) Integer friendNumber1, 
+			@RequestParam(required=false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date  createdOn,  @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm") Date  todaydate, 
+			@RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm") Date  fromdate)
 	{	
 		Integer total=500000; 
 		boolean filterOff=false;
 		if (deviceType==null &&  userMobile ==null && userName==null && gender==null && age ==null
-				&& age1 ==null &&  friendNumber ==null && friendNumber1 ==null && createdOn ==null ) {
+				&& age1 ==null &&  friendNumber ==null && friendNumber1 ==null && createdOn ==null && todaydate == null && fromdate == null) {
 			filterOff=true;
 		}
+		
+		if ("".equals(todaydate)) {
+			todaydate=null;
+		}
+		
+		if ("".equals(fromdate)) {
+			fromdate=null;
+		}
+		
 		if ("All".equals(deviceType)) {
 			deviceType=null;
 		}
@@ -520,7 +531,7 @@ public class MainPage {
 		if (filterOff) {
 			userDetailsList = new ArrayList<UsersDetailDto>();
 		}else {
-			 userDetailsList = userDetails.getUserDetails(userName, userMobile, zlenCode, deviceType, createdOn, gender, age,age1,friendNumber,friendNumber1,pageid,total);
+			 userDetailsList = userDetails.getUserDetails(userName, userMobile, zlenCode, deviceType, createdOn, gender, age,age1,friendNumber,friendNumber1,pageid,total,fromdate,todaydate);
 		}
 //		PagedListHolder<UsersDetailDto> pagedListHolder = new PagedListHolder(userDetailsList);
 //		int page = ServletRequestUtils.getIntParameter(request, "p", 0);
@@ -541,7 +552,16 @@ public class MainPage {
 	public List<UsersDetailDto> getUserDetails(Model model, @Param("userName") String userName,
 			@Param("userMobile") String userMobile, @Param("gender") String gender, @Param("age") Integer age,
 			@Param("age1") Integer age1, @Param("friendNumber") Integer friendNumber, @Param("friendNumber1") Integer friendNumber1, @Param("zlenCode") String zlenCode, @Param("deviceType") String deviceType,
-			@Param("createdOn") @DateTimeFormat(pattern = "yyyy-MM-dd") Date createdOn ) {
+			@Param("createdOn") @DateTimeFormat(pattern = "yyyy-MM-dd") Date createdOn, @Param("todaydate")@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm") Date  todaydate, 
+			@Param("fromdate")@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm") Date  fromdate ) {
+		
+		if ("".equals(todaydate)) {
+			todaydate=null;
+		}
+		
+		if ("".equals(fromdate)) {
+			fromdate=null;
+		}
 
 		if ("All".equals(deviceType)) {
 			deviceType = null;
@@ -609,7 +629,7 @@ public class MainPage {
 //        }    
         
 		List<UsersDetailDto> userDetailsList = userDetails.getUserDetails(userName, userMobile, zlenCode, deviceType,
-				createdOn, gender, valueAge, valueAge1, friendC, friendC1, pageid, total);
+				createdOn, gender, valueAge, valueAge1, friendC, friendC1,pageid, total,fromdate,todaydate);
 
 		return userDetailsList;
 
@@ -622,7 +642,17 @@ public class MainPage {
 			@RequestParam(required = false) Integer age, @RequestParam(required = false) Integer age1,
 			@Param("friendNumber") Integer friendNumber, @Param("friendNumber1") Integer friendNumber1,
 			@RequestParam(required = false) String zlenCode, @RequestParam(required = false) String deviceType,
-			@Param("createdOn") @DateTimeFormat(pattern = "yyyy-MM-dd") Date createdOn) {
+			@Param("createdOn") @DateTimeFormat(pattern = "yyyy-MM-dd") Date createdOn, @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm") Date  todaydate, 
+			@RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm") Date  fromdate) {
+		
+		
+		if ("".equals(todaydate)) {
+			todaydate=null;
+		}
+		
+		if ("".equals(fromdate)) {
+			fromdate=null;
+		}
 		
 		if ("All".equals(deviceType)) {
 			deviceType = null;
@@ -677,7 +707,7 @@ public class MainPage {
 		// System.out.println("uu=="+ uu);
 		String filename = "UserDetails.xls";
 		InputStreamResource file = new InputStreamResource(
-				fileService.loadUserDetails(deviceType, userMobile, userName, zlenCode, gender, age, age1, friendNumber, friendNumber1,pageid,total, createdOn));
+				fileService.loadUserDetails(deviceType, userMobile, userName, zlenCode, gender, age, age1, friendNumber, friendNumber1,pageid,total,fromdate, todaydate, createdOn));
 		// InputStreamResource file = new
 		// InputStreamResource(fileService.loadinActive(-30));
 
@@ -774,7 +804,7 @@ public class MainPage {
 			return mv;
 		}
 	}
-	
+
 	@RequestMapping(value="/activePost", method=RequestMethod.GET)
 	public String ActivePost(@RequestParam("id") long id,Model model) throws Exception {
 		System.out.println("id=="+id);

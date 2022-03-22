@@ -35,6 +35,27 @@ public class UsersDetailDto {
 	
 	private Integer total;
 	
+	private Date todaydate;
+	
+	private Date fromdate;
+	
+	
+	public Date getTodaydate() {
+		return todaydate;
+	}
+
+	public void setTodaydate(Date todaydate) {
+		this.todaydate = todaydate;
+	}
+
+	public Date getFromdate() {
+		return fromdate;
+	}
+
+	public void setFromdate(Date fromdate) {
+		this.fromdate = fromdate;
+	}
+
 	public Integer getPage() {
 		return page;
 	}
