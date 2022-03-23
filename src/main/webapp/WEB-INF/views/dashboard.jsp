@@ -377,7 +377,8 @@
 					style="border-radius: 15px; color: #ffff;">
 					<span style="font-size: 20pt">  <b>Today's Active Users</b>  </span> 
 					<br> <br>
-					<span style="font-size: 24pt"> <c:out value="${todaysActiveUser}" /> </span>
+					<a id="bth-datetofrom" href="#" onclick="return datetofrom()" class='btn btn-sm btn-primary'> 
+					<span style="font-size: 24pt"> <c:out value="${todaysActiveUser}" /> </span> </a>
 
 				</div>
 				
@@ -487,5 +488,33 @@
 		src="${pageContext.request.contextPath}/resources/js/demo/chart-pie-demo.js"></script>
 	<script src="https://code.highcharts.com/highcharts.js"></script>
 	<script src="https://code.highcharts.com/modules/exporting.js"></script>
+	
+	<script type="text/javascript">
+	
+	$(document).ready(function() {
+
+	});
+		function datetofrom(e) {
+		debugger
+		$("#bth-datetofrom").prop("disabled", false);
+		
+			$.ajax({
+						type : "GET",
+						//contentType: "application/json",
+						
+						url:"${pageContext.request.contextPath}/todayUserCountsData",
+ 						//data : a,
+ 						
+ 						success : function(data) {
+							
+							$("#dataModal").find(".modal-body").html(data);
+  	      	            	$("#dataModal").modal('show');
+							//bindFunction();
+						}
+
+					});
+			return false;
+		}
+	</script>
 </body>
 </html>

@@ -35,7 +35,7 @@ public class UserDetaisImpl implements UserDetails {
 			+ " FROM public.user_details u WHERE (LOWER(u.user_name) LIKE  :userName or :userName1 is null ) "
 			+ "and ( u.user_mobile LIKE :userMobile or :userMobile1 is null ) and ( LOWER(u.zlen_code)  LIKE  :zlenCode or :zlenCode1 is null ) "
 			+ "and (u.device_type LIKE :deviceType or :deviceType1 is null ) "
-			+ "and (u.created_on between  :fromdate and :todaydate or null is null ) "
+			+ "and ((Date(u.created_on) between  :fromdate and :todaydate) or cast(:fromdate1 as date) is null ) "
 			+ "and ((date_part('year', now()) - coalesce(u.age,0)) between :age and :age1 or :age is null) "
 			+ "and (LOWER(u.gender) =  :gender or :gender1 is null ) and (Date(u.created_on) = :createdOn  or cast(:createdOn1 as date) is null) "
 			+ "and ((Select count(cnt) from (Select ufd.friend_user_id as cnt from public.user_friends_details ufd "
@@ -84,8 +84,9 @@ public class UserDetaisImpl implements UserDetails {
 				.addValue("age1", age1, Types.INTEGER).addValue("friendNumber", friendNumber, Types.INTEGER)
 				.addValue("friendNumber1", friendNumber1, Types.INTEGER).addValue("gender", gender, Types.VARCHAR)
 				.addValue("gender1", gender, Types.VARCHAR)
-				.addValue("fromdate", fromdate, Types.TIMESTAMP)
-				.addValue("todaydate", todaydate, Types.TIMESTAMP);
+				.addValue("fromdate", fromdate, Types.DATE)
+				.addValue("todaydate", todaydate, Types.DATE)
+				.addValue("fromdate1", fromdate, Types.VARCHAR);
 		// .addValue("pageid", pageid, Types.INTEGER)
 		// .addValue("total", total, Types.INTEGER);
 

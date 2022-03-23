@@ -192,7 +192,7 @@ input:checked + .slider:before {
 <!-- Javascript -->
 <script>
 	$(function() {
-		$("#inputdate").datepicker({
+		$("#inputFromsDate").datepicker({
 			// appendText:"(yy-mm-dd)",  
 			dateFormat : "yy-mm-dd"
 		// altField: "#datepicker-4",  
@@ -201,6 +201,16 @@ input:checked + .slider:before {
 	});
 </script>
 
+<script>
+	$(function() {
+		$("#inputTosDate").datepicker({
+			// appendText:"(yy-mm-dd)",  
+			dateFormat : "yy-mm-dd"
+		// altField: "#datepicker-4",  
+		// altFormat: "DD, d MM, yy"  
+		});
+	});
+</script>
 </head>
 
 <body id="page-top">
@@ -230,18 +240,27 @@ input:checked + .slider:before {
 					&nbsp;&nbsp;<label for="userMobile"><b>Mobile no. : </b></label>&nbsp;   
 		    		<input type="text"  id="inputMobile" placeholder="Enter Mobile no. ......">&nbsp;&nbsp;
 		    		
-					<label for="uploadedDateTime"><b>Date : </b></label>&nbsp; 
-					<input type="text" id="inputdate" placeholder="Enter Date......">&nbsp;&nbsp;
+<!-- 					<label for="uploadedDateTime"><b>Date : </b></label>&nbsp;  -->
+<!-- 					<input type="text" id="inputdate" placeholder="Enter Date......">&nbsp;&nbsp; -->
 						<br><br>
 						<label for="zlenWorld"><b>Zlen World Active: </b></label>&nbsp;
 					<label class="switch"><input type="checkbox" id="zlenWorld">
-					<span class="slider round"></span></label>
+					<span class="slider round"></span></label> &nbsp;&nbsp;
+					<br><br>
+					&nbsp;&nbsp;<label for="formdate"><b>From Date : </b></label>&nbsp;
+						<input type="text" id="inputFromsDate" placeholder="yyyy-MM-dd">&nbsp;&nbsp;
+
+						&nbsp;&nbsp;<label for="todaydate"><b>To Date : </b></label>&nbsp;
+						<input type="text" id="inputTosDate" placeholder="yyyy-MM-dd">&nbsp;&nbsp;
 													
 						<button type="button" id="bth-search"
 						class="btn btn-success btn-md" onclick="search()">Search</button>
 					&nbsp;&nbsp;
 					<button type="button" class="btn btn-danger btn-md"
-						onclick="clearFilter()">Clear</button>
+						onclick="clearFilter()">Clear</button>&nbsp;&nbsp;
+						
+						<button type="button" id="bth-download" onclick="download()"
+						class="btn btn-success btn-md">Download</button>
 				</div>
 				<br/>
 
@@ -377,6 +396,8 @@ input:checked + .slider:before {
 			ustoriesList["userMobile"] = $("#inputMobile").val();
 			ustoriesList["uploadedDateTime"] = $("#inputdate").val();
 			ustoriesList["zlenWorld"] = $("#zlenWorld").is(':checked');
+			ustoriesList["todaydate"] = $("#inputTosDate").val();
+			ustoriesList["fromdate"] = $("#inputFromsDate").val();
 			
 			$("#btn-search").prop("disabled", false);
 
@@ -447,6 +468,94 @@ input:checked + .slider:before {
 	<script type="text/javascript">
 		function clearFilter() {
 			window.location = '/userStoriesList';
+		}
+	</script>
+	
+	<script type="text/javascript">
+		$(document).ready(function() {
+
+		});
+		function download() {
+			debugger
+			var userDetails;
+// 			var friendNumber; 
+// 			var friendNumber1;
+			var ustoriesList;
+			ustoriesList = {}
+			ustoriesList["mimeType"] = $("#inputMimeType").val();
+			ustoriesList["zlenCode"] = $("#inputCode").val();
+			ustoriesList["userMobile"] = $("#inputMobile").val();
+			ustoriesList["uploadedDateTime"] = $("#inputdate").val();
+			ustoriesList["zlenWorld"] = $("#zlenWorld").is(':checked');
+			ustoriesList["todaydate"] = $("#inputTosDate").val();
+			ustoriesList["fromdate"] = $("#inputFromsDate").val();
+			 
+			$('#btn-download').prop("disabled", false);
+			$.ajax({
+				type : "GET",
+				//contentType: "application/json",
+				url : "${pageContext.request.contextPath}/userStoriesListDownload",
+				//timeout: 4000,
+				// success:function(result)
+				data : ustoriesList,
+				cache : false,
+				xhr : function() {
+					var xhr = new XMLHttpRequest();
+					xhr.onreadystatechange = function() {
+						if (xhr.readyState == 2) {
+
+							if (xhr.status == 200) {
+								xhr.responseType = "blob";
+							} else {
+								xhr.responseType = "text";
+							}
+						}
+					};
+					return xhr;
+				},
+				success : function(data) {
+					//alert("data==>"+ data);
+
+					//var newDate = dateFormat(cdate, "mm/dd/yyyy");
+					debugger
+
+					var a = document.createElement('a');
+					var url1 = window.URL.createObjectURL(data);
+					a.href = url1;
+					a.download = 'UserStoriesDetails.xlsx';
+					document.body.append(a);
+					a.click();
+					a.remove();
+					window.URL.revokeObjectURL(url);
+
+					//bindFunction();
+					return;
+					alert(ele.success);
+
+					/* var fileName='test.xlsx';
+					var blob = new Blob([data], { type: "application/vnd.ms-excel" });
+					 
+					//Check the Browser type and download the File.
+					var isIE = false || !!document.documentMode;
+					if (isIE) {
+					    window.navigator.msSaveBlob(blob, fileName);
+					} else {
+					    var url = window.URL || window.webkitURL;
+					    link = url.createObjectURL(blob);
+					    var a = $("<a />");
+					    a.attr("download", fileName);
+					    a.attr("href", link);
+					    $("body").append(a);
+					    a[0].click();
+					    $("body").remove(a);
+					}
+					 */},
+				error : function(result) {
+					//alert(data);
+					alert(result.status + ' ' + result.statusText);
+				}
+
+			});
 		}
 	</script>
 

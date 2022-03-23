@@ -56,8 +56,11 @@ public class UserStoriesController {
 	 * storieslist); mav.setViewName("stories"); return mav; }
 	 */
 	public ModelAndView getUserStories(Model model, @RequestParam(required=false) String  zlenCode, 
-			@RequestParam(required=false) String mimeType, @RequestParam(required=false) 
-	@DateTimeFormat(pattern = "yyyy-MM-dd") Date uploadedDateTime,@RequestParam(required=false) boolean  zlenWorld, @RequestParam(required=false) String userMobile)
+			@RequestParam(required=false) String mimeType, 
+			@RequestParam(required=false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date uploadedDateTime, 
+			@RequestParam(required=false) boolean  zlenWorld, @RequestParam(required=false) String userMobile, 
+			@RequestParam(required=false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date fromdate, 
+			@RequestParam(required=false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date todaydate )
 	{	
 		if ("".equals(zlenCode)) {
 			zlenCode=null;
@@ -79,12 +82,20 @@ public class UserStoriesController {
 			zlenWorld=(Boolean) null;
 		}
 		
+
+		if ("".equals(todaydate)) {
+			todaydate=null;
+		}
+		
+		if ("".equals(fromdate)) {
+			fromdate=null;
+		}
 		
 		//Calendar cal = new GregorianCalendar(); cal.add(Calendar.DAY_OF_MONTH, -3);
 		//Date daysAgo = cal.getTime();
 		
 		//List storieslist = userStories.getLatestUserStories(null, null, daysAgo);
-		List storieslist = userStories.getUserStories(zlenCode,mimeType,uploadedDateTime,zlenWorld,userMobile);
+		List storieslist = userStories.getUserStories(zlenCode,mimeType,uploadedDateTime,zlenWorld,userMobile,fromdate,todaydate);
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("storiesList", storieslist);
 		mav.setViewName("stories");

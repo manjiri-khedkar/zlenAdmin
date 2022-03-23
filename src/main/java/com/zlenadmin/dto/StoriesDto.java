@@ -30,6 +30,25 @@ public class StoriesDto {
 	
 	private String userMobile;
 	
+	private Date fromdate;
+	
+	private Date todaydate;
+
+	public Date getFromdate() {
+		return fromdate;
+	}
+
+	public void setFromdate(Date fromdate) {
+		this.fromdate = fromdate;
+	}
+
+	public Date getTodaydate() {
+		return todaydate;
+	}
+
+	public void setTodaydate(Date todaydate) {
+		this.todaydate = todaydate;
+	}
 
 	public String getUserMobile() {
 		return userMobile;

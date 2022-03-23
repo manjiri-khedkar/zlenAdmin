@@ -35,8 +35,9 @@ public class UserStoriesImpl implements UserStories {
 			+ "where (ud.zlen_code LIKE :zlenCode or :zlenCode1 is null) "
 			+ "and (usd.mime_type LIKE :mimeType or :mimeType1 is null) "
 			+ "and (cast(usd.uploaded_date_time as date) = :uploadedDateTime or :uploadedDateTime1 is null) "
-			+ "and (usd.is_zlen_world = :zlenWorld or :zlenWorld1 =false) "
+			+ "and (usd.is_zlen_world = :zlenWorld or :zlenWorld1 is null) "
 			+ "and (ud.user_mobile LIKE :userMobile or :userMobile1 is null) "
+			+ "and ((cast(usd.uploaded_date_time as date) between :fromdate and :todaydate) or :fromdate1 is null)"
 			+ "group by usd.id , usd.uploaded_date_time , usd.mime_type ,"
 			+ "usd.uploaded_path , ud.id, ud.zlen_code , ud.is_banned, ud.user_name " 
 			+ "order by usd.uploaded_date_time desc ";
@@ -50,7 +51,7 @@ public class UserStoriesImpl implements UserStories {
 			+ "inner join public.user_details ud on usd.user_id = ud.user_id "
 			+ "where (ud.zlen_code LIKE :zlenCode or :zlenCode1 is null)  "
 			+ "and (usd.mime_type LIKE :mimeType or :mimeType1 is null)"
-			+ "and (cast(usd.uploaded_date_time as date) >= :uploadedDateTime   ) "
+			+ "and (cast(usd.uploaded_date_time as date) >= :uploadedDateTime or :uploadedDateTime1 is null) "
 			+ "and usd.is_zlen_world=false "
 			+ "group by usd.id , usd.uploaded_date_time , usd.mime_type ,"
 			+ "usd.uploaded_path ,usd.is_banned , ud.id, ud.is_banned , ud.zlen_code , ud.user_name " 
@@ -70,7 +71,7 @@ public class UserStoriesImpl implements UserStories {
 	private NamedParameterJdbcTemplate jdbcTemplate;
 
 	@Override
-	public List<StoriesDto> getUserStories(final String zlenCode, final String mimeType, final Date uploadedDateTime, final boolean zlenWorld, final String userMobile ) {
+	public List<StoriesDto> getUserStories(final String zlenCode, final String mimeType, final Date uploadedDateTime, final boolean zlenWorld, final String userMobile, final Date fromdate, final Date todaydate ) {
 		SqlParameterSource namedParameters = new MapSqlParameterSource()
 				.addValue("zlenCode", "%" + zlenCode + "%", Types.VARCHAR)
 				.addValue("zlenCode1", zlenCode, Types.VARCHAR)
@@ -81,7 +82,10 @@ public class UserStoriesImpl implements UserStories {
 				.addValue("uploadedDateTime1", uploadedDateTime, Types.VARCHAR)
 				.addValue("uploadedDateTime", uploadedDateTime, Types.DATE)
 				.addValue("zlenWorld", zlenWorld, Types.BOOLEAN)
-				.addValue("zlenWorld1",zlenWorld, Types.BOOLEAN);
+				.addValue("zlenWorld1",zlenWorld, Types.BOOLEAN)
+				.addValue("fromdate", fromdate, Types.DATE)
+				.addValue("todaydate", todaydate, Types.DATE)
+				.addValue("fromdate1", fromdate, Types.VARCHAR);
 				//.addValue("isbanned",isbanned, Types.BOOLEAN)
 				//.addValue("isbanned1",isbanned, Types.BOOLEAN);
 

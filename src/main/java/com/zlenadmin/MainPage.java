@@ -719,7 +719,9 @@ public class MainPage {
 	@ResponseBody
 	public Object getUserStories(Model model, @Param("zlenCode") String zlenCode, @Param("mimeType") String mimeType,
 			@Param("uploadedDateTime") @DateTimeFormat(pattern = "yyyy-MM-dd") Date uploadedDateTime,
-			@Param("zlenWorld") boolean zlenWorld,@Param("isbanned") boolean isbanned, @Param("userMobile") String userMobile) {
+			@Param("zlenWorld") boolean zlenWorld,@Param("isbanned") boolean isbanned, @Param("userMobile") String userMobile, 
+			@Param("fromdate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date fromdate, 
+			@Param("todaydate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date todaydate) {
 		// List result= service.queryForMovies();
 		// List result = newrepo.getUserStories();
 
@@ -747,7 +749,15 @@ public class MainPage {
 			isbanned = (Boolean) null;
 		}
 		
-		List result = userStories.getUserStories(zlenCode, mimeType, uploadedDateTime,zlenWorld,userMobile);
+		if ("".equals(todaydate)) {
+			todaydate=null;
+		}
+		
+		if ("".equals(fromdate)) {
+			fromdate=null;
+		}
+		
+		List result = userStories.getUserStories(zlenCode,mimeType,uploadedDateTime,zlenWorld,userMobile,fromdate,todaydate);
 
 		return result;
 
@@ -758,7 +768,9 @@ public class MainPage {
 			@RequestParam(required = false) String zlenCode,
 			@RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date uploadedDateTime, 
 			@RequestParam(required = false) boolean zlenWorld,@RequestParam(required = false) boolean isbanned,
-			@RequestParam(required = false) boolean isbanned1, @RequestParam(required = false) String userMobile) {
+			@RequestParam(required = false) boolean isbanned1, @RequestParam(required = false) String userMobile, 
+			@RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date fromdate, 
+			@RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date todaydate ) {
 
 		if ("".equals(zlenCode)) {
 			zlenCode = null;
@@ -780,6 +792,13 @@ public class MainPage {
 			zlenWorld = (Boolean) null;
 		}
 		
+		if ("".equals(todaydate)) {
+		todaydate=null;
+	}
+	
+	if ("".equals(fromdate)) {
+		fromdate=null;
+	}
 		
 		ModelAndView mv = new ModelAndView();
 		
@@ -789,7 +808,7 @@ public class MainPage {
 
 		if (uploadedDateTime != null && mimeType == null) {
 
-			List<StoriesDto> userStoriesList = userStories.getUserStories(zlenCode, mimeType, uploadedDateTime,zlenWorld,userMobile);
+			List<StoriesDto> userStoriesList = userStories.getUserStories(zlenCode,mimeType,uploadedDateTime,zlenWorld,userMobile,fromdate,todaydate);
 			mv.addObject("userStoriesList", userStoriesList);
 			mv.setViewName("userStoriesList");
 			return mv;
@@ -804,6 +823,57 @@ public class MainPage {
 			return mv;
 		}
 	}
+	
+	
+	@GetMapping("/userStoriesListDownload")
+	@ResponseBody
+	public ResponseEntity<InputStreamResource> getuserStoriesListDownload(@RequestParam(required = false) String mimeType,
+			@RequestParam(required = false) String zlenCode,
+			@RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date uploadedDateTime, 
+			@RequestParam(required = false) boolean zlenWorld,@RequestParam(required = false) boolean isbanned,
+			@RequestParam(required = false) boolean isbanned1, @RequestParam(required = false) String userMobile, 
+			@RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date fromdate, 
+			@RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date todaydate) {
+		
+		
+		if ("".equals(todaydate)) {
+			todaydate=null;
+		}
+		
+		if ("".equals(fromdate)) {
+			fromdate=null;
+		}
+		
+		if ("".equals(zlenCode)) {
+			zlenCode = null;
+		}
+		
+		if ("".equals(userMobile)) {
+			userMobile = null;
+		}
+
+		if ("All".equals(mimeType)) {
+			mimeType = null;
+		}
+
+		if ("".equals(uploadedDateTime)) {
+			uploadedDateTime = null;
+		}
+
+		if ("".equals(zlenWorld)) {
+			zlenWorld = (Boolean) null;
+		}
+		
+		String filename = "UserStoriesDetails.xls";
+		InputStreamResource file = new InputStreamResource(
+				fileService.loadUserStories(zlenCode,mimeType,uploadedDateTime,zlenWorld,userMobile,fromdate,todaydate));
+		// InputStreamResource file = new
+		// InputStreamResource(fileService.loadinActive(-30));
+
+		return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + filename)
+				.contentType(MediaType.parseMediaType("application/vnd.ms-excel")).body(file);
+	}
+	
 
 	@RequestMapping(value="/activePost", method=RequestMethod.GET)
 	public String ActivePost(@RequestParam("id") long id,Model model) throws Exception {

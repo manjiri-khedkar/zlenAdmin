@@ -17,8 +17,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.zlenadmin.ExcelHelper1;
 import com.zlenadmin.api.entity.UserDetails;
 import com.zlenadmin.dao.Accounts;
+import com.zlenadmin.dao.UserStories;
 import com.zlenadmin.dto.InactiveDto;
 import com.zlenadmin.dto.RegisterPendingDto;
+import com.zlenadmin.dto.StoriesDto;
 import com.zlenadmin.dto.UserPerDayCountDataDto;
 import com.zlenadmin.dto.UsersDetailDto;
 import com.zlenadmin.repository.UserDetailsRepository;
@@ -34,6 +36,9 @@ public class ExcelService {
 	 
 	 @Autowired
 	 com.zlenadmin.dao.UserDetails userDetails;
+	 
+	 @Autowired
+		private UserStories userStories;
 	 
 	  public ByteArrayInputStream loadinActive(@Param("days") Integer days) {
 		  
@@ -162,6 +167,45 @@ public class ExcelService {
    ByteArrayInputStream in = ExcelHelper1.userPerDayDataToExcel(UserPerDayCountDataList);
    return in;
  }
+
+public ByteArrayInputStream loadUserStories(String zlenCode, String mimeType, @DateTimeFormat(pattern = "yyyy-MM-dd") Date uploadedDateTime, boolean zlenWorld, String userMobile, Date fromdate, Date todaydate) {
+	
+	if ("".equals(zlenCode)) {
+		zlenCode = null;
+	}
+	
+	if ("".equals(userMobile)) {
+		userMobile = null;
+	}
+
+	if ("All".equals(mimeType)) {
+		mimeType = null;
+	}
+
+	if ("".equals(uploadedDateTime)) {
+		uploadedDateTime = null;
+	}
+
+	if ("".equals(zlenWorld)) {
+		zlenWorld = (Boolean) null;
+	}
+	
+	if ("".equals(todaydate)) {
+		todaydate=null;
+	}
+	
+	if ("".equals(fromdate)) {
+		fromdate=null;
+	}
+	
+	List<StoriesDto> userStoriesList = userStories.getUserStories(zlenCode,mimeType,uploadedDateTime,zlenWorld,userMobile,fromdate,todaydate);
+	
+	ByteArrayInputStream in = ExcelHelper1.userStoriesToExcel(userStoriesList);
+	   return in;
+	   
+	}
+
+
 
  
 }
