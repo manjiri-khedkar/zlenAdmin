@@ -33,17 +33,45 @@
 <!--====== Main Style CSS ======-->
 <link rel="stylesheet" href="assets/css/style.css">
 
-
 <script
 	src="${pageContext.request.contextPath}/resources/vendor/jquery/jquery.min.js"></script>
-<!-- Custom fonts for this template-->
 <link
-	href="${pageContext.request.contextPath}/resources/vendor/fontawesome-free/css/all.min.css"
-	rel="stylesheet" type="text/css">
-<link
-	href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+	href="https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css"
 	rel="stylesheet">
+<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 
+<script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.css"
+	integrity="sha512-bYPO5jmStZ9WI2602V2zaivdAnbAhtfzmxnEGh9RwtlI00I9s8ulGe4oBa5XxiC6tCITJH/QG70jswBhbLkxPw=="
+	crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js"></script>
+
+<script>
+
+
+	$(function() {
+	
+		$("#inputFromDate").datepicker({
+			// appendText:"(yy-mm-dd)",  
+			dateFormat : "yy-mm-dd"
+		// altField: "#datepicker-4",  
+		// altFormat: "DD, d MM, yy"  
+		});
+	
+		$("#inputToDate").datepicker({
+			// appendText:"(yy-mm-dd)",  
+			dateFormat : "yy-mm-dd"
+		// altField: "#datepicker-4",  
+		// altFormat: "DD, d MM, yy"  
+		});
+	});
+</script>
 <style>
 #page-top {
 	display: block;
@@ -114,28 +142,7 @@
 <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 <script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
 <!-- Javascript -->
-<script>
-	$(function() {
-		$("#inputFromDate").datepicker({
-			// appendText:"(yy-mm-dd)",  
-			dateFormat : "yy-mm-dd"
-		// altField: "#datepicker-4",  
-		// altFormat: "DD, d MM, yy"  
-		});
-	});
-</script>
 
-<!-- Javascript -->
-<script>
-	$(function() {
-		$("#inputToDate").datepicker({
-			// appendText:"(yy-mm-dd)",  
-			dateFormat : "yy-mm-dd"
-		// altField: "#datepicker-4",  
-		// altFormat: "DD, d MM, yy"  
-		});
-	});
-</script>
 
 <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
 
@@ -418,14 +425,11 @@
 
 	<!-- Bootstrap core JavaScript-->
 	<script
-		src="${pageContext.request.contextPath}/resources/vendor/jquery/jquery.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/vendor/jquery-easing/jquery.easing.min.js"></script>
-	<script
 		src="${pageContext.request.contextPath}/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
 	<!-- Core plugin JavaScript-->
-
+	<script
+		src="${pageContext.request.contextPath}/resources/vendor/jquery-easing/jquery.easing.min.js"></script>
 
 	<!-- Custom scripts for all pages-->
 	<script
@@ -566,6 +570,10 @@
 		}
 	</script>
 
+<%-- <script
+		src="${pageContext.request.contextPath}/resources/vendor/bootstrap/js/bootstrap.bundle.min.js">
+		
+		</script> --%>
 
 	<script type="text/javascript">
 		$(document).ready(function() {
@@ -666,6 +674,7 @@
 			});
 		}
 	</script>
+
 
 </body>
 <jsp:include page="otherModal.jsp"></jsp:include>

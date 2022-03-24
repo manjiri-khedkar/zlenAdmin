@@ -458,8 +458,9 @@ public class MainPage {
 			@RequestParam(required=false) String userMobile, @RequestParam(required=false) String zlenCode,@RequestParam(required=false) String deviceType, 
 			@RequestParam(required=false) String gender, @RequestParam(required=false) Integer age, @RequestParam(required=false) Integer age1, 
 			@RequestParam(required=false) Integer friendNumber, @RequestParam(required=false) Integer friendNumber1, 
-			@RequestParam(required=false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date  createdOn,  @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm") Date  todaydate, 
-			@RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm") Date  fromdate)
+			@RequestParam(required=false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date  createdOn, 
+			@RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date  todaydate, 
+			@RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date  fromdate)
 	{	
 		Integer total=500000; 
 		boolean filterOff=false;
@@ -552,8 +553,8 @@ public class MainPage {
 	public List<UsersDetailDto> getUserDetails(Model model, @Param("userName") String userName,
 			@Param("userMobile") String userMobile, @Param("gender") String gender, @Param("age") Integer age,
 			@Param("age1") Integer age1, @Param("friendNumber") Integer friendNumber, @Param("friendNumber1") Integer friendNumber1, @Param("zlenCode") String zlenCode, @Param("deviceType") String deviceType,
-			@Param("createdOn") @DateTimeFormat(pattern = "yyyy-MM-dd") Date createdOn, @Param("todaydate")@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm") Date  todaydate, 
-			@Param("fromdate")@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm") Date  fromdate ) {
+			@Param("createdOn") @DateTimeFormat(pattern = "yyyy-MM-dd") Date createdOn, @Param("todaydate")@DateTimeFormat(pattern = "yyyy-MM-dd") Date  todaydate, 
+			@Param("fromdate")@DateTimeFormat(pattern = "yyyy-MM-dd") Date  fromdate ) {
 		
 		if ("".equals(todaydate)) {
 			todaydate=null;
@@ -642,8 +643,9 @@ public class MainPage {
 			@RequestParam(required = false) Integer age, @RequestParam(required = false) Integer age1,
 			@Param("friendNumber") Integer friendNumber, @Param("friendNumber1") Integer friendNumber1,
 			@RequestParam(required = false) String zlenCode, @RequestParam(required = false) String deviceType,
-			@Param("createdOn") @DateTimeFormat(pattern = "yyyy-MM-dd") Date createdOn, @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm") Date  todaydate, 
-			@RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm") Date  fromdate) {
+			@Param("createdOn") @DateTimeFormat(pattern = "yyyy-MM-dd") Date createdOn, 
+			@RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date  todaydate, 
+			@RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date  fromdate) {
 		
 		
 		if ("".equals(todaydate)) {
@@ -794,11 +796,11 @@ public class MainPage {
 		
 		if ("".equals(todaydate)) {
 		todaydate=null;
-	}
+		}
 	
-	if ("".equals(fromdate)) {
+		if ("".equals(fromdate)) {
 		fromdate=null;
-	}
+		}
 		
 		ModelAndView mv = new ModelAndView();
 		

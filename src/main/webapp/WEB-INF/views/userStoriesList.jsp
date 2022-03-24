@@ -39,6 +39,27 @@
 <link
 	href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
 	rel="stylesheet">
+	<link
+	href="${pageContext.request.contextPath}/resources/css/sb-admin-2.min.css"
+	rel="stylesheet">
+	
+<link
+	href="https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css"
+	rel="stylesheet">
+<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+
+<script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.css"
+	integrity="sha512-bYPO5jmStZ9WI2602V2zaivdAnbAhtfzmxnEGh9RwtlI00I9s8ulGe4oBa5XxiC6tCITJH/QG70jswBhbLkxPw=="
+	crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js"></script>
+
 
 <style>
 #page-top {
@@ -159,10 +180,6 @@ input:checked + .slider:before {
 </style>
 
 
-<!-- Custom styles for this template-->
-<link
-	href="${pageContext.request.contextPath}/resources/css/sb-admin-2.min.css"
-	rel="stylesheet">
 
 <script>
 	function savePass() {
@@ -184,11 +201,6 @@ input:checked + .slider:before {
 	}
 </script>
 
-<link
-	href="https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css"
-	rel="stylesheet">
-<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
-<script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
 <!-- Javascript -->
 <script>
 	$(function() {
@@ -351,22 +363,14 @@ input:checked + .slider:before {
 	<a class="scroll-to-top rounded" href="#page-top"> <i
 		class="fas fa-angle-up"></i>
 	</a>
-
-	<jsp:include page="otherModal.jsp"></jsp:include>
+<jsp:include page="otherModal.jsp"></jsp:include>
 	<!-- Bootstrap core JavaScript-->
-
-<!-- 	<script -->
-<!-- 		src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script> -->
+	<script
+		src="${pageContext.request.contextPath}/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
 	<!-- Core plugin JavaScript-->
 	<script
 		src="${pageContext.request.contextPath}/resources/vendor/jquery-easing/jquery.easing.min.js"></script>
-
-	<script
-		src="${pageContext.request.contextPath}/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-<!-- 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script> -->
-
 
 	<!-- Custom scripts for all pages-->
 	<script
@@ -471,6 +475,8 @@ input:checked + .slider:before {
 		}
 	</script>
 	
+		
+		</script>
 	<script type="text/javascript">
 		$(document).ready(function() {
 
@@ -494,7 +500,7 @@ input:checked + .slider:before {
 			$.ajax({
 				type : "GET",
 				//contentType: "application/json",
-				url : "${pageContext.request.contextPath}/userStoriesListDownload",
+				url : "/userStoriesListDownload",
 				//timeout: 4000,
 				// success:function(result)
 				data : ustoriesList,
@@ -560,6 +566,7 @@ input:checked + .slider:before {
 	</script>
 
 </body>
+	<jsp:include page="otherModal.jsp"></jsp:include>
 </html>
 
 
