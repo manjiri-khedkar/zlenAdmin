@@ -569,12 +569,8 @@
 			window.location.href = '${pageContext.request.contextPath}/userDetailsList/1';
 		}
 	</script>
-
-<%-- <script
-		src="${pageContext.request.contextPath}/resources/vendor/bootstrap/js/bootstrap.bundle.min.js">
-		
-		</script> --%>
-
+	
+	
 	<script type="text/javascript">
 		$(document).ready(function() {
 
@@ -608,72 +604,161 @@
 			
 			$('#btn-download').prop("disabled", false);
 			$.ajax({
-				type : "GET",
-				//contentType: "application/json",
-				url : "${pageContext.request.contextPath}/userDetailsDownload",
-				//timeout: 4000,
-				// success:function(result)
-				data : userDetails,
-				cache : false,
-				xhr : function() {
-					var xhr = new XMLHttpRequest();
-					xhr.onreadystatechange = function() {
-						if (xhr.readyState == 2) {
-
-							if (xhr.status == 200) {
-								xhr.responseType = "blob";
-							} else {
-								xhr.responseType = "text";
-							}
-						}
-					};
-					return xhr;
-				},
-				success : function(data) {
-					//alert("data==>"+ data);
-
-					//var newDate = dateFormat(cdate, "mm/dd/yyyy");
-					debugger
-
-					var a = document.createElement('a');
-					var url1 = window.URL.createObjectURL(data);
-					a.href = url1;
-					a.download = 'UserDetails.xls';
-					document.body.append(a);
-					a.click();
-					a.remove();
-					window.URL.revokeObjectURL(url);
-
-					//bindFunction();
-					return;
-					alert(ele.success);
-
-					/* var fileName='test.xlsx';
-					var blob = new Blob([data], { type: "application/vnd.ms-excel" });
-					 
-					//Check the Browser type and download the File.
-					var isIE = false || !!document.documentMode;
-					if (isIE) {
-					    window.navigator.msSaveBlob(blob, fileName);
-					} else {
-					    var url = window.URL || window.webkitURL;
-					    link = url.createObjectURL(blob);
-					    var a = $("<a />");
-					    a.attr("download", fileName);
-					    a.attr("href", link);
-					    $("body").append(a);
-					    a[0].click();
-					    $("body").remove(a);
-					}
-					 */},
-				error : function(result) {
-					//alert(data);
-					alert(result.status + ' ' + result.statusText);
-				}
-
-			});
-		}
+                url: '${pageContext.request.contextPath}/userDetailsDownload',
+                data: userDetails,
+                cache: false,
+                xhr: function () {
+                	debugger
+                    var xhr = new XMLHttpRequest();
+                    xhr.onreadystatechange = function () {
+                    	debugger
+                        if (xhr.readyState == 2) {
+                            debugger
+                        	if (xhr.status == 200) {
+                               debugger
+                        		xhr.responseType = "blob";
+                            } else {
+                                debugger
+                            	xhr.responseType = "text";
+                            }
+                        }
+                    };
+                    return xhr;
+                },
+                success: function (data) {
+                	alert(data);
+                	debugger
+                    //Convert the Byte Data to BLOB object.
+                    var blob = new Blob([data], { type: "application/vnd.ms-excel" });
+ 					alert(blob);
+                    //Check the Browser type and download the File.
+                    var isIE = false || !!document.documentMode;
+                    if (isIE) {
+                        window.navigator.msSaveBlob(blob, 'UserDetails.xls');
+                    } else {
+                        var url1 = window.URL || window.webkitURL;
+                        link = url1.createObjectURL(blob);
+                        alert(link);
+                        var a = $("<a />");
+                        a.attr("download", 'UserDetails.xls');
+                        a.attr("href", link);
+                        $("body").append(a);
+                        a[0].click();
+                        $(a).on("click", "button.removeButton", function()  { 
+                            $(a, "body").remove();
+                     });
+//	                        $("body").remove(a);
+                    }
+                }
+            });
+        };
 	</script>
+	
+
+<%-- <script
+		src="${pageContext.request.contextPath}/resources/vendor/bootstrap/js/bootstrap.bundle.min.js">
+		
+		</script> --%>
+
+<!-- 	<script type="text/javascript"> -->
+// 		$(document).ready(function() {
+
+// 		});
+// 		function download() {
+// 			debugger
+// 			var userDetails;
+// // 			var friendNumber; 
+// // 			var friendNumber1;
+// 			userDetails = {}
+// 			userDetails["userName"] = $('#inputName').val();
+// 			userDetails["userMobile"] = $('#inputMobile').val();
+// 			userDetails["zlenCode"] = $('#inputCode').val();
+// 			userDetails["deviceType"] = $('#inputType').val();
+// 			userDetails["todaydate"] = $("#inputToDate").val();
+// 			userDetails["fromdate"] = $("#inputFromDate").val();
+// 			userDetails["gender"] = $("#inputGender").val();		
+// 			userDetails["age"] = $("#inputAge").val().split(',')[0];
+// 			userDetails["age1"] = $("#inputAge").val().split(',')[1];
+//  			userDetails["createdOn"] = $("#graphDate").val();
+			
+// 			 if ($('#friend').val() != 0 || $('#friends').val() != 0 ) {
+// 				var No1 = $('#friend').val();
+// 	 			var No2 = $('#friends').val();
+// 	 			userDetails["friendNumber"] = No1;
+// 	 			userDetails["friendNumber1"] = No2;
+// 			}else if ($("#inputFrndCount").val() >= 0 || $('#friend').val() != null || $('#friends').val() != null ) {
+// 				userDetails["friendNumber"] = $("#inputFrndCount").val().split(',')[0];
+// 				userDetails["friendNumber1"] = $("#inputFrndCount").val().split(',')[1];
+// 			} 
+			
+// 			$('#btn-download').prop("disabled", false);
+// 			$.ajax({
+// 				type : "GET",
+// 				//contentType: "application/json",
+// 				url : "${pageContext.request.contextPath}/userDetailsDownload",
+// 				//timeout: 4000,
+// 				// success:function(result)
+// 				data : userDetails,
+// 				cache : false,
+// 				xhr : function() {
+// 					var xhr = new XMLHttpRequest();
+// 					xhr.onreadystatechange = function() {
+// 						if (xhr.readyState == 2) {
+
+// 							if (xhr.status == 200) {
+// 								xhr.responseType = "blob";
+// 							} else {
+// 								xhr.responseType = "text";
+// 							}
+// 						}
+// 					};
+// 					return xhr;
+// 				},
+// 				success : function(data) {
+// 					//alert("data==>"+ data);
+
+// 					//var newDate = dateFormat(cdate, "mm/dd/yyyy");
+// 					debugger
+
+// 					var a = document.createElement('a');
+// 					var url1 = window.URL.createObjectURL(data);
+// 					a.href = url1;
+// 					a.download = 'UserDetails.xls';
+// 					document.body.append(a);
+// 					a.click();
+// 					a.remove();
+// 					window.URL.revokeObjectURL(url);
+
+// 					//bindFunction();
+// 					return;
+// 					alert(ele.success);
+
+// 					/* var fileName='test.xlsx';
+// 					var blob = new Blob([data], { type: "application/vnd.ms-excel" });
+					 
+// 					//Check the Browser type and download the File.
+// 					var isIE = false || !!document.documentMode;
+// 					if (isIE) {
+// 					    window.navigator.msSaveBlob(blob, fileName);
+// 					} else {
+// 					    var url = window.URL || window.webkitURL;
+// 					    link = url.createObjectURL(blob);
+// 					    var a = $("<a />");
+// 					    a.attr("download", fileName);
+// 					    a.attr("href", link);
+// 					    $("body").append(a);
+// 					    a[0].click();
+// 					    $("body").remove(a);
+// 					}
+// 					 */},
+// 				error : function(result) {
+// 					//alert(data);
+// 					alert(result.status + ' ' + result.statusText);
+// 				}
+
+// 			});
+// 		}
+<!-- 	</script> -->
 
 
 </body>

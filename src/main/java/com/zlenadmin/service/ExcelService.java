@@ -21,6 +21,7 @@ import com.zlenadmin.dao.UserStories;
 import com.zlenadmin.dto.InactiveDto;
 import com.zlenadmin.dto.RegisterPendingDto;
 import com.zlenadmin.dto.StoriesDto;
+import com.zlenadmin.dto.TodayUserCountsDataDto;
 import com.zlenadmin.dto.UserPerDayCountDataDto;
 import com.zlenadmin.dto.UsersDetailDto;
 import com.zlenadmin.repository.UserDetailsRepository;
@@ -204,6 +205,14 @@ public ByteArrayInputStream loadUserStories(String zlenCode, String mimeType, @D
 	   return in;
 	   
 	}
+
+public ByteArrayInputStream loadTodayUserCountsDataDownload(Date daysAgo) {
+	
+List<TodayUserCountsDataDto> todayUserCountsDatalist = accountDao.getTodayUserCountsData(daysAgo);
+	
+	ByteArrayInputStream in = ExcelHelper1.todayUserCountsDatalistToExcel(todayUserCountsDatalist);
+	   return in;
+}
 
 
 

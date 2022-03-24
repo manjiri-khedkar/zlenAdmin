@@ -475,15 +475,13 @@ input:checked + .slider:before {
 		}
 	</script>
 	
-		
-		</script>
 	<script type="text/javascript">
 		$(document).ready(function() {
 
 		});
 		function download() {
 			debugger
-			var userDetails;
+		//	var userDetails;
 // 			var friendNumber; 
 // 			var friendNumber1;
 			var ustoriesList;
@@ -497,73 +495,157 @@ input:checked + .slider:before {
 			ustoriesList["fromdate"] = $("#inputFromsDate").val();
 			 
 			$('#btn-download').prop("disabled", false);
-			$.ajax({
-				type : "GET",
-				//contentType: "application/json",
-				url : "/userStoriesListDownload",
-				//timeout: 4000,
-				// success:function(result)
-				data : ustoriesList,
-				cache : false,
-				xhr : function() {
-					var xhr = new XMLHttpRequest();
-					xhr.onreadystatechange = function() {
-						if (xhr.readyState == 2) {
-
-							if (xhr.status == 200) {
-								xhr.responseType = "blob";
-							} else {
-								xhr.responseType = "text";
-							}
-						}
-					};
-					return xhr;
-				},
-				success : function(data) {
-					//alert("data==>"+ data);
-
-					//var newDate = dateFormat(cdate, "mm/dd/yyyy");
-					debugger
-
-					var a = document.createElement('a');
-					var url1 = window.URL.createObjectURL(data);
-					a.href = url1;
-					a.download = 'UserStoriesDetails.xlsx';
-					document.body.append(a);
-					a.click();
-					a.remove();
-					window.URL.revokeObjectURL(url);
-
-					//bindFunction();
-					return;
-					alert(ele.success);
-
-					/* var fileName='test.xlsx';
-					var blob = new Blob([data], { type: "application/vnd.ms-excel" });
-					 
-					//Check the Browser type and download the File.
-					var isIE = false || !!document.documentMode;
-					if (isIE) {
-					    window.navigator.msSaveBlob(blob, fileName);
-					} else {
-					    var url = window.URL || window.webkitURL;
-					    link = url.createObjectURL(blob);
-					    var a = $("<a />");
-					    a.attr("download", fileName);
-					    a.attr("href", link);
-					    $("body").append(a);
-					    a[0].click();
-					    $("body").remove(a);
-					}
-					 */},
-				error : function(result) {
-					//alert(data);
-					alert(result.status + ' ' + result.statusText);
-				}
-
-			});
-		}
+			 $.ajax({
+	                url: '${pageContext.request.contextPath}/userStoriesListDownload',
+	                data: ustoriesList,
+	                cache: false,
+	                xhr: function () {
+	                	debugger
+	                    var xhr = new XMLHttpRequest();
+	                    xhr.onreadystatechange = function () {
+	                    	debugger
+	                        if (xhr.readyState == 2) {
+	                            if (xhr.status == 200) {
+	                                xhr.responseType = "blob";
+	                            } else {
+	                                xhr.responseType = "text";
+	                            }
+	                        }
+	                    };
+	                    return xhr;
+	                },
+	                success: function (data) {
+	                	alert(data);
+	                	debugger
+	                    //Convert the Byte Data to BLOB object.
+	                    var blob = new Blob([data], { type: "application/vnd.ms-excel" });
+	 					alert(blob);
+	                    //Check the Browser type and download the File.
+	                    var isIE = false || !!document.documentMode;
+	                    if (isIE) {
+	                        window.navigator.msSaveBlob(blob, 'UserStoriesDetails.xls');
+	                    } else {
+	                        var url1 = window.URL || window.webkitURL;
+	                        link = url1.createObjectURL(blob);
+	                        alert(link);
+	                        var a = $("<a />");
+	                        a.attr("download", 'UserStoriesDetails.xls');
+	                        a.attr("href", link);
+	                        $("body").append(a);
+	                        a[0].click();
+	                        $(a).on("click", "button.removeButton", function()  { 
+	                            $(a, "body").remove();
+	                     });
+// 	                        $("body").remove(a);
+	                    }
+	                }
+	            });
+	        };
 	</script>
+	
+		
+<!-- 	<script type="text/javascript"> -->
+<!-- // 		$(document).ready(function() { -->
+
+<!-- // 		}); -->
+<!-- // 		function download() { -->
+<!-- // 			debugger -->
+<!-- // 		//	var userDetails; -->
+<!-- // // 			var friendNumber;  -->
+<!-- // // 			var friendNumber1; -->
+<!-- // 			var ustoriesList; -->
+<!-- // 			ustoriesList = {} -->
+<!-- // 			ustoriesList["mimeType"] = $("#inputMimeType").val(); -->
+<!-- // 			ustoriesList["zlenCode"] = $("#inputCode").val(); -->
+<!-- // 			ustoriesList["userMobile"] = $("#inputMobile").val(); -->
+<!-- // 			ustoriesList["uploadedDateTime"] = $("#inputdate").val(); -->
+<!-- // 			ustoriesList["zlenWorld"] = $("#zlenWorld").is(':checked'); -->
+<!-- // 			ustoriesList["todaydate"] = $("#inputTosDate").val(); -->
+<!-- // 			ustoriesList["fromdate"] = $("#inputFromsDate").val(); -->
+			 
+<!-- // 			$('#btn-download').prop("disabled", false); -->
+<!-- // 			$.ajax({ -->
+<!-- // 				type : "GET", -->
+<!-- // 				//contentType: "application/json", -->
+<%-- // 				url : "${pageContext.request.contextPath}/userStoriesListDownload", --%>
+<!-- // 				//timeout: 4000, -->
+<!-- // 				// success:function(result) -->
+<!-- // 				data : ustoriesList, -->
+<!-- // 				cache : false, -->
+<!-- // // 				xhr : function() { -->
+<!-- // // 					var xhr = new XMLHttpRequest(); -->
+<!-- // // 					xhr.onreadystatechange = function() { -->
+<!-- // // 						if (xhr.readyState == 2) { -->
+
+<!-- // // 							if (xhr.status == 200) { -->
+<!-- // // 								xhr.responseType = "blob"; -->
+<!-- // // 							} else { -->
+<!-- // // 								xhr.responseType = "text"; -->
+<!-- // // 							} -->
+<!-- // // 						} -->
+<!-- // // 					}; -->
+<!-- // // 					return xhr; -->
+<!-- // // 				}, -->
+<!-- // 				success : function(data) { -->
+<!-- // 					debugger  -->
+<!-- // 					$.getJSON(url,data){ -->
+<!-- // 					    const url1 = window.URL.createObjectURL(data); -->
+<!-- // 					    const a = document.createElement('a'); -->
+<!-- // 					    a.style.display = 'none'; -->
+<!-- // 					    a.href = url1; -->
+<!-- // 					    // the filename you want -->
+<!-- // 					    a.download = 'UserStoriesDetails.xls'; -->
+<!-- // 					    document.body.appendChild(a); -->
+<!-- // 					    a.click(); -->
+<!-- // 					    window.URL.revokeObjectURL(url); -->
+<!-- // 					    alert('your file has downloaded!'); // or you know, something with better UX...					   -->
+					
+<!-- // 					//alert("data==>"+ data); -->
+
+<!-- // 					//var newDate = dateFormat(cdate, "mm/dd/yyyy"); -->
+<!-- // // 					debugger -->
+
+<!-- // // 					var a = document.createElement('a'); -->
+<!-- // // 					var url1 = URL.createObjectURL(data); -->
+<!-- // // 					a.href = url1; -->
+<!-- // // 					a.download = 'UserStoriesDetails.xlsx'; -->
+<!-- // // 					document.body.append(a); -->
+<!-- // // 					a.click(); -->
+<!-- // // 					a.remove(); -->
+<!-- // // 					window.URL.revokeObjectURL(url); -->
+
+<!-- // // 					//bindFunction(); -->
+<!-- // // 					return; -->
+<!-- // // 					alert(ele.success); -->
+
+<!-- // 					/* var fileName='test.xlsx'; -->
+<!-- // 					var blob = new Blob([data], { type: "application/vnd.ms-excel" }); -->
+					 
+<!-- // 					//Check the Browser type and download the File. -->
+<!-- // 					var isIE = false || !!document.documentMode; -->
+<!-- // 					if (isIE) { -->
+<!-- // 					    window.navigator.msSaveBlob(blob, fileName); -->
+<!-- // 					} else { -->
+<!-- // 					    var url = window.URL || window.webkitURL; -->
+<!-- // 					    link = url.createObjectURL(blob); -->
+<!-- // 					    var a = $("<a />"); -->
+<!-- // 					    a.attr("download", fileName); -->
+<!-- // 					    a.attr("href", link); -->
+<!-- // 					    $("body").append(a); -->
+<!-- // 					    a[0].click(); -->
+<!-- // 					    $("body").remove(a); -->
+<!-- // 					} -->
+<!-- // 					 */ -->
+<!-- // 					 }, -->
+<!-- // 				error : function(result) { -->
+<!-- // 					//.catch(() => alert('oh no!')); -->
+<!-- // 					//alert(data); -->
+<!-- // 					alert(result.status + ' ' + result.statusText); -->
+<!-- // 				} -->
+
+<!-- // 			}); -->
+<!-- // 		} -->
+<!-- 	</script> -->
 
 </body>
 	<jsp:include page="otherModal.jsp"></jsp:include>

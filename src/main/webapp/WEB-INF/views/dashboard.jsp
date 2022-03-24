@@ -379,6 +379,10 @@
 					<br> <br>
 					<a id="bth-datetofrom" href="#" onclick="return datetofrom()" class='btn btn-sm btn-primary'> 
 					<span style="font-size: 24pt"> <c:out value="${todaysActiveUser}" /> </span> </a>
+					<br>
+					<button type="button" id="bth-download" onclick="download()"
+						class="btn btn-success btn-md">Download</button>
+					<br>
 
 				</div>
 				
@@ -514,6 +518,64 @@
 
 					});
 			return false;
+		}
+	</script>
+	
+	<script type="text/javascript">
+		$(document).ready(function() {
+
+		});
+		function download() {
+			debugger
+			 
+			$('#btn-download').prop("disabled", false);
+			 $.ajax({
+				 
+				 type : "GET",
+	               url: '${pageContext.request.contextPath}/todayUserCountsDataDownload',
+	               
+	                cache: false,
+	                xhr: function () {
+	                    var xhr = new XMLHttpRequest();
+	                    xhr.onreadystatechange = function () {
+	                        if (xhr.readyState == 2) {
+	                        	debugger
+	                            if (xhr.status == 200) {
+	                            	debugger
+	                                xhr.responseType = "blob";
+	                            } else {
+	                            	debugger
+	                                xhr.responseType = "text";
+	                            }
+	                        }
+	                    };
+	                    return xhr;
+	                },
+	                success: function (data) {
+	                	alert(data);
+	                	debugger
+	                    //Convert the Byte Data to BLOB object.
+	                    var blob = new Blob([data], { type: "application/vnd.ms-excel" });
+	 					alert(blob);
+	                    //Check the Browser type and download the File.
+	                    var isIE = false || !!document.documentMode;
+	                    if (isIE) {
+	                        window.navigator.msSaveBlob(blob, 'todayUserCountsData.xls');
+	                    } else {
+	                        var url1 = window.URL || window.webkitURL;
+	                        link = url1.createObjectURL(blob);
+	                        alert(link);
+	                        var a = $("<a />");
+	                        a.attr("download", 'todayUserCountsData.xls');
+	                        a.attr("href", link);
+	                        $("body").append(a);
+	                        a[0].click();
+	                        $(a).on("click", "button.removeButton", function()  { 
+	                            $(a, "body").remove();
+	                    });
+	                }
+	            }
+	        });
 		}
 	</script>
 </body>

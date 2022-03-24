@@ -14,26 +14,6 @@
 <meta name="author" content="">
 
 <title>Active User Dashboard</title>
-<meta name="description" content="">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
-<!--====== Favicon Icon ======-->
-<link rel="shortcut icon" href="resources/img/favicon.png"
-	type="image/png">
-
-<!-- CSS
-    ============================================ -->
-
-<!--===== Vendor CSS (Bootstrap & Icon Font) =====-->
-
-<link rel="stylesheet" href="assets/css/plugins/bootstrap.min.css">
-<link rel="stylesheet" href="assets/css/plugins/fontawesome.min.css">
-<link rel="stylesheet" href="assets/css/plugins/default.css">
-
-<!--====== Main Style CSS ======-->
-<link rel="stylesheet" href="assets/css/style.css">
-
-
 <script
 	src="${pageContext.request.contextPath}/resources/vendor/jquery/jquery.min.js"></script>
 <!-- Custom fonts for this template-->
@@ -43,56 +23,12 @@
 <link
 	href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
 	rel="stylesheet">
-
 <style>
 #page-top {
 	display: block;
 }
 
-#warning-message {
-	position: fixed; /* Sit on top of the page content */
-	display: none; /* Hidden by default */
-	width: 100%; /* Full width (cover the whole page) */
-	height: 100%; /* Full height (cover the whole page) */
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;
-	background-color: rgba(0, 0, 0, 0.5);
-	/* Black background with opacity */
-	z-index: 2;
-	/* Specify a stack order in case you're using a different order for other elements */
-	cursor: pointer; /* Add a pointer on hover */
-	font-weight: bold;
-	text-align: center;
-	color: white;
-	padding: 40px;
-	font-size: 25px;
-}
-
-.text-left1{
-  grid-column: 1 / span 2;
-}
-
-@media only screen and (orientation:portrait) {
-	#warning-message {
-		display: block;
-	}
-	/*  #page-top {
-    height: 100vw;
-    width: 100vh;
-    -webkit-transform: rotate(90deg);
-    -moz-transform: rotate(90deg);
-    -o-transform: rotate(90deg);
-    -ms-transform: rotate(90deg);
-    transform: rotate(90deg);
-  }  */
-}
-
 @media only screen and (orientation:landscape) {
-	#warning-message {
-		display: none;
-	}
 	#page-top {
 		-webkit-transform: rotate(0deg);
 		-moz-transform: rotate(0deg);
@@ -102,10 +38,17 @@
 	}
 }
 </style>
+<script type='text/javascript'
+	src="${pageContext.request.contextPath}/resources/js/dashboard/dashboardchart.js"></script>
+<script
+	src="https://blacklabel.github.io/custom_events/js/customEvents.js"></script>
+<!-- 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script> -->
+<!-- 	<script src="components/highstock/highstock.js;"></script> -->
+
 <!-- Custom styles for this template-->
 <link
 	href="${pageContext.request.contextPath}/resources/css/sb-admin-2.min.css"
-	rel="stylesheet">
+	rel="stylesheet">">
 <script>
 	function savePass() {
 		var pass = $("#pass").val();
@@ -468,37 +411,45 @@ debugger
 				xhr : function() {
 					var xhr = new XMLHttpRequest();
 					xhr.onreadystatechange = function() {
+						debugger
 						if (xhr.readyState == 2) {
-
+							debugger
 							if (xhr.status == 200) {
+								debugger
 								xhr.responseType = "blob";
 							} else {
+								debugger
 								xhr.responseType = "text";
 							}
 						}
 					};
 					return xhr;
 				},
-				success : function(data) {
-										debugger
-					console.log(data);
-					var a = document.createElement('a');
-					var url1 = window.URL.createObjectURL(data);
-					a.href = url1;
-					a.download = 'userPerDayData.xls';
-					document.body.append(a);
-					a.click();
-					a.remove();
-					window.URL.revokeObjectURL(url);
-					return;
-				},
-				error : function(result) {
-					alert(data);
-					alert(result.status + ' ' + result.statusText);
-				}
-
-			});
-			
+				success: function (data) {
+                	alert(data);
+                	debugger
+                    //Convert the Byte Data to BLOB object.
+                    var blob = new Blob([data], { type: "application/vnd.ms-excel" });
+ 					alert(blob);
+                    //Check the Browser type and download the File.
+                    var isIE = false || !!document.documentMode;
+                    if (isIE) {
+                        window.navigator.msSaveBlob(blob, 'userPerDayData.xls');
+                    } else {
+                        var url1 = window.URL || window.webkitURL;
+                        link = url1.createObjectURL(blob);
+                        alert(link);
+                        var a = $("<a />");
+                        a.attr("download", 'userPerDayData.xls');
+                        a.attr("href", link);
+                        $("body").append(a);
+                        a[0].click();
+                        $(a).on("click", "button.removeButton", function()  { 
+                            $(a, "body").remove();
+                    });
+                }
+            }
+        });
 		}
 	</script>
 	
