@@ -636,6 +636,7 @@
                     if (isIE) {
                         window.navigator.msSaveBlob(blob, 'UserDetails.xls');
                     } else {
+                    	
                         var url1 = window.URL || window.webkitURL;
                         link = url1.createObjectURL(blob);
                         alert(link);
