@@ -709,7 +709,7 @@ public class MainPage {
 		// System.out.println("uu=="+ uu);
 		String filename = "UserDetails.xls";
 		InputStreamResource file = new InputStreamResource(
-				fileService.loadUserDetails(deviceType, userMobile, userName, zlenCode, gender, age, age1, friendNumber, friendNumber1,pageid,total,fromdate, todaydate, createdOn));
+				fileService.loadUserDetails(deviceType, userMobile, zlenCode,userName,  gender, age, age1, friendNumber, friendNumber1,pageid,total,fromdate, todaydate, createdOn));
 		// InputStreamResource file = new
 		// InputStreamResource(fileService.loadinActive(-30));
 

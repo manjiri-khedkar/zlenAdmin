@@ -360,7 +360,7 @@ input:checked + .slider:before {
 
 		});
 		function search() {
-		debugger
+		
 			var ustoriesList;
 			ustoriesList = {}
 			ustoriesList["mimeType"] = $("#inputMimeType").val();
@@ -430,7 +430,6 @@ input:checked + .slider:before {
 							$('#table1 tbody').html(result);
 							bindFunction();
 							return;
-							alert(ele.success);
 						}
 
 					});
@@ -450,7 +449,7 @@ input:checked + .slider:before {
 
 		});
 		function download() {
-			debugger
+			
 			var userDetails;
 // 			var friendNumber; 
 // 			var friendNumber1;
@@ -488,10 +487,9 @@ input:checked + .slider:before {
 					return xhr;
 				},
 				success : function(data) {
-					//alert("data==>"+ data);
 
 					//var newDate = dateFormat(cdate, "mm/dd/yyyy");
-					debugger
+					
 
 					var a = document.createElement('a');
 					var url1 = window.URL.createObjectURL(data);
@@ -504,7 +502,6 @@ input:checked + .slider:before {
 
 					//bindFunction();
 					return;
-					alert(ele.success);
 
 					/* var fileName='test.xlsx';
 					var blob = new Blob([data], { type: "application/vnd.ms-excel" });

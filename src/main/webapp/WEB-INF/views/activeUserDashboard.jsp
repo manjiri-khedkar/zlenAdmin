@@ -252,7 +252,7 @@
 
 		});
 		function search() {
-debugger
+
 			var updatedList;
 			updatedList = {}
 			updatedList["todaydate"] = $("#inputToDate").val();
@@ -308,7 +308,6 @@ debugger
 							
 							bindFunction();
 							return;
-							alert(ele.success);
 						}
 
 					});
@@ -360,7 +359,7 @@ debugger
 
 		});
 		function download() {
-				debugger
+				
 			var todaydate = $("#inputToDate").val();
 			var fromdate = $("#inputFromDate").val();
 
@@ -376,14 +375,14 @@ debugger
 				xhr : function() {
 					var xhr = new XMLHttpRequest();
 					xhr.onreadystatechange = function() {
-						debugger
+						
 						if (xhr.readyState == 2) {
-							debugger
+							
 							if (xhr.status == 200) {
-								debugger
+								
 								xhr.responseType = "blob";
 							} else {
-								debugger
+								
 								xhr.responseType = "text";
 							}
 						}
@@ -391,11 +390,8 @@ debugger
 					return xhr;
 				},
 				success: function (data) {
-                	alert(data);
-                	debugger
                     //Convert the Byte Data to BLOB object.
                     var blob = new Blob([data], { type: "application/vnd.ms-excel" });
- 					alert(blob);
                     //Check the Browser type and download the File.
                     var isIE = false || !!document.documentMode;
                     if (isIE) {
@@ -403,7 +399,6 @@ debugger
                     } else {
                         var url1 = window.URL || window.webkitURL;
                         link = url1.createObjectURL(blob);
-                        alert(link);
                         var a = $("<a />");
                         a.attr("download", 'userPerDayData.xls');
                         a.attr("href", link);
