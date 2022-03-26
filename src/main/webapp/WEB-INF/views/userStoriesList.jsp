@@ -29,36 +29,15 @@
 
 <!--====== Main Style CSS ======-->
 <link rel="stylesheet" href="assets/css/style.css">
+<link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
+<script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
 
-<script
-	src="${pageContext.request.contextPath}/resources/vendor/jquery/jquery.min.js"></script>
-<!-- Custom fonts for this template-->
-<link
-	href="${pageContext.request.contextPath}/resources/vendor/fontawesome-free/css/all.min.css"
-	rel="stylesheet" type="text/css">
-<link
-	href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-	rel="stylesheet">
 	<link
 	href="${pageContext.request.contextPath}/resources/css/sb-admin-2.min.css"
 	rel="stylesheet">
 	
-<link
-	href="https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css"
-	rel="stylesheet">
-<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 
-<script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
-
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
-<script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.css"
-	integrity="sha512-bYPO5jmStZ9WI2602V2zaivdAnbAhtfzmxnEGh9RwtlI00I9s8ulGe4oBa5XxiC6tCITJH/QG70jswBhbLkxPw=="
-	crossorigin="anonymous" referrerpolicy="no-referrer" />
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js"></script>
 
 
 <style>
@@ -364,26 +343,11 @@ input:checked + .slider:before {
 		class="fas fa-angle-up"></i>
 	</a>
 <jsp:include page="otherModal.jsp"></jsp:include>
-	<!-- Bootstrap core JavaScript-->
-	<script
-		src="${pageContext.request.contextPath}/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-	<!-- Core plugin JavaScript-->
-	<script
-		src="${pageContext.request.contextPath}/resources/vendor/jquery-easing/jquery.easing.min.js"></script>
 
 	<!-- Custom scripts for all pages-->
 	<script
 		src="${pageContext.request.contextPath}/resources/js/sb-admin-2.min.js"></script>
 
-	<!-- Page level plugins -->
-	<script
-		src="${pageContext.request.contextPath}/resources/vendor/chart.js/Chart.min.js"></script>
-	<!-- Page level custom scripts -->
-	<script
-		src="${pageContext.request.contextPath}/resources/js/demo/chart-area-demo.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/js/demo/chart-pie-demo.js"></script>
 
 
 
@@ -475,13 +439,15 @@ input:checked + .slider:before {
 		}
 	</script>
 	
+		
+		</script>
 	<script type="text/javascript">
 		$(document).ready(function() {
 
 		});
 		function download() {
 			debugger
-		//	var userDetails;
+			var userDetails;
 // 			var friendNumber; 
 // 			var friendNumber1;
 			var ustoriesList;
@@ -495,157 +461,73 @@ input:checked + .slider:before {
 			ustoriesList["fromdate"] = $("#inputFromsDate").val();
 			 
 			$('#btn-download').prop("disabled", false);
-			 $.ajax({
-	                url: '${pageContext.request.contextPath}/userStoriesListDownload',
-	                data: ustoriesList,
-	                cache: false,
-	                xhr: function () {
-	                	debugger
-	                    var xhr = new XMLHttpRequest();
-	                    xhr.onreadystatechange = function () {
-	                    	debugger
-	                        if (xhr.readyState == 2) {
-	                            if (xhr.status == 200) {
-	                                xhr.responseType = "blob";
-	                            } else {
-	                                xhr.responseType = "text";
-	                            }
-	                        }
-	                    };
-	                    return xhr;
-	                },
-	                success: function (data) {
-	                	alert(data);
-	                	debugger
-	                    //Convert the Byte Data to BLOB object.
-	                    var blob = new Blob([data], { type: "application/vnd.ms-excel" });
-	 					alert(blob);
-	                    //Check the Browser type and download the File.
-	                    var isIE = false || !!document.documentMode;
-	                    if (isIE) {
-	                        window.navigator.msSaveBlob(blob, 'UserStoriesDetails.xls');
-	                    } else {
-	                        var url1 = window.URL || window.webkitURL;
-	                        link = url1.createObjectURL(blob);
-	                        alert(link);
-	                        var a = $("<a />");
-	                        a.attr("download", 'UserStoriesDetails.xls');
-	                        a.attr("href", link);
-	                        $("body").append(a);
-	                        a[0].click();
-	                        $(a).on("click", "button.removeButton", function()  { 
-	                            $(a, "body").remove();
-	                     });
-// 	                        $("body").remove(a);
-	                    }
-	                }
-	            });
-	        };
-	</script>
-	
-		
-<!-- 	<script type="text/javascript"> -->
-<!-- // 		$(document).ready(function() { -->
+			$.ajax({
+				type : "GET",
+				//contentType: "application/json",
+				url : "/userStoriesListDownload",
+				//timeout: 4000,
+				// success:function(result)
+				data : ustoriesList,
+				cache : false,
+				xhr : function() {
+					var xhr = new XMLHttpRequest();
+					xhr.onreadystatechange = function() {
+						if (xhr.readyState == 2) {
 
-<!-- // 		}); -->
-<!-- // 		function download() { -->
-<!-- // 			debugger -->
-<!-- // 		//	var userDetails; -->
-<!-- // // 			var friendNumber;  -->
-<!-- // // 			var friendNumber1; -->
-<!-- // 			var ustoriesList; -->
-<!-- // 			ustoriesList = {} -->
-<!-- // 			ustoriesList["mimeType"] = $("#inputMimeType").val(); -->
-<!-- // 			ustoriesList["zlenCode"] = $("#inputCode").val(); -->
-<!-- // 			ustoriesList["userMobile"] = $("#inputMobile").val(); -->
-<!-- // 			ustoriesList["uploadedDateTime"] = $("#inputdate").val(); -->
-<!-- // 			ustoriesList["zlenWorld"] = $("#zlenWorld").is(':checked'); -->
-<!-- // 			ustoriesList["todaydate"] = $("#inputTosDate").val(); -->
-<!-- // 			ustoriesList["fromdate"] = $("#inputFromsDate").val(); -->
-			 
-<!-- // 			$('#btn-download').prop("disabled", false); -->
-<!-- // 			$.ajax({ -->
-<!-- // 				type : "GET", -->
-<!-- // 				//contentType: "application/json", -->
-<%-- // 				url : "${pageContext.request.contextPath}/userStoriesListDownload", --%>
-<!-- // 				//timeout: 4000, -->
-<!-- // 				// success:function(result) -->
-<!-- // 				data : ustoriesList, -->
-<!-- // 				cache : false, -->
-<!-- // // 				xhr : function() { -->
-<!-- // // 					var xhr = new XMLHttpRequest(); -->
-<!-- // // 					xhr.onreadystatechange = function() { -->
-<!-- // // 						if (xhr.readyState == 2) { -->
+							if (xhr.status == 200) {
+								xhr.responseType = "blob";
+							} else {
+								xhr.responseType = "text";
+							}
+						}
+					};
+					return xhr;
+				},
+				success : function(data) {
+					//alert("data==>"+ data);
 
-<!-- // // 							if (xhr.status == 200) { -->
-<!-- // // 								xhr.responseType = "blob"; -->
-<!-- // // 							} else { -->
-<!-- // // 								xhr.responseType = "text"; -->
-<!-- // // 							} -->
-<!-- // // 						} -->
-<!-- // // 					}; -->
-<!-- // // 					return xhr; -->
-<!-- // // 				}, -->
-<!-- // 				success : function(data) { -->
-<!-- // 					debugger  -->
-<!-- // 					$.getJSON(url,data){ -->
-<!-- // 					    const url1 = window.URL.createObjectURL(data); -->
-<!-- // 					    const a = document.createElement('a'); -->
-<!-- // 					    a.style.display = 'none'; -->
-<!-- // 					    a.href = url1; -->
-<!-- // 					    // the filename you want -->
-<!-- // 					    a.download = 'UserStoriesDetails.xls'; -->
-<!-- // 					    document.body.appendChild(a); -->
-<!-- // 					    a.click(); -->
-<!-- // 					    window.URL.revokeObjectURL(url); -->
-<!-- // 					    alert('your file has downloaded!'); // or you know, something with better UX...					   -->
-					
-<!-- // 					//alert("data==>"+ data); -->
+					//var newDate = dateFormat(cdate, "mm/dd/yyyy");
+					debugger
 
-<!-- // 					//var newDate = dateFormat(cdate, "mm/dd/yyyy"); -->
-<!-- // // 					debugger -->
+					var a = document.createElement('a');
+					var url1 = window.URL.createObjectURL(data);
+					a.href = url1;
+					a.download = 'UserStoriesDetails.xlsx';
+					document.body.append(a);
+					a.click();
+					a.remove();
+					window.URL.revokeObjectURL(url);
 
-<!-- // // 					var a = document.createElement('a'); -->
-<!-- // // 					var url1 = URL.createObjectURL(data); -->
-<!-- // // 					a.href = url1; -->
-<!-- // // 					a.download = 'UserStoriesDetails.xlsx'; -->
-<!-- // // 					document.body.append(a); -->
-<!-- // // 					a.click(); -->
-<!-- // // 					a.remove(); -->
-<!-- // // 					window.URL.revokeObjectURL(url); -->
+					//bindFunction();
+					return;
+					alert(ele.success);
 
-<!-- // // 					//bindFunction(); -->
-<!-- // // 					return; -->
-<!-- // // 					alert(ele.success); -->
-
-<!-- // 					/* var fileName='test.xlsx'; -->
-<!-- // 					var blob = new Blob([data], { type: "application/vnd.ms-excel" }); -->
+					/* var fileName='test.xlsx';
+					var blob = new Blob([data], { type: "application/vnd.ms-excel" });
 					 
-<!-- // 					//Check the Browser type and download the File. -->
-<!-- // 					var isIE = false || !!document.documentMode; -->
-<!-- // 					if (isIE) { -->
-<!-- // 					    window.navigator.msSaveBlob(blob, fileName); -->
-<!-- // 					} else { -->
-<!-- // 					    var url = window.URL || window.webkitURL; -->
-<!-- // 					    link = url.createObjectURL(blob); -->
-<!-- // 					    var a = $("<a />"); -->
-<!-- // 					    a.attr("download", fileName); -->
-<!-- // 					    a.attr("href", link); -->
-<!-- // 					    $("body").append(a); -->
-<!-- // 					    a[0].click(); -->
-<!-- // 					    $("body").remove(a); -->
-<!-- // 					} -->
-<!-- // 					 */ -->
-<!-- // 					 }, -->
-<!-- // 				error : function(result) { -->
-<!-- // 					//.catch(() => alert('oh no!')); -->
-<!-- // 					//alert(data); -->
-<!-- // 					alert(result.status + ' ' + result.statusText); -->
-<!-- // 				} -->
+					//Check the Browser type and download the File.
+					var isIE = false || !!document.documentMode;
+					if (isIE) {
+					    window.navigator.msSaveBlob(blob, fileName);
+					} else {
+					    var url = window.URL || window.webkitURL;
+					    link = url.createObjectURL(blob);
+					    var a = $("<a />");
+					    a.attr("download", fileName);
+					    a.attr("href", link);
+					    $("body").append(a);
+					    a[0].click();
+					    $("body").remove(a);
+					}
+					 */},
+				error : function(result) {
+					//alert(data);
+					alert(result.status + ' ' + result.statusText);
+				}
 
-<!-- // 			}); -->
-<!-- // 		} -->
-<!-- 	</script> -->
+			});
+		}
+	</script>
 
 </body>
 	<jsp:include page="otherModal.jsp"></jsp:include>

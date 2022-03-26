@@ -33,24 +33,10 @@
 <!--====== Main Style CSS ======-->
 <link rel="stylesheet" href="assets/css/style.css">
 
-<script
-	src="${pageContext.request.contextPath}/resources/vendor/jquery/jquery.min.js"></script>
-<link
-	href="https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css"
-	rel="stylesheet">
-<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
+<script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
 
-<script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
-
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
-<script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.css"
-	integrity="sha512-bYPO5jmStZ9WI2602V2zaivdAnbAhtfzmxnEGh9RwtlI00I9s8ulGe4oBa5XxiC6tCITJH/QG70jswBhbLkxPw=="
-	crossorigin="anonymous" referrerpolicy="no-referrer" />
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js"></script>
 
 <script>
 
@@ -134,46 +120,7 @@
 <link
 	href="${pageContext.request.contextPath}/resources/css/sb-admin-2.min.css"
 	rel="stylesheet">
-	
-	<link
-	href="https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css"
-	rel="stylesheet">
 
-<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
-<script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
-<!-- Javascript -->
-
-
-<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
-
-<!-- <link rel="stylesheet" -->
-<!-- 	href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.css" -->
-<!-- 	integrity="sha512-bYPO5jmStZ9WI2602V2zaivdAnbAhtfzmxnEGh9RwtlI00I9s8ulGe4oBa5XxiC6tCITJH/QG70jswBhbLkxPw==" -->
-<!-- 	crossorigin="anonymous" referrerpolicy="no-referrer" /> -->
-<!-- <script -->
-<!-- 	src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js"></script> -->
-	
-<!-- 	<script>   -->
-<!-- //          $(function() {   -->
-<!-- //         	 debugger -->
-<!-- //             $( "#inputFromDate" ).datetimepicker({   -->
-<!-- //             	format:'Y-m-d H:i', -->
-<!-- //               // altField: "#datepicker-4",   -->
-<!-- //               // altFormat: "DD, d MM, yy"   -->
-<!-- //             });   -->
-<!-- //          });   -->
-<!--       </script> -->
-
-<!-- <script>   -->
-<!-- //          $(function() {   -->
-<!-- //         	 debugger -->
-<!-- //             $( "#inputToDate" ).datetimepicker({ -->
-<!-- //             	format:'Y-m-d H:i', -->
-<!-- //               // altField: "#datepicker-4",   -->
-<!-- //               // altFormat: "DD, d MM, yy"   -->
-<!-- //             });   -->
-<!-- //          });   -->
-<!--       </script> -->
 	
 <script>
 	function savePass() {
@@ -423,26 +370,10 @@
 	</a>
 
 
-	<!-- Bootstrap core JavaScript-->
-	<script
-		src="${pageContext.request.contextPath}/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-	<!-- Core plugin JavaScript-->
-	<script
-		src="${pageContext.request.contextPath}/resources/vendor/jquery-easing/jquery.easing.min.js"></script>
-
 	<!-- Custom scripts for all pages-->
 	<script
 		src="${pageContext.request.contextPath}/resources/js/sb-admin-2.min.js"></script>
 
-	<!-- Page level plugins -->
-	<script
-		src="${pageContext.request.contextPath}/resources/vendor/chart.js/Chart.min.js"></script>
-	<!-- Page level custom scripts -->
-	<script
-		src="${pageContext.request.contextPath}/resources/js/demo/chart-area-demo.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/js/demo/chart-pie-demo.js"></script>
 
 
 
