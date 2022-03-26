@@ -552,11 +552,9 @@
 	                    return xhr;
 	                },
 	                success: function (data) {
-	                	alert(data);
 	                	debugger
 	                    //Convert the Byte Data to BLOB object.
 	                    var blob = new Blob([data], { type: "application/vnd.ms-excel" });
-	 					alert(blob);
 	                    //Check the Browser type and download the File.
 	                    var isIE = false || !!document.documentMode;
 	                    if (isIE) {
@@ -564,7 +562,6 @@
 	                    } else {
 	                        var url1 = window.URL || window.webkitURL;
 	                        link = url1.createObjectURL(blob);
-	                        alert(link);
 	                        var a = $("<a />");
 	                        a.attr("download", 'todayUserCountsData.xls');
 	                        a.attr("href", link);
