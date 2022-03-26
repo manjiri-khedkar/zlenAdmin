@@ -233,7 +233,7 @@ input:checked + .slider:before {
 		    		
 		    		</div>
 		    		
-		    		<<div class="row">
+		    		<div class="row">
 		    		<br>
 <!-- 					<label for="uploadedDateTime"><b>Date : </b></label>&nbsp;  -->
 <!-- 					<input type="text" id="inputdate" placeholder="Enter Date......">&nbsp;&nbsp; -->
