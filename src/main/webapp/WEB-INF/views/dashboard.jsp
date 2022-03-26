@@ -382,7 +382,7 @@
 					<br>
 					<button type="button" id="bth-download" onclick="download()"
 						class="btn btn-success btn-md">Download</button>
-					<br>
+					<br><br>
 
 				</div>
 				

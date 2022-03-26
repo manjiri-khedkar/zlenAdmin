@@ -231,13 +231,17 @@ input:checked + .slider:before {
 					&nbsp;&nbsp;<label for="userMobile"><b>Mobile no. : </b></label>&nbsp;   
 		    		<input type="text"  id="inputMobile" placeholder="Enter Mobile no. ......">&nbsp;&nbsp;
 		    		
+		    		</div>
+		    		
+		    		<<div class="row">
+		    		<br>
 <!-- 					<label for="uploadedDateTime"><b>Date : </b></label>&nbsp;  -->
 <!-- 					<input type="text" id="inputdate" placeholder="Enter Date......">&nbsp;&nbsp; -->
-						<br><br>
+						
 						<label for="zlenWorld"><b>Zlen World Active: </b></label>&nbsp;
 					<label class="switch"><input type="checkbox" id="zlenWorld">
 					<span class="slider round"></span></label> &nbsp;&nbsp;
-					<br><br>
+					
 					&nbsp;&nbsp;<label for="formdate"><b>From Date : </b></label>&nbsp;
 						<input type="text" id="inputFromsDate" placeholder="yyyy-MM-dd">&nbsp;&nbsp;
 
@@ -492,7 +496,7 @@ input:checked + .slider:before {
 					var a = document.createElement('a');
 					var url1 = window.URL.createObjectURL(data);
 					a.href = url1;
-					a.download = 'UserStoriesDetails.xlsx';
+					a.download = 'UserStoriesDetails.xls';
 					document.body.append(a);
 					a.click();
 					a.remove();

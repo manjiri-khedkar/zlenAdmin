@@ -138,9 +138,6 @@
 					&nbsp;&nbsp;
 					<button type="button" class="btn btn-danger btn-md"
 						onclick="clearFilter()">Clear</button>&nbsp;&nbsp;
-						
-						<button type="button" id="bth-download" onclick="download()"
-						class="btn btn-success btn-md">Download</button>
 					
 			</div>
 			</div>
@@ -157,6 +154,10 @@
 								<a id="bth-datetofrom" href="#" onclick="return datetofrom()" class='btn btn-sm btn-primary'>
 									<span style="font-size: 20pt" id="todayCount"> <c:out value="${todayActiveUser}" /> </span>
 								</a>
+								<br>
+								<button type="button" id="bth-download" onclick="download()"
+								class="btn btn-success btn-md">Download</button>
+								<br><br>
 
 					</div> 
 					
