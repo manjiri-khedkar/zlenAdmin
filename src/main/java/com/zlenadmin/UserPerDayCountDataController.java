@@ -98,7 +98,7 @@ public class UserPerDayCountDataController {
 			filename = "userPerDayData.xls";
 		 file = new InputStreamResource( fileService.loadUserPerDayData(todaydate, fromdate));
 	}else {
-		 file = new InputStreamResource( fileService.loadUserPerDayData(fromdate, todaydate));
+		 file = new InputStreamResource( fileService.loadUserPerDayData(todaydate, fromdate ));
 	}
 		// InputStreamResource file = new
 		// InputStreamResource(fileService.loadinActive(-30));
