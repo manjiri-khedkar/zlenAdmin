@@ -271,6 +271,8 @@ input:checked + .slider:before {
 <%-- 											<td><c:out value="${list.isActive}" /></td> --%>
 											<td><a href="${pageContext.request.contextPath}/pollVoteView/<c:out value='${list.id}'/>" class="btn btn-sm btn-primary showData">
 			 	                    				Response View </a>&nbsp;&nbsp;
+			 	                    				<button type="button" id="bth-downloads" onclick="downloads()"
+													class="btn btn-success btn-md">ResponseDownload</button>						
 			 	                    				<a href="${pageContext.request.contextPath}/pollOptionView/<c:out value='${list.id}'/>" class="btn btn-sm btn-primary showData">
 			 	                    				View </a>&nbsp;&nbsp;
 			 	                    			<c:choose>
@@ -287,7 +289,8 @@ input:checked + .slider:before {
 												<c:otherwise>
 												<a href="/blockUsers?id=${list.uid}"><button class="btn btn-primary"> Block User </button></a>&nbsp;
 												</c:otherwise>
-												</c:choose></td>
+												</c:choose>
+												<input type = "hidden" id = "pollId" value="<c:out value='${list.id}'/>"/></td>
 										</tr>
 									</c:forEach>
 								</tbody>
@@ -404,8 +407,8 @@ debugger
 														+ " </td><td>"
 														+ ele.iscompleted
 														+ " </td><td>"
-														+ "<a href='${pageContext.request.contextPath}/pollVoteView/<c:out value='${list.id}'/>' class='btn btn-sm btn-primary showData'> Response View </a>&nbsp;&nbsp;"
-														+ "<a href='${pageContext.request.contextPath}/pollOptionView/<c:out value='${ele.id}'/>' class='btn btn-sm btn-primary showData'> View </a>&nbsp;&nbsp;"
+														+ "<a href='${pageContext.request.contextPath}/pollVoteView/<c:out value="${ele.id}"/>' class='btn btn-sm btn-primary showData'> Response View </a>&nbsp;&nbsp;"
+														+ "<a href='${pageContext.request.contextPath}/pollOptionView/<c:out value="${ele.id}"/>' class='btn btn-sm btn-primary showData'> View </a>&nbsp;&nbsp;"
 														+ (ele.pollisbanned == true ? "<a href='/activePoll?id="+ele.id+"'> <button class='btn btn-primary'> Active Poll </button></a>&nbsp;"
 														: "<a href='/blockPoll?id="+ele.id+"'><button class='btn btn-primary'> Block Poll </button></a>&nbsp;")
 														+ (ele.userisbanned == true ? "<a href='/activeUsers?id="+ele.uid+"'><button class='btn btn-primary'> Active User </button></a>&nbsp;"
@@ -427,6 +430,62 @@ debugger
 	<script type="text/javascript">
 		function clearFilter() {
 			window.location = '/pollList';
+		}
+	</script>
+	
+	<script type="text/javascript">
+		$(document).ready(function() {
+
+		});
+		function downloads() {
+			debugger
+			var pid = $("#pollId").val();
+			 
+			$('#btn-downloads').prop("disabled", false);
+			$.ajax({
+				type : "GET",
+				//contentType: "application/json",
+				url : "${pageContext.request.contextPath}/pollListContents",
+				//timeout: 4000,
+				// success:function(result)
+				data : pid,
+				cache : false,
+				xhr : function() {
+					debugger
+					var xhr = new XMLHttpRequest();
+					xhr.onreadystatechange = function() {
+						if (xhr.readyState == 2) {
+							debugger
+							if (xhr.status == 200) {
+								debugger
+								xhr.responseType = "blob";
+							} else {
+								xhr.responseType = "text";
+							}
+						}
+					};
+					return xhr;
+				},
+				success : function(data) {					
+
+					var a = document.createElement('a');
+					var url1 = window.URL.createObjectURL(data);
+					a.href = url1;
+					a.download = 'PollResponse.xls';
+					document.body.append(a);
+					a.click();
+					a.remove();
+					window.URL.revokeObjectURL(url);
+
+					//bindFunction();
+					return;
+					},
+				error : function(result) {
+					//alert(data);
+					alert(result.status + ' ' + result.statusText);
+				}
+
+			});
 		}
 	</script>
 

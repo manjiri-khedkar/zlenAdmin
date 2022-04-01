@@ -119,6 +119,13 @@
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>Reported Poll</span></a>
       </li>
+       <li class="nav-item active">
+        <a class="nav-link" href="${pageContext.request.contextPath}/trendingHashTaglist">
+          <i class="fas fa-fw fa-tachometer-alt"></i>
+          <span>Trending HashTag</span></a>
+      </li>
+      
+      
       
       <!-- Divider -->
       <hr class="sidebar-divider d-none d-md-block">

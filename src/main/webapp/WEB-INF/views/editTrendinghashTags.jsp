@@ -12,7 +12,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title>Edit Banner</title>
+<title>Edit Trending Hash Tag</title>
 <script
 	src="${pageContext.request.contextPath}/resources/vendor/jquery/jquery.min.js"></script>
 <!-- Custom fonts for this template-->
@@ -96,93 +96,68 @@
 		<!--====== Section Start ======-->
 		<div class="container">
 			<div class="clearfix">&nbsp;</div>
-			<form:form action="${pageContext.request.contextPath}/update"
-				modelAttribute="editTrendinghashTag" id="frm" method="post">
-				<c:forEach items="${bannerList}" var="list" >
+			<form:form action="${pageContext.request.contextPath}/edits" modelAttribute="editTrendinghashTag" id="frm" method="post">
+				<c:forEach items="${trendingHashTaglist}" var="list" >
 				<div class="row">
 					<div class="col-md-12">
 						<div class="panel panel-primary">
 							<div class="panel-heading">
 								<h2 class="text-center" style="color: black;">
-									<b>Edit Banner</b>
+									<b>Edit Trending Hash Tag</b>
 								</h2>
 							</div>
 							<br />
 							<div class="panel-body">
-								<form:hidden path="banner_id" value="${list.banner_id}" />
-								
+								<form:hidden path="id" value="${list.id}" />
 								<div class="row justify-content-center">
 									<div class="col-md-2 text-right">
-										<form:label path="start_date" class="control-label">Start Date :
-  								 <span class="text-danger">*</span>  
+										<form:label  path="hash_tag" class="control-label">Hash Tag  :
+<!--   								 <span class="text-danger">*</span>   -->
 										</form:label>
 									</div>
 									<div class="col-md-3">
 										<div class="form-group form-group-sm">
-											<form:input path="start_date" class="form-control"
-												placeholder="yyyy-MM-dd" value="${list.start_date}" autofocus="autofocus" />
- 											<form:errors path="start_date" cssClass="text-danger" /> 
+											<form:input path="hash_tag"  value="${list.hash_tag}" class="form-control"
+												  autofocus="autofocus" />
+<%--  											<form:errors path="hash_tag" cssClass="text-danger" />  --%>
 										</div>
 									</div>
 
 									<div class="col-md-2 text-right">
-										<form:label path="end_date" class="control-label">End Date :
- 								 <span class="text-danger">*</span> 
+										<form:label path="created_at"  class="control-label">Created Date :
+<!--  								 <span class="text-danger">*</span>  -->
 										</form:label>
 									</div>
 									<div class="col-md-3">
 										<div class="form-group form-group-sm">
-											<form:input path="end_date" class="form-control"
-												placeholder="yyyy-MM-dd" value="${list.end_date}"  autofocus="autofocus" />
- 											<form:errors path="end_date" cssClass="text-danger" /> 
+											<form:input path="created_at"   class="form-control"
+												placeholder="yyyy-MM-dd" value="${list.created_at}" autofocus="autofocus" />
+<%--  											<form:errors path="created_at" cssClass="text-danger" />  --%>
 										</div>
 									</div>
 								</div>
 								<div class="row">
-<!-- 									<div class="col-md-2 text-right"> -->
-<%-- 										<form:label path="isActive" class="control-label">Is Active : --%>
-<!-- 								 <span class="text-danger">*</span> -->
-<%-- 										</form:label> --%>
-<!-- 									</div> -->
-<!-- 									<div class="col-md-3"> -->
-<!-- 										<div class="form-group form-group-sm"> -->
-<%-- 											<form:input path="isActive" class="form-control" --%>
-<%-- 												placeholder="Enter Is Active" autofocus="autofocus" /> --%>
-<%-- 											<form:errors path="isActive" cssClass="text-danger" /> --%>
-<!-- 										</div> -->
-<!-- 									</div> -->
+									
 
 									<div class="col-md-2 text-right">
-										<form:label path="frequency" class="control-label">Frequency :
- 								 <span class="text-danger">*</span> 
+										<form:label path="url" class="control-label">Url :
+<!--  								 <span class="text-danger">*</span>  -->
 										</form:label>
 									</div>
 									<div class="col-md-3">
 										<div class="form-group form-group-sm">
-											<form:input path="frequency" class="form-control"
-												placeholder="Enter Frequency" value="${list.frequency}" autofocus="autofocus" />
- 											<form:errors path="frequency" cssClass="text-danger" /> 
+											<form:input path="url" class="form-control"
+												placeholder="Enter url" value="${list.url}" autofocus="autofocus" />
+<%--  											<form:errors path="url" cssClass="text-danger" />  --%>
 										</div>
 									</div>
 									
-									<div class="col-md-2 text-right">
-										<form:label path="content" class="control-label">Text Content :
- 								 <span class="text-danger">*</span> 
-										</form:label>
-									</div>
-									<div class="col-md-3">
-										<div class="form-group form-group-sm">
-											<form:input path="content" class="form-control"
-												placeholder="Enter Content" value="${list.content}" autofocus="autofocus" />
- 											<form:errors path="content" cssClass="text-danger" /> 
-										</div>
-									</div>
 								</div>
 								
 								<div class="row">
 									<div class="col-md-12 text-center">
 										<button type="submit" class="btn-primary btn">Update</button>
-										&nbsp; <a href="${pageContext.request.contextPath}/bannerList"
+										&nbsp; <a href="${pageContext.request.contextPath}/trendingHashTaglist"
 											class="btn btn-outline-danger" title="Cancel">Cancel</a>
 									</div>
 								</div>
@@ -191,7 +166,7 @@
 						</div>
 					</div>
 				</div>
-			</c:forEach>
+				</c:forEach>
 			</form:form>
 		</div>
 	</div>

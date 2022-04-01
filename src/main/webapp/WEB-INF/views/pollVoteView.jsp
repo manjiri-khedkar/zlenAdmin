@@ -1,11 +1,11 @@
  <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
- <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>    
+ <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <section class="login min-height">
 	<div id="wrapper">
 			<div class="container">
 				<div class="clearfix">&nbsp;</div>                        
        				<form:form action="${pageContext.request.contextPath}/pollVoteView/{id}" id="table1" method="post"  modelAttribute="pollOption">
-       
+       					
 			   			<div class="panel-heading">
 							<h2 class="text-center" style="color: black;"><b>View All Poll Response</b></h2>
 						</div><br/>
@@ -51,3 +51,8 @@
 		</div>
 	</div>
 </section> 
+
+
+
+
+

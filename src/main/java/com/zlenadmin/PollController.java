@@ -4,8 +4,12 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
 import org.springframework.data.repository.query.Param;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,6 +26,7 @@ import com.zlenadmin.dto.PollDto;
 import com.zlenadmin.repository.PollRepository;
 import com.zlenadmin.repository.UserDetailsRepository;
 import com.zlenadmin.repository.UserStoriesDetailsRepository;
+import com.zlenadmin.service.ExcelService;
 
 @Controller
 public class PollController {
@@ -35,6 +40,9 @@ public class PollController {
 	
 	@Autowired
 	private PollRepository pollRepository;
+	
+	@Autowired
+	private ExcelService fileService;
 	
 
 	@GetMapping("/pollList")
@@ -138,5 +146,19 @@ public class PollController {
 		return "redirect:pollList?success";
 	}
 		
+	
+	@GetMapping("/pollVoteViewDownloads")
+	@ResponseBody
+	public ResponseEntity<InputStreamResource> getpollVoteViewDownloads(@RequestParam("id") long id ) {
+	
+		String filename = "PollResponse.xls";
+		InputStreamResource file = new InputStreamResource( fileService.loadPollVoteViewDownload(id));
+
+		// InputStreamResource file = new
+		// InputStreamResource(fileService.loadinActive(-30));
+
+		return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + filename)
+				.contentType(MediaType.parseMediaType("application/vnd.ms-excel")).body(file);
+	}
 
 }

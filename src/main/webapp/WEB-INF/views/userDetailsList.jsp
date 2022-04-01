@@ -533,6 +533,7 @@
 			
 			$('#btn-download').prop("disabled", false);
 			$.ajax({
+				type : "GET",
                 url: '${pageContext.request.contextPath}/userDetailsDownload',
                 data: userDetails,
                 cache: false,

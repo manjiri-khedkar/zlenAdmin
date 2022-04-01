@@ -30,7 +30,7 @@ public class ActivityLogController {
 	UserActivity userActivity;
 	
 	@GetMapping("/activitylog")
-	public ModelAndView userActivityList() {
+	public ModelAndView userActivityList(ActivityDto dto) {
 		
 		ModelAndView mv = new ModelAndView();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
