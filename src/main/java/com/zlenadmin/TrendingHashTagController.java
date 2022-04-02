@@ -36,17 +36,17 @@ public class TrendingHashTagController {
 	public ModelAndView AddTrendinghashTag(Model model, TrendingHashTag trendingHashTag) {
 
 		ModelAndView mv = new ModelAndView();
-		mv.addObject("addTrendinghashTag", new TrendingHashTag()); 
+		mv.addObject("trendinghashTag", new TrendingHashTag()); 
 		mv.setViewName("addTrendinghashTags");
 		return mv;
 	}
 	
 	@RequestMapping(value="/addTrendinghashTags", method=RequestMethod.POST)
-	public String saveBanner(@ModelAttribute("addTrendinghashTag")  TrendingHashTagDto trendingHashTagDto, Model model) {
+	public String saveBanner(@ModelAttribute  TrendingHashTag trendingHashTag, Model model,BindingResult result) {
 		
 	
 		
-		trendingHashTagService.save(trendingHashTagDto);
+		trendingHashTagService.save(trendingHashTag);
 
 		
 		return "redirect:trendingHashTaglist?success";		 
@@ -56,7 +56,7 @@ public class TrendingHashTagController {
 	public ModelAndView list() {
 		
 		ModelAndView mv = new ModelAndView();
-		List<TrendingHashTag> trendingHashTaglist = trendingHashTagRepository.findAll(); 
+		List<TrendingHashTag> trendingHashTaglist = trendingHashTagRepository.findAllByIsDeleted(false); 
 		mv.addObject("addTrendinghashTag", new TrendingHashTag());
 		mv.addObject("trendingHashTaglist", trendingHashTaglist);
 		mv.setViewName("trendingHashTaglist");
@@ -79,23 +79,22 @@ public class TrendingHashTagController {
 	}
 	
 	@RequestMapping(value="/edits", method=RequestMethod.POST)
-	public String UpdateBanner(@ModelAttribute("editTrendinghashTag") TrendingHashTagDto trendingHashTagDto, Model model) {
-		
+	public String UpdateBanner(@ModelAttribute TrendingHashTag trendingHashTagDto, Model model) {
 		
 		trendingHashTagService.update(trendingHashTagDto);
 
-		
 		return "redirect:trendingHashTaglist?success";		 
 	}
 
 	
 	@RequestMapping(value="/deleteTrendinghashTag", method=RequestMethod.GET)
-	public String DeleteBanner(@RequestParam("id") int id, Model model) {
+	public String DeleteBanner(@RequestParam("id") long id, Model model) {
 		
-		trendingHashTagRepository.deleteTrendinghashTag(id);
+		TrendingHashTag trendingHashTag = trendingHashTagRepository.findOne(id);
+		trendingHashTag.setIsDeleted(true);
 		
-		//model.addAttribute("banner", banner);
-			
+		trendingHashTagRepository.save(trendingHashTag);
+		
 		return "redirect:trendingHashTaglist?success";
 	}
 }

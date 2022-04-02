@@ -20,9 +20,7 @@ public interface TrendingHashTagRepository extends JpaRepository<TrendingHashTag
 	
 	 List<TrendingHashTag> findAll();
 
-	 @Modifying
-		@Query(value="delete from public.trending_hash_tags where id = :id",nativeQuery = true)
-		 int deleteTrendinghashTag(@Param("id") int id);
+	 List<TrendingHashTag> findAllByIsDeleted(Boolean isDeleted);
 
 	TrendingHashTag findById(long id);
 	

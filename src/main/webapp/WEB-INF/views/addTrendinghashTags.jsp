@@ -96,7 +96,7 @@
 		<!--====== Section Start ======-->
 		<div class="container">
 			<div class="clearfix">&nbsp;</div>
-			<form:form action="${pageContext.request.contextPath}/addTrendinghashTags" modelAttribute="addTrendinghashTag" id="frm" method="post">
+			<form:form action="${pageContext.request.contextPath}/addTrendinghashTags" modelAttribute="trendinghashTag" id="frm" method="post">
 				<div class="row">
 					<div class="col-md-12">
 						<div class="panel panel-primary">
@@ -122,7 +122,7 @@
 										</div>
 									</div>
 
-									<div class="col-md-2 text-right">
+								<%-- 	<div class="col-md-2 text-right">
 										<form:label path="created_at"  class="control-label">Created Date :
 <!--  								 <span class="text-danger">*</span>  -->
 										</form:label>
@@ -131,9 +131,9 @@
 										<div class="form-group form-group-sm">
 											<form:input path="created_at"   class="form-control"
 												placeholder="yyyy-MM-dd"  autofocus="autofocus" />
-<%--  											<form:errors path="created_at" cssClass="text-danger" />  --%>
+ 											<form:errors path="created_at" cssClass="text-danger" /> 
 										</div>
-									</div>
+									</div> --%>
 								</div>
 								<div class="row">
 									
@@ -151,8 +151,19 @@
 										</div>
 									</div>
 									
+									<div class="col-md-2 text-right">
+										<form:label path="sortOrder" class="control-label">Sort Order :
+<!--  								 <span class="text-danger">*</span>  -->
+										</form:label>
+									</div>
+									<div class="col-md-3">
+										<div class="form-group form-group-sm">
+											<form:input path="sortOrder" class="form-control"
+												placeholder="Sort ORder" autofocus="autofocus" />
+<%--  											<form:errors path="url" cssClass="text-danger" />  --%>
+										</div>
+									</div>
 								</div>
-								
 								<div class="row">
 									<div class="col-md-12 text-center">
 										<button type="submit" class="btn-primary btn">Add</button>

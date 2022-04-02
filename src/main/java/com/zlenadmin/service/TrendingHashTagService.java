@@ -7,8 +7,8 @@ import com.zlenadmin.dto.TrendingHashTagDto;
 
 public interface TrendingHashTagService {
 	
-	TrendingHashTag save(TrendingHashTagDto trendingHashTagDto);
+	TrendingHashTag save(TrendingHashTag trendingHashTagDto);
 
-	TrendingHashTag update(TrendingHashTagDto trendingHashTagDto);
+	TrendingHashTag update(TrendingHashTag trendingHashTagDto);
 
 }

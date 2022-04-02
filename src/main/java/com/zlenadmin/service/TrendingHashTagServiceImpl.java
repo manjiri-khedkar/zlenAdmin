@@ -1,5 +1,7 @@
 package com.zlenadmin.service;
 
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
@@ -18,23 +20,21 @@ public class TrendingHashTagServiceImpl implements TrendingHashTagService{
 	private TrendingHashTagRepository trendingHashTagRepository;
 	
 	@Override
-	public TrendingHashTag save(TrendingHashTagDto trendingHashTagDto) {
-		TrendingHashTag trendingHashTag = new TrendingHashTag();	     
-		trendingHashTag.setHash_tag(trendingHashTagDto.getHashtag());
-		trendingHashTag.setCreated_at(trendingHashTagDto.getCreatedAt());
-		trendingHashTag.setUrl(trendingHashTagDto.getUrl());
-		return trendingHashTagRepository.save(trendingHashTag);
+	public TrendingHashTag save(TrendingHashTag trendingHashTagDto) {
+		trendingHashTagDto.setCreated_at(new Date());
+		return trendingHashTagRepository.save(trendingHashTagDto);
 		
 	}
 
 	@Override
-	public TrendingHashTag update(TrendingHashTagDto trendingHashTagDto) {
+	public TrendingHashTag update(TrendingHashTag trendingHashTagDto) {
 		TrendingHashTag trendingHashTag = trendingHashTagRepository.findOne(trendingHashTagDto.getId());
 		trendingHashTag.setId(trendingHashTagDto.getId());;
-		trendingHashTag.setHash_tag(trendingHashTagDto.getHashtag());
-		trendingHashTag.setCreated_at(trendingHashTagDto.getCreatedAt());
-		trendingHashTag.setUrl(trendingHashTagDto.getUrl());		
-		return trendingHashTagRepository.save(trendingHashTag);
+	
+		trendingHashTag.setHash_tag(trendingHashTagDto.getHash_tag());
+		trendingHashTag.setUrl(trendingHashTagDto.getUrl());	
+		trendingHashTag.setSortOrder(trendingHashTagDto.getSortOrder());
+		return trendingHashTagRepository.save(trendingHashTagDto);
 	}
 
 }

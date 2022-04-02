@@ -11,6 +11,7 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
 import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name = "trending_hash_tags", uniqueConstraints = @UniqueConstraint(columnNames = "id"))
@@ -19,16 +20,31 @@ public class TrendingHashTag {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	
-	@Column(name = "id" , insertable = false, updatable = false)
+	@Column(name = "id" )
 	private long id;
 	
-	@Column(name = "hash_tag" , insertable = false, updatable = false)
+	@Column(name = "hash_tag" )
 	private String hash_tag;
 	
-	@Column(name = "created_at" , insertable = false, updatable = false)
+	@Column(name="sortorder")
+	private Integer sortOrder;
+	
+	@Column(name="is_deleted")
+	private Boolean isDeleted=false;
+	
+	public Integer getSortOrder() {
+		return sortOrder;
+	}
+
+	public void setSortOrder(Integer sortOrder) {
+		this.sortOrder = sortOrder;
+	}
+
+	 @DateTimeFormat(pattern = "yyyy-MM-dd")
+	@Column(name = "created_at" )
 	private Date created_at;
 	
-	@Column(name = "url" , insertable = false, updatable = false)
+	@Column(name = "url" )
 	private String url;
 
 	public long getId() {
@@ -63,6 +79,14 @@ public class TrendingHashTag {
 
 	public void setUrl(String url) {
 		this.url = url;
+	}
+
+	public Boolean getIsDeleted() {
+		return isDeleted;
+	}
+
+	public void setIsDeleted(Boolean isDeleted) {
+		this.isDeleted = isDeleted;
 	}
 	
 	

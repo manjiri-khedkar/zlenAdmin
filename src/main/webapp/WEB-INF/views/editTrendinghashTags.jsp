@@ -123,7 +123,7 @@
 										</div>
 									</div>
 
-									<div class="col-md-2 text-right">
+									<%-- <div class="col-md-2 text-right">
 										<form:label path="created_at"  class="control-label">Created Date :
 <!--  								 <span class="text-danger">*</span>  -->
 										</form:label>
@@ -132,10 +132,10 @@
 										<div class="form-group form-group-sm">
 											<form:input path="created_at"   class="form-control"
 												placeholder="yyyy-MM-dd" value="${list.created_at}" autofocus="autofocus" />
-<%--  											<form:errors path="created_at" cssClass="text-danger" />  --%>
+ 											<form:errors path="created_at" cssClass="text-danger" /> 
 										</div>
 									</div>
-								</div>
+								</div> --%>
 								<div class="row">
 									
 
@@ -148,6 +148,19 @@
 										<div class="form-group form-group-sm">
 											<form:input path="url" class="form-control"
 												placeholder="Enter url" value="${list.url}" autofocus="autofocus" />
+<%--  											<form:errors path="url" cssClass="text-danger" />  --%>
+										</div>
+									</div>
+									
+									<div class="col-md-2 text-right">
+										<form:label path="sortOrder" class="control-label">Sort Order :
+<!--  								 <span class="text-danger">*</span>  -->
+										</form:label>
+									</div>
+									<div class="col-md-3">
+										<div class="form-group form-group-sm">
+											<form:input path="sortOrder" class="form-control"
+												placeholder="Sort ORder" value="${list.sortOrder}"  autofocus="autofocus" />
 <%--  											<form:errors path="url" cssClass="text-danger" />  --%>
 										</div>
 									</div>
